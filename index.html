@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#265661">
+<meta name="description" content="المرشد: دليلك نحو التزكية والقرب من الله">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="المرشد">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>المرشد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Amiri&display=swap">
+<style>
+/* Layout: phone app shell — deep teal header with prayer times, white sheet of menu cards, fixed bottom bar */
+:root{
+  --teal:#265661; --teal-deep:#0f3a44; --teal-line:rgba(255,255,255,.28);
+  --gold:#f3d6a6; --on-teal:#ffffff; --on-teal-muted:#a9c3c8;
+  --bg:#ffffff; --sheet:#ffffff; --card:#ffffff; --card-line:#eceff0; --ink:#173f48; --muted:#6f8a90;
+  --chip:#edf2f4; --chip-ink:#7c99a0; --peach:#f8dcbc; --peach-ink:#2c5c66;
+  --green:#2f8a66; --green-soft:#dff1e8; --red:#c4513f; --red-soft:#fbe4df; --amber:#c9862a; --amber-soft:#fbecd5;
+  --f:"Readex Pro","Noto Sans Arabic",system-ui,sans-serif; --f-verse:"Amiri","Noto Naskh Arabic",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --teal:#1d4650; --teal-deep:#0a2a32; --bg:#0d1d21; --sheet:#0d1d21; --card:#142a30; --card-line:#21393f; --ink:#e3eef0; --muted:#8fa9ae;
+  --chip:#1c353b; --chip-ink:#8fb0b7; --peach:#f2cfa6; --peach-ink:#1d4650;
+  --green:#5cc096; --green-soft:#173a2e; --red:#ec8576; --red-soft:#3a2220; --amber:#e8ab55; --amber-soft:#3a2c16; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --teal:#1d4650; --teal-deep:#0a2a32; --bg:#0d1d21; --sheet:#0d1d21; --card:#142a30; --card-line:#21393f; --ink:#e3eef0; --muted:#8fa9ae;
+  --chip:#1c353b; --chip-ink:#8fb0b7; --peach:#f2cfa6; --peach-ink:#1d4650;
+  --green:#5cc096; --green-soft:#173a2e; --red:#ec8576; --red-soft:#3a2220; --amber:#e8ab55; --amber-soft:#3a2c16; color-scheme:dark}
+html,body{background:var(--teal);color:var(--ink)}
+body{font-family:var(--f);font-size:15px;line-height:1.65}
+*{box-sizing:border-box}
+.shell{max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--sheet)}
+.hero{background-color:var(--teal);color:var(--on-teal);padding-inline:24px;padding-block:22px 54px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;opacity:.07;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23fff' stroke-width='3'%3E%3Cpath d='M60 10l14 22 26-4-4 26 22 14-22 14 4 26-26-4-14 22-14-22-26 4 4-26-22-14 22-14-4-26 26 4z'/%3E%3Ccircle cx='60' cy='60' r='18'/%3E%3C/g%3E%3C/svg%3E");background-size:150px}
+.hero>*{position:relative}
+.topbar{display:grid;grid-template-columns:52px 1fr 52px;align-items:center}
+.topbar h1{font-size:19px;font-weight:600;text-align:center;margin:0}
+.iconbtn{width:44px;height:44px;border:0;background:none;color:var(--on-teal);display:grid;place-content:center;cursor:pointer;border-radius:12px;padding:0}
+.iconbtn:focus-visible{outline:2px solid var(--gold)}
+.iconbtn svg{width:28px;height:28px}
+.avatar{width:52px;height:52px;border-radius:50%;background:#eceae6;display:grid;place-content:center;overflow:hidden;border:0;padding:0;cursor:pointer}
+.avatar svg{width:52px;height:52px}
+.greet{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-top:26px;padding-bottom:18px;border-bottom:1px solid var(--teal-line)}
+.greet .salam{color:var(--on-teal-muted);font-size:14px}
+.greet .name{color:var(--gold);font-size:clamp(20px,5.6vw,26px);font-weight:400;letter-spacing:.02em;line-height:1.3;direction:ltr;text-align:right}
+.greet .when{text-align:left;font-size:14px;line-height:1.6;flex:none}
+.greet .when small{display:block;color:var(--on-teal-muted);font-size:12px}
+.clock{text-align:center;font-size:40px;font-weight:600;margin:16px 0 10px;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.next{text-align:center;color:var(--on-teal-muted);font-size:13px;margin:-6px 0 12px}
+.next b{color:var(--gold);font-weight:500}
+.prayers{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;text-align:center}
+.prayer{display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 0;border-radius:12px}
+.prayer span{font-size:14px}
+.prayer svg{width:30px;height:30px;stroke:var(--on-teal-muted);fill:none;stroke-width:1.4;stroke-linecap:round}
+.prayer b{font-size:15px;font-weight:500;font-variant-numeric:tabular-nums}
+.prayer.is-next{background:rgba(255,255,255,.1)}
+.prayer.is-next b,.prayer.is-next span{color:var(--gold)}
+.prayer.is-next svg{stroke:var(--gold)}
+.sheet{background:var(--sheet);border-radius:24px 24px 0 0;margin-top:-26px;padding-inline:20px;padding-block:22px 120px;flex:1;position:relative}
+.menu{display:flex;flex-direction:column;gap:14px}
+.mcard{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--card-line);border-radius:14px;padding:12px 16px;cursor:pointer;width:100%;text-align:right;font-family:var(--f);color:var(--ink);box-shadow:0 2px 8px rgba(23,63,72,.04)}
+.mcard:focus-visible{outline:2px solid var(--teal)}
+.mcard .ic{width:58px;height:58px;border-radius:50%;background:var(--peach);display:grid;place-content:center;flex:none}
+.mcard .ic svg{width:34px;height:34px;stroke:var(--peach-ink);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.mcard .tx{flex:1;min-width:0;font-size:18px;font-weight:600}
+.mcard .tx small{display:block;font-size:12px;font-weight:400;color:var(--muted)}
+.mcard .go{width:36px;height:64px;border-radius:8px;background:var(--chip);display:grid;place-content:center;flex:none}
+.mcard .go svg{width:16px;height:16px;stroke:var(--chip-ink);fill:none;stroke-width:1.8}
+/* sub-screens */
+.hero.compact{padding-block:18px 46px}
+.hero.compact .verse{font-family:var(--f-verse);color:var(--gold);text-align:center;font-size:19px;margin:12px 0 0}
+section{display:flex;flex-direction:column;gap:12px;margin-bottom:26px}
+.sh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.sh h2{font-size:18px;margin:0;font-weight:600}
+.sh span{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.muted{color:var(--muted);font-size:13px;margin:0}
+.box{background:var(--card);border:1px solid var(--card-line);border-radius:14px}
+.pad{padding:16px}
+.wird{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--card-line);cursor:pointer}
+.wird:last-child{border-bottom:0}
+.wird input{appearance:none;width:24px;height:24px;border:2px solid var(--card-line);border-radius:7px;flex:none;display:grid;place-content:center;margin:0;cursor:pointer;background:var(--card)}
+.wird input:checked{background:var(--teal);border-color:var(--teal)}
+.wird input:checked::after{content:"";width:10px;height:6px;border:2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.wird input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.wird .t{flex:1;min-width:0}
+.wird small{display:block;color:var(--muted);font-size:12px;line-height:1.4}
+.tag{font-size:11px;padding:1px 8px;border-radius:99px;background:var(--amber-soft);color:var(--amber);flex:none}
+.tag.on{background:#f3d6a6;color:#173f48;font-weight:600;box-shadow:0 0 10px rgba(246,217,138,.8)}
+.organ{padding:14px;display:flex;flex-direction:column;gap:10px}
+.orow{display:flex;align-items:center;gap:14px}
+.ring{flex:none;width:64px;height:64px;position:relative}
+.ring svg{width:64px;height:64px;transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-content:center;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1;text-align:center}
+.ring b small{display:block;font-size:10px;color:var(--muted);font-weight:400}
+.orow .info{flex:1;min-width:0}
+.orow h3{font-size:17px;margin:0;font-weight:600}
+.pill{display:inline-block;font-size:12px;padding:1px 10px;border-radius:99px;font-weight:500}
+.p-tathir{background:var(--amber-soft);color:var(--amber)} .p-tanwir{background:var(--green-soft);color:var(--green)}
+.p-done{background:var(--green);color:#fff} .p-idle{background:var(--chip);color:var(--muted)}
+.meta{color:var(--muted);font-size:12px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{font-family:var(--f)}
+.btn{font-size:14px;border-radius:10px;border:1px solid var(--card-line);background:var(--card);color:var(--ink);padding:8px 14px;cursor:pointer}
+.btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.btn.ok{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:500}
+.btn.slip{color:var(--red);border-color:var(--red-soft);background:var(--red-soft)}
+.btn.primary{background:var(--peach);border-color:var(--peach);color:var(--peach-ink);font-weight:600}
+.logged{font-size:13px;color:var(--green);font-weight:500}
+.logged.bad{color:var(--red)}
+details{font-size:13px;color:var(--muted)}
+details summary{cursor:pointer;color:var(--ink)}
+details ul{margin:6px 0 0;padding-inline-start:18px}
+.confirm{display:flex;flex-direction:column;gap:8px;background:var(--red-soft);border-radius:10px;padding:10px 12px;font-size:13px}
+.confirm .slip-label{color:var(--ink);font-weight:500}
+.confirm .slip-note{min-height:72px}
+.figure-box{background:radial-gradient(ellipse at 50% 40%,#1f4a54,#0c2a31 75%);border-radius:18px;padding:18px 12px 14px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.figure{width:min(100%,330px);height:auto;display:block}
+.fig-msg{margin:0;color:#e9dcc0;font-size:14px;text-align:center}
+.fig-legend{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.fig-legend span{font-size:12px;padding:2px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.18);color:#9fb7bc}
+.fig-legend span.on{background:#f3d6a6;border-color:#f3d6a6;color:#173f48;font-weight:600}
+.lrow{display:flex;gap:12px;padding:14px;border-bottom:1px solid var(--card-line)}
+.lrow:last-child{border-bottom:0}
+.lamp{width:16px;height:16px;border-radius:50%;flex:none;margin-top:5px;background:var(--chip);border:2px solid var(--card-line)}
+.lrow.on .lamp{background:#f6d98a;border-color:#f6d98a;box-shadow:0 0 0 4px rgba(246,217,138,.3),0 0 14px rgba(246,217,138,.9)}
+.lrow .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.lrow small{color:var(--muted);font-size:12px;line-height:1.5}
+.lrow .st{font-size:13px;font-weight:500;color:var(--muted)}
+.lrow.on .st{color:var(--amber)}
+.lrow .btns{margin-top:4px}
+.dhikr-in{display:block;margin:4px 0 6px;font-size:13px;padding:8px 10px}
+@media (prefers-reduced-motion:no-preference){.figure .halo{animation:breathe 4s ease-in-out infinite}.figure .pulse{animation:breathe 3s ease-in-out infinite}@keyframes breathe{50%{opacity:.7}}}
+.inst-ok{display:flex;flex-direction:column;gap:4px;border-color:var(--green)}
+.inst-steps{margin:8px 0 0;padding-inline-start:20px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.attempt{font-size:12px;color:var(--ink);margin-top:2px}
+.redo{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-top:1px dashed var(--card-line);padding-top:10px}
+.btn.small{font-size:13px;padding:6px 12px;background:var(--chip);border-color:var(--chip)}
+.redo-c{background:var(--chip)}
+.redo-h li{border-inline-start-color:var(--teal)}
+.heart-box{display:flex;flex-direction:column;gap:10px;align-items:center}
+.heart{width:100%;max-width:420px;height:auto;display:block}
+.heart .hl-n{font-family:var(--f);font-size:15px;font-weight:600;fill:var(--ink)}
+.heart .hl-s{font-family:var(--f);font-size:12px;fill:var(--muted)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-size:12px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:14px;border-radius:4px;display:inline-block}
+.heart-msg{margin:0;font-size:14px;text-align:center;max-width:46ch}
+@media (prefers-reduced-motion:no-preference){.heart .flow{animation:seep 1.4s linear infinite}@keyframes seep{to{stroke-dashoffset:-24}}}
+.slips ol{list-style:none;padding:0;margin:8px 0 0;display:flex;flex-direction:column;gap:8px}
+.slips li{background:var(--chip);border-radius:10px;padding:8px 10px;border-inline-start:3px solid var(--red)}
+.slips .sl-h{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.slips .sl-h b{color:var(--ink);font-weight:500}
+.slips p{margin:4px 0 0;color:var(--ink)}
+.hearts{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.hearts button{padding:10px 2px;font-size:13px;border-radius:10px;border:1px solid var(--card-line);background:var(--card);color:var(--ink);cursor:pointer}
+.hearts button[aria-pressed="true"]{background:var(--teal);color:#fff;border-color:var(--teal)}
+textarea,input[type=text]{width:100%;font-family:var(--f);font-size:14px;border:1px solid var(--card-line);border-radius:12px;padding:10px;background:var(--card);color:var(--ink)}
+textarea{min-height:96px;resize:vertical}
+.chart{width:100%;height:auto;display:block}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{text-align:center;padding:12px 4px;border-radius:14px;background:var(--card);border:1px solid var(--card-line)}
+.stat b{display:block;font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--muted)}
+.trow{display:grid;grid-template-columns:64px 1fr 48px;gap:10px;align-items:center;font-size:13px}
+.bar{height:10px;border-radius:99px;background:var(--chip);display:flex;overflow:hidden}
+.bar i{display:block;height:100%}
+.trow em{font-style:normal;color:var(--muted);text-align:left;font-variant-numeric:tabular-nums}
+.prose{max-width:62ch}
+.prose p{margin:0 0 10px}
+.prose ol{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px}
+.prose h3{font-size:16px;margin:8px 0 4px}
+.quote{font-family:var(--f-verse);font-size:19px;color:var(--teal);border-inline-start:3px solid var(--peach);padding-inline-start:12px;margin:8px 0}
+:root:not([data-theme="light"]) .quote{color:var(--ink)}
+.notif{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-bottom:1px solid var(--card-line)}
+.notif:last-child{border-bottom:0}
+.dot{width:10px;height:10px;border-radius:50%;margin-top:7px;flex:none;background:var(--card-line)}
+.dot.on{background:var(--red)}
+.notif .t{flex:1;min-width:0}
+.notif small{display:block;color:var(--muted);font-size:12px}
+nav.tabs{position:fixed;inset-inline:0;bottom:0;background:var(--card);border-top:1px solid var(--card-line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5;box-shadow:0 -6px 20px rgba(23,63,72,.06)}
+nav.tabs .in{display:grid;grid-template-columns:repeat(4,1fr);max-width:520px;margin:0 auto}
+nav.tabs button{border:0;background:none;padding:16px 4px 18px;color:var(--chip-ink);display:grid;place-content:center;cursor:pointer;position:relative}
+nav.tabs button svg{width:30px;height:30px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs button[aria-current="page"]{color:var(--ink)}
+nav.tabs button .badge{position:absolute;top:13px;left:calc(50% + 4px);width:10px;height:10px;border-radius:50%;background:var(--red);border:2px solid var(--card)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (prefers-reduced-motion:no-preference){.ring circle.fg{transition:stroke-dashoffset .5s ease}.sheet{animation:up .3s ease}@keyframes up{from{transform:translateY(8px)}to{transform:none}}}
+</style>
+
+</head>
+<body>
+<div class="shell" dir="rtl" lang="ar" id="app"></div>
+<nav class="tabs" dir="rtl" aria-label="التنقل"><div class="in">
+  <button data-nav="home" aria-label="الرئيسية"><svg viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 9.5V21h14V9.5"/></svg></button>
+  <button data-nav="notif" aria-label="التنبيهات"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></svg><i class="badge" id="badge" hidden></i></button>
+  <button data-nav="aamal" aria-label="الأعمال"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="6" height="6" rx="1"/><path d="M3.5 17l2 2 3.5-4M13 7h8M13 17h8"/></svg></button>
+  <button data-nav="profile" aria-label="الملف الشخصي"><svg viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M3 20c0-3.5 3-6 7-6 1.4 0 2.6.3 3.6.8M15 19l2 2 4-4"/></svg></button>
+</div></nav>
+
+<script>
+document.documentElement.setAttribute('dir','rtl');
+const KEY='murshid-v2';
+const LAT=34.0331, LNG=-5.0003; // فاس
+
+/* ---------- content from the program document ---------- */
+const ORGANS=[
+ {id:'lisan',name:'اللسان',tathir:['الامتناع عن الكذب والغيبة والنميمة واللغو','الصمت في مواطن الفتنة وترك ما لا طائل منه'],tanwir:['الإكثار من التسبيح والتحميد والتكبير والتهليل','الدعوة إلى الخير والنصح بالكلمة الطيبة']},
+ {id:'ayn',name:'العين',tathir:['غض البصر عن المحرمات','ترك مشاهدة أو قراءة ما يثير الشهوات أو الفتن'],tanwir:['النظر في كتاب الله وتدبر آياته','التأمل في خلق الله والتفكر في عظمته']},
+ {id:'udhun',name:'الأذن',tathir:['ترك سماع الغيبة والنميمة وكل كلام محرم','الابتعاد عما يصرف عن ذكر الله'],tanwir:['الاستماع إلى القرآن الكريم','حضور مجالس العلم والذكر']},
+ {id:'yad',name:'اليدان',tathir:['الامتناع عن الظلم والأخذ بغير حق','ترك استعمال اليد فيما لا يرضي الله'],tanwir:['الصدقة ومساعدة المحتاجين','حمل المصحف والكتب النافعة وكتابتها']},
+ {id:'qadam',name:'القدمان',tathir:['ترك السير إلى أماكن الفساد والمعاصي'],tanwir:['المشي إلى المساجد وأماكن الخير','زيارة المرضى والأيتام وأماكن البر']},
+ {id:'batn',name:'البطن',tathir:['الامتناع عن أكل الحرام والمشتبه فيه','ترك الإسراف والشبع المفرط'],tanwir:['تحرّي الحلال الطيب والتسمية والحمد','الأكل على السنة: ثلث للطعام وثلث للشراب وثلث للنفس','صيام النوافل']},
+ {id:'farj',name:'الفرج',tathir:['حفظ الفرج عن كل ما حرّم الله','اجتناب مقدمات الحرام وأسبابه والخلوات المريبة'],tanwir:['الإعفاف بالحلال وحفظ العهد','الصيام لمن لم يستطع الباءة','غض البصر وصون الخواطر بالذكر']}
+];
+const fmtD=d=>d?new Date(d+'T12:00:00').toLocaleDateString('ar-MA-u-nu-latn',{day:'numeric',month:'long',year:'numeric'}):'';
+const AWRAD=[
+ {id:'salat',t:'الصلوات الخمس في وقتها',s:'مع الحضور والخشوع'},
+ {id:'sabah',t:'أذكار الصباح',s:'من الفجر إلى المغرب'},
+ {id:'masa',t:'أذكار المساء',s:'من المغرب إلى الفجر'},
+ {id:'quran',t:'ورد القرآن',s:'حزب أو ما تيسر مع التدبر'},
+ {id:'dhikr',t:'الذكر الشخصي اليومي',s:'ذكرك الخاص الذي التزمت به'},
+ {id:'istighfar',t:'الاستغفار',s:'مئة مرة'},
+ {id:'salawat',t:'الصلاة على النبي ﷺ',s:'مئة مرة'},
+ {id:'qiyam',t:'قيام الليل',s:'ولو ركعتين'}
+];
+const HEARTS=['غفلة','فتور','مجاهدة','حضور','أنس'];
+const PHASE={idle:'لم تبدأ',tathir:'تطهير',tanwir:'تنوير',done:'مكتملة'};
+
+/* ---------- dates ---------- */
+const pad=n=>String(n).padStart(2,'0');
+const ds=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const addDays=(s,n)=>{const d=new Date(s+'T12:00:00');d.setDate(d.getDate()+n);return ds(d)};
+const TODAY=ds(new Date());
+let hijriDay=0,hijriLabel='';
+try{const f=new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn',{day:'numeric',month:'long',year:'numeric'});
+  hijriLabel=f.format(new Date());const p=f.formatToParts(new Date()).find(x=>x.type==='day');hijriDay=p?+p.value:0}catch(e){}
+const DOW=new Date().getDay();
+
+function seasonal(){
+  const s=[];
+  if(DOW===1||DOW===4)s.push({id:'sawm',t:DOW===1?'صيام الاثنين':'صيام الخميس',s:'سنة نبوية',tag:'اليوم'});
+  if(hijriDay>=13&&hijriDay<=15)s.push({id:'bid',t:'صيام الأيام البيض',s:'١٣ و١٤ و١٥ من الشهر الهجري',tag:'اليوم'});
+  if(DOW===5)s.push({id:'kahf',t:'سورة الكهف والإكثار من الصلاة على النبي ﷺ',s:'من سنن الجمعة',tag:'الجمعة'});
+  s.push({id:'khalwa',t:'خلوة أسبوعية',s:'ساعة مع الله: ذكر ومحاسبة وتفكر',tag:'أسبوعي'});
+  return s;
+}
+
+/* ---------- prayer times (MWL-style math, Fajr 19°, Isha 17°, Shafi'i Asr) ---------- */
+const rad=d=>d*Math.PI/180,deg=r=>r*180/Math.PI;
+const fix=(a,b)=>{a=a-b*Math.floor(a/b);return a<0?a+b:a};
+function sunPos(jd){const D=jd-2451545,g=fix(357.529+0.98560028*D,360),q=fix(280.459+0.98564736*D,360),
+  L=fix(q+1.915*Math.sin(rad(g))+0.02*Math.sin(rad(2*g)),360),e=23.439-0.00000036*D,
+  RA=fix(deg(Math.atan2(Math.cos(rad(e))*Math.sin(rad(L)),Math.cos(rad(L))))/15,24),
+  decl=deg(Math.asin(Math.sin(rad(e))*Math.sin(rad(L))));return{decl,eqt:q/15-RA}}
+function prayerTimes(date){
+  let y=date.getFullYear(),m=date.getMonth()+1,d=date.getDate();if(m<=2){y--;m+=12}
+  const A=Math.floor(y/100),B=2-A+Math.floor(A/4);
+  const jd=Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+B-1524.5-LNG/(15*24);
+  const tz=-date.getTimezoneOffset()/60;
+  const noon=t=>fix(12-sunPos(jd+t).eqt,24);
+  const at=(angle,t,ccw)=>{const s=sunPos(jd+t),n=noon(t);
+    const T=deg(Math.acos((-Math.sin(rad(angle))-Math.sin(rad(s.decl))*Math.sin(rad(LAT)))/(Math.cos(rad(s.decl))*Math.cos(rad(LAT)))))/15;
+    return n+(ccw?-T:T)};
+  const asrAngle=t=>{const s=sunPos(jd+t);return -deg(Math.atan(1/(1+Math.tan(rad(Math.abs(LAT-s.decl))))))};
+  const raw={fajr:at(19,5/24,1),sunrise:at(0.833,6/24,1),dhuhr:noon(12/24),asr:at(asrAngle(13/24),13/24,0),maghrib:at(0.833,18/24,0),isha:at(17,18/24,0)};
+  const out={};for(const k in raw)out[k]=fix(raw[k]+tz-LNG/15,24);
+  return out;
+}
+const hm=h=>{let m=Math.round(h*60);return pad(Math.floor(m/60)%24)+':'+pad(m%60)};
+const PRAYERS=[['fajr','الفجر'],['sunrise','الشروق'],['dhuhr','الظهر'],['asr','العصر'],['maghrib','المغرب'],['isha','العشاء']];
+const PICONS={
+ fajr:'<path d="M8 12a4 4 0 0 1 7.5-2A3 3 0 0 1 17 15H7.5A2.5 2.5 0 0 1 8 12z"/><path d="M5 18h14M7 21h10"/>',
+ sunrise:'<path d="M7 15a5 5 0 0 1 10 0M12 4v3M5 8l2 2M19 8l-2 2M3 15h3M18 15h3M5 18h14M8 21h8"/>',
+ dhuhr:'<circle cx="12" cy="12" r="3.5"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/>',
+ asr:'<path d="M14 6.5a4 4 0 0 1 5 5.5M15 3v1.5M20.5 5.5l-1 1M5.5 19h11a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.5 1A3 3 0 0 0 5.5 19z"/>',
+ maghrib:'<path d="M7 16a5 5 0 0 1 10 0M12 6v3M5 9.5l1.8 1.5M19 9.5 17.2 11M3 16h18M8 19.5h8"/>',
+ isha:'<path d="M14 4a6 6 0 1 0 6 8 5 5 0 0 1-6-8z"/><path d="M4 17h12M6 20h12"/>'
+};
+
+/* ---------- state ---------- */
+function demoState(){
+  const log={};
+  for(let i=13;i>=1;i--){const d=addDays(TODAY,-i),k=(i*7)%AWRAD.length;
+    log[d]={awrad:AWRAD.slice(0,Math.max(2,AWRAD.length-k%4-(i%3))).map(a=>a.id),heart:(i%4)+1,note:''}}
+  log[TODAY]={awrad:['salat','sabah'],heart:null,note:''};
+  return {demo:true,name:'',log,organs:{
+    lisan:{phase:'tathir',days:12,last:addDays(TODAY,-1),resets:2,attempt:3,attemptStart:addDays(TODAY,-12),slips:[
+      {date:addDays(TODAY,-30),phase:'tathir',day:7,reason:'انجررت إلى غيبة زميل في مجلس عمل ولم أغيّر الموضوع'},
+      {date:addDays(TODAY,-13),phase:'tathir',day:9,reason:'كذبة صغيرة للتهرب من موعد، ظننتها هيّنة'}]},
+    ayn:{phase:'tanwir',days:5,last:addDays(TODAY,-1),resets:1,attempt:2,attemptStart:addDays(TODAY,-5),slips:[
+      {date:addDays(TODAY,-6),phase:'tanwir',day:4,reason:'سهرت على الهاتف وفاتني ورد التدبر'}]},
+    udhun:{phase:'tathir',days:3,last:addDays(TODAY,-1),resets:0,attempt:1,attemptStart:addDays(TODAY,-3),slips:[]},
+    qadam:{phase:'done',days:30,last:addDays(TODAY,-15),resets:0,attempt:1,attemptStart:null,slips:[]}}};
+}
+function blankOrgan(){return{phase:'idle',days:0,last:null,resets:0,attempt:0,attemptStart:null,slips:[]}}
+function freshState(name){const o={};ORGANS.forEach(g=>o[g.id]=blankOrgan());return{demo:false,name,log:{},organs:o,marks:emptyMarks()}}
+let S;try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
+if(!S||!S.organs)S=demoState();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+ORGANS.forEach(g=>{
+  if(!S.organs[g.id])S.organs[g.id]=blankOrgan();
+  const o=S.organs[g.id];
+  if(!o.slips)o.slips=[];
+  if(o.attempt==null)o.attempt=o.phase==='idle'?0:(o.resets||0)+1;
+  if(o.attemptStart===undefined)o.attemptStart=o.days>0&&o.last?addDays(o.last,-(o.days-1)):null;
+  if((o.phase==='tathir'||o.phase==='tanwir')&&o.last&&o.last<addDays(TODAY,-1)&&o.days>0){
+    o.slips.push({date:addDays(o.last,1),phase:o.phase,day:o.days,reason:'انقطاع: يوم لم يُسجَّل',auto:true});
+    o.days=0;o.resets++;o.attempt++;o.attemptStart=TODAY;o.broken=true}
+  o.today=o.last===TODAY?o.today:null});
+function demoMarks(){const M=emptyMarks(),t=Date.now(),p=period();
+  M[p.kind][p.key]=Math.max(p.start+10*6e4,t-45*6e4);
+  M.quran=[t-3*36e5];M.dhikrText='لا إله إلا الله · ١٠٠٠ مرة';
+  M.dhikr=[2,3,5,6,9].map(i=>atH(addDays(nowStr(),-i),21));
+  M.khalwa=[{ts:atH(addDays(nowStr(),-45),10),type:'khalwa'}];return M}
+const dayLog=()=>S.log[TODAY]||(S.log[TODAY]={awrad:[],heart:null,note:''});
+const activeOrgans=()=>ORGANS.filter(g=>['tathir','tanwir'].includes(S.organs[g.id].phase));
+const pendingOrgans=()=>activeOrgans().filter(g=>!S.organs[g.id].today);
+
+/* ---------- views ---------- */
+let screen='home',confirmFor=null,confirmReset=false,redoFor=null;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ARROW='<svg viewBox="0 0 16 16"><path d="M12 12 4 4M4 10V4h6"/></svg>';
+const MENU=[
+ {id:'method',t:'المنهج المحمدي',ic:'<path d="M24 6l4.5 6.5L36 11l-1.5 7.5L41 24l-6.5 5.5L36 37l-7.5-1.5L24 42l-4.5-6.5L12 37l1.5-7.5L7 24l6.5-5.5L12 11l7.5 1.5z"/><path d="M18 24l6-6 6 6-6 6z"/>'},
+ {id:'tazkiya',t:'التزكية',ic:'<path d="M14 40V22c0-2 3-2 3 0v-8c0-2 3-2 3 0v-2c0-2 3-2 3 0v14"/><path d="M34 40V22c0-2-3-2-3 0v-8c0-2-3-2-3 0v-2c0-2-3-2-3 0v14"/><path d="M12 40h11M25 40h11M14 44h9M25 44h9"/>'},
+ {id:'sura',t:'حالة قلبك',ic:'<circle cx="24" cy="12" r="4.5"/><path d="M20 8.5c1-2 7-2 8 0"/><path d="M15 42V27c0-5 4-9 9-9s9 4 9 9v15"/><path d="M20 26l4 6 4-6"/>'},
+ {id:'muraqabat',t:'حالتك الروحية اليومية',ic:'<circle cx="24" cy="11" r="4"/><path d="M16 42V26c0-5 3.5-9 8-9s8 4 8 9v16"/><path d="M19 28l5 4 5-4M24 32v10"/>'},
+ {id:'aamal',t:'الأعمال',ic:'<path d="M8 36h32M10 36c0-5 4-7 8-7h6"/><circle cx="31" cy="25" r="3.5"/><path d="M24 29l5-1 7 5"/><rect x="34" y="31" width="8" height="5" rx="1"/>'},
+ {id:'install',t:'تثبيت التطبيق على الشاشة',ic:'<rect x="15" y="5" width="18" height="38" rx="3.5"/><path d="M21 38h6M24 13v15M18.5 22.5 24 28l5.5-5.5"/>'}
+];
+const TITLES={method:'المنهج المحمدي',tazkiya:'التزكية',muraqabat:'حالتك الروحية اليومية',sura:'حالة قلبك',aamal:'الأعمال',install:'تثبيت التطبيق',notif:'التنبيهات',profile:'الملف الشخصي'};
+const VERSES={install:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',method:'«أن تعبد الله كأنك تراه»',tazkiya:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',muraqabat:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',sura:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',aamal:'«أحبّ الأعمال إلى الله أدومها وإن قلّ»',notif:'﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾',profile:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾'};
+
+const AVATAR='<svg viewBox="0 0 52 52"><rect width="52" height="52" fill="#eceae6"/><circle cx="26" cy="20" r="9" fill="#c9c4bc"/><path d="M8 52c2-11 9-16 18-16s16 5 18 16z" fill="#c9c4bc"/></svg>';
+const MENUICON='<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 7h18M5 14h12M5 21h18"/></svg>';
+const BACK='<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6l8 8-8 8"/></svg>';
+
+function nextPrayer(pt){
+  const now=new Date(),h=now.getHours()+now.getMinutes()/60;
+  for(const [k,n] of PRAYERS){if(k!=='sunrise'&&pt[k]>h)return{k,n,in:pt[k]-h}}
+  return{k:'fajr',n:'الفجر',in:24-h+pt.fajr};
+}
+function heroHome(){
+  const now=new Date(),pt=prayerTimes(now),nx=nextPrayer(pt);
+  const dateL=now.toLocaleDateString('ar-MA-u-nu-latn',{weekday:'long',day:'numeric',month:'long'});
+  const mins=Math.round(nx.in*60);
+  return `<header class="hero">
+   <div class="topbar"><button class="iconbtn" data-go="method" aria-label="القائمة">${MENUICON}</button><h1>الرئيسية</h1><div style="display:flex;justify-content:flex-end"><button class="avatar" data-go="profile" aria-label="الملف الشخصي">${AVATAR}</button></div></div>
+   <div class="greet"><div style="min-width:0"><div class="salam">السلام عليكم</div><div class="name">${esc(S.name||'أيها السالك')}</div></div>
+     <div class="when">${dateL}<br>${now.getFullYear()}<small>${hijriLabel}</small></div></div>
+   <div class="clock" id="clock">${pad(now.getHours())}:${pad(now.getMinutes())}</div>
+   <div class="next">صلاة <b>${nx.n}</b> بعد ${mins>=60?Math.floor(mins/60)+' س ':''}${mins%60} د</div>
+   <div class="prayers">${PRAYERS.map(([k,n])=>`<div class="prayer${k===nx.k?' is-next':''}"><span>${n}</span><svg viewBox="0 0 24 24">${PICONS[k]}</svg><b>${hm(pt[k])}</b></div>`).join('')}</div>
+  </header>`;
+}
+function heroSub(id){
+  return `<header class="hero compact"><div class="topbar"><button class="iconbtn" data-go="home" aria-label="رجوع">${BACK}</button><h1>${TITLES[id]}</h1><span></span></div><p class="verse">${VERSES[id]}</p></header>`;
+}
+function viewHome(){
+  const L=dayLog(),p=pendingOrgans().length;
+  const subs={install:isStandalone()?'مثبّت على شاشتك ✓':'افتحه كتطبيق من شاشة هاتفك',method:'الأركان والأهداف والخصائص',tazkiya:`تزكية الجوارح · ${activeOrgans().length} قيد العمل`,muraqabat:`صورتك النورانية · ${litCount()} من 4 أنوار مضيئة`,sura:`مجاري القلب · ${ORGANS.filter(g=>['tanwir','done'].includes(S.organs[g.id].phase)).length} من ${ORGANS.length} مغلقة`,aamal:`${L.awrad.length} من ${AWRAD.length} أوراد اليوم`};
+  const banner=S.demo?`<p class="muted" style="margin-bottom:12px">تعرض الأقسام بيانات تجريبية. يمكنك البدء من الصفر من الملف الشخصي.</p>`:'';
+  return heroHome()+`<main class="sheet">${banner}<div class="menu">${MENU.map(m=>`<button class="mcard" data-go="${m.id}"><span class="ic"><svg viewBox="0 0 48 48">${m.ic}</svg></span><span class="tx">${m.t}<small>${subs[m.id]}</small></span><span class="go">${ARROW}</span></button>`).join('')}</div></main>`;
+}
+
+function ring(days,phase){
+  const r=27,c=2*Math.PI*r,p=phase==='done'?1:Math.min(days,30)/30;
+  const col=phase==='tanwir'||phase==='done'?'var(--green)':phase==='tathir'?'var(--amber)':'var(--card-line)';
+  return `<div class="ring"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="${r}" fill="none" stroke="var(--chip)" stroke-width="6"/><circle class="fg" cx="32" cy="32" r="${r}" fill="none" stroke="${col}" stroke-width="6" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c*(1-p)}"/></svg><b>${phase==='done'?'✓':days+'<small>من 30</small>'}</b></div>`;
+}
+function organCard(g,full){
+  const o=S.organs[g.id];let body='';
+  if(o.phase==='idle')body=`<div class="btns"><button class="btn primary" data-start="${g.id}">ابدأ التطهير</button></div>`;
+  else if(o.phase==='done')body=`<div class="meta">أتممت التطهير والتنوير${(o.cycle||1)>1?' في الدورة '+o.cycle:''}. ثبّتك الله.</div>`;
+  else if(o.today==='ok')body=`<div class="logged">سُجّل اليوم: حفظتها ✓</div>`;
+  else if(o.today==='slip')body=`<div class="logged bad">سُجّلت زلة، وبدأ العدّ من جديد. تُب واستأنف غدًا.</div>`;
+  else if(confirmFor===g.id)body=`<div class="confirm"><span>ستعود أيام ${PHASE[o.phase]} ${g.name} إلى الصفر.</span>
+    <label for="slipnote-${g.id}" class="slip-label">سبب الزلة: ما الذي أوقعك؟ وفي أي حال كنت؟</label>
+    <textarea id="slipnote-${g.id}" class="slip-note" placeholder="مثال: مجلس طال فيه الكلام، أو تعب وغفلة، أو صحبة معيّنة…"></textarea>
+    <div class="btns"><button class="btn slip" data-slipyes="${g.id}">نعم، أعد العدّ</button><button class="btn" data-slipno="1">تراجع</button></div></div>`;
+  else body=`<div class="btns"><button class="btn ok" data-ok="${g.id}">حفظتُها اليوم</button><button class="btn slip" data-slip="${g.id}">وقعت زلة</button></div>`;
+  const list=o.phase==='tanwir'?g.tanwir:g.tathir;
+  const tips=o.phase!=='done'?`<details${full?' open':''}><summary>${o.phase==='tanwir'?'أعمال التنوير':'ما تمتنع عنه'}</summary><ul>${list.map(x=>`<li>${x}</li>`).join('')}</ul></details>`:'';
+  const broke=o.broken?`<div class="meta" style="color:var(--red)">انقطعت السلسلة بيوم فائت، فبدأ العدّ من جديد.</div>`:'';
+  const left=o.phase==='tathir'||o.phase==='tanwir'?`باقٍ ${30-o.days} يومًا`:'';
+  const att=(o.phase==='tathir'||o.phase==='tanwir')&&o.attemptStart?`<div class="attempt">${(o.cycle||1)>1?'الدورة '+o.cycle+' · ':''}المحاولة ${o.attempt} · بدأت ${o.attemptStart>TODAY?'غدًا':''} ${fmtD(o.attemptStart)}</div>`:'';
+  const slips=full&&o.slips.length?`<details class="slips"><summary>مراجعة أسباب الزلات (${o.slips.length})</summary><ol>${o.slips.slice().reverse().map(s=>`<li><div class="sl-h"><b>${fmtD(s.date)}</b><span class="pill p-${s.phase}">${PHASE[s.phase]}</span><span class="meta">بعد ${s.day} ${s.day>10?'يومًا':'أيام'}</span></div><p>${s.reason?esc(s.reason):'<span class="meta">لم يُدوَّن سبب</span>'}</p></li>`).join('')}</ol></details>`:'';
+  let redo='';
+  if(full&&o.phase!=='idle'){
+    const canT=o.phase==='tanwir'||o.phase==='done';
+    if(redoFor&&redoFor.id===g.id){
+      const k=redoFor.kind,lbl=k==='tathir'?'التطهير':'التنوير';
+      redo=`<div class="confirm redo-c"><span>ستبدأ ${lbl} ${g.name} من جديد: ثلاثون يومًا متتالية تبدأ اليوم${k==='tathir'?'، ويعود مجراها في القلب مفتوحًا حتى تُتمّ التطهير':o.phase==='done'?'، ويعود قسمها في القلب رماديًا حتى تُتمّ التنوير':''}.</span>
+        <label for="redonote-${g.id}" class="slip-label">سبب الإعادة (اختياري)</label>
+        <textarea id="redonote-${g.id}" class="slip-note" placeholder="مثال: أحسست بفتور في هذه الجارحة، أو أريد تثبيت ما حققته…"></textarea>
+        <div class="btns"><button class="btn ok" data-redoyes="${g.id}">نعم، أعد ${lbl}</button><button class="btn" data-redono="1">تراجع</button></div></div>`;
+    }else{
+      redo=`<div class="redo"><span class="meta">${o.phase==='done'?'تجديد السلوك:':'إعادة المرحلة:'}</span><button class="btn small" data-redo="${g.id}" data-kind="tathir">إعادة التطهير</button>${canT?`<button class="btn small" data-redo="${g.id}" data-kind="tanwir">إعادة التنوير</button>`:''}</div>`;
+    }
+  }
+  const hist=full&&o.history&&o.history.length?`<details class="slips redo-h"><summary>سجل الإعادات (${o.history.length})</summary><ol>${o.history.slice().reverse().map(h=>`<li><div class="sl-h"><b>${fmtD(h.date)}</b><span class="pill p-${h.kind}">إعادة ${PHASE[h.kind]}</span><span class="meta">من حال: ${PHASE[h.from]}${h.from!=='done'?' · '+h.day+' يوم':''}</span></div>${h.reason?`<p>${esc(h.reason)}</p>`:''}</li>`).join('')}</ol></details>`:'';
+  return `<div class="box organ"><div class="orow">${ring(o.days,o.phase)}<div class="info"><h3>${g.name}</h3><span class="pill p-${o.phase}">${PHASE[o.phase]}</span> <span class="meta">${left}${o.resets?' · إعادات: '+o.resets:''}</span>${att}</div></div>${broke}${body}${tips}${redo}${slips}${hist}</div>`;
+}
+function viewTazkiya(){
+  return `<section><p class="muted">لكل جارحة مرحلتان: تطهير ثلاثين يومًا متتالية بلا زلة، ثم تنوير ثلاثين يومًا باستعمالها في الطاعة على السنة. الزلة أو اليوم الفائت يعيد العدّ من البداية.</p>${ORGANS.map(g=>organCard(g,true)).join('')}</section>`;
+}
+/* ---------- spiritual figure: lights that follow the day's deeds ---------- */
+const BODY_MASK='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAALGCAAAAAAR+hcuAAA2Y0lEQVR42u19eZgdVbXvb+1dp7vTnZmEJCQkjAlDZBBQgYACMhgxIGFUVBTx+sn39Oq9z6ved71e56sXUZ7wPkAFlClhiiYBRIZAmJOQAAljQiYy0p1Od7rT3efU3uv90WO6a9hVp05VnXNq/5UvXadq799e8157LSAb2chGNrKRjWxkIxvZyEY2spGNbGQjG9nIRrUMSuvE5D5TY6gMwACTEmA96P8EQXMGoMkQ0AA+Ki4+iLtnx7Thfv1S318yAD3nI21gxCeumnTyoD+8sHD1My0QQjGy4Q6fBcgT71rPzErZhb5hK83M6+86EYDMYPJgXtRcvabAXLBtHjRsu8BcuOvqWkiRIeVGfvXXrGZmW7HjUDYzr/kqYFGGlqM0Pu4V5m5udRnatpnvOS7F1leSdl/Dt7Qr8e1DhvpbDZkkHIrf2KdZ+cLH3Rz+9NgMwX1HDhft4AIbjgLvuAi5DLWB+H1Ws83Gw2b92QzBgfx7oW3Gvn2SUNkXZlwcHr8MwX3xmxEYP2al7BkZgt32c82SIPKvXw4uGZNZ1AAkrg2DH3OBb80UCWDRBZzXYQDU+cIFZGUBBPlaOAJktvm1LLBgYa65AT2Uieei2kmQsFLbYQG09cpqDytIujQ8ATIX+FKqblNG4DlW4QFU/BxE0itI9Ot8+BG6CCYkfcShLKoYQOIzx3IxAPLY7zNVMYDAZUUesvFh1e2EHLGnCAnIzKz2HJGsR5wwBY4bXuwbho+rYiVC+BoXmWug+WvJmoJJy0BK/AVlDCDxsCnFAkCYMoyr1RsROJQjGIcmSgXJsnAUCWusq5aFAYqA+aiaPZGuKF7SUb1KBAejaB5WuKRqZaDA54pPfWYckagpk7FwWQNYAem6yQJYn5qXlCWAGg8VH0mReCjR3H2RKAO/FoUv/FqikiBj4fJ25VLzkjIFUKbmJeUIIElqieI9LSSpGgEkLvB3iuc/je9woRojggLjFi/jSMayxeNQdUlGJEauYlZR4KeYV00W1UaDFr7PXSoaClSdPD+xLK3kSP90LSL6uJC6tgqVSFuEnxZ2FQI4PMqX1VchgCuii4MSVlQdgIz5hegALMxPLKCQFIBKvrk6qlImCqvflKraWJgKC0REVMNiQaH6XBESo5aFTy/fN9V82ShRhb6cxKyQN2wG37fhWdV5ac7CF7mzeATz/MVqvSxi4THWxeP3WNVetiE57D/zRfrDNj8xrHrvbJLAXWwXF4l5vI6q+L6ctGY2qyK4WKvmI6o3pA9A6dVbirEGWWx5S6oqBhBEz3IxAPKz1ZwjDYB4CRUDIC1J+jgkYQAVlu8Oz8MsWpYnXRs0YQBZrH1LhD6Zs8Vday2uagAh6MeF8D8uLErcBEx6AsQ1W8aFlGNMjZPzVOUUyJZ9a1gxpnCrbVV9SVVBE1p1KH9O6dYJyXshiU9AWztuoFAkqOiGHZZGNqzc8jCFJwq8PJeV3elmgpN26cAOsda7TkJWz7c7pIAT9gYNKWi194SseFsfE+PGoExc4BvTEUdNBxOIlUHPdRkrUzL1NEyCdWM+oC1N+UadVdXvd4fEtmCnI5q3iXSUzUqJHqsJDAbVIGPhgSItjp9UMIDB4UiLAEwLgDUl/0FFa2GrMC9YSEZhXiEdgZh0UCDpTcF4krFJU0aB+7hzpf5BRQPINDqYVUcYTZkdPQCO2u1BDenttZkhXRFDlO00RAbggNERODSvOzIAB0zi1JEqmBJRI09Ny9xToUSOaQh4rqQajsmUyACzeELQiQhMQGbH9JPguqBXhxWvyzyRPqeCZk1WQSlQTZ6VijL66WDh82uDh7Nqz89YuGcP5eQQidJaNU9OQzuWFExBqm+NDh5aIT36Wyo7GAYg6eRWO0SmvrZbT6YMQVgWvRjurojNL1LWU8kC5oftaVPg+ajynkpC4mOPFNOUat5YVPFFJbKA2S3F3PWyecfsqu0YThKYejMXe1eOb54KSKo+9AiY9t+NbBd531Xb3Pjf0wCrmjAkaQGY+qumSIpnKeamX01F1WAopAVg9OwndnPR5NdHhLz7utmjAFjxmzWxbpoEoIDRx829eCJgR0YxrCxg+/0PrNrd941KA5AkWIMBHHnWrI8cDLCOtNAGK0nApqdvbXwTAJGA1vGce1LJ3y8JvZe5zspdMP20XO9yow7pKElAYek7fy080UPwAqxKHXYtKYAkRDd2wpprHXgpHQMAikWpBJXuqaj3+pY75ZpXRDcn5xRzeQIohA3U1F/RoOdOoQOB7gY2JS6Rw7qnRYu9RSzYINrv2ZsHLK3LD0BBCrnPHXnBASMBADYgYoudaeZeH7l124K73yxAlqxxUKkAlAqHfvP04wDYDJlA3JEZmkEWgFXP3LAOCZdWCEx+OPz3bcyqoCIx9Yqp61Fg5rbfH15WQQcB8bs25oLiVAxVYG77oiibPCCSOPa1qNyMiOiwwPzasWUScxDAz7u4kCL4eiDs+nkpRHHkhwpSj/rR9wWnbbNJaHla3fJOGbVNGPU6pZr2xKF2KnmFlbXurI1Ra+OIVyr01KcOsdN6TmFb752xSegUAygw7vlD7fSe89jWulOaorWpo5WBlvr1OYVcihVcYdzwRYJTC6C0v/e9NOMHSPujtU9GimCULCz0zGdGpr2erpKnPytUKgEkMfKt/XXazX3mHYd1RtjIKsL1Wuqr+xdS7y4RT7ouylti0b1K8jFPjiyDgtis5YmvRMfEEVKM/smYcmgORcw/4hRSoFQnvEDlkemj9MkrInNIIqNAxg9z5XKwnfthdEdNUa1Z8EeWinJJd7T51GVReXRRUSDxv+bKJumbcv8nsnBHRO8hGv/ygVw2QXPNH3orIkUc0ZqlPmaqLp9DB5bnR2UwRLRoHvav5XVrY04dp4mFhZ66EeU1Dn0vGjUiItqGY7msKFDh8xEtPZq3SJxHdjkByDiYKD0Akj38uPIqJylx4bhoOoFFQ4Fanowyy6+t70qRFpaYo1RZAUjKuiAanomGhTGj3Ao6azkDqWFhsmvnlltFXYm5tTalhQJZTiw3EUiYGE2SQjRKpKMTZTc6oyk8IyJ5x9mjVblRoBp9dkSLj4Idjqoru6YAuu4oUHpYGGU40sPCZVoDroqXXnnbkAGYjQzADMAMwAzAbGQAZgBmAJbNSNGhUnlug52ipbeXI4AjUwOgxpzyo0GJr0ZCg9EAeCLKsGiQTBEL7y1HFuYUAVjFujyzAzMAMwAzADMAs5EBmAGYAZgBmI0MwAzADMAMwGxkAGYAZgBmAGYjAzADMAMwAzAbGYAZgBmAGYDZyADMAMwAzADMRgZgBmAGYAZgNjIAMwAzADMAsxEtgGXaWTotxccszD7YLjtKFvbBs2GlhAIbrHIkQKshNSysy5OFU1TFN1MixQ0uz7WnpX6gxjXlqIcJ10TBxJGUvxtfnhQ4Pi3l77ijPAHs4FQASBg5msuRhXn0yAhET/EACn3i0boMlbnQR58YwbyjWHnejxXsRBrEa7+SCJyPwhyPwhHxYQROxlERwkeyUBSuSAQykL7uQwn02zvid1YYr9xIPl/9OqVBBsKnlZLGlu/cko8dQIXrvrnVZ9+iaPNaNIDEw/f3VGZaLOPl2+Kutc9y5/Pau/cZYf/hKTAfBI5nzR7DLpxAuY2sONaheD3ohILt9Yzm44snoAhYuMWTEWz51xVIQgsLiRV/lZ6amFvSwMI4x1NWs3pQiCQCXsxCPKjYU7udU7wlHQGAp3qFNTjXuVgrDIsfwFoovbjTq90i49QUAMg1o7xmofDQHin5gbhpkLERJPc85CU9CKNqOGkAhdr/M14vYf2OFoLfjDtmqHG3toR+R7PX2j+zvxJJUyA8+6GxJR6CQhIsXAMoPCQsr52zk/eFJa62PFrrML28VuhETk0Y0GLty+QOIBWsLxRdBK/4LbC8uFNjeaeFRIL+DMDqXO69d1OLdkaKBJDUsHO9NpHQDA2gNgktDGg0e2k4C5cOL7YzVbEUqMVMrylK3AYNxno7Zp+J7PVgaNzmzaPFN7QsEkCJudIbmxwAhQVtVqxczFbbAqiez3vAN/ziYoVgsSxM07xMVYVH10kNoDZ2p51qAWi57lEvS5DlNJEsCxf4c15byOjqbgGakBIBFbq8vi1xhS4kCSBhzBhvbBqTjhZ5ToD0tFOKhKC4X0t8aoKXLS9wa1JpC7qHDG/1WiLp+sMpSQC1X6PovoBl7Md29dS7x94sdBHrBAFk6xAfHq/p0Yn3xBsT1FjZ1b007ckBgj92gKbEAJQ46RAvDmbavJ4YAOnGeFlZ47FOyYCSK14WXgEZvf9pxfFwkRR4YY3nMujdzT3HErnYWbjXTvDpZM2f58RYmLhhts+pTA0NNCriVyLwy4QW+NjkovITivqtnjHT50yTk08d9NYRpMfPKuporigKFFf5qTCBpCiw74M+6QfMl4mEACQ1/uvk40l29gc+Yh59H1zq8xydPb6Y5shFACj5EzlvE4Bxc68Iao03iZXQ2vuPh32oXw//BMtEANR1P/LlzL29QYXbVZzhGLbU7b2GZ4Mvr/+omPbS4QEUPG2679bJ/rhMzEOZKRFA8vRpLBIB8AfkCwubGRMlYWJjqOkHSQAo1eGXclneUBqiRvjSw5WMnwL5P+o0KmLouv/g2ClQ8PS5SlYGgFJdfGjotYQGUP+gnqkyACQM+5/amClQ2uddlmoC1BxoNRfOVVa8FFj727pgmjVmXy4XaHdJ/6CO4wTQUpfOMCHA3liCtrY9FKcpyHi9pTfnwCSeIfnoC0OSoAgpNS40irNQn2hRrfFGYJ7vA9DsRJV/OIzjA1AUZn7a4ECaxdaX+7JXYzYZh/XApunlrQb5LwJHTg+X6RbqR5IurzXI1WDxweY+Tyru/MBe4YHNHxgASLa+mGRcAJJNnzXLiBiZAkOHjPoIS3ERhcrfCQUgH3eYSRic8ULypiLxiybUL/Rhx3FcAAqaU2OiUjUeTb4mg8BCo/ROVTMn1PFcmN/YfJkRB5NdQArGfmZyHZeyHQ+AhP1GmagEbe24P5ErNoPZYJc0mC6pabPCpLqFAFDinElmKt9KgQ5hrO0yyeMlrj8oTNQyBICarjL6ksLdtpX4sSZb4l4jPiC+knQsAIINq3ToDWmI15DeYIYL7R9mt4MDKHjGJCMjJle4D3byANq4r5AzMmQmzQgR2g/+C+LJE00oi7FtTyoChrRnG4yE4MTJITgmDAtfYkTqCosHZpYnFv5nq22xmTHAl8RkBx5FZm/e54JcQ2IUyHjTbJl0VDwACrNqIbJwfz/ZMV5IrL6Wxv22mYGXFzEAKNXM07XBfGz8o8kaAODixLw6bTUtNtFmUp8+M/gxRRg7sMZM18yzB8rK5FgYsDeZGSg18diBU810H60YxEgJCsE7DOMEU2MAkHCVCRiaXt+8T9GRBJ1iLd5ebeJkaFwVXFCHoMAuo12nJ1oHXNUV+HKChgy1PUoc2dKK9kRqjebc+Jt95zwpyUKh9KDZc7Wl90SEPeVCgwMiLVZu3pdr8snBB0UrnhH+MsTChVMCFwEIAbnJjQXGPYPkdqJencjfZsTDuTh8YSOpI5sf5cRjqQM12N+bTaKqiANANuKZV7eJFBVHZrHtVTLZ0L0xAGjCwZT/T0pVVVBB/1nwFyIaHw0saoIuU+Ir8D0q0nLX81BpAlDx89v9eVjhUyi9EjHwybT+nZapKm/OOf2gyaFbewws7E9ZbNHtWseircy9EX0/SS4BHCEi0v6T5Yebh1SsjLlY9+DPK+vZxVQKX6gUhEH0i659N5t0w9FxWoICFwwuRcD4BVEqAPSdhab33xpUvJT0frPiZGLCfoML22nx1vv+JBgHC/vrYPp10xAjkGPO8rCHmoJNv/YHsKPkALKc4EODWmy4fajj2RmzEqHOIcpP3L5BaB8b7dyGoDc3A66L7FF+xZK0eKl1sOMpcKmIs3oW2eLywUtjan3JB0DC0bW61Czsa01R1y9o6MwOpXiLTtDkoUujX3T5bWLwDhnBI9I+c7DlIie3M2a/RGKmpYY66Iukz/aLUksawog9PnW38zOHJBsTJu70/lXUQ+v8uCHEIWlm3qcyd+swlFgGYpzwqbv9t9VDVIhFF40vxHtjXclvDglnKLH6b54kSKru3KCIiKCs8bl6T20g7P8iB1f+4rhdOSGucpDW9GPvtCidO77EAPodT9q0+HU5mACl/sQZcV+sE2r8OUNEiaJ3NvjYgoENwYgBJFrk9N9zEggf1H1v6GUq0flzH2ug9Fp4mLf1sP6eoUa0rv1M/JmWQs+cNqSmiBL3rve2BUtc8JpgbfBqbFHgq4ce2Uk6zbstRWmGzV8YevfIwtVsezXR2GAFVMOBA7Bep8LaWnqvHGrx8cWJ1FZwKium5L1rPaVQrSgxBWKzBwXaXTOH7oigae1ax0+BWjdNG3owI3ENFzwocDNKSoGEwxvcixUpuXC1HLK9gs+o1wmcCpMee8bQnGct//J3S7n/puHwkgIo8MkxruEK5vyPnbSYdUkyNdyYL7EctGznv+RddS2pMWcHhiTY8Ei/Udai1xwI0B5/JiUiAy06c/zQTA1lrVnkleYR9GJ4UAA7PUyYD34onD4wuy6hE05VN9thfUz/RR7G4KSSAqhxuesvtPzpGgcVjJoLksrLYlzgkAWgxGu/k9rVVf1KSQNHROvclLDijSMlOYVvOjgBHdwdXOkc56AShKjb6L6K1aW1A3mPu8i+rNWB1ASOoaQyK6lgOaXiaeq6zF2tiVIGEwSmT3KxSJR87CUn80CIi2pVUqltQn7WqUSkki89JpVLMOnws4OVVAsGIB+xvzOAmrZ/zUl4UIHnIrEabwInKyegFL623Y0vrNKGs8a7kL4WN21yypwQOH1iYgQIUrWnOa2Q5aabXGMKk0s4IUkvOLviWm8f5XhYIuk3Hp5TyUeBf+NYzIRo1HZn99Lm54PdWw9GgdzuFke9scUx1K/4/CTTigTOd0yUZdFyo1s3oBJmAJCYvE4rRwLc6UyAAtO3K50cBWq1/WDHDSQatdOZBFXniYFIMAh5CD35EMcryYpuaHHMHRN05ASdYHo56QlnOabKsmy5wSXnt5ZRKhYmnONoP2nZdJOze8l8drK3/omvdC62rsRNTY7+CONTgUzpIABy/RzHVzNd71xZhPSY85K930AYN8ZxBix3Xe/iEc+pL5HrKTDDJXLZOM65HL3ER9nmRIfNH3UWaSTGNbrEeWcEIatAj37FUaUpur7R5bSdPpJ82ZOPOLMAi8brHaWg4q+gJGewJA5oc9oyrTe7ECAsLE7SCuy2BBe7eEIkxm12Xk/b+AB3NMyftPS3HZPnFC1rdJYmpA+YwQknlwue4dI0ialxmRMJkm64qxSaT+LMvCM12e2zXDZMYAZrTnhoV5EmaFa77Uy1Z5kzsSmBkB79mxw52jAbnnU5KBS4lBMvdq75UpdFajy7wdGSIX3daGPr1RRAi797rGPtC61vd5MYhOmUvBKh6W4pjcLhOgsASH3sd6NuEyBxCuedbZjmYa4sMmlXGli4aZyriBnW7GzJ5PkUUyYWhk8d/CfnPVH0RIfbCQPnRyL5waPHusXgZMcTzv6cxX862Bgao6fUDTNcwnpqgds7BM6HSr6Gqk1fcqMmgQXKJZA44wYVIYA5+yfn244EyFbnQreiNgJHyDRc2XS/KGxjYadzhUPLPv8ndi46AXgMuwSl8nyf5SZupXV30mZ090Hbmw1uasSy7nMW7awVH2MkBg0oUPDUR2yXmIDQD9ru8fQLkIKGD4TJeVdbwH7QJeeXYD8y1cQLMGFh/bMD3CwVKZa4Z4sN60IahpYnuy1TY4lwk490wM90JBRo0Y1XulU/03hpr1vWvoXPjS6koQSoqj/VbZks9r7kRgDSvvJGg6QeXwAt+9xv2G7v0QPaTjiZOEjHaHY1cUTL664cZNnfONe2igVQqpPu9Kq+N4zcVdzlSEXhCYHPu1e/I4+kaGnfeZLv7QLhF8PCdWO8bne5t95hHIJ01FDFIe7pTV7OOtGY6+DXudQHQFn482l2SFWay6eEg5EPadFJ+7Q/F2QxAEr73Cu9xYDr/li4cKqdDha2p342ZHqJZV95rg/9CG8BeNQCn997UFltakrveF3vIx8KWnCUtxj0WiRRw2/rPK+3EqbUuUZvu5Ca4SEEvRMRiOp+2xC6WEUOf/T3xQ5yC2ZhcdIncv0nc6tdI24TP/CJuBX4j57VroSXAplzZcFPdmhXLUbT0kOBedebBbXjfJjYKlw5x0uRCA/23O9XNb5izP3r3JEeAO1QZkwPQjW/2s9jme4I5dSPZxT8LRjXV9fXp0aH6IOPdI0L+Mo3WZjxY5ULDqCVn/1PBQP7yeXeg9SzjkpL803icQcXcVCZK/zT7LwVFEDicb8WBr33MMNtD9NUvY1drS2TiK8Uvx7nugHC1QT87lEGQW2bLoEIyRtx0qBrTP+L5F8UT6ijvuvKTW6rt6dfbcaBHe7BhBSNdrdNnmjCKVJdPd2tUoTbgZD441gYdr1wGWPSBOCnUIy1Txj7RyGCrF+qM2YZqgDXDfxamgA83e0PZlf8pZrlVjbDBVfrh+buSlj7IAUsrDHfNAXhh1YACsypfzvdjAAtvgsa6R9uIX28Y7bRUp3+b87GoGMKuz3mO4Z2E+H9VNkrgUedsS35nTE2GQIo+dqxxt2Ka1DWw3T3hRp7LUszAIU96pt9zyqOaAZlOrTqo6pvjrKFEYCEb4/vPVDTklDVQ/RePyA1/ttO8lI4qabP9/43i/Ov97aIdblToCeBaCy5ojfFUeDzTvpyKIASZ0/pkYCKfr94nI96kuXOo95/3HTvUz3OnlBTzjHMlvl7TyhZq6ZR8Ky3qPj10W5XRB5LS0Ca2ebHXJZuyfu9gu6a23B4U09iVYEfdniLAwsP670UbIuft5zlGa/QeHG324lNefC28i5zonjWuz8X3SQo9fGHDE1FGlobSR99XHfjvULud9eJGcO9EzTqqFgLK2FrxbO3Aunhs+V1v8sVuk3BiROGmscOFDi9+yE7t+anUn/ah+3dC/y/kyYAc67AvuupRiQuUvKna3LdNMgHmThnWMQFZi7wmgkQ05o864YpPsctHIHT0yQDr4RbKOAIz1M5rbdMFpiwpgeSRUMP6B2WLzXABevNs3bU6uPHKvLx5MqChcNOk9QBZ+naHWe9aRUYcOop6gDg08K2KffGmduljVP9VEFNWViInAs7TeIvoCC3n/lGjmxbPG0AoBI3raqzmn9z1napuGGOz7U7j7psuRT5MB6Jkn6uFk1ogJLbz/pNs1W3yuFeuTVUrLZ+8jSs2gChpD7ucJ+oliu+jMb2YZwODJnaG930MO3ZPcprmlJ96LjnpRLb/+X/HoelrUY3r6h3Yyzc4K0IFL/YIFzt8eXpSe1Y7n54hkXe07T5Bli9x1JmvjCTZQnFID3qbG9XkbGznUI5menxeP3SoAlnj9IEVsKyiM3igWzbGgDpo47wS/RvcP88N6QHvwZ3zvNrwCj4iKM0AdC2Y4KI8HKKLx/89kGpRJI/fqRyPRZ+OC3eHONhdxKsGbzPg9OlFF/ujZK7CdTw6cE6YsjZnnswhvBseijwWTcAhTry44MCzWKQcy/o0yN0mOQiwcceuq9+Uvjf3xkcW/AgsvSwMJvXJ1f45x/se7lO2Iderq0wAIqLufsYRfeB9cySAGyZntM6qg3A7i/e3da7yB4g+TNSBweQbPFZkgAUXp62ExrQ1sY1BwbYyr++L1OBIYvW1/x30+4lu8kbt0oGNLZPXg4FQJJH7Wd3AAWf0huYfnBTz44U2q0AW9leSIkdLT5Y4Q+g1SMJudBt2JBuqLurm5QKNXNgBadAmtPT3lHNu3hC73lUc29bJwNPNz2GoPQ9o2X+5790cyzVdCetkh5xykPdAAh5ifudY9dX2zwXEoAtH9s8qo8tn1rbw5bCHx5OzZFxzl+U0B/XggGWm5/rC5BYWxdJBYBwrHsmsLuLc84kJQCm9h/3RQxED1kxdp+61C830UJKsj407vK7Z6NoqfXPkADT7u14vUeJSH0nGACp0e7HSe6pwwfWMgCW77/YA5XCbX1/zj+/xa9APmFjOixpxkY/ccK8ZXfP6a1FuK9n4xUe3yg1QDzsQATNUFX0ZQgAGjf1/3TngCjMnf7XT1JjCPpOhOjO3s1m7kt5YzRfRwqAwJddhaCrDOR6ANBy863CIfZli2VbfPosMnbpdNzW1Lt8WEGLLcsGFMHu51brD5u6Nal7SUG3vEs+5iBNgKZfdfRHc/v/VWPtfJ7YM6CqMK/FSgEPs9Uyz0NeMwNMz++0+lXejh77S8Dq+DVpgPRBx3CgDFUQpo5hghYb+zq1stW8qMe9YKzVdDfYLxhUtA6JphGJ5zQsAhh3U/6+PpQXNHVv/F4ocfsWS4N4zFRQQBbuYgAsLm3rC4JRx8YecaJwf14u2SAVtjZ6xGip2Ks2mqhQsIsuYFbvcZ2KGrdCyQ1LpF7XzecC6IaPcDy0aPsZFADuCmwHWgzOy18us5TCNd2PDa8Dnu3+TC1yu6+nLr1yk/tVUpF/uUgaFO2duZxFokj6eznvLunFppW6i67fnUOPv9zZq3QIc6Ft6/89nOticHBPpEMoqnn7F6QAjO2eyJP5GjzSy8S2uGVbvfQ49GTZ9WRRACo8c9DR3//+tz/zfFE0qPFkl/RgEyXrt90i7G7CULgFNYWeebcD0PIbb9eSEh0BAVTi6X+v2X39Wd0dLgrdE3lOyV6LgAF0XrTmqW94QlTc0TDjxcb3fvnL3y5aWmRDjTpPeL/x1JqLOvsDcx2w1HPdqxIANG886/rdNf/+tFsbIfeCJj9f9c5adE+9h8xG9wvkGkDjxZk+M68tWnjVaFj5Yu3JWs9d2nImAC17HTgBxugBykeLLd+5abp7dN0jHvjwWtmjIQQAtjru6dFTbO2dDwUI8vSIGW/oIsUX60LBVkUKUv2GpxlIggSgMH9vj9GlcG/e4j77W5Nc+7AIHg+ElqI7QVriD9AA1W4Bd+8K1WwBA5o9YzIaC5RMvoKlVAs85Qxr1gBjS01P9JixqYsAxks9nr8SYQKqQP/OfwBAY3lBdt/s0bzcrBRKXTp8YSNRLO3lrAEMA+faH4QC42+96GiPuIkRj1kAmP/WLhSWtktmWrhXGB3RpyKgVWPiULLYu5CYZftSaKiNDABGZqwRgDUAJN0HxbR6PfLUdofBJVGwbHoikoCWLu7HTzSZCBKb7mijPNavJla4kySAXEQAMjaAC/TCZsksxc9ErfztFpMpseh4u7iAVg9yRTk0jLc7TNiF5ZbfylrxMyGZ5fsvUIH1hqjCcQKPMTd+GAKAwLXLfyrNlGsOtxVTwrLAtyAHWPh6MUk2Bb7NjJQg5E+XX9uzyA83Mj8TWe00ksOXbO/t3k7mVSlzuKkYABV/CRYgMKm4Yvo3wbh0lkRvHOb47S9+LLorHAQa3rcd0hhBgeOLqyM9EQIQOLS4OtLHG1NS/9IEhlORF873jVlwW1/4VJF5ad6O4oRIQxRRsQD1a/qXpkUbGxkahpvDNMAdDQBKkVmqutfULYp9AtS+44GRNI3oAAwX2WRq3laMIuv1c2QRwpyxrTlUQX/TFZeyRB3L91+gIkpxC6vbGtq9NjwXK3r+/ZL6kyVuam8Vw7+rmwQDLJqeK0YMNpT2ZKu0AAbIK3MAcEVztxynYcXMYSeXL4CM+cVkyPRWCOYiavgQbi3t8X6Jy3SuKmbyfTnJ9UVtIsqYhTG6GAHUF4leUQQdlzoiVFoWpnVbQzcFIjzTS0MPhgaQaet6Kl8W1rR+rdChAXy0l//CH4posXZ9aXu8l5iFKRcFC6siaKjUV/ZKDCAXA2Af5VhFgJDjcgZQ4Lbi1SBT486wcoxxW8mXWNqxISx+SrywurslkxbvvRJajvGG8jZjMCo897V1RSBJaVRZA6jx4g4R3o7pI6OwthyLHS+WOFG71ACu/yA0gAMyMjaGBvCD9WUNIEDhmxv+uf+ft4V+yUgqaxaG4OWh1fC6/n+GZmEsL3WD45K/fkFYFhoo+MJWANFYgPIGEL2pYsU5MTUU++fT4olgux1q8Sw29Rl/ml7ZFE4Vkb29zEtsEqxtoc6GFS/vt2MIy1iFOhPeZoHKnIWtsF8YmLwZOqgnrDJnYYALIX848HIQh+2wVuAyB5Bz+TtCtSVgPN4/N4mbQ+lyG3fkyzsaA4DbQ2qfJwdKr/aQX2/nsmdhhDyT5PoopjkM5Q6gwrzOUFcO99UboabJVuc8qDIHkLEpTA03Fm1v9Is9hYVbw1QAId5U7seaAHJhOhyy+GBAHIqxuyuUOdeVK3sW5tyucGy0bxskURtKfNyzK1f+FMjhemzW6X14cWsoXhRc9hSIcLEojXkDb5ha/OcQhiDhPZS/GaPxZwRP1h7SaiaMSyZxd+kLr5TekMbWUP58QxTzLL0ZGAcLi84whLtnkEsRhpQ6C6iAYdG8wLdFNDePGki3hFHNgaNiBZ5PViVQIIcxQQZfkAx1aTiOqitx9EFfE0II1g8uPlofYml/RiWYMYx5gQHUWLVvpQ2RXxVCoW5AZVBgLrAs1/h758DLCSw7Hw0OYEFWBIBKrnxWBHbmhtwyHx34u+LZlVJVBAXqEC59zWA58H7woE5OVwgLB25uw5aavy/HatypAuvUWHrqxALgXYG9WL12sAK1dOk/m1oAgy9eDnHCROCYhLZQIYNyrwU7F9fcOnHfrSU54uVgF/8VvxZLS5hYKLAQUIsoPLhjXw3AYs+KoFZxrlApLCwwL+jiHS42BKxkxpgX0+JiYGG8GRRA6fSWgAC+iUrpTEsY+75WgWTgaYN3VuC0QOEYpd8fi0qRgYxdAeU57xj6fzuCETHldsWS2RaLEpEioCdLDgJvWKA90HhUxNK5Nx4A9cogADJa2gajxXJDoNs2Git15QBo4x/tAQ5oNS15b3AiAlNLkFJWnGv/B+yKAZCxLh+IAZ3sxmCVEyi/Lp7k3ngAtAr3BaIHp2OoABWIABv3FazKARCkNgV6/uah1MO4OdArNql4rMB4AFT4ix1ACDonZbYHEYH2X6AqCEB4lAJ3IljHyEugyyJWed9uGGrI1Cw0DqYo/frIofWVSYx83didsXlhjUQlUSDldxorRabdrU4ysNW8ihhjZ54qCkAgyEUFZ6cj0N3pfFzriglAjVsC5Gh94ERpxAuNiVjilrgaYsVGgebRTcYtTtMiPMul+Fy5AEjFPzuWSvO5ygPQhTDfaTXXIlxxACpTV05b6x518vsUlpvXoqRchQGorbeeNK4GSntd/t80nKDprfcFVxoFFoxZdYdzzz9i05K2jLc+qDgAjYWgxm0snW2T241tk9rKUyJB/NjAf6gGJRJA3bqqGzuFEYLUAci5pvnOkSiF+Y05zgD0HfZet7/stTIKNBh1bk4z0fvIKNDX3MH8vHM0lK38PTGFmVMJoGnbA2x0b0tcV80sbHqo5mWBGPcn0ai0IXGuUUxfc/sBbjY34YB2owwjm5+EVbUUWONxQbvLNM/3gdi0TdpkIGOTe7Uysk2LSKyoWi2sscC1MztbLQsNpVt91QIIjIkmIlGtAAr2aCep8AdOmzOStvkIPOMl5vamLu05ZRTIaCIPjCjflDZnLmUAKvxjk3uRJy03/yNtzpwoM5YQ1cvCRkFiwTd78SjjZhbVCqBZUxDyKbXYTpFtVnkByGjZ638srumNdV49hLRY94ZJrn58x8KxAajF8lf92ysxNTV6wWzWm0WLt18hXXEsbPQpXuPDovQXf/ZkatpFlRdMMHGvmP7qs3DebiIEBVUcC8OkuRmL7e95856md7cb5BzUV54SAeGvvszHoukdb0+D8W6TL4DMf63I9LaVBovaQn4ykLYYfGtlBQLIaNzjJ9k17vCzkwXf4SdMmfY0ogLzA7F0l396n4H95vsIy11L03f8GcFW0d0+x0qKNw/3f8/wzT4lQGy+m1J3WhvFl/gfvpZMjUHN/Ha/gyWNx7kSAQSG+658IfnehZDkfy4SZ5Q4TgD9CkozXtW+8xH6VR8NQTgEFWgHQuELvl8zOkyr913S5ZWoQwBro7f017p1iv+GCkxp1dpbF71TU4EsbOGcA2zvr5HY7c97jN0+nq6wD/k4WZXHwjTV8oOmiQwcCCLfgyV5cQXmSGv+ko9/pXDvHv970mztuddHxAn+5ChNFQag4COP9lWxhvc5/R4T+pAT4ltYbACeO8K3Cqqh7jR47AqulMJjfTok94z2yw9UR5jsp8ARyrf44rqxorJurAs17WP+HNpq9rJWf3I/5BhdYQDyHIOixIa2h/9jiq9I5R2s8CYMjfvAv4yqOtCMhacU/Auobh5BlVR4h3j4uOiCxNKXBIWecnJMEZl4viIxVxciApBFyxu+8Ribz4SsHABJDbtQRPUlFruf9wVQ0knDbKocCtQcqWUrDZZ1CuvKoUCJ82V0xdS4dpKvPCUlzkflVLAkHFYTGT0INeE8f2x0zWGoHBa25WVG5GA6GWVC9JfJWEqAxhI3YzXO6DnDNsxm+nxc5dQPFPjISAPPStF5ZtPZz+DIg/TIj1ZMKXiBY00A1PQxE7El8WVhmwA4vWIABPaYBYgNgwlG1xaJp6JSqlgKPGbST0TxeyYOrMw9ZNIpUfGbFVRLf7KZsTPBRLipEbPNLLyOmKgjDjvQrJ4k28NNHms3VNaycuxAM6+K7JGf8zerBM4dbubV2JVSiJswZqThWqTJhI8z6hdH+rAPxxHRiuMTfOph2uw7RrZvk9m28cjJcWiReJpSmdLfF/3dL00fMcSF8xXCwgHKf473V8NKzDacNFVQPNCYVE1SO9pTNeV0AcgGARQbGYCuNvLEc/0UMeHA+lRlHaRJBhLXHuj3rMR541XVAVgwDkcbKM6udK0tho8oWvKG1JFNx5j8CnsrhgJtY8HfFdmMtXzzaVIVAqA51Rjk1xvTFVdQUypjBv6C70U4HJOunqPxANgQGQtrXGIKYOXkxhCeNI2uG2BjzMLtFQOgwOMRHk+YKpFAPXTSzsJjk5BO+YqhQMZ7HRT/CVmuYgBUeGK7jBlALbf9LZYbczElWNYmEJmooA7XxLvjF4GtFXQqZ+k/xX0BVeFPyqoYABOpNBrTJ0U85HB/a7ztVtlqvT8eoo+pRfi22pgdWKrdVkEtwiH00nj7A2gs1RV0T4StzmXxahGFZZ1WRYWzmnSsx1dCN6GCrjlA424RpxZhS9xdUQAydb0VlUxno2fe7orJ+44JQLnrZSOKMHjGMnqNSaWzcjKkmZYY5ZoZhK6NvELurLCiE8zPG+T6MB70m5DErQZkKumPXFktwlluX+ZfmZjxin9Q36SWLT5oocrq7srUYuIZcF0kM9a0ar2ssPa4THcYOWD+z5ikPvNLlVdHmt/3PaNg0eKrq208uNXy5WL6e8WVflJixRtS+QG4e5W/iOvwzwIWWzZUYCl4tc6fKoTBQZAc5i8unoutxXp8AArM85dL/u0KILSvT8N4gCqvjrTGhjYfstD4i/b1M6R+wIfNWexez7oCAVy21gdAxk6T7F0/FmaxexkqD0BYdJdvTNDoLFz5btUzFVlHmnmT7y0GI7rxtRXzD1ZkHWmNBb4FKnMm9Ldgr+dr2Op4NMbwd4wUaNnzPRfGVvt8/5Uz3vMmZMabnLI+PREN0uu1JwWSbXSS5nPAp/QDeVkpl/33xQcHsVeDas0to/2DMYRRLd5v4YPjTAKOkQJZbnvcz4Qze5G3qH18a5wEGOdZmeh6m7loJQyq8Vb2b3fFuqgYv6WxwLtbQ70B67HV9oCXqpG0INYz/FgBFCs2eURJNFaZ0A7Zmz2YWNOmFaJSAWTR/Dh7AfhYh5H08mJhzY83C65QAMG4y9PJqjd9jcd66K54CxbFCqAWqzx7ixbPepreWBUrB8dMgbRrR2npg7FjF1UuBQJ0X2mXx3RfzImI8QLI/PjuUop4FrsfZ65gADW9u7q0AK5+l3QFAwhJ95TSzNW4h2QlszA0L24rnafKsm0x68oGUGwsYfduTa9sFJUNICTdr0sHID8QNwfHDqDNC3SuRDzMua4H2a5wAA2CgkWMxubY6ynEXvpJ2qtZlYy691pc6QAqLKISXYW2aH7cOjgBADW9sqE07hzThlVU+QCy3PNIaXhY8SN74j+Oi7/8Xcm8hRJ7OakBkMXr77hwGhUnG955XXA1AEi73erwFFWohPHkbqoGAAG613GdEhcPN2ok5YIS31tp/TRdN61hrVZOOQV7xxhkJtAIx07ZSq9tSIIaEqHA9kechWCXCQ+z5djjT9Mj7VQtAOIhF2jGmuiRDheYH0K1sDBIPMcOvXLz/G/+GYIW5uYdfmvzcyIR/BIpgyz13c4+114T8j3SqRmB5ru1rBoANRbmHbx+wrEGlrDocuT+/MIErOjk9DA95sDDihvrDSjwdYef2vwYJVNTPJmvWvySQ4aVsEedSz4XRQQfd4hD/QqFl9iqIgBtPFVw4mHrEr94lKBP1w9tscZW4am0FdkvsSEzxnbI09V6yzifS1qEVx3MaM1qTEJGTDIUyNbeRQ4yn9QBx3tn2As++TAlHLRSArHoJAEEdW1ycmmJT/IjwEn17OQdt3QlZEUnBKDC7exkttGn/OjoKidWFXg2KSMmsX4ijo6r4GkHe9eIqpvkSJj8eFJ9IJMCkLqaHZZMfOBYrwubUh17oqPDQSMTM2mT+ayWG5506rXAfJifAeQkEOjZ92SVUaBL/J7pCi9zhOirTrKOsX0vVR2ALlWelOeMeIwLb6PKWBiMR5xIzcJnDrFd50R6/LHOM66vOgCBZ5x5NecRlSY9/AinGRMeSKwZc9pYWOFS9zkRpjlemCWsqEIK1C6sPd1diwhcKZyTGqqRhV0NFS+frDnQblQjgBKX7+d2pZ9U/Smpm3D6KLDevZmuHnFy6k7eUgcg8xR3kDr2pm6/0wYg2XVXuJnFEpcOszMK9B0t7lbMVMEZBfpO6FT3RpwpTD1IIYBn1jj3v6VC3ZdhZQD6jrZOt7/kcxkFGmiR/c53nhVhao4zAH3lGdcc5Pw3gQvGuClhrkIA7YBesocjF1cTvnQBONLVmbvGGVyNT7pMV+PriSnoxA6V8E+ulDbcGQxNZ7jC1FCFFOhukBTcsshb3R1AqjoA3YN+atrHnZw5wqRRrjh1cdUByK7NrHnYeCd4Jc6Y7GxhQ+DwEbq6UjuIG2a6f9tFpza5kZng42dUGYBSXXGU2wEm4evOh7/nu6a+Kb4iwZPNRPatYb3TXZuedN2XnNJ1BV51Su3vSQ5+q15UEwVafMlBHifoLi1D3JWwsGdcoa0qIkCJ+3XBtYysajthKAkKOrJNuRafVXpdPVEV4fehvHIvxGvz7UOtRAvfduVgZs7z5VQ9JCjwABc8KhnrdfsNuXZkYan2ALDA96QxNFcqG7puh/YoBc2KZw1WqgKnFbx+ou38sVQttzUlrh2vvAQW8/cGlyuX+JKlPA3L3DlcLSQoaKWXOGPWzFP23VqiUVtYef1G6fXjklAjCWya4GOmK0+zl2x90b48LPm4A7yTp4U+6KOJrCYJN+58v1wgEhfsezTH8se+NXX481wdHCzrXtaeHMysdec+PCwwpUOzz2948/4J8HD8FCjUoSf4Oa5k5y4YWFxGYk6N31U40lNOSkCNJPHFuf5FEoW4ZGAhO5suF74z1Xx5NVz6JzniZfbhYGatW6YNRENu9dbB3TzcOCF+UzD2D5KqP8k/9ERq5Hn9PGzhrHG270wJ+42ogsI7hDO1MpnXF/pLlDFdkjNgzgJfHX9UMP4CjPiYMCreNn7EAOlmllhZFYa0tsaafFSo6Sf23ucUfPwBJhF7idkNiiocQLJHXGzIZ0f3c/2kMSbnloTpNZVfgBFsWqPtsn5krjJUDl3VUb3NcNh9AVIek177Ln4Ayay4gdSnfag75CD0gdMNXQyrClw5slvIrECJlL3BhwOmGqVuKN1sV3wdaaa2TzXltG0bgMj9Bp4/v9s2W+IXe2TlR2QEjn2cmVn5+GZKfbhbXUt82P9ZZuYt5yRgCMZ/kqXFq588+1M85stQBEBDUje50WCDsS/DIycGO3I9T7NmIoAlbmumR5Y3U3VEBLtP3C5f1neMadu2zWwrZm0X7N5jtjUTux8kMXEN53tIzbY1M9t9P+oeyy7vsaQTCI4kAqEUDBuX/Gs96A/TrmkAgJ0j66AhALACSOfWfHJ7D0ERT3z8aMUAkQCgIdDZuj8AtP95xcUH8t7/uQ8WSOsqiUgPFh7Tr1ry1JJfTpj5zXeZ9Z2fWdxNVKv371dwAvs/0v2/G555RjPbdx494ZdLnlzy++nJSaJkKbBn1QqA6K+DN2Im2l4HTvtfUtOyW3fJ/piD0DjjWoJ9y4rd+NBwtL3eR8qkGZAJFm6jtIhETaQASPQeHu2jEKi37K+EAiC527Lm5ItWpslHIgHW6NbKPFig9f2voDTglo1sZCMb2chGNrKRjWxkIxvZyEY2spGNbGSjCsf/B7eERra8zA4JAAAAAElFTkSuQmCC';
+const DAY=864e5;
+function emptyMarks(){return{sabah:{},masa:{},dhikr:[],quran:[],khalwa:[],dhikrText:''}}
+const atH=(dateStr,h)=>{const d=new Date(dateStr+'T00:00:00');d.setMinutes(Math.round(h*60));return d.getTime()};
+const nowStr=()=>ds(new Date());
+function period(){
+  const now=new Date(),t=now.getTime(),today=ds(now),pt=prayerTimes(now);
+  const fajr=atH(today,pt.fajr),magh=atH(today,pt.maghrib);
+  if(t>=fajr&&t<magh)return{kind:'sabah',key:today,start:fajr,end:magh,endName:'المغرب'};
+  if(t>=magh){const tm=addDays(today,1);return{kind:'masa',key:today,start:magh,end:atH(tm,prayerTimes(new Date(tm+'T12:00:00')).fajr),endName:'الفجر'}}
+  const y=addDays(today,-1);return{kind:'masa',key:y,start:atH(y,prayerTimes(new Date(y+'T12:00:00')).maghrib),end:fajr,endName:'الفجر'};
+}
+const lastTs=a=>a.length?Math.max(...a):0;
+function lights(){
+  const M=S.marks,p=period(),t=Date.now();
+  const halo=!!M[p.kind][p.key];
+  const hq=lastTs(M.quran),hd=lastTs(M.dhikr),kh=M.khalwa.length?Math.max(...M.khalwa.map(k=>k.ts)):0;
+  return{p,halo,head:t-hq<DAY,headEnd:hq+DAY,heart:t-hd<DAY,heartEnd:hd+DAY,body:t-kh<30*DAY,bodyEnd:kh+30*DAY,
+    quranToday:M.quran.some(x=>ds(new Date(x))===nowStr()),dhikrToday:M.dhikr.some(x=>ds(new Date(x))===nowStr())};
+}
+const litCount=()=>{const l=lights();return[l.halo,l.heart,l.head,l.body].filter(Boolean).length};
+const tHM=ts=>{const d=new Date(ts);return pad(d.getHours())+':'+pad(d.getMinutes())};
+const dayLbl=ts=>{const s=ds(new Date(ts));return s===nowStr()?'اليوم':s===addDays(nowStr(),1)?'غدًا':fmtD(s)};
+function syncWird(id,on,dateKey){const k=dateKey||nowStr();const L=S.log[k]||(S.log[k]={awrad:[],heart:null,note:''});
+  L.awrad=on?[...new Set([...L.awrad,id])]:L.awrad.filter(x=>x!==id)}
+let lightConfirm=null;
+
+function figureSVG(l){
+  const W=320,H=710;
+  return `<svg class="figure" viewBox="-70 -45 460 800" role="img" aria-label="حالتك الروحية اليومية: ${[l.halo?'الهالة مضيئة':'الهالة مطفأة',l.head?'الرأس مستنير':'',l.heart?'القلب مستنير':'',l.body?'الجسد كله مستنير':''].filter(Boolean).join('، ')}">
+   <defs>
+    <mask id="bm" maskUnits="userSpaceOnUse" x="-70" y="-45" width="460" height="800"><image href="${BODY_MASK}" x="0" y="0" width="${W}" height="${H}"/></mask>
+    <filter id="haloF" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="22"/></filter>
+    <filter id="haloF2" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
+    <radialGradient id="gHeart"><stop offset="0" stop-color="#fff8dc"/><stop offset=".35" stop-color="#f6e3a8" stop-opacity=".9"/><stop offset="1" stop-color="#f6e3a8" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gHead"><stop offset="0" stop-color="#fffbe8"/><stop offset=".45" stop-color="#f6e3a8" stop-opacity=".85"/><stop offset="1" stop-color="#f6e3a8" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gBody" cx="50%" cy="35%" r="75%"><stop offset="0" stop-color="#fffaf0"/><stop offset=".55" stop-color="#f6e6b8"/><stop offset="1" stop-color="#e6cf92"/></radialGradient>
+   </defs>
+   ${l.halo||l.body?`<g class="halo"><g filter="url(#haloF)" opacity="${l.body?1:.9}"><rect x="-70" y="-45" width="460" height="800" fill="#ffe39a" mask="url(#bm)"/></g><g filter="url(#haloF2)" opacity=".85"><rect x="-70" y="-45" width="460" height="800" fill="#fff1c4" mask="url(#bm)"/></g></g>`:''}
+   <g mask="url(#bm)">
+    <rect x="0" y="0" width="${W}" height="${H}" fill="#6f8b94"/>
+    ${l.body?`<rect class="bodylit" x="0" y="0" width="${W}" height="${H}" fill="url(#gBody)" opacity=".92"/>`:''}
+    ${l.heart?`<ellipse class="pulse" cx="159" cy="246" rx="78" ry="118" fill="url(#gHeart)"/>`:''}
+    ${l.head?`<circle class="pulse" cx="159" cy="62" r="80" fill="url(#gHead)"/>`:''}
+   </g>
+  </svg>`;
+}
+function lightRow(on,title,desc,status,actions){
+  return `<div class="lrow${on?' on':''}"><i class="lamp" aria-hidden="true"></i><div class="t"><b>${title}</b><small>${desc}</small><span class="st">${status}</span>${actions?`<div class="btns">${actions}</div>`:''}</div></div>`;
+}
+function viewMuraqabat(){
+  const l=lights(),n=litCount();
+  const msg=n===4?'اكتمل نورك: الهالة والرأس والقلب والجسد كله.':n===0?'الصورة مطفأة. كل عمل تقوم به يضيء جزءًا منها.':`${n} من 4 أنوار مضيئة الآن.`;
+  const chip=(on,name,until)=>`<span class="${on?'on':''}">${name}${on&&until?` · حتى ${until}`:''}</span>`;
+  return `<section><div class="figure-box">${figureSVG(l)}<p class="fig-msg">${msg}</p>
+   <div class="fig-legend">${chip(l.halo,'الهالة',`${l.p.endName}`)}${chip(l.head,'الرأس',tHM(l.headEnd))}${chip(l.heart,'القلب',tHM(l.heartEnd))}${chip(l.body,'الجسد كله',fmtD(ds(new Date(l.bodyEnd))))}</div></div></section>`;
+}
+function setLight(kind,on){
+  const M=S.marks,p=period(),t=Date.now(),today=nowStr();
+  if(kind==='halo'){if(on){M[p.kind][p.key]=t}else delete M[p.kind][p.key];syncWird(p.kind,on,p.key)}
+  else{M[kind]=M[kind].filter(x=>ds(new Date(x))!==today);if(on)M[kind].push(t);if(kind==='quran')syncWird('quran',on)}
+  save();render();
+}
+function wirdList(items,L){
+  return `<div class="box">${items.map(a=>`<label class="wird" for="w-${a.id}"><input type="checkbox" id="w-${a.id}" data-wird="${a.id}" ${L.awrad.includes(a.id)?'checked':''}><span class="t">${a.t}<small>${a.s}</small></span>${a.tag?`<span class="tag${a.tagOn?' on':''}">${a.tag}</span>`:''}</label>`).join('')}</div>`;
+}
+function viewAamal(){
+  const L=dayLog(),l=lights(),M=S.marks;
+  const LIGHT={sabah:['الهالة',l.halo&&l.p.kind==='sabah'],masa:['الهالة',l.halo&&l.p.kind==='masa'],quran:['الرأس',l.head],dhikr:['القلب',l.heart]};
+  const items=AWRAD.map(a=>{const x=LIGHT[a.id];const it={...a};
+    if(a.id==='dhikr'&&M.dhikrText)it.s=esc(M.dhikrText);
+    if(x){it.tag=(x[1]?'✦ ':'')+x[0];it.tagOn=x[1]}return it});
+  const done=AWRAD.filter(a=>L.awrad.includes(a.id)).length;
+  let kAct;
+  if(lightConfirm==='khalwa'||lightConfirm==='itikaf'){const w=lightConfirm==='khalwa'?'خلوة':'اعتكاف';
+    kAct=`<div class="confirm redo-c"><span>تأكيد: أتممت ${w} اليوم؟ سيستنير جسدك كله في «حالتك الروحية اليومية» ثلاثين يومًا.</span><div class="btns"><button class="btn ok" data-lightyes="${lightConfirm}">نعم، أتممته</button><button class="btn" data-lightno="1">تراجع</button></div></div>`}
+  else kAct=`<div class="btns"><button class="btn ok" data-lightask="khalwa">سجّلت خلوة</button><button class="btn ok" data-lightask="itikaf">سجّلت اعتكافًا</button></div>`;
+  const lastK=M.khalwa.length?M.khalwa[M.khalwa.length-1]:null;
+  const kStatus=l.body?`<span class="tag on">✦ الجسد كله</span> مستنير حتى ${fmtD(ds(new Date(l.bodyEnd)))} · باقٍ ${Math.ceil((l.bodyEnd-Date.now())/DAY)} يومًا`:lastK?`آخر ${lastK.type==='itikaf'?'اعتكاف':'خلوة'}: ${fmtD(ds(new Date(lastK.ts)))}`:'لم تُسجَّل خلوة بعد';
+  const canUndo=lastK&&ds(new Date(lastK.ts))===nowStr();
+  return `<section><div class="sh"><h2>الأوراد اليومية</h2><span id="wcount">${done} / ${AWRAD.length}</span></div>${wirdList(items,L)}
+   <label for="dhikrText" class="muted">ذكرك الشخصي اليومي</label><input type="text" id="dhikrText" placeholder="مثال: لا إله إلا الله ١٠٠٠ مرة" value="${esc(M.dhikrText||'')}">
+   <p class="muted">أذكار الصباح تُحتسب بين الفجر والمغرب، وأذكار المساء بين المغرب والفجر. الأعمال المعلّمة بـ✦ تضيء صورتك في «حالتك الروحية اليومية».</p></section>
+  <section><div class="sh"><h2>الخلوة والاعتكاف</h2><span>${M.khalwa.length}</span></div>
+   <div class="box pad" style="display:flex;flex-direction:column;gap:10px"><div class="meta" style="color:var(--ink)">${kStatus}</div>${kAct}${canUndo&&!lightConfirm?`<button class="btn small" style="align-self:flex-start" data-khundo="1">إلغاء تسجيل اليوم</button>`:''}
+   ${M.khalwa.length?`<details class="slips redo-h"><summary>سجل الخلوات (${M.khalwa.length})</summary><ol>${M.khalwa.slice().reverse().map(k=>`<li><div class="sl-h"><b>${fmtD(ds(new Date(k.ts)))}</b><span class="pill p-tanwir">${k.type==='itikaf'?'اعتكاف':'خلوة'}</span></div></li>`).join('')}</ol></details>`:''}</div></section>
+  <section><div class="sh"><h2>الأعمال الموسمية</h2><span>${hijriLabel}</span></div>${wirdList(seasonal(),L)}</section>`;
+}
+/* ---------- the heart: anatomical drawing, 7 regions, one channel per organ ---------- */
+const HC={dark:'#141414',grey:'#8e8e8e',white:'#f8f6f1'};
+function organShade(o){return o.phase==='done'?'white':o.phase==='tanwir'?'grey':'dark'}
+const HEART_BODY='M170 165 C130 160 100 190 102 232 C104 262 118 280 128 300 C150 345 205 395 268 418 C290 425 305 412 318 392 C352 340 368 280 360 225 C356 195 344 175 322 166 C300 160 285 165 272 170 C250 158 215 156 196 162 C186 164 178 165 170 165 Z';
+// entrance point on the body edge and outward direction, one per organ (same order as ORGANS)
+const HEART_PORTS=[[128,174,-.72,-.69],[109,263,-.97,-.2],[152,334,-.8,.6],[198,380,-.45,.89],[300,416,.4,.92],[355,310,.97,.25],[348,188,.8,-.6]];
+function heartSection(){
+  const N=ORGANS.length,cx=238,cy=285;
+  const ang=HEART_PORTS.map(([x,y])=>Math.atan2(y-cy,x-cx));
+  const order=ang.map((a,i)=>i).sort((a,b)=>ang[a]-ang[b]);
+  let sectors='';
+  order.forEach((i,j)=>{
+    const prev=ang[order[(j-1+N)%N]],next=ang[order[(j+1)%N]],a=ang[i];
+    let a0=(prev+a)/2,a1=(a+next)/2;
+    if(j===0)a0=(prev-2*Math.PI+a)/2; if(j===N-1)a1=(a+next+2*Math.PI)/2;
+    let pts=`${cx},${cy} `;for(let s=0;s<=12;s++){const t=a0+(a1-a0)*s/12;pts+=(cx+420*Math.cos(t)).toFixed(1)+','+(cy+420*Math.sin(t)).toFixed(1)+' '}
+    sectors+=`<polygon points="${pts}" fill="${HC[organShade(S.organs[ORGANS[i].id])]}"/>`;
+  });
+  let pipes='',labels='';
+  ORGANS.forEach((g,k)=>{
+    const o=S.organs[g.id],shade=organShade(o),[px,py,dx,dy]=HEART_PORTS[k];
+    const x1=px-8*dx,y1=py-8*dy,x2=px+48*dx,y2=py+48*dy,closed=shade!=='dark';
+    pipes+=`<g><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#8f989a" stroke-width="16" stroke-linecap="round"/>
+      <line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#f1f3f3" stroke-width="11" stroke-linecap="round"/>
+      <line x1="${x1+3*dy}" y1="${y1-3*dx}" x2="${x2+3*dy}" y2="${y2-3*dx}" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity=".9"/>
+      ${closed?`<line x1="${px+12*dx-12*dy}" y1="${py+12*dy+12*dx}" x2="${px+12*dx+12*dy}" y2="${py+12*dy-12*dx}" stroke="#2443a6" stroke-width="6" stroke-linecap="round"/>`
+      :`<line class="flow" x1="${x2-6*dx}" y1="${y2-6*dy}" x2="${x1+6*dx}" y2="${y1+6*dy}" stroke="#1a1a1a" stroke-width="3" stroke-dasharray="5 7" stroke-linecap="round"/>`}</g>`;
+    const lx=px+64*dx,ly=py+64*dy+(dy>.6?10:dy<-.5?-8:4),anchor=dx>.3?'start':dx<-.3?'end':'middle';
+    const sub=o.phase==='done'?'تنوّرت ✓':o.phase==='tanwir'?`تنوير ${o.days}/30`:o.phase==='tathir'?`تطهير ${o.days}/30`:'لم تبدأ';
+    labels+=`<text x="${lx}" y="${ly}" text-anchor="${anchor}" class="hl-n">${g.name}</text><text x="${lx}" y="${ly+16}" text-anchor="${anchor}" class="hl-s">${sub}</text>`;
+  });
+  const red='#a9302a',redD='#7c1f1b',redL='#cf4a3e';
+  const vessels=`
+   <g stroke-linecap="round" fill="none">
+    <path d="M162 176 L160 92" stroke="${redD}" stroke-width="30"/><path d="M162 176 L160 92" stroke="${red}" stroke-width="24"/><path d="M155 170 L153 98" stroke="${redL}" stroke-width="5" opacity=".7"/>
+    <path d="M262 80 L258 52 M286 74 L290 46 M308 84 L322 60" stroke="${redD}" stroke-width="15"/>
+    <path d="M262 80 L258 52 M286 74 L290 46 M308 84 L322 60" stroke="${red}" stroke-width="10"/>
+    <path d="M226 178 C222 128 232 90 268 80 C302 72 328 92 326 132" stroke="${redD}" stroke-width="40"/>
+    <path d="M226 178 C222 128 232 90 268 80 C302 72 328 92 326 132" stroke="${red}" stroke-width="33"/>
+    <path d="M218 168 C214 126 226 96 262 86" stroke="${redL}" stroke-width="6" opacity=".7"/>
+    <path d="M272 186 C278 152 292 132 316 122 M300 128 C316 114 336 110 352 114 M300 128 C312 108 318 92 336 82" stroke="${redD}" stroke-width="28"/>
+    <path d="M272 186 C278 152 292 132 316 122 M300 128 C316 114 336 110 352 114 M300 128 C312 108 318 92 336 82" stroke="#b9443a" stroke-width="22"/>
+   </g>`;
+  const surface=`
+   <g fill="none" stroke="#5e1712" stroke-linecap="round" opacity=".55">
+    <path d="M270 176 C266 240 278 330 302 412" stroke-width="3.5"/>
+    <path d="M268 236 C290 248 312 256 336 258 M274 300 C294 312 314 318 336 318 M284 356 C268 368 252 374 236 374" stroke-width="2"/>
+    <path d="M192 168 C150 200 128 258 140 308 C160 350 210 392 262 412" stroke-width="3"/>
+    <path d="M152 236 C178 246 202 248 226 242 M166 300 C192 308 214 308 236 300" stroke-width="2"/>
+    <path d="M336 182 C350 204 356 232 354 262" stroke-width="2.5"/>
+   </g>`;
+  const closedN=ORGANS.filter(g=>S.organs[g.id].phase==='tanwir'||S.organs[g.id].phase==='done').length;
+  const pureN=ORGANS.filter(g=>S.organs[g.id].phase==='done').length;
+  const msg=pureN===N?'أُغلقت مجاري القلب كلها، فانقطع سيل ظلمات الذنوب وصفا القلب بنور الذكر والطاعة.'
+    :closedN===0?'مجاري القلب كلها مفتوحة: كل جارحة لم تُطهَّر بعدُ مدخلٌ تتسرّب منه ظلمة الذنوب إلى القلب.'
+    :`أغلقت ${closedN} من ${N} مجارٍ${pureN?`، وتنوّر منها ${pureN}`:''}. ما بقي مفتوحًا يُدخل الظلمة من جديد، فأغلقه مجرًى مجرًى حتى يصفو القلب كله.`;
+  return `<section><div class="sh"><h2>قلبك ومجاريه</h2><span>${closedN} / ${N} مغلقة</span></div>
+   <div class="box pad heart-box">
+    <svg class="heart" direction="ltr" style="direction:ltr" viewBox="-40 20 540 480" role="img" aria-label="صورة القلب: ${ORGANS.map(g=>g.name+' '+({dark:'أسود',grey:'رمادي',white:'أبيض'}[organShade(S.organs[g.id])])).join('، ')}">
+     <defs>
+      <clipPath id="hb"><path d="${HEART_BODY}"/></clipPath>
+      <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="9"/></filter>
+      <filter id="rim" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6"/></filter>
+      <radialGradient id="shine" cx="35%" cy="30%" r="65%"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></radialGradient>
+      <radialGradient id="shade" cx="65%" cy="75%" r="70%"><stop offset=".5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></radialGradient>
+     </defs>
+     ${vessels}
+     ${pipes}
+     <g clip-path="url(#hb)">
+      <rect x="-40" y="20" width="540" height="480" fill="${red}"/>
+      <g filter="url(#soft)">${sectors}</g>
+      <path d="${HEART_BODY}" fill="none" stroke="${red}" stroke-width="22" filter="url(#rim)"/>
+      ${surface}
+      <rect x="-40" y="20" width="540" height="480" fill="url(#shade)"/>
+      <rect x="-40" y="20" width="540" height="480" fill="url(#shine)"/>
+     </g>
+     <path d="${HEART_BODY}" fill="none" stroke="${redD}" stroke-width="3"/>
+     <path d="M296 170 C300 150 322 144 336 152 C344 160 338 172 326 172 C316 176 304 176 296 170Z" fill="#b23a31" stroke="${redD}" stroke-width="2.5"/>
+     <path d="M146 170 C136 152 152 138 170 142 C184 146 190 160 182 170 C172 176 156 176 146 170Z" fill="#b23a31" stroke="${redD}" stroke-width="2.5"/>
+     ${labels}
+    </svg>
+    <div class="legend"><span><i style="background:${HC.dark}"></i>مجرى مفتوح</span><span><i style="background:${HC.grey}"></i>أُغلق بالتطهير</span><span><i style="background:${HC.white};border:1px solid var(--card-line)"></i>تنوّر</span></div>
+    <p class="heart-msg">${msg}</p>
+   </div></section>`;
+}
+function viewSura(){
+  const days=[];for(let i=13;i>=0;i--)days.push(addDays(TODAY,-i));
+  const vals=days.map(d=>S.log[d]?S.log[d].awrad.filter(x=>AWRAD.some(a=>a.id===x)).length/AWRAD.length:0);
+  const W=340,H=150,pl=32,pb=22,pt=10,bw=(W-pl-6)/14,y=v=>pt+(H-pt-pb)*(1-v);
+  let svg=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="نسبة إتمام الأوراد في آخر ١٤ يومًا">`;
+  [0,.5,1].forEach(v=>{svg+=`<line x1="${pl}" x2="${W-4}" y1="${y(v)}" y2="${y(v)}" stroke="var(--card-line)"/><text x="${pl-6}" y="${y(v)+4}" font-size="10" fill="var(--muted)" text-anchor="end">${v*100}%</text>`});
+  vals.forEach((v,i)=>{const x=pl+4+i*bw,h=Math.max(2,(H-pt-pb)*v),isT=i===13;
+    svg+=`<rect x="${x}" y="${y(v)-(h-(H-pt-pb)*v)}" width="${bw-6}" height="${h}" rx="3" fill="${isT?'var(--amber)':'var(--teal)'}"/>`;
+    if(i%2===1||isT)svg+=`<text x="${x+(bw-6)/2}" y="${H-6}" font-size="9" fill="var(--muted)" text-anchor="middle">${isT?'اليوم':+days[i].slice(8)}</text>`});
+  svg+='</svg>';
+  const logged=days.filter(d=>S.log[d]&&S.log[d].awrad.length).length;
+  const avg=Math.round(vals.reduce((a,b)=>a+b,0)/14*100);
+  const dDays=new Set(S.marks.dhikr.map(x=>ds(new Date(x))).filter(d=>d>=days[0])).size;
+  const weak=AWRAD.map(a=>({a,n:days.filter(d=>S.log[d]&&S.log[d].awrad.includes(a.id)).length})).sort((p,q)=>p.n-q.n)[0];
+  const done=ORGANS.filter(g=>S.organs[g.id].phase==='done').length;
+  return heartSection()+`<section><div class="stats"><div class="stat"><b>${avg}%</b><span>متوسط الأوراد</span></div><div class="stat"><b>${logged}</b><span>أيام عامرة</span></div><div class="stat"><b>${dDays}</b><span>أيام الذكر الشخصي</span></div></div>
+   <div class="box pad"><div class="sh" style="margin-bottom:8px"><h2 style="font-size:15px">إتمام الأوراد · آخر ١٤ يومًا</h2></div>${svg}</div></section>
+  <section><div class="sh"><h2>مسار الجوارح</h2><span>${done} / ${ORGANS.length} مكتملة</span></div>
+   <div class="box pad" style="display:flex;flex-direction:column;gap:10px">${ORGANS.map(g=>{const o=S.organs[g.id];const tot=o.phase==='done'?60:o.phase==='tanwir'?30+o.days:o.phase==='tathir'?o.days:0;const a=Math.min(tot,30),b=Math.max(0,tot-30);
+     return `<div class="trow"><span>${g.name}</span><div class="bar"><i style="width:${a/60*100}%;background:var(--amber)"></i><i style="width:${b/60*100}%;background:var(--green)"></i></div><em>${tot}/60</em></div>`}).join('')}
+   <div class="meta">البرتقالي: أيام التطهير · الأخضر: أيام التنوير</div></div></section>
+  <section><div class="sh"><h2>توجيه</h2></div><div class="box pad">أقل الأوراد مواظبة في هذه الفترة: <b>${weak.a.t}</b> (${weak.n} من 14 يومًا). اجعل له وقتًا ثابتًا، فأحبّ الأعمال إلى الله أدومها وإن قلّ.</div></section>`;
+}
+function viewMethod(){
+  return `<section class="prose"><p>المنهج المحمدي هو الطريق الروحي والتربوي المستمد من حياة النبي ﷺ وسيرته، ويهدف إلى تزكية النفس وتطهير القلب وتهذيب الروح للوصول إلى القرب من الله. يجمع بين العبادة الظاهرة كالصلاة والصيام والذكر، والعبادة الباطنة كالإخلاص والصدق والتوكل.</p>
+  <h3>أركانه</h3><ol><li>الإيمان بالله والإخلاص له</li><li>التزكية القلبية من الحسد والرياء والكبر</li><li>العبادة الظاهرة بوعي وخشوع</li><li>الذكر والمراقبة</li><li>العمل بسنة النبي ﷺ</li><li>الإحسان</li></ol>
+  <p class="quote">«أن تعبد الله كأنك تراه، فإن لم تكن تراه فإنه يراك»</p>
+  <h3>أهدافه</h3><p>تزكية النفس بالتقوى، وإصلاح القلب ليكون محلًّا لنور الله، والسير إلى الله بالعلم والعمل والإخلاص، وبناء إنسان متوازن بين متطلبات الروح والجسد.</p>
+  <h3>خصائصه</h3><p>الشمولية، والتوازن بين العبادة والعمل وبين القلب والعقل، والرحمة والوسطية بعيدًا عن الغلو والتفريط، والاستمرارية عبر مراحل السير إلى الله.</p>
+  <h3>تزكية الجوارح</h3><p>عملية مزدوجة: تطهير الجارحة من القبيح ثلاثين يومًا متتالية، ثم تنويرها باستعمالها في الطاعة على السنة ثلاثين يومًا أخرى. فصلاح الظاهر يعكس صلاح الباطن.</p>
+  <div class="btns" style="margin-top:6px"><button class="btn primary" data-go="tazkiya">ابدأ تزكية الجوارح</button></div></section>`;
+}
+function viewNotif(){
+  const pt=prayerTimes(new Date()),nx=nextPrayer(pt),L=dayLog(),now=new Date().getHours()+new Date().getMinutes()/60;
+  const items=[{on:true,t:`اقترب وقت صلاة ${nx.n}`,s:`عند ${hm(pt[nx.k])}`}];
+  pendingOrgans().forEach(g=>items.push({on:true,t:`لم تُسجّل محاسبة ${g.name} اليوم`,s:`مرحلة ${PHASE[S.organs[g.id].phase]} · اليوم ${S.organs[g.id].days+1} من 30`,go:'tazkiya'}));
+  const lt=lights();
+  if(!lt.halo)items.push({on:true,t:`${lt.p.kind==='sabah'?'أذكار الصباح':'أذكار المساء'}: الهالة مطفأة`,s:`أكّدها قبل ${lt.p.endName} ${tHM(lt.p.end)}`,go:'aamal'});
+  if(!lt.dhikrToday)items.push({on:!lt.heart,t:'الذكر الشخصي اليومي',s:lt.heart?`القلب مستنير حتى ${tHM(lt.heartEnd)}`:'القلب مطفأ',go:'aamal'});
+  if(!lt.quranToday)items.push({on:!lt.head,t:'الورد اليومي من القرآن',s:lt.head?`الرأس مستنير حتى ${tHM(lt.headEnd)}`:'الرأس مطفأ',go:'aamal'});
+  seasonal().filter(s=>s.tag==='اليوم'||s.tag==='الجمعة').forEach(s=>items.push({on:!L.awrad.includes(s.id),t:s.t,s:s.s,go:'aamal'}));
+  return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
+  <p class="muted">التنبيهات هنا داخل الصفحة. التنبيهات الفعلية على الهاتف تحتاج نسخة التطبيق المثبّتة.</p></section>`;
+}
+function viewProfile(){
+  const started=ORGANS.filter(g=>S.organs[g.id].phase!=='idle').length;
+  return `<section><div class="box pad" style="display:flex;gap:14px;align-items:center"><span class="avatar" style="cursor:default">${AVATAR}</span><div style="min-width:0"><b>${esc(S.name)}</b><div class="meta">فاس · ${started} من ${ORGANS.length} جوارح بدأت تزكيتها</div></div></div>
+   <label for="pname" class="muted">الاسم الظاهر في الرئيسية</label><input type="text" id="pname" value="${esc(S.name)}"></section>
+  <section><div class="sh"><h2>البيانات</h2></div>
+   <p class="muted">${S.demo?'تعرض الأقسام حاليًا بيانات تجريبية للتوضيح.':'تُحفظ بياناتك في هذا المتصفح فقط.'}</p>
+   ${confirmReset?`<div class="confirm"><span>سيُمسح كل السجل والتقدم. متابعة؟</span><button class="btn slip" data-resetyes="1">نعم، ابدأ من الصفر</button><button class="btn" data-resetno="1">تراجع</button></div>`:`<div class="btns"><button class="btn slip" data-reset="1">ابدأ رحلتي من الصفر</button></div>`}
+  </section>`;
+}
+
+if(!S.marks)S.marks=S.demo?demoMarks():emptyMarks();
+S.marks.dhikr.forEach(t=>syncWird('dhikr',true,ds(new Date(t))));
+S.marks.quran.forEach(t=>syncWird('quran',true,ds(new Date(t))));['sabah','masa'].forEach(k=>Object.keys(S.marks[k]).forEach(d=>syncWird(k,true,d)));
+/* ---------- install as an app (PWA) ---------- */
+let installEvt=null,transferMsg='';
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEvt=e;if(screen==='install'||screen==='home')render()});
+window.addEventListener('appinstalled',()=>{installEvt=null;render()});
+function isStandalone(){try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){return false}}
+function inPreview(){try{return window.self!==window.top}catch(e){return true}}
+if('serviceWorker' in navigator&&!inPreview()&&window.isSecureContext){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+function viewInstall(){
+  const ua=navigator.userAgent||'',ios=/iPhone|iPad|iPod/.test(ua),standalone=isStandalone(),preview=inPreview();
+  let top;
+  if(standalone)top=`<div class="box pad inst-ok"><b>المرشد مثبّت على شاشتك ✓</b><span class="muted">أنت تستعمله الآن كتطبيق مستقل، ويعمل حتى دون اتصال بالإنترنت.</span></div>`;
+  else if(installEvt)top=`<div class="box pad" style="display:flex;flex-direction:column;gap:10px;align-items:flex-start"><b>جاهز للتثبيت</b><span class="muted">سيظهر المرشد بأيقونته على شاشتك ويفتح كتطبيق مستقل.</span><button class="btn ok" data-install="1">ثبّت المرشد على الشاشة</button></div>`;
+  else if(preview)top=`<div class="box pad" style="display:flex;flex-direction:column;gap:6px"><b>التثبيت غير متاح من هذه المعاينة</b><span class="muted">أنت تفتح المرشد داخل صفحة أخرى، والمتصفح لا يسمح بالتثبيت من داخلها. افتح المرشد من رابطه الخاص ثم ارجع إلى هذه الخانة.</span></div>`;
+  else top='';
+  const steps=(t,list)=>`<div class="box pad"><b>${t}</b><ol class="inst-steps">${list.map(x=>`<li>${x}</li>`).join('')}</ol></div>`;
+  const iosS=steps('على iPhone أو iPad (متصفح Safari)',['افتح رابط المرشد في Safari.','اضغط زر المشاركة (المربع والسهم للأعلى) أسفل الشاشة.','اختر «إضافة إلى الشاشة الرئيسية».','اضغط «إضافة»، فتظهر أيقونة المرشد على شاشتك.']);
+  const andS=steps('على Android (متصفح Chrome)',['افتح رابط المرشد في Chrome.','اضغط القائمة ⋮ أعلى الشاشة.','اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».','أكّد التثبيت، فتظهر أيقونة المرشد مع تطبيقاتك.']);
+  return `<section>${top}${standalone?'':(ios?iosS+andS:andS+iosS)}</section>
+  <section><div class="sh"><h2>نقل بياناتك</h2></div>
+   <p class="muted">كل نسخة من المرشد تحفظ بياناتها في متصفحها. لنقل تقدمك إلى التطبيق المثبّت: انسخ رمز بياناتك هنا، ثم الصقه في نفس الخانة داخل التطبيق المثبّت.</p>
+   <div class="btns"><button class="btn primary" data-export="1">انسخ رمز بياناتي</button></div>
+   <label for="importCode" class="muted">الصق رمز البيانات هنا</label>
+   <textarea id="importCode" placeholder="الصق الرمز المنسوخ…"></textarea>
+   <div class="btns"><button class="btn ok" data-import="1">استورد البيانات</button></div>
+   ${transferMsg?`<p class="logged${transferMsg.startsWith('!')?' bad':''}">${transferMsg.replace(/^!/,'')}</p>`:''}</section>`;
+}
+const VIEWS={method:viewMethod,tazkiya:viewTazkiya,muraqabat:viewMuraqabat,sura:viewSura,aamal:viewAamal,install:viewInstall,notif:viewNotif,profile:viewProfile};
+function render(){
+  const app=document.getElementById('app');
+  app.innerHTML=screen==='home'?viewHome():heroSub(screen)+`<main class="sheet">${VIEWS[screen]()}</main>`;
+  const navKey=['home','notif','aamal','profile'].includes(screen)?screen:'home';
+  document.querySelectorAll('[data-nav]').forEach(b=>b.toggleAttribute('aria-current',b.dataset.nav===navKey)||b.dataset.nav===navKey&&b.setAttribute('aria-current','page'));
+  document.querySelectorAll('[data-nav]').forEach(b=>{if(b.dataset.nav===navKey)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
+  document.getElementById('badge').hidden=!(pendingOrgans().length||!lights().halo);
+}
+function go(s){screen=s;lightConfirm=null;confirmFor=null;confirmReset=false;redoFor=null;render();window.scrollTo(0,0)}
+function logOrgan(id,ok,reason){
+  const o=S.organs[id];o.broken=false;
+  if(ok){if(o.days===0&&(!o.attemptStart||o.attemptStart>TODAY))o.attemptStart=TODAY;
+    o.days++;if(o.days>=30){if(o.phase==='tathir'){o.phase='tanwir';o.days=0;o.attempt=1;o.attemptStart=addDays(TODAY,1)}else{o.phase='done';o.days=30}}}
+  else{o.slips.push({date:TODAY,phase:o.phase,day:o.days,reason:(reason||'').trim()});o.days=0;o.resets++;o.attempt++;o.attemptStart=addDays(TODAY,1)}
+  o.last=TODAY;o.today=ok?'ok':'slip';confirmFor=null;save();render();
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t)return;const d=t.dataset;
+  if(d.nav)return go(d.nav);
+  if(d.go)return go(d.go);
+  if(d.ok)return logOrgan(d.ok,true);
+  if(d.slip){confirmFor=d.slip;return render()}
+  if(d.slipyes){const n=document.getElementById('slipnote-'+d.slipyes);return logOrgan(d.slipyes,false,n?n.value:'')}
+  if(d.slipno){confirmFor=null;return render()}
+  if(d.start){Object.assign(S.organs[d.start],{phase:'tathir',days:0,last:null,today:null,attempt:1,attemptStart:TODAY});save();return render()}
+  if(d.redo){redoFor={id:d.redo,kind:d.kind};confirmFor=null;return render()}
+  if(d.redono){redoFor=null;return render()}
+  if(d.redoyes){const o=S.organs[d.redoyes],n=document.getElementById('redonote-'+d.redoyes),k=redoFor.kind;
+    (o.history=o.history||[]).push({date:TODAY,kind:k,from:o.phase,day:o.days,reason:n?n.value.trim():''});
+    Object.assign(o,{phase:k,days:0,last:null,today:null,broken:false,attempt:1,attemptStart:TODAY,cycle:(o.cycle||1)+1});
+    redoFor=null;save();return render()}
+  if(d.light)return setLight(d.light,true);
+  if(d.unlight)return setLight(d.unlight,false);
+  if(d.lightask){lightConfirm=d.lightask;return render()}
+  if(d.lightno){lightConfirm=null;return render()}
+  if(d.install&&installEvt){installEvt.prompt();installEvt.userChoice.finally(()=>{installEvt=null;render()});return}
+  if(d.export){const code=JSON.stringify(S);
+    navigator.clipboard.writeText(code).then(()=>{transferMsg='نُسخ رمز بياناتك. الصقه الآن في التطبيق المثبّت.';render()})
+      .catch(()=>{const t=document.getElementById('importCode');t.value=code;t.select();transferMsg='!لم يُسمح بالنسخ التلقائي. الرمز محدّد في الخانة: انسخه يدويًا.';
+        const m=document.createElement('p');m.className='logged bad';m.textContent=transferMsg.slice(1);t.after(m)});return}
+  if(d.import){const t=document.getElementById('importCode');
+    try{const v=JSON.parse(t.value.trim());if(!v||!v.organs||!v.log)throw 0;S=v;
+      ORGANS.forEach(g=>{if(!S.organs[g.id])S.organs[g.id]=blankOrgan()});if(!S.marks)S.marks=emptyMarks();
+      save();transferMsg='استُورِدت بياناتك بنجاح.'}catch(e){transferMsg='!الرمز غير صالح. انسخه كاملًا من النسخة الأخرى ثم أعد المحاولة.'}
+    return render()}
+  if(d.khundo){S.marks.khalwa.pop();save();return render()}
+  if(d.lightyes){S.marks.khalwa.push({ts:Date.now(),type:d.lightyes});lightConfirm=null;save();return render()}
+  if(d.heart){dayLog().heart=+d.heart;save();return render()}
+  if(d.reset){confirmReset=true;return render()}
+  if(d.resetno){confirmReset=false;return render()}
+  if(d.resetyes){S=freshState(S.name);confirmReset=false;save();return render()}
+});
+document.addEventListener('change',e=>{
+  const w=e.target.dataset&&e.target.dataset.wird;if(!w)return;const L=dayLog();
+  L.awrad=e.target.checked?[...new Set([...L.awrad,w])]:L.awrad.filter(x=>x!==w);
+  const p=period(),M=S.marks,on=e.target.checked;
+  if((w==='sabah'||w==='masa')&&p.kind===w&&(p.key===nowStr()||w==='masa')){if(on)M[w][p.key]=Date.now();else delete M[w][p.key]}
+  if(w==='quran'||w==='dhikr'){M[w]=M[w].filter(x=>ds(new Date(x))!==nowStr());if(on)M[w].push(Date.now())}
+  save();if(screen==='aamal')return render();
+  const c=document.getElementById('wcount');if(c)c.textContent=AWRAD.filter(a=>L.awrad.includes(a.id)).length+' / '+AWRAD.length;
+});
+document.addEventListener('input',e=>{
+  if(e.target.id==='dhikrText'){S.marks.dhikrText=e.target.value;save()}
+  if(e.target.id==='note'){dayLog().note=e.target.value;save()}
+  if(e.target.id==='pname'){S.name=e.target.value;save()}
+});
+let lastSig='';setInterval(()=>{if(screen!=='muraqabat'||document.activeElement&&document.activeElement.id==='dhikrText')return;const l=lights(),sig=[l.p.key,l.p.kind,l.halo,l.head,l.heart,l.body].join();if(lastSig&&sig!==lastSig)render();lastSig=sig},30000);
+setInterval(()=>{const c=document.getElementById('clock');if(c){const n=new Date();c.textContent=pad(n.getHours())+':'+pad(n.getMinutes())}},15000);
+render();
+</script>
+
+</body>
+</html>
