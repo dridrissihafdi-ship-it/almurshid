@@ -348,6 +348,8 @@ nav.tabs button .badge{position:absolute;top:13px;left:calc(50% + 4px);width:10p
 .ob-l li{background:var(--chip);border-radius:12px;padding:10px 12px}.ob-l b{display:block;font-size:15px}.ob-l span{font-size:13.5px;color:var(--muted);line-height:1.7}
 .ob-three{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.ob-three span{background:var(--peach);color:var(--peach-ink);border-radius:99px;padding:6px 14px;font-weight:600;font-size:14px}
 .ob-q{font-family:var(--f-verse);font-size:18px;text-align:center;line-height:1.8;margin:4px 0;border-inline-start:3px solid var(--peach);padding-inline-start:10px}
+.ob-tr{font-size:13.5px;color:var(--muted);text-align:center;font-style:italic;margin:-4px 0 0;line-height:1.6}
+.prep .ob-tr{text-align:start;margin:-6px 0 0}
 .ob-dots{display:flex;justify-content:center;gap:8px}.ob-dots i{width:8px;height:8px;border-radius:99px;background:var(--teal-line)}.ob-dots i.on{width:22px;background:var(--gold)}
 .ob-btns{display:flex;flex-direction:column;gap:8px}.ob-btns .btn.big{margin-top:0}
 .ob .btn.ok{background:var(--gold);border-color:var(--gold);color:var(--teal-deep)}
@@ -1366,7 +1368,7 @@ function prepCard(){
   const hist=P.history&&P.history.length?`<details class="slips redo-h"><summary>سجل الإعادات (${String(P.history.length)})</summary><ol>${P.history.slice().reverse().map(h=>`<li><div class="sl-h"><b>${fmtD(h.date)}</b><span class="meta">بعد ${String(h.days)} يومًا</span></div></li>`).join('')}</ol></details>`:'';
   const ph=P.status==='done'?'done':P.status==='active'?'tathir':'idle';
   return `<div class="box organ prep"><div class="orow">${ring(n,ph)}<div class="info"><h3>المرحلة التمهيدية</h3><span class="pill p-${ph}">${P.status==='done'?'مكتملة':P.status==='active'?'قيد العمل':'لم تبدأ'}</span> <span class="meta">${P.status==='active'?'باقٍ '+String(30-n)+' يومًا':''}</span></div></div>
-   <p class="quote notr" dir="rtl" lang="ar">«عليك بطول الصمت وحسن الخلق، فوالذي نفسي بيده ما تجمّل الخلائق بمثلهما»</p><details class="prep-d" id="prepD"${prepOpen?' open':''}><summary>${P.status==='idle'?'الوصايا الثلاث وطريقة العمل':P.status==='active'?(prepDayDone(T)?'سجل اليوم ✓':'سجّل يومك'):'تفاصيل المرحلة'}</summary><div class="prep-in">${body}${redo}${log}${hist}</div></details></div>`;
+   <p class="quote notr" dir="rtl" lang="ar">«عليك بطول الصمت وحسن الخلق، فوالذي نفسي بيده ما تجمّل الخلائق بمثلهما»</p>${meaning('hsamt')}<details class="prep-d" id="prepD"${prepOpen?' open':''}><summary>${P.status==='idle'?'الوصايا الثلاث وطريقة العمل':P.status==='active'?(prepDayDone(T)?'سجل اليوم ✓':'سجّل يومك'):'تفاصيل المرحلة'}</summary><div class="prep-in">${body}${redo}${log}${hist}</div></details></div>`;
 }
 function prepSet(id,v,note){const P=prepState(),T=P.log[TODAY]||(P.log[TODAY]={});
   if(v===null){delete T[id];if(T.notes)delete T.notes[id]}else{T[id]=v;if(v==='fail'){(T.notes=T.notes||{})[id]=(note||'').trim()}else if(T.notes)delete T.notes[id]}
@@ -1374,11 +1376,13 @@ function prepSet(id,v,note){const P=prepState(),T=P.log[TODAY]||(P.log[TODAY]={}
 
 /* ---------- welcome screens (shown once to a new seeker) ---------- */
 let obStep=0;
+const MEAN={"v91": ["“He has truly succeeded who purifies it.” (91:9)", "« A réussi, certes, celui qui la purifie. » (91:9)", "«Ciertamente triunfa quien la purifica.» (91:9)", "«Преуспел тот, кто очистил её». (91:9)"], "hsamt": ["“Hold to long silence and good character, for by the One in whose hand my soul is, creation has never adorned itself with anything like them.”", "« Attache-toi au long silence et au bon caractère : par Celui qui tient mon âme en Sa main, les créatures ne se sont jamais parées de rien de semblable. »", "«Aférrate al largo silencio y al buen carácter: por Aquel en cuya mano está mi alma, las criaturas nunca se han adornado con nada semejante.»", "«Держись долгого молчания и благого нрава: клянусь Тем, в Чьей руке моя душа, ничем подобным творения себя не украшали»."]};
+const meaning=k=>LANG==='ar'?'':`<p class="ob-tr notr" dir="ltr" lang="${LANG}">${MEAN[k][LIDX[LANG]]}</p>`;
 const needOnboard=()=>(AUTH.state==='in'||AUTH.state==='local')&&!S.onboarded;
 function viewOnboard(){
   const pages=[
    `<div class="ob-ic">${LOGO}</div><h1 class="ob-t">مرحبًا بك في المرشد</h1>
-    <p class="ob-v notr" dir="rtl" lang="ar">﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾</p>
+    <p class="ob-v notr" dir="rtl" lang="ar">﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾</p>${meaning('v91')}
     <p class="ob-p">رفيقك في طريق التزكية على المنهج المحمدي: يعينك على تطهير جوارحك وتنويرها، والمداومة على أورادك، ومراقبة قلبك يومًا بعد يوم، طلبًا لرضا الله.</p>`,
    `<h1 class="ob-t">كيف تسير في التطبيق</h1>
     <ul class="ob-l">
@@ -1391,7 +1395,7 @@ function viewOnboard(){
    `<h1 class="ob-t">ابدأ بالمرحلة التمهيدية</h1>
     <p class="ob-p">ثلاثون يومًا تتدرّب فيها على ثلاث وصايا نبوية:</p>
     <div class="ob-three"><span>طول الصمت</span><span>حسن الخلق</span><span>الحضور مع الله طيلة اليوم</span></div>
-    <p class="ob-q notr" dir="rtl" lang="ar">«عليك بطول الصمت وحسن الخلق، فوالذي نفسي بيده ما تجمّل الخلائق بمثلهما»</p>
+    <p class="ob-q notr" dir="rtl" lang="ar">«عليك بطول الصمت وحسن الخلق، فوالذي نفسي بيده ما تجمّل الخلائق بمثلهما»</p>${meaning('hsamt')}
     <p class="ob-p small">سجّل كل يوم ما حققته. وإن أخفقت فلا يُعاد العدّ: دوّن السبب واستمر.</p>`];
   const last=obStep===pages.length-1;
   return `<section class="ob">
