@@ -908,8 +908,14 @@ function cloudSaveNow(){if(!window.FB||!AUTH.user||AUTH.state!=='in')return;clea
 function cloudSave(){if(!window.FB||!AUTH.user||AUTH.state!=='in')return;clearTimeout(cloudTimer);cloudTimer=setTimeout(cloudSaveNow,1500)}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&cloudTimer)cloudSaveNow()});
 /* admin */
+async function adminTry(fn){
+  try{return await fn()}catch(e){if(e.code!=='permission-denied')throw e}
+  try{await FB.reloadUser()}catch(e){}
+  try{return await fn()}catch(e){if(e.code==='permission-denied'){let c={};try{c=await FB.claims()}catch(x){}
+    e.diag='البريد في الحساب: '+(c.email||'—')+' · مؤكَّد: '+(c.v?'نعم':'لا')+' · طريقة الدخول: '+(c.p||'—')}throw e}
+}
 async function adminLoad(){if(!isAdmin())return;adminData.loading=true;render();
-  try{adminData.users=await FB.listUsers()}catch(e){adminData.msg='تعذّر جلب المستعملين: '+(e.code||e.message)}
+  try{adminData.users=await adminTry(()=>FB.listUsers());if(adminData.msg.startsWith('تعذّر'))adminData.msg=''}catch(e){adminData.users=adminData.users||[];adminData.msg='تعذّر جلب المستعملين: '+(e.code||e.message)+(e.diag?' — '+e.diag:'')}
   adminData.loading=false;if(screen==='admin')render()}
 function viewAdmin(){
   if(!isAdmin())return '<section class="box pad"><p class="muted">هذه الخانة خاصة بإدارة التطبيق.</p></section>';
@@ -935,7 +941,7 @@ function viewAdmin(){
    <p class="muted">التعديلات أعلاه تصل إلى كل السالكين فورًا. أما تغيير التصميم أو إضافة خاصية جديدة فيكون برفع ملف index.html الجديد إلى مستودع GitHub.</p>
    ${adminData.msg?`<p class="logged">${esc(adminData.msg)}</p>`:''}</section>`;
 }
-async function adminSave(patch,msg){try{await FB.saveContent(patch);Object.assign(CONTENT,patch);adminData.msg=msg}catch(e){adminData.msg='تعذّر الحفظ: '+(e.code||e.message)}render()}
+async function adminSave(patch,msg){try{await adminTry(()=>FB.saveContent(patch));Object.assign(CONTENT,patch);adminData.msg=msg}catch(e){adminData.msg='تعذّر الحفظ: '+(e.code||e.message)+(e.diag?' — '+e.diag:'')}render()}
 function announcementBanner(){const A=CONTENT.announcement;if(!A||!A.on||!A.text)return '';
   let seen='';try{seen=localStorage.getItem('murshid-ann')||''}catch(e){}
   const id=String(A.at||'');if(seen===id)return '';
@@ -1882,6 +1888,7 @@ if(inFrame){window.onFbFail()}else(async()=>{
    reset:email=>{auth.languageCode=document.documentElement.lang||'ar';return U.sendPasswordResetEmail(auth,email)},
    signOut:()=>U.signOut(auth),
    resendVerify:()=>auth.currentUser&&U.sendEmailVerification(auth.currentUser),
+   claims:async()=>{const r=await auth.currentUser.getIdTokenResult(true);return{email:r.claims.email,v:r.claims.email_verified,p:r.signInProvider}},
    reloadUser:async()=>{if(auth.currentUser){await U.reload(auth.currentUser);await auth.currentUser.getIdToken(true)}return auth.currentUser},
    deleteAccount:async()=>{const u=auth.currentUser;if(!u)return;
      await F.deleteDoc(d('progress',u.uid));await F.deleteDoc(d('users',u.uid));await U.deleteUser(u)},
