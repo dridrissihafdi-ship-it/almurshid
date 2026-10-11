@@ -52,7 +52,7 @@ body{font-family:var(--f);font-size:15px;line-height:1.65}
 .greet{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-top:26px;padding-bottom:18px;border-bottom:1px solid var(--teal-line)}
 .greet .salam{color:var(--on-teal-muted);font-size:14px}
 .greet .name{color:var(--gold);font-size:clamp(20px,5.6vw,26px);font-weight:400;letter-spacing:.02em;line-height:1.3;direction:ltr;text-align:right}
-.greet .when{text-align:left;font-size:14px;line-height:1.6;flex:none}
+.greet .when{text-align:end;font-size:14px;line-height:1.6;flex:none}
 .greet .when small{display:block;color:var(--on-teal-muted);font-size:12px}
 .clock{text-align:center;font-size:40px;font-weight:600;margin:16px 0 10px;font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .next{text-align:center;color:var(--on-teal-muted);font-size:13px;margin:-6px 0 12px}
@@ -67,7 +67,7 @@ body{font-family:var(--f);font-size:15px;line-height:1.65}
 .prayer.is-next svg{stroke:var(--gold)}
 .sheet{background:var(--sheet);border-radius:24px 24px 0 0;margin-top:-26px;padding-inline:20px;padding-block:22px 120px;flex:1;position:relative}
 .menu{display:flex;flex-direction:column;gap:14px}
-.mcard{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--card-line);border-radius:14px;padding:12px 16px;cursor:pointer;width:100%;text-align:right;font-family:var(--f);color:var(--ink);box-shadow:0 2px 8px rgba(23,63,72,.04)}
+.mcard{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--card-line);border-radius:14px;padding:12px 16px;cursor:pointer;width:100%;text-align:start;font-family:var(--f);color:var(--ink);box-shadow:0 2px 8px rgba(23,63,72,.04)}
 .mcard:focus-visible{outline:2px solid var(--teal)}
 .mcard .ic{width:58px;height:58px;border-radius:50%;background:var(--peach);display:grid;place-content:center;flex:none}
 .mcard .ic svg{width:34px;height:34px;stroke:var(--peach-ink);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
@@ -236,6 +236,12 @@ details ul{margin:6px 0 0;padding-inline-start:18px}
 .dl-sum-t{flex:1;font-weight:600;font-size:16px}
 .dl-sum-m{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .dl-body{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+[dir=ltr] .greet .name{text-align:left}
+[dir=ltr] .iconbtn svg,[dir=ltr] .mcard .go svg{transform:scaleX(-1)}
+.langs{display:flex;justify-content:center;gap:4px;margin:0 auto 14px;background:rgba(255,255,255,.08);border-radius:99px;padding:3px;width:max-content;max-width:100%}
+.lang{border:0;background:none;color:var(--on-teal-muted);font-family:var(--f);font-size:13px;font-weight:600;padding:5px 11px;border-radius:99px;cursor:pointer;min-width:38px}
+.lang.on{background:var(--gold);color:var(--teal-deep)}
+.lang:focus-visible{outline:2px solid var(--gold)}
 .attempt{font-size:12px;color:var(--ink);margin-top:2px}
 .redo{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-top:1px dashed var(--card-line);padding-top:10px}
 .btn.small{font-size:13px;padding:6px 12px;background:var(--chip);border-color:var(--chip)}
@@ -268,7 +274,7 @@ textarea{min-height:96px;resize:vertical}
 .trow{display:grid;grid-template-columns:64px 1fr 48px;gap:10px;align-items:center;font-size:13px}
 .bar{height:10px;border-radius:99px;background:var(--chip);display:flex;overflow:hidden}
 .bar i{display:block;height:100%}
-.trow em{font-style:normal;color:var(--muted);text-align:left;font-variant-numeric:tabular-nums}
+.trow em{font-style:normal;color:var(--muted);text-align:end;font-variant-numeric:tabular-nums}
 .prose{max-width:62ch}
 .prose p{margin:0 0 10px}
 .prose ol{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px}
@@ -289,6 +295,28 @@ nav.tabs button[aria-current="page"]{color:var(--ink)}
 nav.tabs button .badge{position:absolute;top:13px;left:calc(50% + 4px);width:10px;height:10px;border-radius:50%;background:var(--red);border:2px solid var(--card)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 @media (prefers-reduced-motion:no-preference){.ring circle.fg{transition:stroke-dashoffset .5s ease}.sheet{animation:up .3s ease}@keyframes up{from{transform:translateY(8px)}to{transform:none}}}
+.auth{min-height:100vh;background:var(--teal);color:var(--on-teal);padding:28px 20px 40px;display:flex;flex-direction:column;align-items:stretch}
+.auth .langs{margin-bottom:22px}
+.auth-logo{width:72px;height:72px;margin:6px auto 10px}.auth-logo svg{width:100%;height:100%;display:block}
+.auth-title{font-size:28px;font-weight:600;text-align:center;margin:0}.auth-sub{text-align:center;color:var(--on-teal-muted);margin:4px 0 22px}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:rgba(255,255,255,.1);border-radius:12px;padding:4px;gap:4px;margin-bottom:14px}
+.auth-tabs button{border:0;background:none;color:var(--on-teal);font-family:var(--f);font-size:15px;padding:10px;border-radius:9px;cursor:pointer}
+.auth-tabs button.on{background:var(--sheet);color:var(--ink);font-weight:600}
+.auth-form{background:var(--sheet);color:var(--ink);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:6px}
+.auth-form label{font-size:13px;color:var(--muted);margin-top:6px}
+.auth-form input{width:100%;font-family:var(--f);font-size:16px;border:1px solid var(--card-line);border-radius:12px;padding:12px;background:var(--card);color:var(--ink)}
+.auth-form input:focus{outline:2px solid var(--teal);outline-offset:0}
+.auth-h{font-size:18px;margin:0}
+.btn.big{width:100%;padding:13px;font-size:16px;margin-top:10px;font-family:var(--f)}
+.btn.link-btn{background:none;border:0;color:var(--muted);font-family:var(--f);align-self:center;text-decoration:underline;text-underline-offset:3px}
+.shell:has(.auth){background:var(--teal)}
+.auth-err{background:var(--red-soft);color:var(--red);border-radius:10px;padding:8px 12px;font-size:14px;margin:8px 0 0}
+.auth-info{background:var(--green-soft);color:var(--green);border-radius:10px;padding:8px 12px;font-size:14px;margin:8px 0 0}
+.auth-or{display:flex;align-items:center;gap:10px;color:var(--on-teal-muted);margin:18px 0 4px;font-size:13px}.auth-or::before,.auth-or::after{content:"";flex:1;height:1px;background:var(--teal-line)}
+.g-btn{display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;color:#1f1f1f;border-color:#fff;font-weight:500}
+.auth-privacy{font-size:12.5px;color:var(--on-teal-muted);text-align:center;margin:18px 6px 0;line-height:1.7}
+.ann{background:var(--peach);color:var(--peach-ink);border-radius:14px;padding:12px 14px;margin-bottom:14px;display:flex;flex-direction:column;gap:6px}
+.ann p{margin:0;white-space:pre-line}.ann .btn{align-self:flex-start}
 </style>
 
 </head>
@@ -304,6 +332,381 @@ nav.tabs button .badge{position:absolute;top:13px;left:calc(50% + 4px);width:10p
 <script>
 document.documentElement.setAttribute('dir','rtl');
 const ADHKAR={"open": {"k": "d", "t": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ؛ إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ؛ إِنَّكَ حَمِيدٌ مَجِيدٌ", "n": 10, "s": "الاستهلال بالصلاة الإبراهيمية"}, "quran": [{"k": "q", "t": "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ <span class=\"ay\">﴿١﴾</span> ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ <span class=\"ay\">﴿٢﴾</span> ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ <span class=\"ay\">﴿٣﴾</span> مَٰلِكِ يَوۡمِ ٱلدِّينِ <span class=\"ay\">﴿٤﴾</span> إِيَّاكَ نَعۡبُدُ وَإِيَّاكَ نَسۡتَعِينُ <span class=\"ay\">﴿٥﴾</span> ٱهۡدِنَا ٱلصِّرَٰطَ ٱلۡمُسۡتَقِيمَ <span class=\"ay\">﴿٦﴾</span> صِرَٰطَ ٱلَّذِينَ أَنۡعَمۡتَ عَلَيۡهِمۡ غَيۡرِ ٱلۡمَغۡضُوبِ عَلَيۡهِمۡ وَلَا ٱلضَّآلِّينَ <span class=\"ay\">﴿٧﴾</span>", "n": 1, "s": "سورة الفاتحة"}, {"k": "q", "t": "<span class=\"bas\">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</span>الٓمٓ <span class=\"ay\">﴿١﴾</span> ذَٰلِكَ ٱلۡكِتَٰبُ لَا رَيۡبَۛ فِيهِۛ هُدٗى لِّلۡمُتَّقِينَ <span class=\"ay\">﴿٢﴾</span> ٱلَّذِينَ يُؤۡمِنُونَ بِٱلۡغَيۡبِ وَيُقِيمُونَ ٱلصَّلَوٰةَ وَمِمَّا رَزَقۡنَٰهُمۡ يُنفِقُونَ <span class=\"ay\">﴿٣﴾</span> وَٱلَّذِينَ يُؤۡمِنُونَ بِمَآ أُنزِلَ إِلَيۡكَ وَمَآ أُنزِلَ مِن قَبۡلِكَ وَبِٱلۡأٓخِرَةِ هُمۡ يُوقِنُونَ <span class=\"ay\">﴿٤﴾</span> أُوْلَـٰٓئِكَ عَلَىٰ هُدٗى مِّن رَّبِّهِمۡۖ وَأُوْلَـٰٓئِكَ هُمُ ٱلۡمُفۡلِحُونَ <span class=\"ay\">﴿٥﴾</span>", "n": 1, "s": "البقرة ١–٥"}, {"k": "q", "t": "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ <span class=\"ay\">﴿٢٥٥﴾</span> لَآ إِكۡرَاهَ فِي ٱلدِّينِۖ قَد تَّبَيَّنَ ٱلرُّشۡدُ مِنَ ٱلۡغَيِّۚ فَمَن يَكۡفُرۡ بِٱلطَّـٰغُوتِ وَيُؤۡمِنۢ بِٱللَّهِ فَقَدِ ٱسۡتَمۡسَكَ بِٱلۡعُرۡوَةِ ٱلۡوُثۡقَىٰ لَا ٱنفِصَامَ لَهَاۗ وَٱللَّهُ سَمِيعٌ عَلِيمٌ <span class=\"ay\">﴿٢٥٦﴾</span> ٱللَّهُ وَلِيُّ ٱلَّذِينَ ءَامَنُواْ يُخۡرِجُهُم مِّنَ ٱلظُّلُمَٰتِ إِلَى ٱلنُّورِۖ وَٱلَّذِينَ كَفَرُوٓاْ أَوۡلِيَآؤُهُمُ ٱلطَّـٰغُوتُ يُخۡرِجُونَهُم مِّنَ ٱلنُّورِ إِلَى ٱلظُّلُمَٰتِۗ أُوْلَـٰٓئِكَ أَصۡحَٰبُ ٱلنَّارِۖ هُمۡ فِيهَا خَٰلِدُونَ <span class=\"ay\">﴿٢٥٧﴾</span>", "n": 1, "s": "آية الكرسي والآيتان بعدها · البقرة ٢٥٥–٢٥٧"}, {"k": "q", "t": "لِّلَّهِ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ وَإِن تُبۡدُواْ مَا فِيٓ أَنفُسِكُمۡ أَوۡ تُخۡفُوهُ يُحَاسِبۡكُم بِهِ ٱللَّهُۖ فَيَغۡفِرُ لِمَن يَشَآءُ وَيُعَذِّبُ مَن يَشَآءُۗ وَٱللَّهُ عَلَىٰ كُلِّ شَيۡءٖ قَدِيرٌ <span class=\"ay\">﴿٢٨٤﴾</span> ءَامَنَ ٱلرَّسُولُ بِمَآ أُنزِلَ إِلَيۡهِ مِن رَّبِّهِۦ وَٱلۡمُؤۡمِنُونَۚ كُلٌّ ءَامَنَ بِٱللَّهِ وَمَلَـٰٓئِكَتِهِۦ وَكُتُبِهِۦ وَرُسُلِهِۦ لَا نُفَرِّقُ بَيۡنَ أَحَدٖ مِّن رُّسُلِهِۦۚ وَقَالُواْ سَمِعۡنَا وَأَطَعۡنَاۖ غُفۡرَانَكَ رَبَّنَا وَإِلَيۡكَ ٱلۡمَصِيرُ <span class=\"ay\">﴿٢٨٥﴾</span> لَا يُكَلِّفُ ٱللَّهُ نَفۡسًا إِلَّا وُسۡعَهَاۚ لَهَا مَا كَسَبَتۡ وَعَلَيۡهَا مَا ٱكۡتَسَبَتۡۗ رَبَّنَا لَا تُؤَاخِذۡنَآ إِن نَّسِينَآ أَوۡ أَخۡطَأۡنَاۚ رَبَّنَا وَلَا تَحۡمِلۡ عَلَيۡنَآ إِصۡرٗا كَمَا حَمَلۡتَهُۥ عَلَى ٱلَّذِينَ مِن قَبۡلِنَاۚ رَبَّنَا وَلَا تُحَمِّلۡنَا مَا لَا طَاقَةَ لَنَا بِهِۦۖ وَٱعۡفُ عَنَّا وَٱغۡفِرۡ لَنَا وَٱرۡحَمۡنَآۚ أَنتَ مَوۡلَىٰنَا فَٱنصُرۡنَا عَلَى ٱلۡقَوۡمِ ٱلۡكَٰفِرِينَ <span class=\"ay\">﴿٢٨٦﴾</span>", "n": 1, "s": "خواتيم البقرة · ٢٨٤–٢٨٦"}, {"k": "q", "t": "شَهِدَ ٱللَّهُ أَنَّهُۥ لَآ إِلَٰهَ إِلَّا هُوَ وَٱلۡمَلَـٰٓئِكَةُ وَأُوْلُواْ ٱلۡعِلۡمِ قَآئِمَۢا بِٱلۡقِسۡطِۚ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡعَزِيزُ ٱلۡحَكِيمُ <span class=\"ay\">﴿١٨﴾</span> إِنَّ ٱلدِّينَ عِندَ ٱللَّهِ ٱلۡإِسۡلَٰمُۗ <span class=\"ay\">…</span>", "n": 1, "s": "آل عمران ١٨–١٩"}, {"k": "q", "t": "حَسۡبِيَ ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَۖ عَلَيۡهِ تَوَكَّلۡتُۖ وَهُوَ رَبُّ ٱلۡعَرۡشِ ٱلۡعَظِيمِ <span class=\"ay\">﴿١٢٩﴾</span>", "n": 7, "s": "التوبة ١٢٩"}, {"k": "q", "t": "قُلِ ٱدۡعُواْ ٱللَّهَ أَوِ ٱدۡعُواْ ٱلرَّحۡمَٰنَۖ أَيّٗا مَّا تَدۡعُواْ فَلَهُ ٱلۡأَسۡمَآءُ ٱلۡحُسۡنَىٰۚ وَلَا تَجۡهَرۡ بِصَلَاتِكَ وَلَا تُخَافِتۡ بِهَا وَٱبۡتَغِ بَيۡنَ ذَٰلِكَ سَبِيلٗا <span class=\"ay\">﴿١١٠﴾</span> وَقُلِ ٱلۡحَمۡدُ لِلَّهِ ٱلَّذِي لَمۡ يَتَّخِذۡ وَلَدٗا وَلَمۡ يَكُن لَّهُۥ شَرِيكٞ فِي ٱلۡمُلۡكِ وَلَمۡ يَكُن لَّهُۥ وَلِيّٞ مِّنَ ٱلذُّلِّۖ وَكَبِّرۡهُ تَكۡبِيرَۢا <span class=\"ay\">﴿١١١﴾</span>", "n": 3, "s": "الإسراء ١١٠–١١١"}, {"k": "q", "t": "أَفَحَسِبۡتُمۡ أَنَّمَا خَلَقۡنَٰكُمۡ عَبَثٗا وَأَنَّكُمۡ إِلَيۡنَا لَا تُرۡجَعُونَ <span class=\"ay\">﴿١١٥﴾</span> فَتَعَٰلَى ٱللَّهُ ٱلۡمَلِكُ ٱلۡحَقُّۖ لَآ إِلَٰهَ إِلَّا هُوَ رَبُّ ٱلۡعَرۡشِ ٱلۡكَرِيمِ <span class=\"ay\">﴿١١٦﴾</span> وَمَن يَدۡعُ مَعَ ٱللَّهِ إِلَٰهًا ءَاخَرَ لَا بُرۡهَٰنَ لَهُۥ بِهِۦ فَإِنَّمَا حِسَابُهُۥ عِندَ رَبِّهِۦٓۚ إِنَّهُۥ لَا يُفۡلِحُ ٱلۡكَٰفِرُونَ <span class=\"ay\">﴿١١٧﴾</span> وَقُل رَّبِّ ٱغۡفِرۡ وَٱرۡحَمۡ وَأَنتَ خَيۡرُ ٱلرَّـٰحِمِينَ <span class=\"ay\">﴿١١٨﴾</span>", "n": 1, "s": "المؤمنون ١١٥–١١٨"}, {"k": "q", "t": "فَسُبۡحَٰنَ ٱللَّهِ حِينَ تُمۡسُونَ وَحِينَ تُصۡبِحُونَ <span class=\"ay\">﴿١٧﴾</span> وَلَهُ ٱلۡحَمۡدُ فِي ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِ وَعَشِيّٗا وَحِينَ تُظۡهِرُونَ <span class=\"ay\">﴿١٨﴾</span> يُخۡرِجُ ٱلۡحَيَّ مِنَ ٱلۡمَيِّتِ وَيُخۡرِجُ ٱلۡمَيِّتَ مِنَ ٱلۡحَيِّ وَيُحۡيِ ٱلۡأَرۡضَ بَعۡدَ مَوۡتِهَاۚ وَكَذَٰلِكَ تُخۡرَجُونَ <span class=\"ay\">﴿١٩﴾</span>", "n": 3, "s": "الروم ١٧–١٩"}, {"k": "q", "t": "<span class=\"bas\">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</span>حمٓ <span class=\"ay\">﴿١﴾</span> تَنزِيلُ ٱلۡكِتَٰبِ مِنَ ٱللَّهِ ٱلۡعَزِيزِ ٱلۡعَلِيمِ <span class=\"ay\">﴿٢﴾</span> غَافِرِ ٱلذَّنۢبِ وَقَابِلِ ٱلتَّوۡبِ شَدِيدِ ٱلۡعِقَابِ ذِي ٱلطَّوۡلِۖ لَآ إِلَٰهَ إِلَّا هُوَۖ إِلَيۡهِ ٱلۡمَصِيرُ <span class=\"ay\">﴿٣﴾</span>", "n": 3, "s": "غافر ١–٣"}, {"k": "q", "t": "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ <span class=\"ay\">﴿٢٥٥﴾</span>", "n": 1, "s": "آية الكرسي · البقرة ٢٥٥"}, {"k": "d", "t": "أَعُوذُ بِاللَّهِ السَّمِيعِ الْعَلِيمِ مِنَ الشَّيْطَانِ الرَّجِيمِ", "n": 3, "s": "الاستعاذة"}, {"k": "q", "t": "هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَۖ عَٰلِمُ ٱلۡغَيۡبِ وَٱلشَّهَٰدَةِۖ هُوَ ٱلرَّحۡمَٰنُ ٱلرَّحِيمُ <span class=\"ay\">﴿٢٢﴾</span> هُوَ ٱللَّهُ ٱلَّذِي لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡمَلِكُ ٱلۡقُدُّوسُ ٱلسَّلَٰمُ ٱلۡمُؤۡمِنُ ٱلۡمُهَيۡمِنُ ٱلۡعَزِيزُ ٱلۡجَبَّارُ ٱلۡمُتَكَبِّرُۚ سُبۡحَٰنَ ٱللَّهِ عَمَّا يُشۡرِكُونَ <span class=\"ay\">﴿٢٣﴾</span> هُوَ ٱللَّهُ ٱلۡخَٰلِقُ ٱلۡبَارِئُ ٱلۡمُصَوِّرُۖ لَهُ ٱلۡأَسۡمَآءُ ٱلۡحُسۡنَىٰۚ يُسَبِّحُ لَهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِۖ وَهُوَ ٱلۡعَزِيزُ ٱلۡحَكِيمُ <span class=\"ay\">﴿٢٤﴾</span>", "n": 1, "s": "الحشر ٢٢–٢٤"}, {"k": "q", "t": "<span class=\"sn\">سورة الإخلاص</span><span class=\"bas\">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</span>قُلۡ هُوَ ٱللَّهُ أَحَدٌ <span class=\"ay\">﴿١﴾</span> ٱللَّهُ ٱلصَّمَدُ <span class=\"ay\">﴿٢﴾</span> لَمۡ يَلِدۡ وَلَمۡ يُولَدۡ <span class=\"ay\">﴿٣﴾</span> وَلَمۡ يَكُن لَّهُۥ كُفُوًا أَحَدُۢ <span class=\"ay\">﴿٤﴾</span><br><span class=\"sn\">سورة الفلق</span><span class=\"bas\">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</span>قُلۡ أَعُوذُ بِرَبِّ ٱلۡفَلَقِ <span class=\"ay\">﴿١﴾</span> مِن شَرِّ مَا خَلَقَ <span class=\"ay\">﴿٢﴾</span> وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ <span class=\"ay\">﴿٣﴾</span> وَمِن شَرِّ ٱلنَّفَّـٰثَٰتِ فِي ٱلۡعُقَدِ <span class=\"ay\">﴿٤﴾</span> وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ <span class=\"ay\">﴿٥﴾</span><br><span class=\"sn\">سورة الناس</span><span class=\"bas\">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</span>قُلۡ أَعُوذُ بِرَبِّ ٱلنَّاسِ <span class=\"ay\">﴿١﴾</span> مَلِكِ ٱلنَّاسِ <span class=\"ay\">﴿٢﴾</span> إِلَٰهِ ٱلنَّاسِ <span class=\"ay\">﴿٣﴾</span> مِن شَرِّ ٱلۡوَسۡوَاسِ ٱلۡخَنَّاسِ <span class=\"ay\">﴿٤﴾</span> ٱلَّذِي يُوَسۡوِسُ فِي صُدُورِ ٱلنَّاسِ <span class=\"ay\">﴿٥﴾</span> مِنَ ٱلۡجِنَّةِ وَٱلنَّاسِ <span class=\"ay\">﴿٦﴾</span>", "n": 3, "s": "المعوّذات: الإخلاص والفلق والناس"}], "sabah": [{"k": "s", "t": "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ ﷺ نَبِيًّا", "n": 3}, {"k": "s", "t": "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ، وَهُوَ السَّمِيعُ الْعَلِيمُ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، عَلَيْكَ تَوَكَّلْتُ، وَأَنْتَ رَبُّ الْعَرْشِ الْعَظِيمِ، مَا شَاءَ اللَّهُ كَانَ وَمَا لَمْ يَشَأْ لَمْ يَكُنْ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ، أَعْلَمُ أَنَّ اللَّهَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، وَأَنَّ اللَّهَ قَدْ أَحَاطَ بِكُلِّ شَيْءٍ عِلْمًا، اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي، وَمِنْ شَرِّ كُلِّ دَابَّةٍ أَنْتَ آخِذٌ بِنَاصِيَتِهَا، إِنَّ رَبِّي عَلَى صِرَاطٍ مُسْتَقِيمٍ", "n": 1}, {"k": "s", "t": "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذَا الْيَوْمِ وَخَيْرَ مَا بَعْدَهُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ", "n": 3}, {"k": "s", "t": "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ رَبِّ الْعَالَمِينَ، اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ هَذَا الْيَوْمِ فَتْحَهُ وَنَصْرَهُ وَنُورَهُ وَبَرَكَتَهُ وَهُدَاهُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِيهِ وَشَرِّ مَا بَعْدَهُ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ مَا أَصْبَحَ بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ إِنِّي أَصْبَحْتُ أُشْهِدُكَ وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ وَجَمِيعَ خَلْقِكَ، بِأَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ", "n": 4}, {"k": "s", "t": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي دِينِي وَدُنْيَايَ وَأَهْلِي وَمَالِي، اللَّهُمَّ اسْتُرْ عَوْرَاتِي، وَآمِنْ رَوْعَاتِي، اللَّهُمَّ احْفَظْنِي مِنْ بَيْنِ يَدَيَّ، وَمِنْ خَلْفِي، وَعَنْ يَمِينِي، وَعَنْ شِمَالِي، وَمِنْ فَوْقِي، وَأَعُوذُ بِعَظَمَتِكَ أَنْ أُغْتَالَ مِنْ تَحْتِي", "n": 3}, {"k": "s", "t": "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي؛ فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ", "n": 3}, {"k": "s", "t": "أَصْبَحْنَا عَلَى فِطْرَةِ الْإِسْلَامِ، وَعَلَى كَلِمَةِ الْإِخْلَاصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ، حَنِيفًا مُسْلِمًا، وَمَا كَانَ مِنَ الْمُشْرِكِينَ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ إِنِّي أَصْبَحْتُ مِنْكَ فِي نِعْمَةٍ وَعَافِيَةٍ وَسِتْرٍ، فَأَتْمِمْ عَلَيَّ نِعْمَتَكَ وَعَافِيَتَكَ وَسِتْرَكَ فِي الدُّنْيَا وَالْآخِرَةِ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ فَاطِرَ السَّمَاوَاتِ وَالْأَرْضِ، عَالِمَ الْغَيْبِ وَالشَّهَادَةِ، لَا إِلَهَ إِلَّا أَنْتَ، رَبَّ كُلِّ شَيْءٍ وَمَلِيكَهُ، أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي وَمِنْ شَرِّ الشَّيْطَانِ وَشِرْكِهِ، وَأَنْ أَقْتَرِفَ عَلَى نَفْسِي سُوءًا أَوْ أَجُرَّهُ إِلَى مُسْلِمٍ", "n": 3}, {"k": "s", "t": "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ", "n": 3}, {"k": "s", "t": "يَا رَبِّ لَكَ الْحَمْدُ كَمَا يَنْبَغِي لِجَلَالِ وَجْهِكَ وَلِعَظِيمِ سُلْطَانِكَ", "n": 3}, {"k": "s", "t": "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ، وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ", "n": 3}, {"k": "s", "t": "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا أَنْتَ، أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ وَالْفَقْرِ، اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، لَا إِلَهَ إِلَّا أَنْتَ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ أَلْهِمْنِي رُشْدِي، وَأَعِذْنِي مِنْ شَرِّ نَفْسِي", "n": 3}, {"k": "s", "t": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَأَعُوذُ بِكَ مِنَ الْعَجْزِ وَالْكَسَلِ، وَأَعُوذُ بِكَ مِنَ الْجُبْنِ وَالْبُخْلِ، وَأَعُوذُ بِكَ مِنْ غَلَبَةِ الدَّيْنِ، وَقَهْرِ الرِّجَالِ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ أَنْ أُشْرِكَ بِكَ وَأَنَا أَعْلَمُ، وَأَسْتَغْفِرُكَ لِمَا لَا أَعْلَمُ", "n": 3}, {"k": "s", "t": "سُبْحَانَ اللَّهِ الْعَظِيمِ وَبِحَمْدِهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ", "n": 3}, {"k": "s", "t": "اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، بِسْمِ اللَّهِ عَلَى نَفْسِي وَدِينِي، بِسْمِ اللَّهِ عَلَى كُلِّ شَيْءٍ أَعْطَانِيهِ رَبِّي، بِسْمِ اللَّهِ خَيْرِ الْأَسْمَاءِ، بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ، بِسْمِ اللَّهِ افْتَتَحْتُ وَعَلَى اللَّهِ تَوَكَّلْتُ، اللَّهُ اللَّهُ رَبِّي لَا أُشْرِكُ بِهِ أَحَدًا، أَسْأَلُكَ اللَّهُمَّ بِخَيْرِكَ مِنْ خَيْرِكَ الَّذِي لَا يُعْطِيهِ أَحَدٌ غَيْرُكَ، عَزَّ جَارُكَ وَجَلَّ ثَنَاؤُكَ وَلَا إِلَهَ غَيْرُكَ، اجْعَلْنِي فِي عِيَاذِكَ مِنْ شَرِّ كُلِّ سُلْطَانٍ وَمِنَ الشَّيْطَانِ الرَّجِيمِ، اللَّهُمَّ إِنِّي أَحْتَرِسُ بِكَ مِنْ شَرِّ جَمِيعِ كُلِّ ذِي شَرٍّ خَلَقْتَهُ، وَأَحْتَرِزُ بِكَ مِنْهُمْ، وَأُقَدِّمُ بَيْنَ يَدَيَّ: بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ﴿قُلْ هُوَ اللَّهُ أَحَدٌ * اللَّهُ الصَّمَدُ * لَمْ يَلِدْ وَلَمْ يُولَدْ * وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ﴾، وَمِنْ خَلْفِي مِثْلَ ذَلِكَ، وَعَنْ يَمِينِي مِثْلَ ذَلِكَ، وَعَنْ يَسَارِي مِثْلَ ذَلِكَ، وَمِنْ فَوْقِي مِثْلَ ذَلِكَ", "n": 1}], "masa": [{"k": "s", "t": "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ ﷺ نَبِيًّا", "n": 3}, {"k": "s", "t": "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ، وَهُوَ السَّمِيعُ الْعَلِيمُ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، عَلَيْكَ تَوَكَّلْتُ، وَأَنْتَ رَبُّ الْعَرْشِ الْعَظِيمِ، مَا شَاءَ اللَّهُ كَانَ وَمَا لَمْ يَشَأْ لَمْ يَكُنْ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ، أَعْلَمُ أَنَّ اللَّهَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، وَأَنَّ اللَّهَ قَدْ أَحَاطَ بِكُلِّ شَيْءٍ عِلْمًا، اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي، وَمِنْ شَرِّ كُلِّ دَابَّةٍ أَنْتَ آخِذٌ بِنَاصِيَتِهَا، إِنَّ رَبِّي عَلَى صِرَاطٍ مُسْتَقِيمٍ", "n": 1}, {"k": "s", "t": "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذِهِ اللَّيْلَةِ وَخَيْرَ مَا بَعْدَهَا، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذِهِ اللَّيْلَةِ وَشَرِّ مَا بَعْدَهَا، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ", "n": 3}, {"k": "s", "t": "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ رَبِّ الْعَالَمِينَ، اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ هَذَا الْيَوْمِ فَتْحَهُ وَنَصْرَهُ وَنُورَهُ وَبَرَكَتَهُ وَهُدَاهُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِيهِ وَشَرِّ مَا بَعْدَهُ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ مَا أَمْسَى بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ إِنِّي أَمْسَيْتُ أُشْهِدُكَ وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ وَجَمِيعَ خَلْقِكَ، بِأَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ", "n": 4}, {"k": "s", "t": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي دِينِي وَدُنْيَايَ وَأَهْلِي وَمَالِي، اللَّهُمَّ اسْتُرْ عَوْرَاتِي، وَآمِنْ رَوْعَاتِي، اللَّهُمَّ احْفَظْنِي مِنْ بَيْنِ يَدَيَّ، وَمِنْ خَلْفِي، وَعَنْ يَمِينِي، وَعَنْ شِمَالِي، وَمِنْ فَوْقِي، وَأَعُوذُ بِعَظَمَتِكَ أَنْ أُغْتَالَ مِنْ تَحْتِي", "n": 3}, {"k": "s", "t": "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي؛ فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ", "n": 3}, {"k": "s", "t": "أَمْسَيْنَا عَلَى فِطْرَةِ الْإِسْلَامِ، وَعَلَى كَلِمَةِ الْإِخْلَاصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ، حَنِيفًا مُسْلِمًا، وَمَا كَانَ مِنَ الْمُشْرِكِينَ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ إِنِّي أَمْسَيْتُ مِنْكَ فِي نِعْمَةٍ وَعَافِيَةٍ وَسِتْرٍ، فَأَتْمِمْ عَلَيَّ نِعْمَتَكَ وَعَافِيَتَكَ وَسِتْرَكَ فِي الدُّنْيَا وَالْآخِرَةِ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ فَاطِرَ السَّمَاوَاتِ وَالْأَرْضِ، عَالِمَ الْغَيْبِ وَالشَّهَادَةِ، لَا إِلَهَ إِلَّا أَنْتَ، رَبَّ كُلِّ شَيْءٍ وَمَلِيكَهُ، أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي وَمِنْ شَرِّ الشَّيْطَانِ وَشِرْكِهِ، وَأَنْ أَقْتَرِفَ عَلَى نَفْسِي سُوءًا أَوْ أَجُرَّهُ إِلَى مُسْلِمٍ", "n": 3}, {"k": "s", "t": "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ", "n": 3}, {"k": "s", "t": "يَا رَبِّ لَكَ الْحَمْدُ كَمَا يَنْبَغِي لِجَلَالِ وَجْهِكَ وَلِعَظِيمِ سُلْطَانِكَ", "n": 3}, {"k": "s", "t": "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ، وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ", "n": 3}, {"k": "s", "t": "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا أَنْتَ، أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ وَالْفَقْرِ، اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، لَا إِلَهَ إِلَّا أَنْتَ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ أَلْهِمْنِي رُشْدِي، وَأَعِذْنِي مِنْ شَرِّ نَفْسِي", "n": 3}, {"k": "s", "t": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَأَعُوذُ بِكَ مِنَ الْعَجْزِ وَالْكَسَلِ، وَأَعُوذُ بِكَ مِنَ الْجُبْنِ وَالْبُخْلِ، وَأَعُوذُ بِكَ مِنْ غَلَبَةِ الدَّيْنِ، وَقَهْرِ الرِّجَالِ", "n": 3}, {"k": "s", "t": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ أَنْ أُشْرِكَ بِكَ وَأَنَا أَعْلَمُ، وَأَسْتَغْفِرُكَ لِمَا لَا أَعْلَمُ", "n": 3}, {"k": "s", "t": "سُبْحَانَ اللَّهِ الْعَظِيمِ وَبِحَمْدِهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ", "n": 3}, {"k": "s", "t": "اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، بِسْمِ اللَّهِ عَلَى نَفْسِي وَدِينِي، بِسْمِ اللَّهِ عَلَى كُلِّ شَيْءٍ أَعْطَانِيهِ رَبِّي، بِسْمِ اللَّهِ خَيْرِ الْأَسْمَاءِ، بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ، بِسْمِ اللَّهِ افْتَتَحْتُ وَعَلَى اللَّهِ تَوَكَّلْتُ، اللَّهُ اللَّهُ رَبِّي لَا أُشْرِكُ بِهِ أَحَدًا، أَسْأَلُكَ اللَّهُمَّ بِخَيْرِكَ مِنْ خَيْرِكَ الَّذِي لَا يُعْطِيهِ أَحَدٌ غَيْرُكَ، عَزَّ جَارُكَ وَجَلَّ ثَنَاؤُكَ وَلَا إِلَهَ غَيْرُكَ، اجْعَلْنِي فِي عِيَاذِكَ مِنْ شَرِّ كُلِّ سُلْطَانٍ وَمِنَ الشَّيْطَانِ الرَّجِيمِ، اللَّهُمَّ إِنِّي أَحْتَرِسُ بِكَ مِنْ شَرِّ جَمِيعِ كُلِّ ذِي شَرٍّ خَلَقْتَهُ، وَأَحْتَرِزُ بِكَ مِنْهُمْ، وَأُقَدِّمُ بَيْنَ يَدَيَّ: بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ﴿قُلْ هُوَ اللَّهُ أَحَدٌ * اللَّهُ الصَّمَدُ * لَمْ يَلِدْ وَلَمْ يُولَدْ * وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ﴾، وَمِنْ خَلْفِي مِثْلَ ذَلِكَ، وَعَنْ يَمِينِي مِثْلَ ذَلِكَ، وَعَنْ يَسَارِي مِثْلَ ذَلِكَ، وَمِنْ فَوْقِي مِثْلَ ذَلِكَ", "n": 1}], "verse": "فَٱصۡبِرۡ عَلَىٰ مَا يَقُولُونَ وَسَبِّحۡ بِحَمۡدِ رَبِّكَ قَبۡلَ طُلُوعِ ٱلشَّمۡسِ وَقَبۡلَ ٱلۡغُرُوبِ"};
+/* ---------- i18n: exact strings  [en, fr, es, ru] ---------- */
+const I18N_D={
+"اسمك كما تحب أن يظهر":["Your name as you'd like it shown", "Votre nom tel que vous souhaitez l'afficher", "Tu nombre tal como quieres que aparezca", "Ваше имя, как его показывать"],
+"مثال: قراءة سورة يس":["e.g. Reading Surat Ya-Sin", "ex. : Lecture de la sourate Ya-Sin", "p. ej.: Leer la sura Ya-Sin", "напр.: чтение суры Ясин"],
+"مثال: ليلة الجمعة":["e.g. Thursday night", "ex. : La nuit du jeudi au vendredi", "p. ej.: La noche del jueves", "напр.: ночь на пятницу"],
+"مثال: مجلس الذكر هذا الخميس بعد صلاة العشاء…":["e.g. Dhikr gathering this Thursday after Isha…", "ex. : Assemblée de dhikr ce jeudi après Icha…", "p. ej.: Reunión de dhikr este jueves después de Isha…", "напр.: собрание зикра в этот четверг после иша…"],
+"أرسل رابط الاستعادة":["Send reset link", "Envoyer le lien", "Enviar enlace", "Отправить ссылку"],
+"أضف العمل":["Add practice", "Ajouter la pratique", "Añadir práctica", "Добавить практику"],
+"أعد إرسال رسالة التأكيد":["Resend verification email", "Renvoyer l'e-mail de confirmation", "Reenviar correo de verificación", "Отправить письмо повторно"],
+"أعمال مقترحة من الإدارة":["Practices suggested by the admin", "Pratiques proposées par l'administration", "Prácticas sugeridas por la administración", "Практики от администрации"],
+"أو":["or", "ou", "o", "или"],
+"أُرسل رابط الاستعادة إلى بريدك. افتحه ثم ارجع وادخل بكلمة المرور الجديدة.":["A reset link was sent to your email. Open it, then come back and sign in with your new password.", "Un lien a été envoyé à votre adresse. Ouvrez-le, puis revenez vous connecter avec le nouveau mot de passe.", "Se envió un enlace a tu correo. Ábrelo y vuelve a entrar con la nueva contraseña.", "Ссылка отправлена на вашу почту. Откройте её, затем войдите с новым паролем."],
+"أُرسلت رسالة التأكيد إلى بريدك.":["A verification email was sent.", "Un e-mail de confirmation a été envoyé.", "Se envió un correo de verificación.", "Письмо с подтверждением отправлено."],
+"إخفاء الرسالة":["Hide message", "Masquer le message", "Ocultar mensaje", "Скрыть сообщение"],
+"إنشاء الحساب":["Create account", "Créer le compte", "Crear cuenta", "Создать аккаунт"],
+"استعادة كلمة المرور":["Reset password", "Réinitialiser le mot de passe", "Restablecer contraseña", "Восстановление пароля"],
+"اكتب بريدك، وسنرسل إليه رابطًا لتعيين كلمة مرور جديدة.":["Enter your email and we'll send a link to set a new password.", "Saisissez votre e-mail, nous y enverrons un lien pour choisir un nouveau mot de passe.", "Escribe tu correo y te enviaremos un enlace para crear una nueva contraseña.", "Введите почту, и мы пришлём ссылку для нового пароля."],
+"الاسم":["Name", "Nom", "Nombre", "Имя"],
+"البريد أو كلمة المرور غير صحيحة.":["Incorrect email or password.", "E-mail ou mot de passe incorrect.", "Correo o contraseña incorrectos.", "Неверная почта или пароль."],
+"البريد الإلكتروني":["Email", "E-mail", "Correo electrónico", "Эл. почта"],
+"البريد مؤكَّد ✓":["Email verified ✓", "E-mail confirmé ✓", "Correo verificado ✓", "Почта подтверждена ✓"],
+"التعديلات أعلاه تصل إلى كل السالكين فورًا. أما تغيير التصميم أو إضافة خاصية جديدة فيكون برفع ملف index.html الجديد إلى مستودع GitHub.":["Changes above reach every seeker instantly. Design changes or new features are made by uploading the new index.html to the GitHub repository.", "Les modifications ci-dessus parviennent aussitôt à tous les cheminants. Pour changer le design ou ajouter une fonction, téléversez le nouveau index.html sur le dépôt GitHub.", "Los cambios de arriba llegan al instante a todos. Para cambiar el diseño o añadir funciones, sube el nuevo index.html al repositorio de GitHub.", "Изменения выше сразу доходят до всех. Дизайн и новые функции меняются загрузкой нового index.html в репозиторий GitHub."],
+"الحساب":["Account", "Compte", "Cuenta", "Аккаунт"],
+"الدخول بحساب Google":["Continue with Google", "Continuer avec Google", "Continuar con Google", "Войти через Google"],
+"العمل":["Practice", "Pratique", "Práctica", "Практика"],
+"المرشد":["Al-Murshid", "Al-Murshid", "Al-Murshid", "Аль-Муршид"],
+"المستعملون":["Users", "Utilisateurs", "Usuarios", "Пользователи"],
+"المستعملون، الرسائل، الأعمال المقترحة":["Users, messages, suggested practices", "Utilisateurs, messages, pratiques proposées", "Usuarios, mensajes, prácticas sugeridas", "Пользователи, сообщения, практики"],
+"انضمّ:":["Joined:", "Inscrit :", "Se unió:", "С нами с:"],
+"· آخر دخول:":["· Last seen:", "· Dernière visite :", "· Última visita:", "· Последний вход:"],
+"تأكيد كلمة المرور":["Confirm password", "Confirmer le mot de passe", "Confirmar contraseña", "Повторите пароль"],
+"تحديث التطبيق نفسه":["Updating the app itself", "Mettre à jour l'application elle-même", "Actualizar la propia aplicación", "Обновление самого приложения"],
+"تحديث القائمة":["Refresh list", "Actualiser la liste", "Actualizar lista", "Обновить список"],
+"تحقّقت":["I've verified", "J'ai confirmé", "Ya lo verifiqué", "Я подтвердил"],
+"تسجيل الخروج":["Sign out", "Se déconnecter", "Cerrar sesión", "Выйти"],
+"تسجيل الدخول":["Sign in", "Connexion", "Iniciar sesión", "Вход"],
+"تظهر في «الأعمال» لكل السالكين، ويؤكدها كل واحد منهم.":["Shown in “Practices” for every seeker; each one confirms them.", "Affichées dans « Pratiques » pour tous ; chacun les confirme.", "Aparecen en «Prácticas» para todos; cada uno las confirma.", "Показываются в «Практиках» у всех; каждый отмечает сам."],
+"تظهر في أعلى الصفحة الرئيسية لكل السالكين":["Shown at the top of the home page for every seeker", "Affiché en haut de l'accueil pour tous", "Se muestra arriba en el inicio para todos", "Показывается вверху главной у всех"],
+"تُحفظ بياناتك في حسابك وفي هذا الهاتف.":["Your data is saved in your account and on this phone.", "Vos données sont enregistrées dans votre compte et sur ce téléphone.", "Tus datos se guardan en tu cuenta y en este teléfono.", "Данные хранятся в аккаунте и на этом телефоне."],
+"تُحفظ بياناتك وتقدّمك في حسابك على خوادم Google (Firebase)، ولا يطّلع عليها أحد غيرك، حتى إدارة التطبيق.":["Your data and progress are stored in your account on Google (Firebase) servers. Nobody but you can see them, not even the app's admin.", "Vos données et votre progression sont stockées dans votre compte sur les serveurs Google (Firebase). Personne d'autre que vous ne peut les voir, pas même l'administration.", "Tus datos y tu progreso se guardan en tu cuenta en servidores de Google (Firebase). Nadie más puede verlos, ni siquiera la administración.", "Ваши данные и прогресс хранятся в аккаунте на серверах Google (Firebase). Их не видит никто, кроме вас, даже администрация."],
+"جارٍ التحميل…":["Loading…", "Chargement…", "Cargando…", "Загрузка…"],
+"حذف الحساب":["Delete account", "Supprimer le compte", "Eliminar cuenta", "Удалить аккаунт"],
+"حساب جديد":["New account", "Nouveau compte", "Cuenta nueva", "Новый аккаунт"],
+"حسنًا":["OK", "D'accord", "De acuerdo", "Хорошо"],
+"دخول":["Sign in", "Se connecter", "Entrar", "Войти"],
+"دليلك نحو التزكية والقرب من الله":["Your guide to purification and nearness to God", "Votre guide vers la purification et la proximité de Dieu", "Tu guía hacia la purificación y la cercanía a Dios", "Ваш проводник к очищению и близости к Богу"],
+"رجوع إلى الدخول":["Back to sign in", "Retour à la connexion", "Volver a iniciar sesión", "Назад ко входу"],
+"رسالة لكل المستعملين":["Message to all users", "Message à tous les utilisateurs", "Mensaje para todos", "Сообщение всем"],
+"رسالة من الإدارة":["Message from the admin", "Message de l'administration", "Mensaje de la administración", "Сообщение администрации"],
+"سيُحذف حسابك وكل تقدّمك نهائيًا. متابعة؟":["Your account and all your progress will be deleted permanently. Continue?", "Votre compte et toute votre progression seront supprimés définitivement. Continuer ?", "Tu cuenta y todo tu progreso se eliminarán definitivamente. ¿Continuar?", "Аккаунт и весь прогресс будут удалены навсегда. Продолжить?"],
+"غير منشورة":["Not published", "Non publié", "No publicado", "Не опубликовано"],
+"منشورة":["Published", "Publié", "Publicado", "Опубликовано"],
+"كلمة المرور":["Password", "Mot de passe", "Contraseña", "Пароль"],
+"كلمتا المرور غير متطابقتين.":["Passwords don't match.", "Les mots de passe ne correspondent pas.", "Las contraseñas no coinciden.", "Пароли не совпадают."],
+"لا تظهر هنا تفاصيل التقدم الروحي للسالكين، فهي خاصة بكل واحد منهم.":["Seekers' spiritual progress is not shown here; it belongs to each of them.", "La progression spirituelle des cheminants n'apparaît pas ici ; elle reste privée.", "El progreso espiritual de cada uno no aparece aquí; es privado.", "Духовный прогресс здесь не виден: он принадлежит каждому."],
+"لا توجد أعمال مقترحة.":["No suggested practices.", "Aucune pratique proposée.", "No hay prácticas sugeridas.", "Нет предложенных практик."],
+"لا يوجد مستعملون بعد.":["No users yet.", "Aucun utilisateur pour l'instant.", "Aún no hay usuarios.", "Пока нет пользователей."],
+"لم يُؤكَّد البريد بعد. افتح الرسالة التي وصلتك ثم اضغط «تحقّقت».":["Email not verified yet. Open the message you received, then tap “I've verified”.", "E-mail pas encore confirmé. Ouvrez le message reçu puis touchez « J'ai confirmé ».", "Correo aún no verificado. Abre el mensaje recibido y pulsa «Ya lo verifiqué».", "Почта ещё не подтверждена. Откройте письмо и нажмите «Я подтвердил»."],
+"لم يُؤكَّد بعد. افتح الرابط في الرسالة ثم أعد المحاولة.":["Not verified yet. Open the link in the message, then try again.", "Pas encore confirmé. Ouvrez le lien du message puis réessayez.", "Aún no verificado. Abre el enlace del mensaje e inténtalo de nuevo.", "Ещё не подтверждено. Откройте ссылку в письме и повторите."],
+"لوحة الإدارة":["Admin panel", "Administration", "Panel de administración", "Панель администратора"],
+"نسيت كلمة المرور؟":["Forgot password?", "Mot de passe oublié ?", "¿Olvidaste la contraseña?", "Забыли пароль?"],
+"نشر الرسالة":["Publish message", "Publier le message", "Publicar mensaje", "Опубликовать"],
+"نعم، احذف حسابي":["Yes, delete my account", "Oui, supprimer mon compte", "Sí, eliminar mi cuenta", "Да, удалить аккаунт"],
+"نُشرت الرسالة لكل المستعملين.":["Message published to all users.", "Message publié pour tous.", "Mensaje publicado para todos.", "Сообщение опубликовано."],
+"أُخفيت الرسالة.":["Message hidden.", "Message masqué.", "Mensaje ocultado.", "Сообщение скрыто."],
+"أُضيف العمل.":["Practice added.", "Pratique ajoutée.", "Práctica añadida.", "Практика добавлена."],
+"حُذف العمل.":["Practice removed.", "Pratique supprimée.", "Práctica eliminada.", "Практика удалена."],
+"اكتب نص الرسالة أولًا.":["Write the message first.", "Écrivez d'abord le message.", "Escribe primero el mensaje.", "Сначала напишите сообщение."],
+"اكتب اسم العمل أولًا.":["Write the practice name first.", "Écrivez d'abord le nom de la pratique.", "Escribe primero el nombre.", "Сначала введите название."],
+"وصف قصير (اختياري)":["Short description (optional)", "Brève description (facultatif)", "Descripción breve (opcional)", "Краткое описание (необязательно)"],
+"وضع محلي: تُحفظ بياناتك في هذا المتصفح فقط.":["Local mode: your data is saved in this browser only.", "Mode local : vos données sont enregistrées dans ce navigateur uniquement.", "Modo local: tus datos se guardan solo en este navegador.", "Локальный режим: данные хранятся только в этом браузере."],
+"وضع محلي: لم نتمكن من الاتصال بخدمة الحسابات هنا، فتُحفظ بياناتك في هذا المتصفح فقط.":["Local mode: the account service couldn't be reached here, so your data is saved in this browser only.", "Mode local : le service de comptes est injoignable ici, vos données restent dans ce navigateur.", "Modo local: no se pudo contactar el servicio de cuentas; tus datos se guardan solo en este navegador.", "Локальный режим: сервис аккаунтов недоступен, данные хранятся только в этом браузере."],
+"يُحفظ تقدّمك في حسابك، فتجده على أي هاتف تدخل منه.":["Your progress is saved in your account, so you'll find it on any phone you sign in from.", "Votre progression est enregistrée dans votre compte : vous la retrouvez sur tout téléphone.", "Tu progreso se guarda en tu cuenta y lo encontrarás en cualquier teléfono.", "Прогресс хранится в аккаунте и доступен с любого телефона."],
+"هذه الخانة خاصة بإدارة التطبيق.":["This section is for the app's admin only.", "Cette section est réservée à l'administration.", "Esta sección es solo para la administración.", "Этот раздел только для администратора."],
+"صيغة البريد غير صحيحة.":["Invalid email format.", "Format d'e-mail invalide.", "Formato de correo no válido.", "Неверный формат почты."],
+"اكتب بريدك الإلكتروني.":["Enter your email.", "Saisissez votre e-mail.", "Escribe tu correo.", "Введите почту."],
+"اكتب كلمة المرور.":["Enter your password.", "Saisissez votre mot de passe.", "Escribe tu contraseña.", "Введите пароль."],
+"اكتب اسمك.":["Enter your name.", "Saisissez votre nom.", "Escribe tu nombre.", "Введите имя."],
+"كلمة المرور قصيرة: ستة أحرف على الأقل.":["Password too short: at least six characters.", "Mot de passe trop court : six caractères minimum.", "Contraseña corta: mínimo seis caracteres.", "Пароль слишком короткий: минимум шесть символов."],
+"هذا البريد مسجّل من قبل. ادخل بدل إنشاء حساب.":["This email is already registered. Sign in instead.", "Cet e-mail est déjà inscrit. Connectez-vous plutôt.", "Este correo ya está registrado. Inicia sesión.", "Эта почта уже зарегистрирована. Войдите."],
+"محاولات كثيرة. انتظر قليلًا ثم أعد المحاولة.":["Too many attempts. Wait a little, then try again.", "Trop de tentatives. Patientez puis réessayez.", "Demasiados intentos. Espera un poco y vuelve a intentarlo.", "Слишком много попыток. Подождите и повторите."],
+"لا يوجد اتصال بالإنترنت. تحقّق من الاتصال ثم أعد المحاولة.":["No internet connection. Check it and try again.", "Pas de connexion Internet. Vérifiez puis réessayez.", "Sin conexión a Internet. Compruébala e inténtalo de nuevo.", "Нет интернета. Проверьте подключение и повторите."],
+"أُغلقت نافذة Google قبل إتمام الدخول.":["The Google window was closed before sign-in finished.", "La fenêtre Google a été fermée avant la fin de la connexion.", "Se cerró la ventana de Google antes de terminar.", "Окно Google закрыто до завершения входа."],
+"منع المتصفح نافذة Google. سنحاول بطريقة أخرى.":["The browser blocked the Google window. Trying another way.", "Le navigateur a bloqué la fenêtre Google. Nouvelle tentative autrement.", "El navegador bloqueó la ventana de Google. Probaremos de otra forma.", "Браузер заблокировал окно Google. Пробуем иначе."],
+"لأمانك، سجّل الخروج ثم ادخل من جديد، ثم أعد المحاولة.":["For your security, sign out, sign in again, then retry.", "Par sécurité, déconnectez-vous, reconnectez-vous puis réessayez.", "Por seguridad, cierra sesión, vuelve a entrar e inténtalo de nuevo.", "Для безопасности выйдите, войдите снова и повторите."],
+"هذا الرابط غير مسموح له بالدخول في إعدادات Firebase.":["This address isn't authorized in the Firebase settings.", "Cette adresse n'est pas autorisée dans les réglages Firebase.", "Esta dirección no está autorizada en Firebase.", "Этот адрес не разрешён в настройках Firebase."],
+"تعذّر إتمام العملية. أعد المحاولة.":["Something went wrong. Please try again.", "L'opération a échoué. Réessayez.", "No se pudo completar. Inténtalo de nuevo.", "Не удалось выполнить. Повторите."],
+"تعذّر الاتصال بخدمة الحسابات. تحقّق من الإنترنت ثم أعد فتح التطبيق.":["Couldn't reach the account service. Check your internet and reopen the app.", "Service de comptes injoignable. Vérifiez Internet et rouvrez l'application.", "No se pudo contactar el servicio de cuentas. Revisa Internet y vuelve a abrir la app.", "Сервис аккаунтов недоступен. Проверьте интернет и откройте приложение снова."],
+"القائمة":["Menu","Menu","Menú","Меню"],
+"الرئيسية":["Home","Accueil","Inicio","Главная"],
+"التنبيهات":["Notifications","Notifications","Notificaciones","Уведомления"],
+"الملف الشخصي":["Profile","Profil","Perfil","Профиль"],
+"الأعمال":["Practices","Pratiques","Prácticas","Практики"],
+"التنقل":["Navigation","Navigation","Navegación","Навигация"],
+"رجوع":["Back","Retour","Atrás","Назад"],
+"السلام عليكم":["Peace be upon you","Que la paix soit sur vous","La paz sea contigo","Мир вам"],
+"أيها السالك":["dear seeker","cher cheminant","querido buscador","дорогой путник"],
+"المنهج المحمدي":["The Muhammadan Way","La Voie muhammadienne","La Vía muhammadiana","Мухаммадов путь"],
+"التزكية":["Purification","Purification","Purificación","Очищение"],
+"حالة قلبك":["Your heart","Votre cœur","Tu corazón","Ваше сердце"],
+"حالتك الروحية اليومية":["Your daily spiritual state","Votre état spirituel du jour","Tu estado espiritual diario","Ваше духовное состояние"],
+"تثبيت التطبيق على الشاشة":["Install the app on your screen","Installer l'app sur l'écran","Instalar la app en la pantalla","Установить приложение на экран"],
+"تثبيت التطبيق":["Install the app","Installer l'app","Instalar la app","Установка приложения"],
+"الطريقة المحمدية: الشروط والمراحل والأركان":["The Muhammadan path: conditions, stages, pillars","La voie muhammadienne : conditions, étapes, piliers","La vía muhammadiana: condiciones, etapas, pilares","Мухаммадов путь: условия, этапы, основы"],
+"افتحه كتطبيق من شاشة هاتفك":["Open it as an app from your phone's screen","Ouvrez-le comme une app depuis votre écran","Ábrela como app desde tu pantalla","Открывайте как приложение с экрана"],
+"مثبّت على شاشتك ✓":["Installed on your screen ✓","Installée sur votre écran ✓","Instalada en tu pantalla ✓","Установлено на экран ✓"],
+"تعرض الأقسام بيانات تجريبية. يمكنك البدء من الصفر من الملف الشخصي.":["Sections show sample data. You can start from zero in your profile.","Les sections affichent des données d'exemple. Vous pouvez repartir de zéro dans le profil.","Las secciones muestran datos de ejemplo. Puedes empezar de cero desde el perfil.","Разделы показывают пример данных. Начать с нуля можно в профиле."],
+"الفجر":["Fajr","Fajr","Fajr","Фаджр"],"الشروق":["Sunrise","Lever du soleil","Amanecer","Восход"],"الظهر":["Dhuhr","Dhuhr","Dhuhr","Зухр"],"العصر":["Asr","Asr","Asr","Аср"],"المغرب":["Maghrib","Maghrib","Maghrib","Магриб"],"العشاء":["Isha","Isha","Isha","Иша"],
+/* organs & phases */
+"اللسان":["Tongue","Langue","Lengua","Язык"],"العين":["Eyes","Yeux","Ojos","Глаза"],"الأذن":["Ears","Oreilles","Oídos","Уши"],"اليدان":["Hands","Mains","Manos","Руки"],"القدمان":["Feet","Pieds","Pies","Ноги"],"البطن":["Stomach","Ventre","Vientre","Живот"],"الفرج":["Private parts","Parties intimes","Partes íntimas","Интимные органы"],
+"تطهير":["Purification","Purification","Purificación","Очищение"],"تنوير":["Illumination","Illumination","Iluminación","Озарение"],"مكتملة":["Complete","Terminée","Completa","Завершено"],"لم تبدأ":["Not started","Pas commencée","Sin empezar","Не начато"],
+"التطهير":["purification","purification","purificación","очищение"],"التنوير":["illumination","illumination","iluminación","озарение"],
+"أسود":["black","noir","negro","чёрный"],"رمادي":["grey","gris","gris","серый"],"أبيض":["white","blanc","blanco","белый"],
+"لكل جارحة مرحلتان: تطهير ثلاثين يومًا متتالية بلا زلة، ثم تنوير ثلاثين يومًا باستعمالها في الطاعة على السنة. الزلة أو اليوم الفائت يعيد العدّ من البداية.":["Each organ has two phases: thirty consecutive days of purification without a slip, then thirty days of illumination using it in obedience according to the Sunnah. A slip or a missed day restarts the count.","Chaque organe a deux phases : trente jours consécutifs de purification sans faute, puis trente jours d'illumination en l'utilisant dans l'obéissance selon la Sunna. Une faute ou un jour manqué remet le compteur à zéro.","Cada órgano tiene dos fases: treinta días seguidos de purificación sin desliz, y luego treinta días de iluminación usándolo en la obediencia según la Sunna. Un desliz o un día perdido reinicia la cuenta.","У каждого органа два этапа: тридцать дней очищения подряд без оплошности, затем тридцать дней озарения — использования его в покорности по Сунне. Оплошность или пропущенный день обнуляют счёт."],
+"ابدأ التطهير":["Start purification","Commencer la purification","Empezar la purificación","Начать очищение"],
+"حفظتُها اليوم":["I kept it today","Préservé aujourd'hui","La guardé hoy","Сохранил сегодня"],
+"وقعت زلة":["I slipped","J'ai fauté","Tuve un desliz","Была оплошность"],
+"سُجّل اليوم: حفظتها ✓":["Logged today: kept ✓","Noté aujourd'hui : préservé ✓","Registrado hoy: guardada ✓","Отмечено сегодня: сохранено ✓"],
+"سُجّلت زلة، وبدأ العدّ من جديد. تُب واستأنف غدًا.":["Slip logged and the count restarted. Repent and resume tomorrow.","Faute notée, le compteur repart. Repentez-vous et reprenez demain.","Desliz registrado y la cuenta reinicia. Arrepiéntete y continúa mañana.","Оплошность отмечена, счёт начат заново. Покайтесь и продолжайте завтра."],
+"أتممت التطهير والتنوير. ثبّتك الله.":["You completed purification and illumination. May Allah keep you firm.","Purification et illumination accomplies. Qu'Allah vous affermisse.","Completaste la purificación y la iluminación. Que Allah te afiance.","Очищение и озарение завершены. Да укрепит вас Аллах."],
+"انقطعت السلسلة بيوم فائت، فبدأ العدّ من جديد.":["A missed day broke the chain, so the count restarted.","Un jour manqué a rompu la chaîne : le compteur repart.","Un día perdido rompió la cadena y la cuenta reinició.","Пропущенный день прервал цепочку — счёт начат заново."],
+"أعمال التنوير":["Illumination practices","Pratiques d'illumination","Prácticas de iluminación","Практики озарения"],
+"ما تمتنع عنه":["What to refrain from","Ce dont s'abstenir","De qué abstenerse","От чего воздерживаться"],
+"سبب الزلة: ما الذي أوقعك؟ وفي أي حال كنت؟":["Cause of the slip: what made you fall, and what state were you in?","Cause de la faute : qu'est-ce qui vous a fait tomber, dans quel état étiez-vous ?","Causa del desliz: ¿qué te hizo caer y en qué estado estabas?","Причина оплошности: что привело к ней и в каком вы были состоянии?"],
+"مثال: مجلس طال فيه الكلام، أو تعب وغفلة، أو صحبة معيّنة…":["e.g. a long gathering, fatigue and heedlessness, certain company…","ex. une longue assemblée, la fatigue, l'insouciance, une compagnie…","p. ej. una reunión larga, cansancio y descuido, cierta compañía…","напр.: долгое собрание, усталость и беспечность, определённая компания…"],
+"نعم، أعد العدّ":["Yes, restart the count","Oui, recommencer","Sí, reiniciar la cuenta","Да, начать заново"],
+"تراجع":["Cancel","Annuler","Cancelar","Отмена"],
+"إعادة المرحلة:":["Restart phase:","Recommencer la phase :","Reiniciar fase:","Повторить этап:"],
+"تجديد السلوك:":["Renew the path:","Renouveler le chemin :","Renovar el camino:","Обновить путь:"],
+"إعادة التطهير":["Redo purification","Refaire la purification","Repetir purificación","Повторить очищение"],
+"إعادة التنوير":["Redo illumination","Refaire l'illumination","Repetir iluminación","Повторить озарение"],
+"إعادة تطهير":["Redo: purification","Reprise : purification","Repetición: purificación","Повтор: очищение"],
+"إعادة تنوير":["Redo: illumination","Reprise : illumination","Repetición: iluminación","Повтор: озарение"],
+"سبب الإعادة (اختياري)":["Reason for restarting (optional)","Raison de la reprise (facultatif)","Motivo de la repetición (opcional)","Причина повтора (необязательно)"],
+"مثال: أحسست بفتور في هذه الجارحة، أو أريد تثبيت ما حققته…":["e.g. I felt slackness in this organ, or I want to consolidate what I achieved…","ex. j'ai ressenti un relâchement, ou je veux consolider mes acquis…","p. ej. sentí flojedad en este órgano, o quiero afianzar lo logrado…","напр.: ослабел в этом органе или хочу закрепить достигнутое…"],
+"نعم، أعد التطهير":["Yes, redo purification","Oui, refaire la purification","Sí, repetir purificación","Да, повторить очищение"],
+"نعم، أعد التنوير":["Yes, redo illumination","Oui, refaire l'illumination","Sí, repetir iluminación","Да, повторить озарение"],
+"لم يُدوَّن سبب":["No reason noted","Aucune raison notée","Sin motivo anotado","Причина не указана"],
+"انقطاع: يوم لم يُسجَّل":["Break: an unlogged day","Interruption : jour non noté","Interrupción: día sin registrar","Перерыв: день не отмечен"],
+"من 30":["of 30","sur 30","de 30","из 30"],
+/* heart */
+"قلبك ومجاريه":["Your heart and its channels","Votre cœur et ses canaux","Tu corazón y sus canales","Сердце и его каналы"],
+"مجرى مفتوح":["Open channel","Canal ouvert","Canal abierto","Открытый канал"],"أُغلق بالتطهير":["Closed by purification","Fermé par la purification","Cerrado por la purificación","Закрыт очищением"],"تنوّر":["Illuminated","Illuminé","Iluminado","Озарён"],"تنوّرت ✓":["Illuminated ✓","Illuminé ✓","Iluminado ✓","Озарено ✓"],
+"مجاري القلب كلها مفتوحة: كل جارحة لم تُطهَّر بعدُ مدخلٌ تتسرّب منه ظلمة الذنوب إلى القلب.":["All the heart's channels are open: every organ not yet purified is a way for the darkness of sins to seep into the heart.","Tous les canaux du cœur sont ouverts : chaque organe non purifié laisse entrer l'obscurité des péchés.","Todos los canales del corazón están abiertos: cada órgano no purificado deja entrar la oscuridad de los pecados.","Все каналы сердца открыты: каждый неочищенный орган впускает в сердце тьму грехов."],
+"أُغلقت مجاري القلب كلها، فانقطع سيل ظلمات الذنوب وصفا القلب بنور الذكر والطاعة.":["All channels are closed: the flood of sins' darkness has stopped and the heart is clear with the light of remembrance and obedience.","Tous les canaux sont fermés : le flot d'obscurité s'est arrêté et le cœur s'est éclairci par la lumière du dhikr et de l'obéissance.","Todos los canales están cerrados: se detuvo el torrente de oscuridad y el corazón se aclaró con la luz del dhikr y la obediencia.","Все каналы закрыты: поток тьмы остановлен, сердце очищено светом поминания и покорности."],
+"متوسط الأوراد":["Practice average","Moyenne des pratiques","Promedio de prácticas","Среднее по практикам"],"أيام عامرة":["Active days","Jours actifs","Días activos","Активные дни"],"أيام الذكر الشخصي":["Personal dhikr days","Jours de dhikr personnel","Días de dhikr personal","Дни личного зикра"],
+"إتمام الأوراد · آخر ١٤ يومًا":["Practices completed · last 14 days","Pratiques accomplies · 14 derniers jours","Prácticas completadas · últimos 14 días","Выполнение практик · последние 14 дней"],
+"إتمام الأوراد · آخر 14 يومًا":["Practices completed · last 14 days","Pratiques accomplies · 14 derniers jours","Prácticas completadas · últimos 14 días","Выполнение практик · последние 14 дней"],
+"نسبة إتمام الأوراد في آخر ١٤ يومًا":["Completion of practices over the last 14 days","Taux d'accomplissement sur 14 jours","Porcentaje completado en 14 días","Выполнение практик за 14 дней"],
+"نسبة إتمام الأوراد في آخر 14 يومًا":["Completion of practices over the last 14 days","Taux d'accomplissement sur 14 jours","Porcentaje completado en 14 días","Выполнение практик за 14 дней"],
+"اليوم":["Today","Auj.","Hoy","Сегодня"],
+"مسار الجوارح":["Organs' progress","Progression des organes","Progreso de los órganos","Путь органов"],
+"البرتقالي: أيام التطهير · الأخضر: أيام التنوير":["Orange: purification days · Green: illumination days","Orange : jours de purification · Vert : jours d'illumination","Naranja: días de purificación · Verde: días de iluminación","Оранжевый: дни очищения · Зелёный: дни озарения"],
+"توجيه":["Guidance","Conseil","Orientación","Совет"],
+"أقل الأوراد مواظبة في هذه الفترة:":["Your least consistent practice in this period:","Votre pratique la moins régulière sur cette période :","Tu práctica menos constante en este periodo:","Наименее постоянная практика за этот период:"],
+/* awrad */
+"الصلوات الخمس مع الخشوع":["The five prayers with khushūʿ","Les cinq prières avec recueillement","Las cinco oraciones con recogimiento","Пять молитв со смирением"],
+"في أوقاتها، مع حضور القلب":["On time, with a present heart","À l'heure, le cœur présent","A su hora, con el corazón presente","Вовремя, с присутствием сердца"],
+"أذكار الصباح":["Morning adhkār","Adhkâr du matin","Adhkar de la mañana","Утренние азкары"],"من الفجر إلى المغرب":["From Fajr to Maghrib","Du Fajr au Maghrib","Del Fajr al Maghrib","От Фаджра до Магриба"],
+"أذكار المساء":["Evening adhkār","Adhkâr du soir","Adhkar de la tarde","Вечерние азкары"],"من المغرب إلى الفجر":["From Maghrib to Fajr","Du Maghrib au Fajr","Del Maghrib al Fajr","От Магриба до Фаджра"],
+"ورد القرآن":["Daily Qur'an portion","Wird du Coran","Porción diaria del Corán","Ежедневное чтение Корана"],"حزب أو ما تيسر مع التدبر":["A ḥizb or what is easy, with reflection","Un hizb ou ce qui est facile, avec méditation","Un hizb o lo que sea fácil, reflexionando","Хизб или сколько получится, с размышлением"],
+"الذكر الشخصي اليومي":["Daily personal dhikr","Dhikr personnel quotidien","Dhikr personal diario","Ежедневный личный зикр"],"ذكرك الخاص الذي التزمت به":["The personal dhikr you committed to","Votre dhikr personnel","Tu dhikr personal","Ваш личный зикр"],
+"الاستغفار":["Istighfār","Istighfâr","Istighfar","Истигфар"],"مئة مرة":["100 times","100 fois","100 veces","100 раз"],
+"الصلاة على النبي ﷺ":["Blessings on the Prophet ﷺ","Prière sur le Prophète ﷺ","Bendiciones sobre el Profeta ﷺ","Салават Пророку ﷺ"],
+"قيام الليل":["Night prayer","Prière de nuit","Oración nocturna","Ночная молитва"],"ولو ركعتين":["Even two rak'as","Ne serait-ce que deux rak'as","Aunque sean dos rak'as","Хотя бы два ракаата"],
+"الأوراد اليومية":["Daily practices","Pratiques quotidiennes","Prácticas diarias","Ежедневные практики"],
+"اقرأ أذكار الصباح":["Read morning adhkār","Lire les adhkâr du matin","Leer adhkar de la mañana","Читать утренние азкары"],
+"اقرأ أذكار المساء":["Read evening adhkār","Lire les adhkâr du soir","Leer adhkar de la tarde","Читать вечерние азкары"],
+"ابدأ الذكر الشخصي":["Start personal dhikr","Commencer le dhikr personnel","Empezar dhikr personal","Начать личный зикр"],
+"أضف أذكارك من «مجموعة الذكر الشخصي» أسفله":["Add your dhikr in “Personal dhikr set” below","Ajoutez vos dhikrs dans « Série de dhikr personnel » ci-dessous","Añade tus dhikr en «Serie de dhikr personal» abajo","Добавьте зикры в «Набор личного зикра» ниже"],
+"أذكار الصباح تُحتسب بين الفجر والمغرب، وأذكار المساء بين المغرب والفجر. الأعمال المعلّمة بـ✦ تضيء صورتك في «حالتك الروحية اليومية».":["Morning adhkār count between Fajr and Maghrib, evening adhkār between Maghrib and Fajr. Practices marked ✦ light up your figure in “Your daily spiritual state”.","Les adhkâr du matin comptent entre Fajr et Maghrib, ceux du soir entre Maghrib et Fajr. Les pratiques marquées ✦ illuminent votre silhouette dans « Votre état spirituel du jour ».","Los adhkar de la mañana cuentan entre Fajr y Maghrib, los de la tarde entre Maghrib y Fajr. Las prácticas con ✦ iluminan tu figura en «Tu estado espiritual diario».","Утренние азкары засчитываются от Фаджра до Магриба, вечерние — от Магриба до Фаджра. Практики со знаком ✦ освещают вашу фигуру в «Духовном состоянии»."],
+"الهالة":["Halo","Halo","Halo","Ореол"],"الرأس":["Head","Tête","Cabeza","Голова"],"القلب":["Heart","Cœur","Corazón","Сердце"],"الجسد كله":["Whole body","Corps entier","Cuerpo entero","Всё тело"],
+"الخلوة والاعتكاف":["Retreat and iʿtikāf","Retraite et i'tikâf","Retiro e i'tikaf","Уединение и итикаф"],
+"لم تُسجَّل خلوة بعد":["No retreat logged yet","Aucune retraite notée","Aún no hay retiro","Уединений пока нет"],
+"سجّلت خلوة":["I did a retreat","J'ai fait une retraite","Hice un retiro","Совершил уединение"],"سجّلت اعتكافًا":["I did iʿtikāf","J'ai fait un i'tikâf","Hice i'tikaf","Совершил итикаф"],
+"نعم، أتممته":["Yes, completed","Oui, accompli","Sí, completado","Да, совершил"],"إلغاء تسجيل اليوم":["Undo today's entry","Annuler l'entrée du jour","Deshacer el registro de hoy","Отменить сегодняшнюю запись"],
+"خلوة":["retreat","retraite","retiro","уединение"],"اعتكاف":["iʿtikāf","i'tikâf","i'tikaf","итикаф"],
+"الأعمال الموسمية":["Seasonal practices","Pratiques saisonnières","Prácticas estacionales","Сезонные практики"],
+"خلوة أسبوعية":["Weekly retreat","Retraite hebdomadaire","Retiro semanal","Еженедельное уединение"],"ساعة مع الله: ذكر ومحاسبة وتفكر":["An hour with Allah: dhikr, self-review, reflection","Une heure avec Allah : dhikr, examen, méditation","Una hora con Allah: dhikr, examen y reflexión","Час с Аллахом: зикр, самоотчёт, размышление"],"أسبوعي":["Weekly","Hebdo","Semanal","Еженед."],
+"صيام الاثنين":["Monday fast","Jeûne du lundi","Ayuno del lunes","Пост в понедельник"],"صيام الخميس":["Thursday fast","Jeûne du jeudi","Ayuno del jueves","Пост в четверг"],"سنة نبوية":["Prophetic Sunnah","Sunna prophétique","Sunna profética","Сунна Пророка"],
+"صيام الأيام البيض":["Fasting the white days","Jeûne des jours blancs","Ayuno de los días blancos","Пост белых дней"],"١٣ و١٤ و١٥ من الشهر الهجري":["13th, 14th and 15th of the lunar month","13, 14 et 15 du mois lunaire","13, 14 y 15 del mes lunar","13, 14 и 15 лунного месяца"],"13 و14 و15 من الشهر الهجري":["13th, 14th and 15th of the lunar month","13, 14 et 15 du mois lunaire","13, 14 y 15 del mes lunar","13, 14 и 15 лунного месяца"],
+"سورة الكهف والإكثار من الصلاة على النبي ﷺ":["Sūrat al-Kahf and many blessings on the Prophet ﷺ","Sourate al-Kahf et beaucoup de prières sur le Prophète ﷺ","Sura al-Kahf y muchas bendiciones al Profeta ﷺ","Сура «аль-Кахф» и много салавата ﷺ"],"من سنن الجمعة":["A Friday sunnah","Sunna du vendredi","Sunna del viernes","Сунна пятницы"],"الجمعة":["Friday","Vendredi","Viernes","Пятница"],
+/* dhikr set */
+"مجموعة الذكر الشخصي":["Personal dhikr set","Série de dhikr personnel","Serie de dhikr personal","Набор личного зикра"],
+"لم تضف أي ذكر بعد. أضف ذكرك وحدّد مدته بالدقائق.":["No dhikr yet. Add one and set its duration in minutes.","Aucun dhikr pour l'instant. Ajoutez-en un et fixez sa durée en minutes.","Aún no hay dhikr. Añade uno y fija su duración en minutos.","Зикров пока нет. Добавьте и укажите длительность в минутах."],
+"+ أضف ذكرًا":["+ Add a dhikr","+ Ajouter un dhikr","+ Añadir dhikr","+ Добавить зикр"],
+"المدة":["Duration","Durée","Duración","Длительность"],"دقيقة":["min","min","min","мин"],"حذف":["Delete","Supprimer","Eliminar","Удалить"],"تقديم":["Move up","Monter","Subir","Выше"],"تأخير":["Move down","Descendre","Bajar","Ниже"],"نص الذكر":["Dhikr text","Texte du dhikr","Texto del dhikr","Текст зикра"],
+"عند انتهاء مدة كل ذكر يصدر تنبيه وينتقل العدّاد إلى الذكر التالي، وفي النهاية صوت مختلف. المس الشاشة أثناء الذكر لإيقاف العدّاد مؤقتًا.":["When each dhikr's time ends a chime sounds and the timer moves to the next; a different sound marks the end. Touch the screen during dhikr to pause.","À la fin de chaque dhikr, un carillon retentit et le minuteur passe au suivant ; un son différent marque la fin. Touchez l'écran pour mettre en pause.","Al terminar cada dhikr suena un aviso y el temporizador pasa al siguiente; un sonido distinto marca el final. Toca la pantalla para pausar.","По окончании каждого зикра звучит сигнал и таймер переходит к следующему; другой звук отмечает конец. Коснитесь экрана для паузы."],
+"الذكر الشخصي":["Personal dhikr","Dhikr personnel","Dhikr personal","Личный зикр"],
+"جارٍ":["Running","En cours","En curso","Идёт"],"متوقف":["Paused","En pause","En pausa","Пауза"],
+"المس الشاشة لإيقاف العدّاد":["Touch the screen to pause","Touchez l'écran pour mettre en pause","Toca la pantalla para pausar","Коснитесь экрана для паузы"],"المس الشاشة للمتابعة":["Touch the screen to continue","Touchez l'écran pour reprendre","Toca la pantalla para continuar","Коснитесь экрана, чтобы продолжить"],
+"المتبقي من المجموعة":["Remaining in the set","Reste de la série","Resta de la serie","Осталось в наборе"],
+"هذا آخر ذكر في المجموعة":["This is the last dhikr in the set","C'est le dernier dhikr de la série","Es el último dhikr de la serie","Это последний зикр в наборе"],
+"انتقل إلى التالي":["Skip to next","Passer au suivant","Pasar al siguiente","К следующему"],"إنهاء الجلسة":["End session","Terminer la séance","Terminar sesión","Завершить сеанс"],
+"تمّت مجموعة الذكر":["Dhikr set complete","Série de dhikr terminée","Serie de dhikr completada","Набор зикра завершён"],
+"أكّدت الذكر الشخصي":["I completed my personal dhikr","J'ai accompli mon dhikr personnel","Completé mi dhikr personal","Я выполнил личный зикр"],
+"✓ أكّدت الذكر الشخصي اليوم، وقلبك مستنير ٢٤ ساعة":["✓ Personal dhikr confirmed today; your heart is lit for 24 hours","✓ Dhikr personnel confirmé ; votre cœur est illuminé 24 heures","✓ Dhikr personal confirmado; tu corazón brilla 24 horas","✓ Личный зикр подтверждён; сердце светится 24 часа"],
+"✓ أكّدت الذكر الشخصي اليوم، وقلبك مستنير 24 ساعة":["✓ Personal dhikr confirmed today; your heart is lit for 24 hours","✓ Dhikr personnel confirmé ; votre cœur est illuminé 24 heures","✓ Dhikr personal confirmado; tu corazón brilla 24 horas","✓ Личный зикр подтверждён; сердце светится 24 часа"],
+"رجوع إلى الأعمال":["Back to practices","Retour aux pratiques","Volver a prácticas","Назад к практикам"],
+"لا توجد جلسة ذكر جارية.":["No dhikr session in progress.","Aucune séance de dhikr en cours.","No hay sesión de dhikr en curso.","Нет активного сеанса зикра."],
+/* adhkar reader */
+"الاستهلال":["Opening","Ouverture","Apertura","Начало"],"الاستهلال بالصلاة الإبراهيمية":["Opening with the Abrahamic prayer","Ouverture par la prière abrahamique","Apertura con la oración abrahámica","Начало с Ибрахимовым салаватом"],
+"أولًا: من القرآن الكريم":["First: from the Noble Qur'an","D'abord : du Noble Coran","Primero: del Noble Corán","Первое: из Благородного Корана"],
+"اضغط للعدّ":["Tap to count","Touchez pour compter","Toca para contar","Нажмите для счёта"],"مرة واحدة":["Once","Une fois","Una vez","Один раз"],"✓ تمّ":["✓ Done","✓ Fait","✓ Hecho","✓ Готово"],"تم":["Done","Fait","Hecho","Готово"],
+"تكبير الخط":["Larger text","Agrandir le texte","Texto más grande","Крупнее"],"تصغير الخط":["Smaller text","Réduire le texte","Texto más pequeño","Мельче"],"أ+":["A+","A+","A+","A+"],"أ−":["A−","A−","A−","A−"],
+"أكّدت أذكار الصباح":["I completed the morning adhkār","J'ai lu les adhkâr du matin","Completé los adhkar de la mañana","Утренние азкары прочитаны"],
+"أكّدت أذكار المساء":["I completed the evening adhkār","J'ai lu les adhkâr du soir","Completé los adhkar de la tarde","Вечерние азкары прочитаны"],
+"✓ أكّدت أذكار الصباح اليوم":["✓ Morning adhkār confirmed today","✓ Adhkâr du matin confirmés","✓ Adhkar de la mañana confirmados","✓ Утренние азкары подтверждены"],
+"✓ أكّدت أذكار المساء اليوم":["✓ Evening adhkār confirmed today","✓ Adhkâr du soir confirmés","✓ Adhkar de la tarde confirmados","✓ Вечерние азкары подтверждены"],
+"إلغاء التأكيد":["Undo confirmation","Annuler la confirmation","Deshacer confirmación","Отменить подтверждение"],"تصفير العدّاد":["Reset counter","Remettre à zéro","Reiniciar contador","Сбросить счётчик"],
+"من ملف «الأذكار المحمدية للصباح والمساء من القرآن الكريم والسنة النبوية» · مجموعة الذاكرين":["From “Muhammadan adhkār for morning and evening from the Qur'an and Sunnah” · Majmūʿat al-Dhākirīn","Tiré de « Adhkâr muhammadiens du matin et du soir, du Coran et de la Sunna » · Groupe des Dhâkirîn","Del archivo «Adhkar muhammadianos de la mañana y la tarde del Corán y la Sunna» · Grupo de los Dhakirin","Из сборника «Мухаммадовы азкары утра и вечера из Корана и Сунны» · группа «аз-Закирин»"],
+"وقت أذكار الصباح من الفجر إلى المغرب. يُسجَّل التأكيد الآن في الأعمال، لكن الهالة لا تظهر إلا إذا أكّدتها في وقتها.":["Morning adhkār time is from Fajr to Maghrib. Confirming now logs it in Practices, but the halo only appears if you confirm in its time.","Les adhkâr du matin se lisent du Fajr au Maghrib. Confirmer maintenant l'enregistre, mais le halo n'apparaît que dans leur temps.","Los adhkar de la mañana van del Fajr al Maghrib. Confirmar ahora lo registra, pero el halo solo aparece si confirmas a su hora.","Время утренних азкаров — от Фаджра до Магриба. Подтверждение сейчас запишется, но ореол появится только в их время."],
+"وقت أذكار المساء من المغرب إلى الفجر. يُسجَّل التأكيد الآن في الأعمال، لكن الهالة لا تظهر إلا إذا أكّدتها في وقتها.":["Evening adhkār time is from Maghrib to Fajr. Confirming now logs it in Practices, but the halo only appears if you confirm in its time.","Les adhkâr du soir se lisent du Maghrib au Fajr. Confirmer maintenant l'enregistre, mais le halo n'apparaît que dans leur temps.","Los adhkar de la tarde van del Maghrib al Fajr. Confirmar ahora lo registra, pero el halo solo aparece si confirmas a su hora.","Время вечерних азкаров — от Магриба до Фаджра. Подтверждение сейчас запишется, но ореол появится только в их время."],
+"سورة الفاتحة":["Sūrat al-Fātiḥa","Sourate al-Fâtiha","Sura al-Fatiha","Сура «аль-Фатиха»"],"الاستعاذة":["Seeking refuge","Demande de protection","Búsqueda de refugio","Прибегание к защите"],
+"المعوّذات: الإخلاص والفلق والناس":["The Muʿawwidhāt: al-Ikhlāṣ, al-Falaq, al-Nās","Les protectrices : al-Ikhlâs, al-Falaq, an-Nâs","Las protectoras: al-Ijlas, al-Falaq, an-Nas","Защитные суры: «аль-Ихлас», «аль-Фаляк», «ан-Нас»"],
+"البقرة 1–5":["Al-Baqara 1–5","Al-Baqara 1–5","Al-Baqara 1–5","«Аль-Бакара» 1–5"],"آية الكرسي والآيتان بعدها · البقرة 255–257":["Āyat al-Kursī and the two after · Al-Baqara 255–257","Âyat al-Kursî et les deux suivants · Al-Baqara 255–257","Ayat al-Kursi y las dos siguientes · Al-Baqara 255–257","Аят аль-Курси и два после · «аль-Бакара» 255–257"],
+"خواتيم البقرة · 284–286":["Closing verses of al-Baqara · 284–286","Fin d'al-Baqara · 284–286","Final de al-Baqara · 284–286","Последние аяты «аль-Бакары» · 284–286"],"آل عمران 18–19":["Āl ʿImrān 18–19","Âl 'Imrân 18–19","Al Imran 18–19","«Али Имран» 18–19"],"التوبة 129":["At-Tawba 129","At-Tawba 129","At-Tawba 129","«Ат-Тауба» 129"],
+"الإسراء 110–111":["Al-Isrāʾ 110–111","Al-Isrâ' 110–111","Al-Isra 110–111","«Аль-Исра» 110–111"],"المؤمنون 115–118":["Al-Muʾminūn 115–118","Al-Mu'minûn 115–118","Al-Muminun 115–118","«Аль-Муминун» 115–118"],"الروم 17–19":["Ar-Rūm 17–19","Ar-Rûm 17–19","Ar-Rum 17–19","«Ар-Рум» 17–19"],"غافر 1–3":["Ghāfir 1–3","Ghâfir 1–3","Gafir 1–3","«Гафир» 1–3"],
+"آية الكرسي · البقرة 255":["Āyat al-Kursī · Al-Baqara 255","Âyat al-Kursî · Al-Baqara 255","Ayat al-Kursi · Al-Baqara 255","Аят аль-Курси · «аль-Бакара» 255"],"الحشر 22–24":["Al-Ḥashr 22–24","Al-Hashr 22–24","Al-Hashr 22–24","«Аль-Хашр» 22–24"],
+"سورة الإخلاص":["Sūrat al-Ikhlāṣ","Sourate al-Ikhlâs","Sura al-Ijlas","Сура «аль-Ихлас»"],"سورة الفلق":["Sūrat al-Falaq","Sourate al-Falaq","Sura al-Falaq","Сура «аль-Фаляк»"],"سورة الناس":["Sūrat al-Nās","Sourate an-Nâs","Sura an-Nas","Сура «ан-Нас»"],
+/* muraqabat */
+"الصورة مطفأة. كل عمل تقوم به يضيء جزءًا منها.":["The figure is dark. Every practice you do lights up part of it.","La silhouette est éteinte. Chaque pratique en illumine une partie.","La figura está apagada. Cada práctica ilumina una parte.","Фигура погашена. Каждая практика освещает её часть."],
+"اكتمل نورك: الهالة والرأس والقلب والجسد كله.":["Your light is complete: halo, head, heart and whole body.","Votre lumière est complète : halo, tête, cœur et corps entier.","Tu luz está completa: halo, cabeza, corazón y cuerpo entero.","Ваш свет полон: ореол, голова, сердце и всё тело."],
+"الهالة مضيئة":["halo lit","halo allumé","halo encendido","ореол светится"],"الهالة مطفأة":["halo off","halo éteint","halo apagado","ореол погашен"],"الرأس مستنير":["head lit","tête illuminée","cabeza iluminada","голова светится"],"القلب مستنير":["heart lit","cœur illuminé","corazón iluminado","сердце светится"],"الجسد كله مستنير":["whole body lit","corps entier illuminé","cuerpo entero iluminado","всё тело светится"],
+/* notifications */
+"افتح":["Open","Ouvrir","Abrir","Открыть"],
+"التنبيهات هنا داخل الصفحة. التنبيهات الفعلية على الهاتف تحتاج نسخة التطبيق المثبّتة.":["These reminders are shown inside the page. Real phone notifications need the installed app.","Ces rappels s'affichent dans la page. Les vraies notifications nécessitent l'app installée.","Estos avisos se muestran en la página. Las notificaciones reales requieren la app instalada.","Напоминания показываются на странице. Настоящие уведомления требуют установленного приложения."],
+"الذكر الشخصي اليومي":["Daily personal dhikr","Dhikr personnel quotidien","Dhikr personal diario","Ежедневный личный зикр"],"الورد اليومي من القرآن":["Daily Qur'an portion","Wird quotidien du Coran","Porción diaria del Corán","Ежедневное чтение Корана"],"القلب مطفأ":["Heart is off","Cœur éteint","Corazón apagado","Сердце погашено"],"الرأس مطفأ":["Head is off","Tête éteinte","Cabeza apagada","Голова погашена"],
+/* profile */
+"الاسم الظاهر في الرئيسية":["Name shown on Home","Nom affiché à l'accueil","Nombre en Inicio","Имя на главной"],"البيانات":["Data","Données","Datos","Данные"],
+"تعرض الأقسام حاليًا بيانات تجريبية للتوضيح.":["Sections currently show sample data.","Les sections affichent des données d'exemple.","Las secciones muestran datos de ejemplo.","Разделы показывают пример данных."],
+"تُحفظ بياناتك في هذا المتصفح فقط.":["Your data is saved in this browser only.","Vos données sont enregistrées dans ce navigateur uniquement.","Tus datos se guardan solo en este navegador.","Данные сохраняются только в этом браузере."],
+"ابدأ رحلتي من الصفر":["Start my journey from zero","Recommencer mon chemin à zéro","Empezar mi camino de cero","Начать путь с нуля"],"سيُمسح كل السجل والتقدم. متابعة؟":["All records and progress will be erased. Continue?","Tout l'historique et la progression seront effacés. Continuer ?","Se borrará todo el registro y el progreso. ¿Continuar?","Все записи и прогресс будут удалены. Продолжить?"],"نعم، ابدأ من الصفر":["Yes, start from zero","Oui, repartir de zéro","Sí, empezar de cero","Да, начать с нуля"],
+"اللغة":["Language","Langue","Idioma","Язык"],
+/* install */
+"على Android (متصفح Chrome)":["On Android (Chrome)","Sur Android (Chrome)","En Android (Chrome)","На Android (Chrome)"],"على iPhone أو iPad (متصفح Safari)":["On iPhone or iPad (Safari)","Sur iPhone ou iPad (Safari)","En iPhone o iPad (Safari)","На iPhone или iPad (Safari)"],
+"افتح رابط المرشد في Chrome.":["Open the Al-Murshid link in Chrome.","Ouvrez le lien d'Al-Murshid dans Chrome.","Abre el enlace de Al-Murshid en Chrome.","Откройте ссылку «Аль-Муршид» в Chrome."],"اضغط القائمة ⋮ أعلى الشاشة.":["Tap the ⋮ menu at the top.","Touchez le menu ⋮ en haut.","Toca el menú ⋮ arriba.","Нажмите меню ⋮ вверху."],
+"اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».":["Choose “Install app” or “Add to Home screen”.","Choisissez « Installer l'application » ou « Ajouter à l'écran d'accueil ».","Elige «Instalar aplicación» o «Añadir a pantalla de inicio».","Выберите «Установить приложение» или «Добавить на главный экран»."],
+"أكّد التثبيت، فتظهر أيقونة المرشد مع تطبيقاتك.":["Confirm, and the Al-Murshid icon appears with your apps.","Confirmez : l'icône d'Al-Murshid apparaît avec vos apps.","Confirma y el icono de Al-Murshid aparece con tus apps.","Подтвердите — значок появится среди приложений."],
+"افتح رابط المرشد في Safari.":["Open the Al-Murshid link in Safari.","Ouvrez le lien d'Al-Murshid dans Safari.","Abre el enlace de Al-Murshid en Safari.","Откройте ссылку «Аль-Муршид» в Safari."],"اضغط زر المشاركة (المربع والسهم للأعلى) أسفل الشاشة.":["Tap the Share button (square with an arrow) at the bottom.","Touchez le bouton Partager (carré avec flèche) en bas.","Toca el botón Compartir (cuadro con flecha) abajo.","Нажмите «Поделиться» (квадрат со стрелкой) внизу."],
+"اختر «إضافة إلى الشاشة الرئيسية».":["Choose “Add to Home Screen”.","Choisissez « Sur l'écran d'accueil ».","Elige «Añadir a pantalla de inicio».","Выберите «На экран Домой»."],"اضغط «إضافة»، فتظهر أيقونة المرشد على شاشتك.":["Tap “Add”, and the icon appears on your screen.","Touchez « Ajouter » : l'icône apparaît sur votre écran.","Toca «Añadir» y el icono aparece en tu pantalla.","Нажмите «Добавить» — значок появится на экране."],
+"نقل بياناتك":["Transfer your data","Transférer vos données","Transferir tus datos","Перенос данных"],
+"كل نسخة من المرشد تحفظ بياناتها في متصفحها. لنقل تقدمك إلى التطبيق المثبّت: انسخ رمز بياناتك هنا، ثم الصقه في نفس الخانة داخل التطبيق المثبّت.":["Each copy of Al-Murshid keeps its data in its own browser. To move your progress to the installed app, copy your data code here and paste it in the same section of the installed app.","Chaque copie d'Al-Murshid garde ses données dans son navigateur. Pour transférer votre progression, copiez le code ici et collez-le dans la même section de l'app installée.","Cada copia de Al-Murshid guarda sus datos en su navegador. Para pasar tu progreso, copia el código aquí y pégalo en la misma sección de la app instalada.","Каждая копия приложения хранит данные в своём браузере. Чтобы перенести прогресс, скопируйте код здесь и вставьте его в том же разделе установленного приложения."],
+"انسخ رمز بياناتي":["Copy my data code","Copier mon code","Copiar mi código","Скопировать код данных"],"الصق رمز البيانات هنا":["Paste the data code here","Collez le code ici","Pega el código aquí","Вставьте код данных"],"الصق الرمز المنسوخ…":["Paste the copied code…","Collez le code copié…","Pega el código copiado…","Вставьте скопированный код…"],"استورد البيانات":["Import data","Importer les données","Importar datos","Импортировать данные"],
+"المرشد مثبّت على شاشتك ✓":["Al-Murshid is installed on your screen ✓","Al-Murshid est installé sur votre écran ✓","Al-Murshid está instalada en tu pantalla ✓","Приложение установлено ✓"],"أنت تستعمله الآن كتطبيق مستقل، ويعمل حتى دون اتصال بالإنترنت.":["You are using it as a standalone app; it works offline too.","Vous l'utilisez comme une app autonome ; elle fonctionne hors ligne.","La usas como app independiente; funciona sin conexión.","Вы используете его как отдельное приложение; работает и без интернета."],
+"جاهز للتثبيت":["Ready to install","Prêt à installer","Lista para instalar","Готово к установке"],"سيظهر المرشد بأيقونته على شاشتك ويفتح كتطبيق مستقل.":["Al-Murshid will appear with its icon and open as a standalone app.","Al-Murshid apparaîtra avec son icône et s'ouvrira comme une app.","Al-Murshid aparecerá con su icono y se abrirá como app.","Значок появится на экране, приложение будет открываться отдельно."],"ثبّت المرشد على الشاشة":["Install Al-Murshid","Installer Al-Murshid","Instalar Al-Murshid","Установить «Аль-Муршид»"],
+"التثبيت غير متاح من هذه المعاينة":["Installing isn't available from this preview","Installation impossible depuis cet aperçu","No se puede instalar desde esta vista previa","Установка недоступна из этого просмотра"],"أنت تفتح المرشد داخل صفحة أخرى، والمتصفح لا يسمح بالتثبيت من داخلها. افتح المرشد من رابطه الخاص ثم ارجع إلى هذه الخانة.":["You are opening Al-Murshid inside another page, and the browser does not allow installing from there. Open its own link, then come back here.","Vous ouvrez Al-Murshid dans une autre page, et le navigateur n'autorise pas l'installation. Ouvrez son propre lien puis revenez ici.","Abres Al-Murshid dentro de otra página y el navegador no permite instalar. Abre su propio enlace y vuelve aquí.","Приложение открыто внутри другой страницы, и браузер не разрешает установку. Откройте его собственную ссылку и вернитесь сюда."],
+"نُسخ رمز بياناتك. الصقه الآن في التطبيق المثبّت.":["Your data code was copied. Paste it in the installed app now.","Code copié. Collez-le maintenant dans l'app installée.","Código copiado. Pégalo ahora en la app instalada.","Код скопирован. Вставьте его в установленное приложение."],"لم يُسمح بالنسخ التلقائي. الرمز محدّد في الخانة: انسخه يدويًا.":["Automatic copy was blocked. The code is selected in the box: copy it manually.","Copie automatique bloquée. Le code est sélectionné : copiez-le manuellement.","Se bloqueó la copia automática. El código está seleccionado: cópialo a mano.","Автокопирование заблокировано. Код выделен — скопируйте вручную."],
+"استُورِدت بياناتك بنجاح.":["Your data was imported.","Données importées.","Datos importados.","Данные импортированы."],"الرمز غير صالح. انسخه كاملًا من النسخة الأخرى ثم أعد المحاولة.":["Invalid code. Copy it fully from the other copy and try again.","Code invalide. Copiez-le entièrement puis réessayez.","Código no válido. Cópialo completo y vuelve a intentarlo.","Неверный код. Скопируйте его полностью и повторите."],
+"تأكيد: أتممت":["Confirm: completed","Confirmer : accompli","Confirmar: completado","Подтвердить: совершено"],
+"غدًا":["tomorrow","demain","mañana","завтра"],
+"قيد العمل":["in progress","en cours","en curso","в работе"],
+"صلاة":["Next:","Prochaine :","Próxima:","Следующая:"],
+"العربية":["العربية","العربية","العربية","العربية"]
+};
+/* patterns: [regex, [en,fr,es,ru]] — {1}… are groups; {1t} translates the group */
+const I18N_P=[
+[/^تعذّر الحفظ: (.+)$/,["Couldn't save: {1}", "Échec de l'enregistrement : {1}", "No se pudo guardar: {1}", "Не удалось сохранить: {1}"]],
+[/^تعذّر جلب المستعملين: (.+)$/,["Couldn't load users: {1}", "Impossible de charger les utilisateurs : {1}", "No se pudieron cargar los usuarios: {1}", "Не удалось загрузить пользователей: {1}"]],
+[/^تزكية الجوارح · (\d+) قيد العمل$/,["Purifying the organs · {1} in progress","Purification des organes · {1} en cours","Purificación de órganos · {1} en curso","Очищение органов · {1} в работе"]],
+[/^مجاري القلب · (\d+) من (\d+) مغلقة$/,["Heart channels · {1} of {2} closed","Canaux du cœur · {1} sur {2} fermés","Canales del corazón · {1} de {2} cerrados","Каналы сердца · закрыто {1} из {2}"]],
+[/^صورتك النورانية · (\d+) من 4 أنوار مضيئة$/,["Your light figure · {1} of 4 lights on","Votre silhouette lumineuse · {1} lumières sur 4","Tu figura de luz · {1} de 4 luces","Светлая фигура · {1} из 4 огней"]],
+[/^(\d+) من (\d+) أوراد اليوم$/,["{1} of {2} practices today","{1} sur {2} pratiques aujourd'hui","{1} de {2} prácticas hoy","{1} из {2} практик сегодня"]],
+[/^(\d+) \/ (\d+) مغلقة$/,["{1} / {2} closed","{1} / {2} fermés","{1} / {2} cerrados","{1} / {2} закрыто"]],
+[/^(\d+) \/ (\d+) مكتملة$/,["{1} / {2} complete","{1} / {2} terminés","{1} / {2} completos","{1} / {2} завершено"]],
+[/^(\d+) من 4 أنوار مضيئة الآن\.$/,["{1} of 4 lights are on now.","{1} lumières sur 4 sont allumées.","{1} de 4 luces encendidas ahora.","Светятся {1} из 4 огней."]],
+[/^آخر (خلوة|اعتكاف): (.+)$/,["Last {1t}: {2}","Dernier·e {1t} : {2}","Último {1t}: {2}","Последнее {1t}: {2}"]],
+[/^أتممت (\d+) من (\d+)$/,["Completed {1} of {2}","{1} sur {2} accomplis","Completados {1} de {2}","Выполнено {1} из {2}"]],
+[/^أكّدها قبل (\S+) (\S+)$/,["Confirm before {1t} {2}","Confirmez avant {1t} {2}","Confirma antes de {1t} {2}","Подтвердите до {1t} {2}"]],
+[/^(أذكار الصباح|أذكار المساء): الهالة مطفأة$/,["{1t}: halo is off","{1t} : halo éteint","{1t}: halo apagado","{1t}: ореол погашен"]],
+[/^أغلقت (\d+) من (\d+) مجارٍ، وتنوّر منها (\d+)\. .+$/,["{1} of {2} channels closed, {3} illuminated. What remains open lets darkness back in, so close them one by one until the whole heart is clear.","{1} canaux sur {2} fermés, dont {3} illuminés. Ce qui reste ouvert laisse revenir l'obscurité : fermez-les un à un jusqu'à ce que le cœur soit clair.","{1} de {2} canales cerrados, {3} iluminados. Lo que queda abierto deja volver la oscuridad: ciérralos uno a uno hasta que el corazón esté claro.","Закрыто {1} из {2} каналов, озарено {3}. Открытые снова впускают тьму — закрывайте их один за другим, пока сердце не очистится."]],
+[/^أغلقت (\d+) من (\d+) مجارٍ\. .+$/,["{1} of {2} channels closed. What remains open lets darkness back in, so close them one by one until the whole heart is clear.","{1} canaux sur {2} fermés. Ce qui reste ouvert laisse revenir l'obscurité : fermez-les un à un jusqu'à ce que le cœur soit clair.","{1} de {2} canales cerrados. Lo que queda abierto deja volver la oscuridad: ciérralos uno a uno hasta que el corazón esté claro.","Закрыто {1} из {2} каналов. Открытые снова впускают тьму — закрывайте их один за другим, пока сердце не очистится."]],
+[/^اقترب وقت صلاة (.+)$/,["{1t} prayer is approaching","La prière de {1t} approche","Se acerca la oración de {1t}","Приближается молитва {1t}"]],
+[/^(الهالة|الرأس|القلب|الجسد كله) · حتى (.+)$/,["{1t} · until {2t}","{1t} · jusqu'à {2t}","{1t} · hasta {2t}","{1t} · до {2t}"]],
+[/^(الرأس|القلب) مستنير حتى (غدًا|اليوم) (\S+)$/,["{1t} lit until {2t} {3}","{1t} illuminé·e jusqu'à {2t} {3}","{1t} iluminado hasta {2t} {3}","{1t} светится до {2t} {3}"]],
+[/^(الرأس|القلب) مستنير حتى (.+)$/,["{1t} lit until {2t}","{1t} illuminé·e jusqu'à {2t}","{1t} iluminado hasta {2t}","{1t} светится до {2t}"]],
+[/^مستنير حتى (.+) · باقٍ (\d+) يومًا$/,["lit until {1} · {2} days left","illuminé jusqu'au {1} · {2} jours restants","iluminado hasta {1} · quedan {2} días","светится до {1} · осталось {2} дн."]],
+[/^الذكر (\d+) من (\d+)$/,["Dhikr {1} of {2}","Dhikr {1} sur {2}","Dhikr {1} de {2}","Зикр {1} из {2}"]],
+[/^الدورة (\d+) · المحاولة (\d+) · بدأت\s+(غدًا)?\s*(.+)$/,["Cycle {1} · attempt {2} · starts {4}","Cycle {1} · tentative {2} · début {4}","Ciclo {1} · intento {2} · inicio {4}","Цикл {1} · попытка {2} · начало {4}"]],
+[/^المحاولة (\d+) · بدأت\s+(غدًا)?\s*(.+)$/,["Attempt {1} · started {3}","Tentative {1} · commencée le {3}","Intento {1} · empezó el {3}","Попытка {1} · начата {3}"]],
+[/^باقٍ (\d+) يومًا · إعادات: (\d+)$/,["{1} days left · restarts: {2}","{1} jours restants · reprises : {2}","Quedan {1} días · reinicios: {2}","Осталось {1} дн. · повторов: {2}"]],
+[/^باقٍ (\d+) يومًا$/,["{1} days left","{1} jours restants","Quedan {1} días","Осталось {1} дн."]],
+[/^· إعادات: (\d+)$/,["· restarts: {1}","· reprises : {1}","· reinicios: {1}","· повторов: {1}"]],
+[/^بعد (\d+) (?:أيام|يومًا|يوم)$/,["after {1} days","après {1} jours","tras {1} días","через {1} дн."]],
+[/^بعد (\d+) س (\d+) د$/,["in {1} h {2} min","dans {1} h {2} min","en {1} h {2} min","через {1} ч {2} мин"]],
+[/^بعد (\d+) د$/,["in {1} min","dans {1} min","en {1} min","через {1} мин"]],
+[/^تأكيد: أتممت (خلوة|اعتكاف) اليوم؟ .+$/,["Confirm: did you complete a {1t} today? Your whole body will glow for thirty days in “Your daily spiritual state”.","Confirmer : avez-vous accompli une {1t} aujourd'hui ? Tout votre corps brillera trente jours dans « Votre état spirituel du jour ».","Confirmar: ¿completaste un {1t} hoy? Todo tu cuerpo brillará treinta días en «Tu estado espiritual diario».","Подтвердите: вы совершили {1t} сегодня? Всё тело будет светиться тридцать дней в «Духовном состоянии»."]],
+[/^سجل الخلوات \((\d+)\)$/,["Retreat log ({1})","Journal des retraites ({1})","Registro de retiros ({1})","Журнал уединений ({1})"]],
+[/^سجل الإعادات \((\d+)\)$/,["Restart log ({1})","Journal des reprises ({1})","Registro de repeticiones ({1})","Журнал повторов ({1})"]],
+[/^مراجعة أسباب الزلات \((\d+)\)$/,["Review slip causes ({1})","Revoir les causes des fautes ({1})","Revisar causas de deslices ({1})","Причины оплошностей ({1})"]],
+[/^ستبدأ (التطهير|التنوير) (\S+) من جديد: .*مفتوحًا.*$/,["{1t} of the {2t} restarts: thirty consecutive days from today, and its channel in the heart reopens until purification is completed.","La {1t} des {2t} recommence : trente jours consécutifs dès aujourd'hui, et son canal se rouvre jusqu'à la fin de la purification.","La {1t} de {2t} reinicia: treinta días seguidos desde hoy, y su canal se reabre hasta completar la purificación.","{1t}: {2t} начинается заново — тридцать дней подряд с сегодняшнего дня; канал в сердце снова открыт до завершения очищения."]],
+[/^ستبدأ (التطهير|التنوير) (\S+) من جديد: .*رماديًا.*$/,["{1t} of the {2t} restarts: thirty consecutive days from today, and its part of the heart turns grey again until illumination is completed.","L'{1t} des {2t} recommence : trente jours consécutifs dès aujourd'hui, et sa partie du cœur redevient grise jusqu'à la fin.","La {1t} de {2t} reinicia: treinta días seguidos desde hoy, y su parte del corazón vuelve a gris hasta completarla.","{1t}: {2t} начинается заново — тридцать дней подряд; часть сердца снова серая до завершения озарения."]],
+[/^ستبدأ (التطهير|التنوير) (\S+) من جديد: ثلاثون يومًا متتالية تبدأ اليوم\.$/,["{1t} of the {2t} restarts: thirty consecutive days from today.","La {1t} des {2t} recommence : trente jours consécutifs dès aujourd'hui.","La {1t} de {2t} reinicia: treinta días seguidos desde hoy.","{1t}: {2t} начинается заново — тридцать дней подряд с сегодняшнего дня."]],
+[/^ستعود أيام (تطهير|تنوير) (\S+) إلى الصفر\.$/,["Your {1t} days for the {2t} will reset to zero.","Vos jours de {1t} des {2t} repartiront à zéro.","Tus días de {1t} de {2t} volverán a cero.","Дни этапа «{1t}» ({2t}) обнулятся."]],
+[/^(تطهير|تنوير) (\d+)\/30$/,["{1t} {2}/30","{1t} {2}/30","{1t} {2}/30","{1t} {2}/30"]],
+[/^صورة القلب: (.+)$/,["Heart picture: {1w}","Image du cœur : {1w}","Imagen del corazón: {1w}","Сердце: {1w}"]],
+[/^حالتك الروحية اليومية: (.+)$/,["Your daily spiritual state: {1w}","Votre état spirituel : {1w}","Tu estado espiritual: {1w}","Духовное состояние: {1w}"]],
+[/^فاس · (\d+) من (\d+) جوارح بدأت تزكيتها$/,["Fez · {1} of {2} organs in purification","Fès · {1} organes sur {2} en purification","Fez · {1} de {2} órganos en purificación","Фес · {1} из {2} органов в очищении"]],
+[/^لم تُسجّل محاسبة (\S+) اليوم$/,["Today's check for the {1t} is not logged","Le bilan des {1t} n'est pas noté aujourd'hui","No se registró hoy el examen de {1t}","Отчёт «{1t}» сегодня не отмечен"]],
+[/^مرحلة (تطهير|تنوير) · اليوم (\d+) من 30$/,["{1t} phase · day {2} of 30","Phase de {1t} · jour {2} sur 30","Fase de {1t} · día {2} de 30","Этап «{1t}» · день {2} из 30"]],
+[/^عند (\S+)$/,["at {1}","à {1}","a las {1}","в {1}"]],
+[/^\((\d+) من 14 يومًا\)\. .+$/,["({1} of 14 days). Give it a fixed time, for the deeds most beloved to Allah are the most constant, even if small.","({1} jours sur 14). Fixez-lui un moment, car les actes les plus aimés d'Allah sont les plus constants, même modestes.","({1} de 14 días). Dale un momento fijo: las obras más amadas por Allah son las más constantes, aunque sean pocas.","({1} из 14 дней). Назначьте ей постоянное время: самые любимые Аллахом дела — постоянные, пусть и малые."]],
+[/^(\d+) (?:أذكار|ذكر) · ([\d.]+) دقيقة$/,["{1} dhikr · {2} min","{1} dhikr · {2} min","{1} dhikr · {2} min","{1} зикр. · {2} мин"]],
+[/^(\d+) (?:أذكار|ذكر) ·$/,["{1} dhikr ·","{1} dhikr ·","{1} dhikr ·","{1} зикр. ·"]],
+[/^(\d+) من (\d+)$/,["{1} of {2}","{1} sur {2}","{1} de {2}","{1} из {2}"]],
+[/^ثانيًا: من السنة النبوية \((صباحًا|مساءً)\)$/,["Second: from the Prophetic Sunnah ({1t})","Ensuite : de la Sunna prophétique ({1t})","Segundo: de la Sunna profética ({1t})","Второе: из пророческой Сунны ({1t})"]],
+[/^من حال: (\S+) · (\d+) يوم$/,["from: {1t} · day {2}","depuis : {1t} · jour {2}","desde: {1t} · día {2}","из: {1t} · день {2}"]],
+[/^من حال: (\S+)$/,["from: {1t}","depuis : {1t}","desde: {1t}","из: {1t}"]],
+[/^إعادة (تطهير|تنوير)$/,["Redo: {1t}","Reprise : {1t}","Repetición: {1t}","Повтор: {1t}"]],
+[/^✦ (.+)$/,["✦ {1t}","✦ {1t}","✦ {1t}","✦ {1t}"]],
+[/^أتممت التطهير والتنوير في الدورة (\d+)\. ثبّتك الله\.$/,["You completed purification and illumination in cycle {1}. May Allah keep you firm.","Purification et illumination accomplies au cycle {1}. Qu'Allah vous affermisse.","Completaste purificación e iluminación en el ciclo {1}. Que Allah te afiance.","Очищение и озарение завершены в цикле {1}. Да укрепит вас Аллах."]],
+[/^نص الذكر (\d+)$/,["Dhikr text {1}","Texte du dhikr {1}","Texto del dhikr {1}","Текст зикра {1}"]],
+[/^صلاة$/,["Next:","Prochaine :","Próxima:","Следующая:"]]
+];
+const I18N_W={"صباحًا":["morning","matin","mañana","утро"],"مساءً":["evening","soir","tarde","вечер"]};
+
+Object.assign(I18N_D,{
+"الامتناع عن الكذب والغيبة والنميمة واللغو":["Refraining from lying, backbiting, tale-bearing and idle talk","S'abstenir du mensonge, de la médisance, de la calomnie et des futilités","Abstenerse de mentir, murmurar, chismear y de la palabrería","Отказ от лжи, злословия, сплетен и пустословия"],
+"الصمت في مواطن الفتنة وترك ما لا طائل منه":["Silence where there is fitna, and leaving what is useless","Se taire là où il y a fitna et délaisser l'inutile","Callar donde hay fitna y dejar lo inútil","Молчание там, где смута, и отказ от бесполезного"],
+"الإكثار من التسبيح والتحميد والتكبير والتهليل":["Abundant tasbīḥ, taḥmīd, takbīr and tahlīl","Multiplier tasbîh, tahmîd, takbîr et tahlîl","Abundar en tasbih, tahmid, takbir y tahlil","Много тасбиха, тахмида, такбира и тахлиля"],
+"الدعوة إلى الخير والنصح بالكلمة الطيبة":["Calling to good and advising with a kind word","Appeler au bien et conseiller par la bonne parole","Invitar al bien y aconsejar con buena palabra","Призыв к добру и совет добрым словом"],
+"غض البصر عن المحرمات":["Lowering the gaze from the forbidden","Baisser le regard devant l'interdit","Bajar la mirada ante lo prohibido","Опускать взор от запретного"],
+"ترك مشاهدة أو قراءة ما يثير الشهوات أو الفتن":["Not watching or reading what stirs desires or fitna","Ne pas regarder ni lire ce qui excite les désirs ou la fitna","No ver ni leer lo que excita deseos o fitna","Не смотреть и не читать то, что возбуждает страсти и смуту"],
+"النظر في كتاب الله وتدبر آياته":["Looking into the Book of Allah and reflecting on its verses","Regarder le Livre d'Allah et méditer ses versets","Mirar el Libro de Allah y reflexionar sobre sus aleyas","Смотреть в Книгу Аллаха и размышлять над аятами"],
+"التأمل في خلق الله والتفكر في عظمته":["Contemplating Allah's creation and His greatness","Contempler la création d'Allah et Sa grandeur","Contemplar la creación de Allah y Su grandeza","Созерцать творение Аллаха и Его величие"],
+"ترك سماع الغيبة والنميمة وكل كلام محرم":["Not listening to backbiting, tale-bearing or any forbidden speech","Ne pas écouter la médisance, la calomnie ni tout propos interdit","No escuchar murmuración, chismes ni palabras prohibidas","Не слушать злословие, сплетни и запретные речи"],
+"الابتعاد عما يصرف عن ذكر الله":["Staying away from what distracts from remembering Allah","S'éloigner de ce qui détourne du rappel d'Allah","Alejarse de lo que distrae del recuerdo de Allah","Избегать того, что отвлекает от поминания Аллаха"],
+"الاستماع إلى القرآن الكريم":["Listening to the Noble Qur'an","Écouter le Noble Coran","Escuchar el Noble Corán","Слушать Благородный Коран"],
+"حضور مجالس العلم والذكر":["Attending gatherings of knowledge and dhikr","Assister aux cercles de science et de dhikr","Asistir a reuniones de conocimiento y dhikr","Посещать собрания знания и зикра"],
+"الامتناع عن الظلم والأخذ بغير حق":["Refraining from injustice and taking without right","S'abstenir de l'injustice et de prendre sans droit","Abstenerse de la injusticia y de tomar sin derecho","Отказ от несправедливости и присвоения чужого"],
+"ترك استعمال اليد فيما لا يرضي الله":["Not using the hands in what displeases Allah","Ne pas utiliser les mains dans ce qui déplaît à Allah","No usar las manos en lo que no complace a Allah","Не использовать руки в неугодном Аллаху"],
+"الصدقة ومساعدة المحتاجين":["Charity and helping those in need","L'aumône et l'aide aux nécessiteux","La caridad y ayudar a los necesitados","Милостыня и помощь нуждающимся"],
+"حمل المصحف والكتب النافعة وكتابتها":["Carrying the Muṣḥaf and beneficial books, and writing them","Porter le Mushaf et les livres utiles, et les écrire","Llevar el Mushaf y libros útiles, y escribirlos","Носить Мусхаф и полезные книги, писать их"],
+"ترك السير إلى أماكن الفساد والمعاصي":["Not walking to places of corruption and sin","Ne pas se rendre dans les lieux de corruption et de péché","No ir a lugares de corrupción y pecado","Не ходить в места разврата и грехов"],
+"المشي إلى المساجد وأماكن الخير":["Walking to mosques and places of good","Marcher vers les mosquées et les lieux de bien","Caminar a las mezquitas y lugares de bien","Ходить в мечети и места добра"],
+"زيارة المرضى والأيتام وأماكن البر":["Visiting the sick, orphans and places of righteousness","Visiter les malades, les orphelins et les lieux de bienfaisance","Visitar enfermos, huérfanos y lugares de bien","Навещать больных, сирот и места благодеяния"],
+"الامتناع عن أكل الحرام والمشتبه فيه":["Refraining from forbidden and doubtful food","S'abstenir de l'illicite et du douteux","Abstenerse de lo prohibido y lo dudoso","Отказ от запретной и сомнительной пищи"],
+"ترك الإسراف والشبع المفرط":["Avoiding excess and overeating","Éviter l'excès et la satiété excessive","Evitar el exceso y la saciedad excesiva","Избегать излишеств и переедания"],
+"تحرّي الحلال الطيب والتسمية والحمد":["Seeking pure ḥalāl food, saying Bismillāh and al-ḥamdu lillāh","Rechercher le licite pur, dire Bismillah et al-hamdu lillah","Buscar lo halal puro, decir Bismillah y al-hamdu lillah","Искать чистое халяльное, говорить «Бисмиллях» и «Альхамдулиллях»"],
+"الأكل على السنة: ثلث للطعام وثلث للشراب وثلث للنفس":["Eating by the Sunnah: a third for food, a third for drink, a third for breath","Manger selon la Sunna : un tiers pour la nourriture, un tiers pour la boisson, un tiers pour le souffle","Comer según la Sunna: un tercio para comida, uno para bebida y uno para respirar","Есть по Сунне: треть — еде, треть — питью, треть — дыханию"],
+"صيام النوافل":["Voluntary fasts","Jeûnes surérogatoires","Ayunos voluntarios","Добровольные посты"],
+"حفظ الفرج عن كل ما حرّم الله":["Guarding chastity from all that Allah forbade","Préserver sa chasteté de tout ce qu'Allah a interdit","Guardar la castidad de todo lo que Allah prohibió","Хранить целомудрие от всего запретного"],
+"اجتناب مقدمات الحرام وأسبابه والخلوات المريبة":["Avoiding what leads to the forbidden and suspicious seclusion","Éviter les préludes de l'interdit et les isolements douteux","Evitar lo que conduce a lo prohibido y los encuentros a solas sospechosos","Избегать того, что ведёт к запретному, и подозрительного уединения"],
+"الإعفاف بالحلال وحفظ العهد":["Chastity through the lawful and keeping one's covenant","La chasteté par le licite et la fidélité à l'engagement","La castidad por lo lícito y la fidelidad al pacto","Целомудрие дозволенным и верность обязательству"],
+"الصيام لمن لم يستطع الباءة":["Fasting for those unable to marry","Le jeûne pour qui ne peut se marier","El ayuno para quien no puede casarse","Пост для того, кто не может жениться"],
+"غض البصر وصون الخواطر بالذكر":["Lowering the gaze and guarding thoughts with dhikr","Baisser le regard et protéger ses pensées par le dhikr","Bajar la mirada y proteger los pensamientos con dhikr","Опускать взор и оберегать мысли зикром"],
+"ابدأ تزكية الجوارح":["Start purifying the organs","Commencer la purification des organes","Empezar la purificación de los órganos","Начать очищение органов"],
+"التالي:":["Next:","Suivant :","Siguiente:","Далее:"],
+"حتى":["until","jusqu'à","hasta","до"],
+"هذا القسم متاح بالعربية حاليًا.":["This section is currently available in Arabic only.","Cette section n'est disponible qu'en arabe pour l'instant.","Esta sección solo está disponible en árabe por ahora.","Этот раздел пока доступен только на арабском."],
+"النص بالعربية كما في المصدر":["Text kept in Arabic, as in the source","Texte en arabe, comme dans la source","Texto en árabe, como en la fuente","Текст на арабском, как в источнике"]
+});
+
+const LIDX={en:0,fr:1,es:2,ru:3};
+const LOC={ar:'ar-MA-u-nu-latn',en:'en-GB',fr:'fr-FR',es:'es-ES',ru:'ru-RU'};
+const LANGS=[['ar','ع','العربية'],['en','EN','English'],['fr','FR','Français'],['es','ES','Español'],['ru','RU','Русский']];
+let LANG='ar';
+const deDigits=s=>s.replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+const hasAr=s=>/[؀-ۿ]/.test(s);
+function Tx(s){if(LANG==='ar')return s;const i=LIDX[LANG],k=deDigits(s.trim());
+  if(I18N_D[k])return I18N_D[k][i];if(I18N_W[k])return I18N_W[k][i];
+  for(const [re,tr] of I18N_P){const m=k.match(re);if(m)return tr[i].replace(/\{(\d)(t|w)?\}/g,(_,n,f)=>{const g=m[n]||'';
+    if(f==='t')return Tx(g);
+    if(f==='w')return g.split('، ').map(p=>{const t=Tx(p);return hasAr(t)?p.split(' ').map(Tx).join(' '):t}).join(', ');
+    return g})}
+  return k}
+const I18N_SKIP='.tq,.adh-t,.bas,.verse,.dr-text,.notr,input,textarea,script,style';
+function i18nApply(root){if(LANG==='ar'||!root)return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const nodes=[];let n;while(n=w.nextNode())nodes.push(n);
+  nodes.forEach(n=>{const v=n.nodeValue;if(!/[؀-ۿ٠-٩]/.test(v))return;if(n.parentElement&&n.parentElement.closest(I18N_SKIP))return;
+    const lead=v.match(/^\s*/)[0],trail=v.match(/\s*$/)[0];n.nodeValue=lead+Tx(v)+trail});
+  [root,...root.querySelectorAll('[placeholder],[aria-label],[title]')].forEach(e=>{if(e.closest('.notr'))return;if(e.closest('.tq'))return;['placeholder','aria-label','title'].forEach(a=>{const v=e.getAttribute(a);if(v&&/[؀-ۿ٠-٩]/.test(v))e.setAttribute(a,Tx(v))})})}
+function computeHijri(){try{const f=new Intl.DateTimeFormat((LANG==='ar'?'ar-SA':LOC[LANG])+'-u-ca-islamic-umalqura-nu-latn',{day:'numeric',month:'long',year:'numeric'});
+  hijriLabel=f.format(new Date());const p=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn',{day:'numeric'}).formatToParts(new Date()).find(x=>x.type==='day');hijriDay=p?+p.value:0}catch(e){}}
+
 const KEY='murshid-v2';
 const LAT=34.0331, LNG=-5.0003; // فاس
 
@@ -317,7 +720,7 @@ const ORGANS=[
  {id:'batn',name:'البطن',tathir:['الامتناع عن أكل الحرام والمشتبه فيه','ترك الإسراف والشبع المفرط'],tanwir:['تحرّي الحلال الطيب والتسمية والحمد','الأكل على السنة: ثلث للطعام وثلث للشراب وثلث للنفس','صيام النوافل']},
  {id:'farj',name:'الفرج',tathir:['حفظ الفرج عن كل ما حرّم الله','اجتناب مقدمات الحرام وأسبابه والخلوات المريبة'],tanwir:['الإعفاف بالحلال وحفظ العهد','الصيام لمن لم يستطع الباءة','غض البصر وصون الخواطر بالذكر']}
 ];
-const fmtD=d=>d?new Date(d+'T12:00:00').toLocaleDateString('ar-MA-u-nu-latn',{day:'numeric',month:'long',year:'numeric'}):'';
+const fmtD=d=>d?new Date(d+'T12:00:00').toLocaleDateString(LOC[LANG],{day:'numeric',month:'long',year:'numeric'}):'';
 const AWRAD=[
  {id:'salat',t:'الصلوات الخمس مع الخشوع',s:'في أوقاتها، مع حضور القلب'},
  {id:'sabah',t:'أذكار الصباح',s:'من الفجر إلى المغرب'},
@@ -401,7 +804,180 @@ function blankOrgan(){return{phase:'idle',days:0,last:null,resets:0,attempt:0,at
 function freshState(name){const o={};ORGANS.forEach(g=>o[g.id]=blankOrgan());return{demo:false,name,log:{},organs:o,marks:emptyMarks()}}
 let S;try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
 if(!S||!S.organs)S=demoState();
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+LANG=S.lang&&LIDX[S.lang]!==undefined?S.lang:'ar';computeHijri();
+/* ---------- accounts (Firebase) : classic side ---------- */
+const ADMIN_EMAIL='dr.idrissi.hafdi@gmail.com';
+let AUTH={state:'loading',user:null,mode:'in',err:'',info:'',busy:false};
+let CONTENT={announcement:null,extra:[]};
+let adminData={users:null,loading:false,msg:''};
+const isAdmin=()=>!!(AUTH.user&&AUTH.user.email&&AUTH.user.email.toLowerCase()===ADMIN_EMAIL&&AUTH.user.emailVerified);
+const gated=()=>AUTH.state==='loading'||AUTH.state==='out';
+const AUTH_ERR={
+ 'auth/invalid-email':'صيغة البريد غير صحيحة.',
+ 'auth/missing-email':'اكتب بريدك الإلكتروني.',
+ 'auth/missing-password':'اكتب كلمة المرور.',
+ 'auth/weak-password':'كلمة المرور قصيرة: ستة أحرف على الأقل.',
+ 'auth/email-already-in-use':'هذا البريد مسجّل من قبل. ادخل بدل إنشاء حساب.',
+ 'auth/invalid-credential':'البريد أو كلمة المرور غير صحيحة.',
+ 'auth/wrong-password':'البريد أو كلمة المرور غير صحيحة.',
+ 'auth/user-not-found':'البريد أو كلمة المرور غير صحيحة.',
+ 'auth/too-many-requests':'محاولات كثيرة. انتظر قليلًا ثم أعد المحاولة.',
+ 'auth/network-request-failed':'لا يوجد اتصال بالإنترنت. تحقّق من الاتصال ثم أعد المحاولة.',
+ 'auth/popup-closed-by-user':'أُغلقت نافذة Google قبل إتمام الدخول.',
+ 'auth/popup-blocked':'منع المتصفح نافذة Google. سنحاول بطريقة أخرى.',
+ 'auth/requires-recent-login':'لأمانك، سجّل الخروج ثم ادخل من جديد، ثم أعد المحاولة.',
+ 'auth/unauthorized-domain':'هذا الرابط غير مسموح له بالدخول في إعدادات Firebase.'
+};
+const authErr=e=>AUTH_ERR[e&&e.code]||'تعذّر إتمام العملية. أعد المحاولة.';
+function viewAuth(){
+  const up=AUTH.mode==='up',reset=AUTH.mode==='reset';
+  const langs=`<div class="langs" role="group" aria-label="اللغة">${LANGS.map(([c,l,n])=>`<button class="lang notr${c===LANG?' on':''}" data-lang="${c}" aria-pressed="${c===LANG}" title="${n}" lang="${c}">${l}</button>`).join('')}</div>`;
+  if(AUTH.state==='loading')return `<section class="auth">${langs}<div class="auth-logo">${LOGO}</div><h1 class="auth-title">المرشد</h1><p class="auth-sub">جارٍ التحميل…</p></section>`;
+  return `<section class="auth">${langs}
+   <div class="auth-logo">${LOGO}</div><h1 class="auth-title">المرشد</h1><p class="auth-sub">دليلك نحو التزكية والقرب من الله</p>
+   ${reset?'':`<div class="auth-tabs" role="tablist"><button role="tab" aria-selected="${!up}" class="${up?'':'on'}" data-amode="in">تسجيل الدخول</button><button role="tab" aria-selected="${up}" class="${up?'on':''}" data-amode="up">حساب جديد</button></div>`}
+   <form class="auth-form" id="authForm" novalidate>
+    ${reset?'<h2 class="auth-h">استعادة كلمة المرور</h2><p class="muted">اكتب بريدك، وسنرسل إليه رابطًا لتعيين كلمة مرور جديدة.</p>':''}
+    ${up?`<label for="a-name">الاسم</label><input id="a-name" type="text" autocomplete="name" placeholder="اسمك كما تحب أن يظهر">`:''}
+    <label for="a-email">البريد الإلكتروني</label><input id="a-email" type="email" inputmode="email" autocomplete="email" dir="ltr" placeholder="name@gmail.com">
+    ${reset?'':`<label for="a-pass">كلمة المرور</label><input id="a-pass" type="password" autocomplete="${up?'new-password':'current-password'}" dir="ltr" placeholder="••••••">`}
+    ${up?`<label for="a-pass2">تأكيد كلمة المرور</label><input id="a-pass2" type="password" autocomplete="new-password" dir="ltr" placeholder="••••••">`:''}
+    ${AUTH.err?`<p class="auth-err" role="alert">${AUTH.err}</p>`:''}${AUTH.info?`<p class="auth-info" role="status">${AUTH.info}</p>`:''}
+    <button class="btn ok big" type="submit" ${AUTH.busy?'disabled':''}>${reset?'أرسل رابط الاستعادة':up?'إنشاء الحساب':'دخول'}</button>
+    ${reset?'<button class="btn link-btn" type="button" data-amode="in">رجوع إلى الدخول</button>':`<button class="btn link-btn" type="button" data-amode="reset">نسيت كلمة المرور؟</button>`}
+   </form>
+   ${reset?'':`<div class="auth-or"><span>أو</span></div><button class="btn big g-btn" data-google="1" ${AUTH.busy?'disabled':''}>${GLOGO}<span>الدخول بحساب Google</span></button>`}
+   <p class="auth-privacy">تُحفظ بياناتك وتقدّمك في حسابك على خوادم Google (Firebase)، ولا يطّلع عليها أحد غيرك، حتى إدارة التطبيق.</p>
+  </section>`;
+}
+const LOGO='<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="#265661"/><g fill="#f3d6a6"><path d="M24 7l4.6 6.4 7.8-1.2-1.2 7.8L41.6 24l-6.4 4.6 1.2 7.8-7.8-1.2L24 41.6l-4.6-6.4-7.8 1.2 1.2-7.8L6.4 24l6.4-4.6-1.2-7.8 7.8 1.2z"/></g><circle cx="24" cy="24" r="8" fill="#265661"/><circle cx="24" cy="24" r="3" fill="#f3d6a6"/></svg>';
+const GLOGO='<svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>';
+async function authSubmit(){
+  const v=id=>(document.getElementById(id)||{}).value||'';
+  const email=v('a-email').trim(),pass=v('a-pass'),pass2=v('a-pass2'),name=v('a-name').trim();
+  AUTH.err='';AUTH.info='';
+  if(!window.FB){AUTH.err='تعذّر الاتصال بخدمة الحسابات. تحقّق من الإنترنت ثم أعد فتح التطبيق.';return render()}
+  if(AUTH.mode==='reset'){if(!email){AUTH.err='اكتب بريدك الإلكتروني.';return render()}
+    AUTH.busy=true;render();try{await FB.reset(email);AUTH.info='أُرسل رابط الاستعادة إلى بريدك. افتحه ثم ارجع وادخل بكلمة المرور الجديدة.'}catch(e){AUTH.err=authErr(e)}AUTH.busy=false;return render()}
+  if(AUTH.mode==='up'){
+    if(!name){AUTH.err='اكتب اسمك.';return render()}
+    if(pass.length<6){AUTH.err='كلمة المرور قصيرة: ستة أحرف على الأقل.';return render()}
+    if(pass!==pass2){AUTH.err='كلمتا المرور غير متطابقتين.';return render()}
+    pendingName=name;AUTH.busy=true;render();try{await FB.signUp(email,pass,name)}catch(e){AUTH.err=authErr(e);AUTH.busy=false;render()}return}
+  AUTH.busy=true;render();try{await FB.signIn(email,pass)}catch(e){AUTH.err=authErr(e);AUTH.busy=false;render()}
+}
+async function googleSignIn(){if(!window.FB)return;AUTH.err='';AUTH.busy=true;render();
+  try{await FB.google()}catch(e){AUTH.err=authErr(e);AUTH.busy=false;render()}}
+/* called by the module when auth state changes */
+let pendingName='';
+const OWNER='murshid-owner';
+const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+async function onAuthUser(u){
+  const was=AUTH.state==='in';
+  AUTH.user=u;AUTH.busy=false;
+  if(!u){if(was){try{localStorage.removeItem(KEY);localStorage.removeItem(OWNER)}catch(e){}location.reload();return}
+    AUTH.state='out';return render()}
+  const owner=lsGet(OWNER),nm=(u.displayName||pendingName||'').trim();
+  let cloud=null,offline=false;
+  try{cloud=await FB.loadProgress(u.uid)}catch(e){offline=true;console.warn('load',e)}
+  if(!offline){
+    if(cloud&&cloud.data){
+      const localAt=owner===u.uid?(S.updatedAt||0):-1;
+      if((cloud.updatedAt||0)>localAt){lsSet(KEY,cloud.data);lsSet(OWNER,u.uid);location.reload();return}
+    }else if(owner!==u.uid){
+      // first sign-in on this account: keep this device's own data if it is real (not demo, not another account)
+      if(S.demo||owner){S=freshState(nm);S.lang=LANG}
+    }
+    lsSet(OWNER,u.uid);
+    if(!S.name&&nm)S.name=nm;
+    AUTH.state='in';save();cloudSaveNow();
+  }else{
+    if(owner&&owner!==u.uid){S=freshState(nm);S.lang=LANG}
+    lsSet(OWNER,u.uid);AUTH.state='in';
+  }
+  pendingName='';
+  FB.touchUser(u,S.name||nm,LANG).catch(e=>console.warn('user',e));
+  FB.loadContent().then(c=>{if(c){CONTENT=Object.assign({announcement:null,extra:[]},c);if(AUTH.state==='in')render()}}).catch(()=>{});
+  render();
+}
+function onFbFail(){if(AUTH.state==='loading'){AUTH.state='local';render()}}
+let cloudTimer=null;
+function cloudSaveNow(){if(!window.FB||!AUTH.user||AUTH.state!=='in')return;clearTimeout(cloudTimer);
+  FB.saveProgress(AUTH.user.uid,JSON.stringify(S),S.updatedAt||Date.now()).catch(e=>console.warn('save',e))}
+function cloudSave(){if(!window.FB||!AUTH.user||AUTH.state!=='in')return;clearTimeout(cloudTimer);cloudTimer=setTimeout(cloudSaveNow,1500)}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&cloudTimer)cloudSaveNow()});
+/* admin */
+async function adminLoad(){if(!isAdmin())return;adminData.loading=true;render();
+  try{adminData.users=await FB.listUsers()}catch(e){adminData.msg='تعذّر جلب المستعملين: '+(e.code||e.message)}
+  adminData.loading=false;if(screen==='admin')render()}
+function viewAdmin(){
+  if(!isAdmin())return '<section class="box pad"><p class="muted">هذه الخانة خاصة بإدارة التطبيق.</p></section>';
+  if(adminData.users===null&&!adminData.loading)setTimeout(adminLoad,0);
+  const A=CONTENT.announcement||{},X=CONTENT.extra||[];
+  const users=adminData.users||[];
+  const fmt=t=>t&&t.toDate?t.toDate().toLocaleDateString(LOC[LANG],{day:'numeric',month:'short',year:'numeric'}):'—';
+  return `<section><div class="sh"><h2>المستعملون</h2><span>${adminData.loading?'…':ar2(users.length)}</span></div>
+   <div class="box">${adminData.loading?'<p class="muted pad">جارٍ التحميل…</p>':users.length?users.sort((a,b)=>((b.createdAt&&b.createdAt.seconds)||0)-((a.createdAt&&a.createdAt.seconds)||0)).map(u=>`<div class="notif"><i class="dot on" style="background:var(--teal)"></i><div class="t"><span class="notr" dir="auto">${esc(u.name||'—')}</span><small class="notr" dir="ltr" style="text-align:start">${esc(u.email||'')}</small><small>انضمّ: <span class="notr">${fmt(u.createdAt)}</span> · آخر دخول: <span class="notr">${fmt(u.lastSeen)}</span></small></div></div>`).join(''):'<p class="muted pad">لا يوجد مستعملون بعد.</p>'}</div>
+   <p class="meta">لا تظهر هنا تفاصيل التقدم الروحي للسالكين، فهي خاصة بكل واحد منهم.</p>
+   <div class="btns"><button class="btn small" data-adminreload="1">تحديث القائمة</button></div></section>
+  <section><div class="sh"><h2>رسالة لكل المستعملين</h2><span>${A.on?'منشورة':'غير منشورة'}</span></div>
+   <label for="ad-msg" class="muted">تظهر في أعلى الصفحة الرئيسية لكل السالكين</label>
+   <textarea id="ad-msg" dir="auto" placeholder="مثال: مجلس الذكر هذا الخميس بعد صلاة العشاء…">${esc(A.text||'')}</textarea>
+   <div class="btns"><button class="btn ok" data-adpub="1">نشر الرسالة</button>${A.on?'<button class="btn small" data-adhide="1">إخفاء الرسالة</button>':''}</div></section>
+  <section><div class="sh"><h2>أعمال مقترحة من الإدارة</h2><span>${ar2(X.length)}</span></div>
+   <p class="muted">تظهر في «الأعمال» لكل السالكين، ويؤكدها كل واحد منهم.</p>
+   <div class="box">${X.map((x,i)=>`<div class="notif"><div class="t"><span class="notr" dir="auto">${esc(x.t)}</span>${x.s?`<small class="notr" dir="auto">${esc(x.s)}</small>`:''}</div><button class="btn small dl-del" data-adxdel="${i}">حذف</button></div>`).join('')||'<p class="muted pad">لا توجد أعمال مقترحة.</p>'}</div>
+   <label for="ad-xt" class="muted">العمل</label><input id="ad-xt" type="text" dir="auto" placeholder="مثال: قراءة سورة يس">
+   <label for="ad-xs" class="muted">وصف قصير (اختياري)</label><input id="ad-xs" type="text" dir="auto" placeholder="مثال: ليلة الجمعة">
+   <div class="btns"><button class="btn ok" data-adxadd="1">أضف العمل</button></div></section>
+  <section><div class="sh"><h2>تحديث التطبيق نفسه</h2></div>
+   <p class="muted">التعديلات أعلاه تصل إلى كل السالكين فورًا. أما تغيير التصميم أو إضافة خاصية جديدة فيكون برفع ملف index.html الجديد إلى مستودع GitHub.</p>
+   ${adminData.msg?`<p class="logged">${esc(adminData.msg)}</p>`:''}</section>`;
+}
+async function adminSave(patch,msg){try{await FB.saveContent(patch);Object.assign(CONTENT,patch);adminData.msg=msg}catch(e){adminData.msg='تعذّر الحفظ: '+(e.code||e.message)}render()}
+function announcementBanner(){const A=CONTENT.announcement;if(!A||!A.on||!A.text)return '';
+  let seen='';try{seen=localStorage.getItem('murshid-ann')||''}catch(e){}
+  const id=String(A.at||'');if(seen===id)return '';
+  return `<div class="ann" role="status"><b>رسالة من الإدارة</b><p class="notr" dir="auto">${esc(A.text)}</p><button class="btn small" data-anndismiss="${esc(id)}">حسنًا</button></div>`}
+function onAuthRedirectError(e){AUTH.err=authErr(e);AUTH.busy=false;if(gated())render()}
+let delAsk=false,acctMsg='';
+function accountSection(){
+  if(AUTH.state==='local')return `<section><div class="sh"><h2>الحساب</h2></div><p class="muted">وضع محلي: لم نتمكن من الاتصال بخدمة الحسابات هنا، فتُحفظ بياناتك في هذا المتصفح فقط.</p></section>`;
+  const u=AUTH.user;if(!u)return '';
+  return `<section><div class="sh"><h2>الحساب</h2></div>
+   <div class="box pad" style="display:flex;flex-direction:column;gap:8px">
+    <div><span class="muted">البريد الإلكتروني</span><div class="notr" dir="ltr" style="text-align:start;font-weight:500;overflow-wrap:anywhere">${esc(u.email||'')}</div></div>
+    ${u.emailVerified?'<div class="logged">البريد مؤكَّد ✓</div>':`<div class="logged bad">لم يُؤكَّد البريد بعد. افتح الرسالة التي وصلتك ثم اضغط «تحقّقت».</div><div class="btns"><button class="btn small" data-resend="1">أعد إرسال رسالة التأكيد</button><button class="btn small" data-verified="1">تحقّقت</button></div>`}
+    ${acctMsg?`<p class="meta">${esc(acctMsg)}</p>`:''}
+    <p class="muted" style="margin:0">يُحفظ تقدّمك في حسابك، فتجده على أي هاتف تدخل منه.</p>
+    <div class="btns">${isAdmin()?'<button class="btn ok" data-go="admin">لوحة الإدارة</button>':''}<button class="btn" data-signout="1">تسجيل الخروج</button></div>
+   </div>
+   ${delAsk?`<div class="confirm"><span>سيُحذف حسابك وكل تقدّمك نهائيًا. متابعة؟</span><button class="btn slip" data-delyes="1">نعم، احذف حسابي</button><button class="btn" data-delno="1">تراجع</button></div>`:`<div class="btns"><button class="btn small" data-delacct="1">حذف الحساب</button></div>`}
+  </section>`;
+}
+async function authClick(d){
+  if(d.amode){AUTH.mode=d.amode;AUTH.err='';AUTH.info='';render();return true}
+  if(d.google){googleSignIn();return true}
+  if(d.signout){if(window.FB){cloudSaveNow();FB.signOut()}return true}
+  if(d.resend){try{await FB.resendVerify();acctMsg='أُرسلت رسالة التأكيد إلى بريدك.'}catch(e){acctMsg=authErr(e)}render();return true}
+  if(d.verified){try{const u=await FB.reloadUser();AUTH.user=u;acctMsg=u&&u.emailVerified?'':'لم يُؤكَّد بعد. افتح الرابط في الرسالة ثم أعد المحاولة.'}catch(e){acctMsg=authErr(e)}render();return true}
+  if(d.delacct){delAsk=true;render();return true}
+  if(d.delno){delAsk=false;render();return true}
+  if(d.delyes){try{await FB.deleteAccount()}catch(e){delAsk=false;acctMsg=authErr(e);render()}return true}
+  if(d.adminreload){adminData.users=null;adminLoad();return true}
+  if(d.adpub){const t=(document.getElementById('ad-msg').value||'').trim();if(!t){adminData.msg='اكتب نص الرسالة أولًا.';render();return true}
+    adminSave({announcement:{text:t,on:true,at:Date.now()}},'نُشرت الرسالة لكل المستعملين.');return true}
+  if(d.adhide){adminSave({announcement:Object.assign({},CONTENT.announcement,{on:false})},'أُخفيت الرسالة.');return true}
+  if(d.adxadd){const t=(document.getElementById('ad-xt').value||'').trim(),s=(document.getElementById('ad-xs').value||'').trim();
+    if(!t){adminData.msg='اكتب اسم العمل أولًا.';render();return true}
+    adminSave({extra:[...(CONTENT.extra||[]),{id:'x'+Date.now().toString(36),t,s}]},'أُضيف العمل.');return true}
+  if(d.adxdel!==undefined){const X=(CONTENT.extra||[]).slice();X.splice(+d.adxdel,1);adminSave({extra:X},'حُذف العمل.');return true}
+  if(d.anndismiss!==undefined){lsSet('murshid-ann',d.anndismiss);render();return true}
+  return false;
+}
+
+const save=()=>{S.updatedAt=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){};cloudSave()};
 ORGANS.forEach(g=>{
   if(!S.organs[g.id])S.organs[g.id]=blankOrgan();
   const o=S.organs[g.id];
@@ -431,10 +1007,11 @@ const MENU=[
  {id:'sura',t:'حالة قلبك',ic:'<circle cx="24" cy="12" r="4.5"/><path d="M20 8.5c1-2 7-2 8 0"/><path d="M15 42V27c0-5 4-9 9-9s9 4 9 9v15"/><path d="M20 26l4 6 4-6"/>'},
  {id:'muraqabat',t:'حالتك الروحية اليومية',ic:'<circle cx="24" cy="11" r="4"/><path d="M16 42V26c0-5 3.5-9 8-9s8 4 8 9v16"/><path d="M19 28l5 4 5-4M24 32v10"/>'},
  {id:'aamal',t:'الأعمال',ic:'<path d="M8 36h32M10 36c0-5 4-7 8-7h6"/><circle cx="31" cy="25" r="3.5"/><path d="M24 29l5-1 7 5"/><rect x="34" y="31" width="8" height="5" rx="1"/>'},
+ {id:'admin',t:'لوحة الإدارة',ic:'<path d="M24 5l15 6v11c0 9.5-6.4 17.4-15 21-8.6-3.6-15-11.5-15-21V11z"/><path d="M17.5 24l4.5 4.5 8.5-9"/>'},
  {id:'install',t:'تثبيت التطبيق على الشاشة',ic:'<rect x="15" y="5" width="18" height="38" rx="3.5"/><path d="M21 38h6M24 13v15M18.5 22.5 24 28l5.5-5.5"/>'}
 ];
-const TITLES={method:'المنهج المحمدي',tazkiya:'التزكية',muraqabat:'حالتك الروحية اليومية',sura:'حالة قلبك',aamal:'الأعمال',dhikr_run:'الذكر الشخصي',adh_sabah:'أذكار الصباح',adh_masa:'أذكار المساء',install:'تثبيت التطبيق',notif:'التنبيهات',profile:'الملف الشخصي'};
-const VERSES={dhikr_run:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',adh_sabah:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَبِّحۡ'))+'﴾',adh_masa:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَبِّحۡ'))+'﴾',install:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',method:'«أن تعبد الله كأنك تراه»',tazkiya:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',muraqabat:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',sura:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',aamal:'«أحبّ الأعمال إلى الله أدومها وإن قلّ»',notif:'﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾',profile:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾'};
+const TITLES={method:'المنهج المحمدي',tazkiya:'التزكية',muraqabat:'حالتك الروحية اليومية',sura:'حالة قلبك',aamal:'الأعمال',dhikr_run:'الذكر الشخصي',adh_sabah:'أذكار الصباح',adh_masa:'أذكار المساء',install:'تثبيت التطبيق',notif:'التنبيهات',profile:'الملف الشخصي',admin:'لوحة الإدارة'};
+const VERSES={dhikr_run:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',adh_sabah:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',adh_masa:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',install:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',method:'«أن تعبد الله كأنك تراه»',tazkiya:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',muraqabat:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',sura:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',aamal:'«أحبّ الأعمال إلى الله أدومها وإن قلّ»',notif:'﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾',profile:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',admin:'﴿إِنْ أُرِيدُ إِلَّا الْإِصْلَاحَ مَا اسْتَطَعْتُ﴾'};
 
 const AVATAR='<svg viewBox="0 0 52 52"><rect width="52" height="52" fill="#eceae6"/><circle cx="26" cy="20" r="9" fill="#c9c4bc"/><path d="M8 52c2-11 9-16 18-16s16 5 18 16z" fill="#c9c4bc"/></svg>';
 const MENUICON='<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 7h18M5 14h12M5 21h18"/></svg>';
@@ -447,9 +1024,10 @@ function nextPrayer(pt){
 }
 function heroHome(){
   const now=new Date(),pt=prayerTimes(now),nx=nextPrayer(pt);
-  const dateL=now.toLocaleDateString('ar-MA-u-nu-latn',{weekday:'long',day:'numeric',month:'long'});
+  const dateL=now.toLocaleDateString(LOC[LANG],{weekday:'long',day:'numeric',month:'long'});
   const mins=Math.round(nx.in*60);
   return `<header class="hero">
+   <div class="langs" role="group" aria-label="اللغة">${LANGS.map(([c,l,n])=>`<button class="lang notr${c===LANG?' on':''}" data-lang="${c}" aria-pressed="${c===LANG}" title="${n}" lang="${c}">${l}</button>`).join('')}</div>
    <div class="topbar"><button class="iconbtn" data-go="method" aria-label="القائمة">${MENUICON}</button><h1>الرئيسية</h1><div style="display:flex;justify-content:flex-end"><button class="avatar" data-go="profile" aria-label="الملف الشخصي">${AVATAR}</button></div></div>
    <div class="greet"><div style="min-width:0"><div class="salam">السلام عليكم</div><div class="name">${esc(S.name||'أيها السالك')}</div></div>
      <div class="when">${dateL}<br>${now.getFullYear()}<small>${hijriLabel}</small></div></div>
@@ -459,13 +1037,13 @@ function heroHome(){
   </header>`;
 }
 function heroSub(id){
-  return `<header class="hero compact"><div class="topbar"><button class="iconbtn" data-go="${id.startsWith('adh_')||id==='dhikr_run'?'aamal':'home'}" aria-label="رجوع">${BACK}</button><h1>${TITLES[id]}</h1><span></span></div><p class="verse">${VERSES[id]}</p></header>`;
+  return `<header class="hero compact"><div class="topbar"><button class="iconbtn" data-go="${id.startsWith('adh_')||id==='dhikr_run'?'aamal':'home'}" aria-label="رجوع">${BACK}</button><h1>${TITLES[id]}</h1><span></span></div><p class="verse" dir="rtl" lang="ar">${VERSES[id]}</p></header>`;
 }
 function viewHome(){
   const L=dayLog(),p=pendingOrgans().length;
-  const subs={install:isStandalone()?'مثبّت على شاشتك ✓':'افتحه كتطبيق من شاشة هاتفك',method:'الطريقة المحمدية: الشروط والمراحل والأركان',tazkiya:`تزكية الجوارح · ${activeOrgans().length} قيد العمل`,muraqabat:`صورتك النورانية · ${litCount()} من 4 أنوار مضيئة`,sura:`مجاري القلب · ${ORGANS.filter(g=>['tanwir','done'].includes(S.organs[g.id].phase)).length} من ${ORGANS.length} مغلقة`,aamal:`${L.awrad.length} من ${AWRAD.length} أوراد اليوم`};
-  const banner=S.demo?`<p class="muted" style="margin-bottom:12px">تعرض الأقسام بيانات تجريبية. يمكنك البدء من الصفر من الملف الشخصي.</p>`:'';
-  return heroHome()+`<main class="sheet">${banner}<div class="menu">${MENU.map(m=>`<button class="mcard" data-go="${m.id}"><span class="ic"><svg viewBox="0 0 48 48">${m.ic}</svg></span><span class="tx">${m.t}<small>${subs[m.id]}</small></span><span class="go">${ARROW}</span></button>`).join('')}</div></main>`;
+  const subs={install:isStandalone()?'مثبّت على شاشتك ✓':'افتحه كتطبيق من شاشة هاتفك',method:'الطريقة المحمدية: الشروط والمراحل والأركان',tazkiya:`تزكية الجوارح · ${activeOrgans().length} قيد العمل`,muraqabat:`صورتك النورانية · ${litCount()} من 4 أنوار مضيئة`,sura:`مجاري القلب · ${ORGANS.filter(g=>['tanwir','done'].includes(S.organs[g.id].phase)).length} من ${ORGANS.length} مغلقة`,aamal:`${L.awrad.length} من ${AWRAD.length} أوراد اليوم`,admin:'المستعملون، الرسائل، الأعمال المقترحة'};
+  const banner=announcementBanner()+(AUTH.state==='local'?`<p class="muted" style="margin-bottom:12px">وضع محلي: تُحفظ بياناتك في هذا المتصفح فقط.</p>`:'')+(S.demo?`<p class="muted" style="margin-bottom:12px">تعرض الأقسام بيانات تجريبية. يمكنك البدء من الصفر من الملف الشخصي.</p>`:'');
+  return heroHome()+`<main class="sheet">${banner}<div class="menu">${MENU.filter(m=>m.id!=='admin'||isAdmin()).map(m=>`<button class="mcard" data-go="${m.id}"><span class="ic"><svg viewBox="0 0 48 48">${m.ic}</svg></span><span class="tx">${m.t}<small>${subs[m.id]}</small></span><span class="go">${ARROW}</span></button>`).join('')}</div></main>`;
 }
 
 function ring(days,phase){
@@ -489,7 +1067,7 @@ function organCard(g,full){
   const broke=o.broken?`<div class="meta" style="color:var(--red)">انقطعت السلسلة بيوم فائت، فبدأ العدّ من جديد.</div>`:'';
   const left=o.phase==='tathir'||o.phase==='tanwir'?`باقٍ ${30-o.days} يومًا`:'';
   const att=(o.phase==='tathir'||o.phase==='tanwir')&&o.attemptStart?`<div class="attempt">${(o.cycle||1)>1?'الدورة '+o.cycle+' · ':''}المحاولة ${o.attempt} · بدأت ${o.attemptStart>TODAY?'غدًا':''} ${fmtD(o.attemptStart)}</div>`:'';
-  const slips=full&&o.slips.length?`<details class="slips"><summary>مراجعة أسباب الزلات (${o.slips.length})</summary><ol>${o.slips.slice().reverse().map(s=>`<li><div class="sl-h"><b>${fmtD(s.date)}</b><span class="pill p-${s.phase}">${PHASE[s.phase]}</span><span class="meta">بعد ${s.day} ${s.day>10?'يومًا':'أيام'}</span></div><p>${s.reason?esc(s.reason):'<span class="meta">لم يُدوَّن سبب</span>'}</p></li>`).join('')}</ol></details>`:'';
+  const slips=full&&o.slips.length?`<details class="slips"><summary>مراجعة أسباب الزلات (${o.slips.length})</summary><ol>${o.slips.slice().reverse().map(s=>`<li><div class="sl-h"><b>${fmtD(s.date)}</b><span class="pill p-${s.phase}">${PHASE[s.phase]}</span><span class="meta">بعد ${s.day} ${s.day>10?'يومًا':'أيام'}</span></div><p>${s.reason?'<span class="notr" dir="auto">'+esc(s.reason)+'</span>':'<span class="meta">لم يُدوَّن سبب</span>'}</p></li>`).join('')}</ol></details>`:'';
   let redo='';
   if(full&&o.phase!=='idle'){
     const canT=o.phase==='tanwir'||o.phase==='done';
@@ -503,7 +1081,7 @@ function organCard(g,full){
       redo=`<div class="redo"><span class="meta">${o.phase==='done'?'تجديد السلوك:':'إعادة المرحلة:'}</span><button class="btn small" data-redo="${g.id}" data-kind="tathir">إعادة التطهير</button>${canT?`<button class="btn small" data-redo="${g.id}" data-kind="tanwir">إعادة التنوير</button>`:''}</div>`;
     }
   }
-  const hist=full&&o.history&&o.history.length?`<details class="slips redo-h"><summary>سجل الإعادات (${o.history.length})</summary><ol>${o.history.slice().reverse().map(h=>`<li><div class="sl-h"><b>${fmtD(h.date)}</b><span class="pill p-${h.kind}">إعادة ${PHASE[h.kind]}</span><span class="meta">من حال: ${PHASE[h.from]}${h.from!=='done'?' · '+h.day+' يوم':''}</span></div>${h.reason?`<p>${esc(h.reason)}</p>`:''}</li>`).join('')}</ol></details>`:'';
+  const hist=full&&o.history&&o.history.length?`<details class="slips redo-h"><summary>سجل الإعادات (${o.history.length})</summary><ol>${o.history.slice().reverse().map(h=>`<li><div class="sl-h"><b>${fmtD(h.date)}</b><span class="pill p-${h.kind}">إعادة ${PHASE[h.kind]}</span><span class="meta">من حال: ${PHASE[h.from]}${h.from!=='done'?' · '+h.day+' يوم':''}</span></div>${h.reason?`<p class="notr" dir="auto">${esc(h.reason)}</p>`:''}</li>`).join('')}</ol></details>`:'';
   return `<div class="box organ"><div class="orow">${ring(o.days,o.phase)}<div class="info"><h3>${g.name}</h3><span class="pill p-${o.phase}">${PHASE[o.phase]}</span> <span class="meta">${left}${o.resets?' · إعادات: '+o.resets:''}</span>${att}</div></div>${broke}${body}${tips}${redo}${slips}${hist}</div>`;
 }
 function viewTazkiya(){
@@ -602,6 +1180,7 @@ function viewAamal(){
   <section><div class="sh"><h2>الخلوة والاعتكاف</h2><span>${M.khalwa.length}</span></div>
    <div class="box pad" style="display:flex;flex-direction:column;gap:10px"><div class="meta" style="color:var(--ink)">${kStatus}</div>${kAct}${canUndo&&!lightConfirm?`<button class="btn small" style="align-self:flex-start" data-khundo="1">إلغاء تسجيل اليوم</button>`:''}
    ${M.khalwa.length?`<details class="slips redo-h"><summary>سجل الخلوات (${M.khalwa.length})</summary><ol>${M.khalwa.slice().reverse().map(k=>`<li><div class="sl-h"><b>${fmtD(ds(new Date(k.ts)))}</b><span class="pill p-tanwir">${k.type==='itikaf'?'اعتكاف':'خلوة'}</span></div></li>`).join('')}</ol></details>`:''}</div></section>
+  ${(CONTENT.extra||[]).length?`<section><div class="sh"><h2>أعمال مقترحة من الإدارة</h2><span>${CONTENT.extra.filter(x=>L.awrad.includes(x.id)).length} / ${CONTENT.extra.length}</span></div><div class="notr-wrap">${wirdList(CONTENT.extra.map(x=>({id:x.id,t:'<span class="notr" dir="auto">'+esc(x.t)+'</span>',s:x.s?'<span class="notr" dir="auto">'+esc(x.s)+'</span>':''})),L)}</div></section>`:''}
   <section><div class="sh"><h2>الأعمال الموسمية</h2><span>${hijriLabel}</span></div>${wirdList(seasonal(),L)}</section>`;
 }
 /* ---------- the heart: anatomical drawing, 7 regions, one channel per organ ---------- */
@@ -662,7 +1241,7 @@ function heartSection(){
     :`أغلقت ${closedN} من ${N} مجارٍ${pureN?`، وتنوّر منها ${pureN}`:''}. ما بقي مفتوحًا يُدخل الظلمة من جديد، فأغلقه مجرًى مجرًى حتى يصفو القلب كله.`;
   return `<section><div class="sh"><h2>قلبك ومجاريه</h2><span>${closedN} / ${N} مغلقة</span></div>
    <div class="box pad heart-box">
-    <svg class="heart" direction="ltr" style="direction:ltr" viewBox="-40 20 540 480" role="img" aria-label="صورة القلب: ${ORGANS.map(g=>g.name+' '+({dark:'أسود',grey:'رمادي',white:'أبيض'}[organShade(S.organs[g.id])])).join('، ')}">
+    <svg class="heart" direction="ltr" style="direction:ltr" viewBox="${LANG==='ar'?'-40 20 540 480':'-110 20 680 480'}" role="img" aria-label="صورة القلب: ${ORGANS.map(g=>g.name+' '+({dark:'أسود',grey:'رمادي',white:'أبيض'}[organShade(S.organs[g.id])])).join('، ')}">
      <defs>
       <clipPath id="hb"><path d="${HEART_BODY}"/></clipPath>
       <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="9"/></filter>
@@ -712,7 +1291,7 @@ function viewSura(){
    <div class="meta">البرتقالي: أيام التطهير · الأخضر: أيام التنوير</div></div></section>
   <section><div class="sh"><h2>توجيه</h2></div><div class="box pad">أقل الأوراد مواظبة في هذه الفترة: <b>${weak.a.t}</b> (${weak.n} من 14 يومًا). اجعل له وقتًا ثابتًا، فأحبّ الأعمال إلى الله أدومها وإن قلّ.</div></section>`;
 }
-const TARIQA=`<section class="tq">
+const TARIQA=`<section class="tq" dir="rtl" lang="ar">
 <div class="tq-head">
  <h2>الطريقة المحمدية</h2>
  <p class="tq-sub">الطريق إلى رضوان الله: التعريف والمراحل والشروط والأركان</p>
@@ -1032,7 +1611,7 @@ const TARIQA=`<section class="tq">
 </details>
 </section>`;
 function viewMethod(){
-  return TARIQA+`<div class="btns" style="margin-top:12px"><button class="btn primary" data-go="tazkiya">ابدأ تزكية الجوارح</button></div>`;
+  return (LANG!=='ar'?'<p class="tq-note">هذا القسم متاح بالعربية حاليًا.</p>':'')+TARIQA+`<div class="btns" style="margin-top:12px"><button class="btn primary" data-go="tazkiya">ابدأ تزكية الجوارح</button></div>`;
 }
 function viewNotif(){
   const pt=prayerTimes(new Date()),nx=nextPrayer(pt),L=dayLog(),now=new Date().getHours()+new Date().getMinutes()/60;
@@ -1051,9 +1630,9 @@ function viewProfile(){
   return `<section><div class="box pad" style="display:flex;gap:14px;align-items:center"><span class="avatar" style="cursor:default">${AVATAR}</span><div style="min-width:0"><b>${esc(S.name)}</b><div class="meta">فاس · ${started} من ${ORGANS.length} جوارح بدأت تزكيتها</div></div></div>
    <label for="pname" class="muted">الاسم الظاهر في الرئيسية</label><input type="text" id="pname" value="${esc(S.name)}"></section>
   <section><div class="sh"><h2>البيانات</h2></div>
-   <p class="muted">${S.demo?'تعرض الأقسام حاليًا بيانات تجريبية للتوضيح.':'تُحفظ بياناتك في هذا المتصفح فقط.'}</p>
+   <p class="muted">${S.demo?'تعرض الأقسام حاليًا بيانات تجريبية للتوضيح.':AUTH.state==='in'?'تُحفظ بياناتك في حسابك وفي هذا الهاتف.':'تُحفظ بياناتك في هذا المتصفح فقط.'}</p>
    ${confirmReset?`<div class="confirm"><span>سيُمسح كل السجل والتقدم. متابعة؟</span><button class="btn slip" data-resetyes="1">نعم، ابدأ من الصفر</button><button class="btn" data-resetno="1">تراجع</button></div>`:`<div class="btns"><button class="btn slip" data-reset="1">ابدأ رحلتي من الصفر</button></div>`}
-  </section>`;
+  </section>`+accountSection();
 }
 
 if(!S.marks)S.marks=S.demo?demoMarks():emptyMarks();
@@ -1097,7 +1676,7 @@ function viewAdhkar(kind){
   const inWin=p.kind===kind;
   const card=(a,i)=>{const c=st[i],full=c>=a.n;
     return `<button class="adh ${a.k}${full?' full':''}" data-adh="${i}" aria-label="${full?'تم':'اضغط للعدّ'}">
-      ${a.s?`<span class="adh-s">${a.s}</span>`:''}<span class="adh-t">${a.t}</span>
+      ${a.s?`<span class="adh-s">${a.s}</span>`:''}<span class="adh-t" dir="rtl" lang="ar">${a.t}</span>
       <span class="adh-f"><span class="adh-n">${full?'✓ تمّ':(a.n===1?'مرة واحدة':`${ar2(a.n-c)} من ${ar2(a.n)}`)}</span>${full?'':'<span class="adh-tap">اضغط للعدّ</span>'}</span></button>`};
   let i=0;
   const sec=(title,arr)=>`<h3 class="adh-h">${title}</h3>`+arr.map(a=>card(a,i++)).join('');
@@ -1151,7 +1730,7 @@ function stopRun(){clearInterval(runTimer);run=null;keepAwake(false)}
 const fmtMs=ms=>{const s=Math.max(0,Math.ceil(ms/1000));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 function paintRun(){const r=document.getElementById('dr-ring'),t=document.getElementById('dr-time'),tt=document.getElementById('dr-total');if(!r||!run)return;
   const cur=run.list[run.i],left=cur.ms-run.el,C=2*Math.PI*96;r.style.strokeDashoffset=C*(left/cur.ms);t.textContent=fmtMs(left);
-  const totalLeft=run.list.slice(run.i+1).reduce((a,d)=>a+d.ms,0)+left;tt.innerHTML='المتبقي من المجموعة <span dir="ltr">'+fmtMs(totalLeft)+'</span>'}
+  const totalLeft=run.list.slice(run.i+1).reduce((a,d)=>a+d.ms,0)+left;tt.innerHTML=Tx('المتبقي من المجموعة')+' <span dir="ltr">'+fmtMs(totalLeft)+'</span>'}
 function viewDhikrRun(){
   if(!run)return `<section class="box pad"><p class="muted">لا توجد جلسة ذكر جارية.</p><div class="btns"><button class="btn ok" data-dstart="1">ابدأ الذكر الشخصي</button><button class="btn" data-go="aamal">رجوع</button></div></section>`;
   if(run.done){const ok=dayLog().awrad.includes('dhikr');
@@ -1162,26 +1741,33 @@ function viewDhikrRun(){
   return `<section class="dr${run.paused?' paused':''}" data-drpad="1">
    <div class="dr-step">الذكر ${ar2(run.i+1)} من ${ar2(run.list.length)}</div>
    <div class="dr-dots">${run.list.map((d,k)=>`<i class="${k<run.i?'d':k===run.i?'c':''}"></i>`).join('')}</div>
-   <p class="dr-text">${esc(cur.text)}</p>
+   <p class="dr-text" dir="auto">${esc(cur.text)}</p>
    <div class="dr-ringbox"><svg viewBox="0 0 220 220" aria-hidden="true"><circle cx="110" cy="110" r="96" class="dr-bg"/><circle id="dr-ring" cx="110" cy="110" r="96" class="dr-fg" stroke-dasharray="${C}" stroke-dashoffset="${C*((cur.ms-run.el)/cur.ms)}"/></svg>
     <div class="dr-center"><b id="dr-time">${fmtMs(cur.ms-run.el)}</b><span>${run.paused?'متوقف':'جارٍ'}</span></div></div>
    <p class="dr-hint">${run.paused?'المس الشاشة للمتابعة':'المس الشاشة لإيقاف العدّاد'}</p>
    <p class="dr-total" id="dr-total"></p>
-   ${nx?`<p class="dr-next">التالي: ${esc(nx.text)}</p>`:'<p class="dr-next">هذا آخر ذكر في المجموعة</p>'}
+   ${nx?`<p class="dr-next"><span>التالي:</span> <span class="notr" dir="auto">${esc(nx.text)}</span></p>`:'<p class="dr-next">هذا آخر ذكر في المجموعة</p>'}
    ${run.paused?`<div class="btns dr-btns"><button class="btn small" data-dskip="1">انتقل إلى التالي</button><button class="btn small" data-dend="1">إنهاء الجلسة</button></div>`:''}
   </section>`;
 }
 document.addEventListener('pointerdown',e=>{if(screen!=='dhikr_run'||!run||run.done)return;if(e.target.closest('button'))return;if(!e.target.closest('.dr,#app'))return;e.preventDefault();togglePause()});
 document.addEventListener('toggle',e=>{if(e.target.classList&&e.target.classList.contains('dl-det'))dlOpen=e.target.open},true);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&run&&!run.done){if(!run.paused)tick();if(screen==='dhikr_run')keepAwake(true)}});
-const VIEWS={method:viewMethod,tazkiya:viewTazkiya,muraqabat:viewMuraqabat,sura:viewSura,aamal:viewAamal,dhikr_run:viewDhikrRun,adh_sabah:()=>viewAdhkar('sabah'),adh_masa:()=>viewAdhkar('masa'),install:viewInstall,notif:viewNotif,profile:viewProfile};
+const VIEWS={method:viewMethod,tazkiya:viewTazkiya,muraqabat:viewMuraqabat,sura:viewSura,aamal:viewAamal,dhikr_run:viewDhikrRun,adh_sabah:()=>viewAdhkar('sabah'),adh_masa:()=>viewAdhkar('masa'),install:viewInstall,notif:viewNotif,profile:viewProfile,admin:viewAdmin};
 function render(){
-  const app=document.getElementById('app');
+  const app=document.getElementById('app'),nav0=document.querySelector('nav.tabs');
+  if(gated()){app.innerHTML=viewAuth();nav0.hidden=true;const rtl=LANG==='ar';app.dir=rtl?'rtl':'ltr';app.lang=LANG;document.documentElement.lang=LANG;document.documentElement.dir=rtl?'rtl':'ltr';i18nApply(app);return}
+  if(screen==='admin'&&!isAdmin())screen='home';
   app.innerHTML=screen==='home'?viewHome():heroSub(screen)+`<main class="sheet">${VIEWS[screen]()}</main>`;
   const navKey=screen.startsWith('adh_')||screen==='dhikr_run'?'aamal':['home','notif','aamal','profile'].includes(screen)?screen:'home';
   document.querySelectorAll('[data-nav]').forEach(b=>b.toggleAttribute('aria-current',b.dataset.nav===navKey)||b.dataset.nav===navKey&&b.setAttribute('aria-current','page'));
   document.querySelectorAll('[data-nav]').forEach(b=>{if(b.dataset.nav===navKey)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
-  document.querySelector('nav.tabs').hidden=screen==='dhikr_run';
+  const rtl=LANG==='ar',nav=document.querySelector('nav.tabs');
+  [app,nav].forEach(el=>{el.dir=rtl?'rtl':'ltr';el.lang=LANG});document.documentElement.lang=LANG;document.documentElement.dir=rtl?'rtl':'ltr';
+  document.title=['المرشد','Al-Murshid','Al-Murshid','Al-Murshid','Аль-Муршид'][rtl?0:LIDX[LANG]+1];
+  nav.querySelectorAll('[data-nav]').forEach(b=>{b.dataset.al=b.dataset.al||b.getAttribute('aria-label');b.setAttribute('aria-label',b.dataset.al)});
+  i18nApply(app);i18nApply(nav);
+  nav.hidden=screen==='dhikr_run';
   if(screen==='dhikr_run')paintRun();
   document.getElementById('badge').hidden=!(pendingOrgans().length||!lights().halo);
 }
@@ -1195,6 +1781,8 @@ function logOrgan(id,ok,reason){
 }
 document.addEventListener('click',e=>{
   const t=e.target.closest('button');if(!t)return;const d=t.dataset;
+  if(d.amode||d.google||d.signout||d.resend||d.verified||d.delacct||d.delno||d.delyes||d.adminreload||d.adpub||d.adhide||d.adxadd||d.adxdel!==undefined||d.anndismiss!==undefined){authClick(d);return}
+  if(d.lang){LANG=d.lang;S.lang=LANG;save();computeHijri();return render()}
   if(d.nav)return go(d.nav);
   if(d.adhkar){e.preventDefault();return go('adh_'+d.adhkar)}
   if(d.pray){e.preventDefault();setPrayer(d.pray);const y=window.scrollY;render();window.scrollTo(0,y);return}
@@ -1252,6 +1840,7 @@ function applyWird(w,on){
   if(w==='quran'||w==='dhikr'){M[w]=M[w].filter(x=>ds(new Date(x))!==nowStr());if(on)M[w].push(Date.now())}
   save();
 }
+document.addEventListener('submit',e=>{if(e.target.id==='authForm'){e.preventDefault();authSubmit()}});
 document.addEventListener('change',e=>{
   const w=e.target.dataset&&e.target.dataset.wird;if(!w)return;const L=dayLog();
   if(w==='salat')L.prayers=e.target.checked?FIVE.map(f=>f[0]):[];
@@ -1269,7 +1858,48 @@ document.addEventListener('input',e=>{
 let lastSig='';setInterval(()=>{if(screen!=='muraqabat'||document.activeElement&&document.activeElement.id==='dhikrText')return;const l=lights(),sig=[l.p.key,l.p.kind,l.halo,l.head,l.heart,l.body].join();if(lastSig&&sig!==lastSig)render();lastSig=sig},30000);
 setInterval(()=>{const c=document.getElementById('clock');if(c){const n=new Date();c.textContent=pad(n.getHours())+':'+pad(n.getMinutes())}},15000);
 render();
+setTimeout(()=>onFbFail(),15000);
 </script>
+<script type="module">
+/* accounts & cloud save — Firebase (Auth + Firestore) */
+const V='10.12.2',B='https://www.gstatic.com/firebasejs/'+V+'/';
+const cfg={apiKey:"AIzaSyD4FjornbE6-8fOqugJn6YEhZrENXMB_cs",authDomain:"almurshid-64196.firebaseapp.com",projectId:"almurshid-64196",storageBucket:"almurshid-64196.firebasestorage.app",messagingSenderId:"525420006974",appId:"1:525420006974:web:b7357972bad9c4e4fa4b6f"};
+let inFrame=false;try{inFrame=window.self!==window.top}catch(e){inFrame=true}
+if(inFrame){window.onFbFail()}else(async()=>{
+ try{
+  const [A,U,F]=await Promise.all([import(B+'firebase-app.js'),import(B+'firebase-auth.js'),import(B+'firebase-firestore.js')]);
+  const app=A.initializeApp(cfg),auth=U.getAuth(app),db=F.getFirestore(app);
+  auth.languageCode=document.documentElement.lang||'ar';
+  const gp=new U.GoogleAuthProvider();gp.setCustomParameters({prompt:'select_account'});
+  const d=(...p)=>F.doc(db,...p);
+  window.FB={
+   signUp:async(email,pass,name)=>{const c=await U.createUserWithEmailAndPassword(auth,email,pass);
+     try{await U.updateProfile(c.user,{displayName:name})}catch(e){}
+     try{await U.sendEmailVerification(c.user)}catch(e){}return c.user},
+   signIn:(email,pass)=>U.signInWithEmailAndPassword(auth,email,pass),
+   google:async()=>{try{await U.signInWithPopup(auth,gp)}catch(e){
+     if(['auth/popup-blocked','auth/operation-not-supported-in-this-environment','auth/cancelled-popup-request'].includes(e.code))return U.signInWithRedirect(auth,gp);throw e}},
+   reset:email=>{auth.languageCode=document.documentElement.lang||'ar';return U.sendPasswordResetEmail(auth,email)},
+   signOut:()=>U.signOut(auth),
+   resendVerify:()=>auth.currentUser&&U.sendEmailVerification(auth.currentUser),
+   reloadUser:async()=>{if(auth.currentUser){await U.reload(auth.currentUser);await auth.currentUser.getIdToken(true)}return auth.currentUser},
+   deleteAccount:async()=>{const u=auth.currentUser;if(!u)return;
+     await F.deleteDoc(d('progress',u.uid));await F.deleteDoc(d('users',u.uid));await U.deleteUser(u)},
+   loadProgress:async uid=>{const s=await F.getDoc(d('progress',uid));return s.exists()?s.data():null},
+   saveProgress:(uid,data,at)=>F.setDoc(d('progress',uid),{data,updatedAt:at}),
+   touchUser:async(u,name,lang)=>{const r=d('users',u.uid),s=await F.getDoc(r);
+     const v={email:u.email||'',name:name||'',lang:lang||'ar',lastSeen:F.serverTimestamp()};
+     if(!s.exists())v.createdAt=F.serverTimestamp();return F.setDoc(r,v,{merge:true})},
+   loadContent:async()=>{const s=await F.getDoc(d('content','main'));return s.exists()?s.data():null},
+   saveContent:patch=>F.setDoc(d('content','main'),patch,{merge:true}),
+   listUsers:async()=>(await F.getDocs(F.collection(db,'users'))).docs.map(x=>({id:x.id,...x.data()}))
+  };
+  U.getRedirectResult(auth).catch(e=>window.onAuthRedirectError&&window.onAuthRedirectError(e));
+  U.onAuthStateChanged(auth,u=>window.onAuthUser(u));
+ }catch(e){console.warn('firebase',e);window.onFbFail()}
+})();
+</script>
+
 
 </body>
 </html>
