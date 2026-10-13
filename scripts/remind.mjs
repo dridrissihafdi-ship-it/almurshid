@@ -59,7 +59,7 @@ for (const doc of snap.docs) {
   const bed = (bh || 0) + (bm || 0) / 60;
   const win = {                                   // [from, to) in local hours
     sabah:    [pt.fajr + 20 / 60, pt.fajr + 3],
-    masa:     [pt.maghrib + 15 / 60, pt.maghrib + 3],
+    masa:     [pt.maghrib - 15 / 60, pt.maghrib + 3],
     muhasaba: [bed, bed + 2],
   };
   const on = u.on || {}, last = u.lastSent || {}, upd = {};
