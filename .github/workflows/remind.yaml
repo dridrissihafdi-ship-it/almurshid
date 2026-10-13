@@ -1,0 +1,23 @@
+name: تذكيرات المرشد
+on:
+  schedule:
+    - cron: '*/15 * * * *'   # احتياط: GitHub قد يؤخر هذا الجدول
+  workflow_dispatch:         # يشغّله cron-job.org كل 5 دقائق بدقة
+concurrency:
+  group: remind
+  cancel-in-progress: false
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm i --no-save --no-audit --no-fund firebase-admin@12
+      - run: node scripts/remind.mjs
+        env:
+          FIREBASE_SA: ${{ secrets.FIREBASE_SA }}
