@@ -647,6 +647,8 @@ const I18N_D={
 "اكتب نص الرسالة أولًا.":["Write the message first.", "Écrivez d'abord le message.", "Escribe primero el mensaje.", "Сначала напишите сообщение."],
 "اكتب اسم العمل أولًا.":["Write the practice name first.", "Écrivez d'abord le nom de la pratique.", "Escribe primero el nombre.", "Сначала введите название."],
 "وصف قصير (اختياري)":["Short description (optional)", "Brève description (facultatif)", "Descripción breve (opcional)", "Краткое описание (необязательно)"],
+"التطبيق جاهز للعمل دون إنترنت ✓":["The app is ready to work offline ✓","L’application est prête à fonctionner hors ligne ✓","La aplicación está lista para funcionar sin conexión ✓","Приложение готово к работе без интернета ✓"],
+"لم يكتمل حفظ التطبيق للعمل دون إنترنت بعد. افتحه مرة أخرى وأنت متصل بالشبكة.":["The app hasn’t finished saving itself for offline use. Open it again while connected.","L’application n’est pas encore prête hors ligne. Rouvrez-la en étant connecté.","La aplicación aún no está lista sin conexión. Ábrela de nuevo con conexión.","Приложение ещё не сохранено для работы без интернета. Откройте его снова при подключении."],
 "وضع محلي: تُحفظ بياناتك في هذا المتصفح فقط.":["Local mode: your data is saved in this browser only.", "Mode local : vos données sont enregistrées dans ce navigateur uniquement.", "Modo local: tus datos se guardan solo en este navegador.", "Локальный режим: данные хранятся только в этом браузере."],
 "وضع محلي: لم نتمكن من الاتصال بخدمة الحسابات هنا، فتُحفظ بياناتك في هذا المتصفح فقط.":["Local mode: the account service couldn't be reached here, so your data is saved in this browser only.", "Mode local : le service de comptes est injoignable ici, vos données restent dans ce navigateur.", "Modo local: no se pudo contactar el servicio de cuentas; tus datos se guardan solo en este navegador.", "Локальный режим: сервис аккаунтов недоступен, данные хранятся только в этом браузере."],
 "يُحفظ تقدّمك في حسابك، فتجده على أي هاتف تدخل منه.":["Your progress is saved in your account, so you'll find it on any phone you sign in from.", "Votre progression est enregistrée dans votre compte : vous la retrouvez sur tout téléphone.", "Tu progreso se guarda en tu cuenta y lo encontrarás en cualquier teléfono.", "Прогресс хранится в аккаунте и доступен с любого телефона."],
@@ -3386,9 +3388,15 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   <p class="muted">التنبيهات هنا داخل الصفحة. التنبيهات الفعلية على الهاتف تحتاج نسخة التطبيق المثبّتة.</p></section>`;
 }
+let OFFREADY=null;
+async function checkOffline(){let ok=false;try{if(navigator.serviceWorker&&navigator.serviceWorker.controller){const p=await caches.match('index.html',{ignoreSearch:true}),l=await caches.match('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');ok=!!(p&&l)}}catch(e){}
+  if(ok!==OFFREADY){OFFREADY=ok;if(screen==='profile'){const y=window.scrollY;render();window.scrollTo(0,y)}}}
+function offlineLine(){if(OFFREADY===null)return '';return OFFREADY?'<p class="logged" style="margin:10px 0 0">التطبيق جاهز للعمل دون إنترنت ✓</p>':'<p class="meta" style="margin:10px 0 0">لم يكتمل حفظ التطبيق للعمل دون إنترنت بعد. افتحه مرة أخرى وأنت متصل بالشبكة.</p>'}
+setTimeout(checkOffline,2500);setInterval(checkOffline,30000);
 function viewProfile(){
   const started=ORGANS.filter(g=>S.organs[g.id].phase!=='idle').length;
   return `<section><div class="box pad" style="display:flex;gap:14px;align-items:center"><span class="avatar big" style="cursor:default">${avatarImg()}</span><div style="min-width:0"><b>${esc(S.name)}</b><div class="meta"><span class="notr">${esc(cityName(S.loc))}</span> · ${started} من ${ORGANS.length} جوارح بدأت تزكيتها</div></div></div>
+   ${offlineLine()}
    <label for="pname" class="muted">الاسم الظاهر في الرئيسية</label><input type="text" id="pname" value="${esc(S.name)}">
    <label class="muted" style="display:block;margin-top:10px">صورة الملف الشخصي</label>
    <p class="meta" style="margin:0">${S.photo?'صورة اخترتها بنفسك.':AUTH.user&&AUTH.user.photoURL?'صورة حسابك في Google.':'لا توجد صورة بعد. عند الدخول بحساب Google تظهر صورة حسابك تلقائيًا.'}</p>
@@ -3702,7 +3710,7 @@ document.addEventListener('input',e=>{
 let lastSig='';setInterval(()=>{if(screen!=='muraqabat'||document.activeElement&&document.activeElement.id==='dhikrText')return;const l=lights(),sig=[l.p.key,l.p.kind,l.halo,l.head,l.heart,l.body].join();if(lastSig&&sig!==lastSig)render();lastSig=sig},30000);
 setInterval(()=>{const c=document.getElementById('clock');if(c){const n=new Date();c.textContent=pad(n.getHours())+':'+pad(n.getMinutes())}},15000);
 render();
-setTimeout(()=>onFbFail(),15000);
+setTimeout(()=>onFbFail(),navigator.onLine===false?3000:15000);
 </script>
 <script type="module">
 /* accounts & cloud save — Firebase (Auth + Firestore) */
