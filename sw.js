@@ -1,4 +1,4 @@
-const CACHE='murshid-1791929792',LIB='murshid-lib-v1',MEDIA='murshid-media-v1';
+const CACHE='murshid-1791931305',LIB='murshid-lib-v1',MEDIA='murshid-media-v1';
 const SHELL=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','maskable-512.png','apple-touch-icon.png','maiya.jpg','maiya-wide.jpg'];
 const SDK='https://www.gstatic.com/firebasejs/10.12.2/';
 const LIBS=[SDK+'firebase-app.js',SDK+'firebase-auth.js',SDK+'firebase-firestore.js',SDK+'firebase-messaging.js',
@@ -12,7 +12,7 @@ self.addEventListener('fetch',e=>{
   const r=e.request;if(r.method!=='GET')return;
   const u=new URL(r.url);
   if(r.mode==='navigate'){ // fresh page when the network answers quickly; the saved copy when offline or the network is slow
-    const net=fetch(r).then(res=>{if(res.ok){const c=res.clone();e.waitUntil(caches.open(CACHE).then(x=>x.put('index.html',c)))}return res});
+    const net=fetch(r.url,{cache:'no-cache',credentials:'same-origin'}).then(res=>{if(res.ok){const c=res.clone();e.waitUntil(caches.open(CACHE).then(x=>x.put('index.html',c)))}return res});
     e.waitUntil(net.catch(()=>{}));
     e.respondWith((async()=>{const saved=await pageFromCache();if(!saved)return net;
       return Promise.race([net.then(res=>res.ok?res:saved,()=>saved),new Promise(ok=>setTimeout(()=>ok(saved),3500))])})());return}
