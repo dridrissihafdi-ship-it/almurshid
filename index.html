@@ -302,6 +302,11 @@ textarea{min-height:96px;resize:vertical}
 .dot.on{background:var(--red)}
 .notif .t{flex:1;min-width:0}
 .notif small{display:block;color:var(--muted);font-size:12px}
+#hudurOv{position:fixed;inset:0;z-index:50;background:#161817;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;color:#fff}
+#hudurOv img{width:min(88vw,62vh);height:auto;display:block}
+#hudurOv .hv{font-family:var(--f-verse);font-size:30px;color:var(--gold);margin-top:18px}
+#hudurOv .ob-tr{color:#cfd8d6}
+#hudurOv .hs{color:#b9c6c4;margin:10px 0 22px}
 nav.tabs{position:fixed;inset-inline:0;bottom:0;background:var(--card);border-top:1px solid var(--card-line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5;box-shadow:0 -6px 20px rgba(23,63,72,.06)}
 nav.tabs .in{display:grid;grid-template-columns:repeat(4,1fr);max-width:520px;margin:0 auto}
 nav.tabs button{border:0;background:none;padding:16px 4px 18px;color:var(--chip-ink);display:grid;place-content:center;cursor:pointer;position:relative}
@@ -649,6 +654,12 @@ const I18N_D={
 "وصف قصير (اختياري)":["Short description (optional)", "Brève description (facultatif)", "Descripción breve (opcional)", "Краткое описание (необязательно)"],
 "التطبيق جاهز للعمل دون إنترنت ✓":["The app is ready to work offline ✓","L’application est prête à fonctionner hors ligne ✓","La aplicación está lista para funcionar sin conexión ✓","Приложение готово к работе без интернета ✓"],
 "لم يكتمل حفظ التطبيق للعمل دون إنترنت بعد. افتحه مرة أخرى وأنت متصل بالشبكة.":["The app hasn’t finished saving itself for offline use. Open it again while connected.","L’application n’est pas encore prête hors ligne. Rouvrez-la en étant connecté.","La aplicación aún no está lista sin conexión. Ábrela de nuevo con conexión.","Приложение ещё не сохранено для работы без интернета. Откройте его снова при подключении."],
+"الحضور مع الله":["Presence with God","Présence avec Dieu","Presencia con Dios","Присутствие с Богом"],
+"تذكير بمعيّة الله كل ساعة، من بعد الفجر إلى وقت النوم":["An hourly reminder that God is with you, from after Fajr until bedtime","Un rappel chaque heure que Dieu est avec vous, de l’aube jusqu’au coucher","Un recordatorio cada hora de que Dios está contigo, desde el Fajr hasta la hora de dormir","Ежечасное напоминание, что Бог с вами, от Фаджра до сна"],
+"تصلك على هاتفك حتى والتطبيق مغلق: أذكار الصباح بعد الفجر، وأذكار المساء بعد المغرب، والمحاسبة قبل النوم، والتذكير بالحضور مع الله كل ساعة إن فعّلته.":["They reach your phone even when the app is closed: morning adhkar after Fajr, evening adhkar after Maghrib, the review before sleep, and an hourly reminder of God’s presence if you turn it on.","Ils arrivent sur votre téléphone même application fermée : adhkar du matin après l’aube, adhkar du soir après le Maghrib, bilan avant de dormir, et un rappel horaire de la présence de Dieu si vous l’activez.","Llegan a tu teléfono aunque la app esté cerrada: adhkar de la mañana tras el Fajr, de la tarde tras el Magrib, el repaso antes de dormir y un recordatorio cada hora de la presencia de Dios si lo activas.","Приходят на телефон даже при закрытом приложении: утренние азкары после Фаджра, вечерние после Магриба, итог перед сном и ежечасное напоминание о присутствии Бога, если включите."],
+"جرّب تذكير الحضور":["Try the presence reminder","Tester le rappel de présence","Probar el recordatorio de presencia","Проверить напоминание"],
+"توقّف لحظة، واستحضر أن الله معك الآن.":["Pause for a moment, and remember that God is with you now.","Arrêtez-vous un instant et souvenez-vous que Dieu est avec vous maintenant.","Detente un momento y recuerda que Dios está contigo ahora.","Остановитесь на миг и вспомните, что Бог с вами сейчас."],
+"الحمد لله":["Praise be to God","Louange à Dieu","Alabado sea Dios","Хвала Богу"],
 "وضع محلي: تُحفظ بياناتك في هذا المتصفح فقط.":["Local mode: your data is saved in this browser only.", "Mode local : vos données sont enregistrées dans ce navigateur uniquement.", "Modo local: tus datos se guardan solo en este navegador.", "Локальный режим: данные хранятся только в этом браузере."],
 "وضع محلي: لم نتمكن من الاتصال بخدمة الحسابات هنا، فتُحفظ بياناتك في هذا المتصفح فقط.":["Local mode: the account service couldn't be reached here, so your data is saved in this browser only.", "Mode local : le service de comptes est injoignable ici, vos données restent dans ce navigateur.", "Modo local: no se pudo contactar el servicio de cuentas; tus datos se guardan solo en este navegador.", "Локальный режим: сервис аккаунтов недоступен, данные хранятся только в этом браузере."],
 "يُحفظ تقدّمك في حسابك، فتجده على أي هاتف تدخل منه.":["Your progress is saved in your account, so you'll find it on any phone you sign in from.", "Votre progression est enregistrée dans votre compte : vous la retrouvez sur tout téléphone.", "Tu progreso se guarda en tu cuenta y lo encontrarás en cualquier teléfono.", "Прогресс хранится в аккаунте и доступен с любого телефона."],
@@ -1408,7 +1419,7 @@ function prepSet(id,v,note){const P=prepState(),T=P.log[TODAY]||(P.log[TODAY]={}
 
 /* ---------- welcome screens (shown once to a new seeker) ---------- */
 let obStep=0;
-const MEAN={"v91": ["“He has truly succeeded who purifies it.” (91:9)", "« A réussi, certes, celui qui la purifie. » (91:9)", "«Ciertamente triunfa quien la purifica.» (91:9)", "«Преуспел тот, кто очистил её». (91:9)"], "hsamt": ["“Hold to long silence and good character, for by the One in whose hand my soul is, creation has never adorned itself with anything like them.”", "« Attache-toi au long silence et au bon caractère : par Celui qui tient mon âme en Sa main, les créatures ne se sont jamais parées de rien de semblable. »", "«Aférrate al largo silencio y al buen carácter: por Aquel en cuya mano está mi alma, las criaturas nunca se han adornado con nada semejante.»", "«Держись долгого молчания и благого нрава: клянусь Тем, в Чьей руке моя душа, ничем подобным творения себя не украшали»."]};
+const MEAN={"maiya": ["“And He is with you wherever you are.” (57:4)", "« Et Il est avec vous où que vous soyez. » (57:4)", "«Y Él está con vosotros dondequiera que estéis.» (57:4)", "«Он с вами, где бы вы ни были». (57:4)"], "v91": ["“He has truly succeeded who purifies it.” (91:9)", "« A réussi, certes, celui qui la purifie. » (91:9)", "«Ciertamente triunfa quien la purifica.» (91:9)", "«Преуспел тот, кто очистил её». (91:9)"], "hsamt": ["“Hold to long silence and good character, for by the One in whose hand my soul is, creation has never adorned itself with anything like them.”", "« Attache-toi au long silence et au bon caractère : par Celui qui tient mon âme en Sa main, les créatures ne se sont jamais parées de rien de semblable. »", "«Aférrate al largo silencio y al buen carácter: por Aquel en cuya mano está mi alma, las criaturas nunca se han adornado con nada semejante.»", "«Держись долгого молчания и благого нрава: клянусь Тем, в Чьей руке моя душа, ничем подобным творения себя не украшали»."]};
 const meaning=k=>LANG==='ar'?'':`<p class="ob-tr notr" dir="ltr" lang="${LANG}">${MEAN[k][LIDX[LANG]]}</p>`;
 const needOnboard=()=>(AUTH.state==='in'||AUTH.state==='local')&&!S.onboarded;
 function viewOnboard(){
@@ -3634,6 +3645,7 @@ document.addEventListener('click',e=>{
   if(d.pushon1){pushEnable();return}
   if(d.pushoff){pushDisable();return}
   if(d.pushtest){pushTest();return}
+  if(d.hudurtest){hudurTest();return}
   if(d.photodel){delete S.photo;save();return render()}
   if(d.resetyes){S=freshState(S.name);confirmReset=false;save();return render()}
 });
@@ -3648,7 +3660,7 @@ function applyWird(w,on){
 let photoMsg='',geoMsg='',pushMsg='',pushBusy=false;
 const VAPID='BJUJCmPxkDUS3CbATinyVl07MtSU_E3bBQmv7zAwn2V4KWNmMM-YLGXZfBqsO_U0acQsL7a9ovHH-IMT0M1SMxM';
 const isIOS=()=>/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-function pushPrefs(){if(!S.push)S.push={enabled:false,on:{sabah:true,masa:true,muhasaba:true},bed:'22:00'};return S.push}
+function pushPrefs(){if(!S.push)S.push={enabled:false,on:{sabah:true,masa:true,muhasaba:true,hudur:false},bed:'22:00'};return S.push}
 function pushDoc(){const P=pushPrefs();let tz='Africa/Casablanca';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||tz}catch(e){}
   return{tz,lat:LAT,lng:LNG,lang:LANG,on:P.on,bed:P.bed,updatedAt:Date.now()}}
 function pushSync(){const P=pushPrefs();if(!P.enabled||!window.FB||!AUTH.user)return;FB.savePush(AUTH.user.uid,pushDoc()).catch(e=>console.warn('push',e))}
@@ -3666,13 +3678,25 @@ async function pushEnable(){pushMsg='';
   pushBusy=false;render()}
 async function pushDisable(){const P=pushPrefs();P.enabled=false;save();try{if(window.FB&&AUTH.user)await FB.deletePush(AUTH.user.uid)}catch(e){}pushMsg='أُوقفت التذكيرات.';render()}
 async function pushTest(){try{const reg=await navigator.serviceWorker.ready;await reg.showNotification('المرشد',{body:'هكذا ستصلك التذكيرات ✦',icon:'icon-192.png',tag:'murshid-test',lang:'ar',dir:'rtl'});pushMsg=''}catch(e){pushMsg='تعذّر عرض الإشعار على هذا الجهاز.'}render()}
+async function hudurTest(){try{const reg=await navigator.serviceWorker.ready;await reg.showNotification('الحضور مع الله',{body:'﴿وَهُوَ مَعَكُمْ أَيْنَمَا كُنتُمْ﴾',icon:'icon-192.png',badge:'icon-192.png',image:'maiya-wide.jpg',tag:'murshid-hudur',renotify:true,vibrate:[200,120,200],lang:'ar',dir:'rtl',data:{url:'./#hudur'}});pushMsg=''}catch(e){pushMsg='تعذّر عرض الإشعار على هذا الجهاز.'}render()}
+function showHudur(){if(document.getElementById('hudurOv'))return;
+  const o=document.createElement('div');o.id='hudurOv';o.setAttribute('role','dialog');o.setAttribute('aria-label','الحضور مع الله');
+  o.innerHTML=`<img src="maiya.jpg" alt="الله"><p class="hv notr" dir="rtl" lang="ar">﴿وَهُوَ مَعَكُمْ أَيْنَمَا كُنتُمْ﴾</p>${meaning('maiya')}<p class="hs">توقّف لحظة، واستحضر أن الله معك الآن.</p><button class="btn primary" data-hudurclose="1">الحمد لله</button>`;
+  document.body.appendChild(o);
+  try{const a=new Audio('hudur.mp3');a.volume=.8;const p=a.play();if(p&&p.catch)p.catch(()=>{o.addEventListener('click',()=>{try{a.play()}catch(x){}},{once:true})})}catch(e){}
+  o.addEventListener('click',e=>{if(e.target.closest('[data-hudurclose]'))o.remove()});
+  try{i18nApply(o)}catch(e){}}
+function hudurHash(){if(location.hash==='#hudur'){try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}setTimeout(showHudur,300)}}
+hudurHash();window.addEventListener('hashchange',hudurHash);
+if('serviceWorker' in navigator)navigator.serviceWorker.addEventListener('message',e=>{if(e.data&&e.data.t==='hudur')showHudur()});
+window.showHudur=showHudur;
 function pushSection(){const P=pushPrefs(),fajr=hm(prayerTimes(new Date()).fajr),magh=hm(prayerTimes(new Date()).maghrib);
-  const row=(k,t,sub)=>`<label class="wird" for="pu-${k}"><input type="checkbox" id="pu-${k}" data-pushon="${k}" ${P.on[k]!==false?'checked':''}><span class="t">${t}<small>${sub}</small></span></label>`;
+  const row=(k,t,sub,def=true)=>`<label class="wird" for="pu-${k}"><input type="checkbox" id="pu-${k}" data-pushon="${k}" ${(def?P.on[k]!==false:P.on[k]===true)?'checked':''}><span class="t">${t}<small>${sub}</small></span></label>`;
   return `<section id="pushSec"><div class="sh"><h2>التذكيرات على الهاتف</h2></div>
-   <p class="muted">تصلك على هاتفك حتى والتطبيق مغلق: أذكار الصباح بعد الفجر، وأذكار المساء بعد المغرب، والمحاسبة قبل النوم.</p>
-   ${P.enabled?`<div class="box">${row('sabah','أذكار الصباح',`بعد الفجر بنحو 20 دقيقة · اليوم ${fajr}`)}${row('masa','أذكار المساء',`بعد المغرب بنحو 15 دقيقة · اليوم ${magh}`)}${row('muhasaba','محاسبة اليوم قبل النوم','في الوقت الذي تختاره')}</div>
+   <p class="muted">تصلك على هاتفك حتى والتطبيق مغلق: أذكار الصباح بعد الفجر، وأذكار المساء بعد المغرب، والمحاسبة قبل النوم، والتذكير بالحضور مع الله كل ساعة إن فعّلته.</p>
+   ${P.enabled?`<div class="box">${row('sabah','أذكار الصباح',`بعد الفجر بنحو 20 دقيقة · اليوم ${fajr}`)}${row('masa','أذكار المساء',`بعد المغرب بنحو 15 دقيقة · اليوم ${magh}`)}${row('muhasaba','محاسبة اليوم قبل النوم','في الوقت الذي تختاره')}${row('hudur','الحضور مع الله','تذكير بمعيّة الله كل ساعة، من بعد الفجر إلى وقت النوم',false)}</div>
    <label for="bedT" class="muted" style="display:block;margin-top:8px">وقت المحاسبة قبل النوم</label><input type="time" id="bedT" value="${esc(P.bed)}" class="time-in">
-   <div class="btns"><button class="btn small" data-pushtest="1">جرّب إشعارًا الآن</button><button class="btn small" data-pushoff="1">إيقاف التذكيرات</button></div>`
+   <div class="btns"><button class="btn small" data-pushtest="1">جرّب إشعارًا الآن</button><button class="btn small" data-hudurtest="1">جرّب تذكير الحضور</button><button class="btn small" data-pushoff="1">إيقاف التذكيرات</button></div>`
    :`<div class="btns"><button class="btn ok" data-pushon1="1" ${pushBusy?'disabled':''}>فعّل التذكيرات على هاتفي</button></div>${isIOS()&&!isStandalone()?'<p class="meta">على iPhone تعمل التذكيرات فقط إذا ثبّت التطبيق على الشاشة وفتحته من أيقونته.</p>':''}`}
    ${pushMsg?`<p class="meta">${esc(pushMsg)}</p>`:''}
    <p class="meta">قد يتأخر التذكير بضع دقائق عن وقته.</p></section>`}
@@ -3749,7 +3773,7 @@ if(inFrame){window.onFbFail()}else(async()=>{
      if(!(await Mg.isSupported()))throw{code:'push/unsupported'};
      const reg=await navigator.serviceWorker.ready,msg=Mg.getMessaging(app);
      const token=await Mg.getToken(msg,{vapidKey,serviceWorkerRegistration:reg});
-     if(!window.__fbOnMsg){window.__fbOnMsg=1;Mg.onMessage(msg,p=>{const d=p.data||{};reg.showNotification(d.title||'المرشد',{body:d.body||'',icon:'icon-192.png',tag:d.tag||'murshid',lang:'ar',dir:'rtl'})})}
+     if(!window.__fbOnMsg){window.__fbOnMsg=1;Mg.onMessage(msg,p=>{const d=p.data||{};if(d.tag==='murshid-hudur'&&window.showHudur&&document.visibilityState==='visible'){window.showHudur();return}reg.showNotification(d.title||'المرشد',{body:d.body||'',icon:'icon-192.png',image:d.image||undefined,tag:d.tag||'murshid',lang:'ar',dir:'rtl',data:{url:d.url||'./'}})})}
      return token},
    savePush:(uid,v)=>F.setDoc(d('push',uid),v,{merge:true}),
    deletePush:uid=>F.deleteDoc(d('push',uid)),

@@ -1,10 +1,11 @@
-const CACHE='murshid-1791898332',LIB='murshid-lib-v1',MEDIA='murshid-media-v1';
-const SHELL=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','maskable-512.png','apple-touch-icon.png'];
+const CACHE='murshid-1791926652',LIB='murshid-lib-v1',MEDIA='murshid-media-v1';
+const SHELL=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','maskable-512.png','apple-touch-icon.png','maiya.jpg','maiya-wide.jpg'];
 const SDK='https://www.gstatic.com/firebasejs/10.12.2/';
 const LIBS=[SDK+'firebase-app.js',SDK+'firebase-auth.js',SDK+'firebase-firestore.js',SDK+'firebase-messaging.js',
  'https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Amiri&family=Amiri+Quran&display=swap'];
+async function cacheMedia(){try{const c=await caches.open(MEDIA),u=new URL('hudur.mp3',self.registration.scope).href;if(!(await c.match(u))){const r=await fetch(u);if(r.ok)await c.put(u,r)}}catch(x){}}
 async function cacheLibs(){try{const c=await caches.open(LIB);await Promise.all(LIBS.map(async l=>{if(await c.match(l))return;try{const r=await fetch(l,{mode:'cors'});if(r.ok)await c.put(l,r)}catch(x){}}))}catch(x){}}
-self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(cacheLibs).then(()=>self.skipWaiting()))});
+self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(cacheLibs).then(cacheMedia).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>![CACHE,LIB,MEDIA].includes(k)).map(k=>caches.delete(k)))).then(()=>self.clients.claim()).then(cacheLibs))});
 const pageFromCache=async()=>(await caches.match('index.html',{ignoreSearch:true}))||(await caches.match('./',{ignoreSearch:true}));
 self.addEventListener('fetch',e=>{
@@ -25,7 +26,8 @@ self.addEventListener('fetch',e=>{
 });
 
 self.addEventListener('push',e=>{let d={};try{d=e.data?e.data.json():{}}catch(x){}
-  const n=d.notification||{},v=d.data||d;
-  e.waitUntil(self.registration.showNotification(v.title||n.title||'المرشد',{body:v.body||n.body||'',icon:'icon-192.png',badge:'icon-192.png',tag:v.tag||'murshid',lang:'ar',dir:'rtl',data:{url:v.url||'./'}}))});
-self.addEventListener('notificationclick',e=>{e.notification.close();const url=(e.notification.data&&e.notification.data.url)||'./';
-  e.waitUntil(clients.matchAll({type:'window',includeUncontrolled:true}).then(ws=>{for(const w of ws){if('focus' in w)return w.focus()}return clients.openWindow(url)}))});
+  const n=d.notification||{},v=d.data||d,tag=v.tag||'murshid',hud=tag==='murshid-hudur';
+  e.waitUntil(self.registration.showNotification(v.title||n.title||'المرشد',{body:v.body||n.body||'',icon:'icon-192.png',badge:'icon-192.png',
+    image:v.image||(hud?'maiya-wide.jpg':undefined),tag,renotify:hud,vibrate:hud?[200,120,200]:undefined,lang:'ar',dir:'rtl',data:{url:v.url||(hud?'./#hudur':'./')}}))});
+self.addEventListener('notificationclick',e=>{e.notification.close();const url=(e.notification.data&&e.notification.data.url)||'./',hud=url.includes('#hudur');
+  e.waitUntil(clients.matchAll({type:'window',includeUncontrolled:true}).then(ws=>{for(const w of ws){if('focus' in w){if(hud)w.postMessage({t:'hudur'});return w.focus()}}return clients.openWindow(url)}))});
