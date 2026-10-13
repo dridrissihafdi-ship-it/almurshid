@@ -80,10 +80,13 @@ for (const doc of snap.docs) {
       console.warn(doc.id, k, c);
     }
   }
-  // hourly reminder of God's presence: on the hour, from after Fajr until bedtime (only if the user turned it on)
+  // hourly reminder of God's presence: on the hour, between the user's chosen hours (only if turned on)
   if (on.hudur === true) {
-    const H = Math.floor(L.h), mins = (L.h - H) * 60, key = L.date + ' ' + H, start = pt.fajr + 0.5;
-    const awake = bed > start ? (L.h >= start && H < bed) : (L.h >= start || H < bed);
+    const hh = v => { const [x, y] = String(v || '').split(':').map(Number); return isFinite(x) ? x + (y || 0) / 60 : NaN; };
+    const H = Math.floor(L.h), mins = (L.h - H) * 60, key = L.date + ' ' + H;
+    const from = isFinite(hh(u.hFrom)) ? hh(u.hFrom) : pt.fajr + 0.5, to = isFinite(hh(u.hTo)) ? hh(u.hTo) : bed;
+    // inclusive of both ends; a range like 22:00 → 02:00 crosses midnight
+    const awake = to >= from ? (H >= from && H <= to) : (H >= from || H <= to);
     if (mins < 15 && awake && last.hudur !== key && u.token) {
       const [title, body] = (TXT.hudur[u.lang] || TXT.hudur.ar);
       try {
