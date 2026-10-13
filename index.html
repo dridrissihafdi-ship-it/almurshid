@@ -3682,7 +3682,11 @@ async function pushEnable(){pushMsg='';
   pushBusy=false;render()}
 async function pushDisable(){const P=pushPrefs();P.enabled=false;save();try{if(window.FB&&AUTH.user)await FB.deletePush(AUTH.user.uid)}catch(e){}pushMsg='أُوقفت التذكيرات.';render()}
 async function pushTest(){try{const reg=await navigator.serviceWorker.ready;await reg.showNotification('المرشد',{body:'هكذا ستصلك التذكيرات ✦',icon:'icon-192.png',tag:'murshid-test',lang:'ar',dir:'rtl'});pushMsg=''}catch(e){pushMsg='تعذّر عرض الإشعار على هذا الجهاز.'}render()}
-async function hudurTest(){try{const reg=await navigator.serviceWorker.ready;await reg.showNotification('الحضور مع الله',{body:'﴿وَهُوَ مَعَكُمْ أَيْنَمَا كُنتُمْ﴾',icon:'icon-192.png',badge:'icon-192.png',image:'maiya-wide.jpg',tag:'murshid-hudur',renotify:true,vibrate:[200,120,200],lang:'ar',dir:'rtl',data:{url:'./#hudur'}});pushMsg=''}catch(e){pushMsg='تعذّر عرض الإشعار على هذا الجهاز.'}render()}
+async function hudurTest(){const base={body:'﴿وَهُوَ مَعَكُمْ أَيْنَمَا كُنتُمْ﴾',icon:'icon-192.png',tag:'murshid-hudur',lang:'ar',dir:'rtl',data:{url:'./#hudur'}};
+  try{const reg=await navigator.serviceWorker.ready;
+    try{await reg.showNotification('الحضور مع الله',Object.assign({badge:'icon-192.png',image:'maiya-wide.jpg',renotify:true,vibrate:[200,120,200]},base))}
+    catch(x){await reg.showNotification('الحضور مع الله',base)}
+    pushMsg=''}catch(e){pushMsg='تعذّر عرض الإشعار على هذا الجهاز.'}render()}
 function showHudur(){if(document.getElementById('hudurOv'))return;
   const o=document.createElement('div');o.id='hudurOv';o.setAttribute('role','dialog');o.setAttribute('aria-label','الحضور مع الله');
   o.innerHTML=`<img src="maiya.jpg" alt="الله"><p class="hv notr" dir="rtl" lang="ar">﴿وَهُوَ مَعَكُمْ أَيْنَمَا كُنتُمْ﴾</p>${meaning('maiya')}<p class="hs">توقّف لحظة، واستحضر أن الله معك الآن.</p><button class="btn primary" data-hudurclose="1">الحمد لله</button>`;
