@@ -1,4 +1,4 @@
-const CACHE='murshid-1791931305',LIB='murshid-lib-v1',MEDIA='murshid-media-v1';
+const CACHE='murshid-1791932589',LIB='murshid-lib-v1',MEDIA='murshid-media-v1';
 const SHELL=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','maskable-512.png','apple-touch-icon.png','maiya.jpg','maiya-wide.jpg'];
 const SDK='https://www.gstatic.com/firebasejs/10.12.2/';
 const LIBS=[SDK+'firebase-app.js',SDK+'firebase-auth.js',SDK+'firebase-firestore.js',SDK+'firebase-messaging.js',
@@ -31,4 +31,4 @@ self.addEventListener('push',e=>{let d={};try{d=e.data?e.data.json():{}}catch(x)
   const rich=Object.assign({badge:'icon-192.png'},base,hud?{image:v.image||'maiya-wide.jpg',renotify:true,vibrate:[200,120,200]}:{});
   e.waitUntil(self.registration.showNotification(title,rich).catch(()=>self.registration.showNotification(title,base)))});
 self.addEventListener('notificationclick',e=>{e.notification.close();const url=(e.notification.data&&e.notification.data.url)||'./',hud=url.includes('#hudur');
-  e.waitUntil(clients.matchAll({type:'window',includeUncontrolled:true}).then(ws=>{for(const w of ws){if('focus' in w){if(hud)w.postMessage({t:'hudur'});return w.focus()}}return clients.openWindow(url)}))});
+  e.waitUntil(clients.matchAll({type:'window',includeUncontrolled:true}).then(ws=>{for(const w of ws){if('focus' in w){if(hud)w.postMessage({t:'hudur'});else if(url.includes('#muhasaba'))w.postMessage({t:'go',s:'muhasaba'});return w.focus()}}return clients.openWindow(url)}))});
