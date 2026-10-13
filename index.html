@@ -302,6 +302,7 @@ textarea{min-height:96px;resize:vertical}
 .dot.on{background:var(--red)}
 .notif .t{flex:1;min-width:0}
 .notif small{display:block;color:var(--muted);font-size:12px}
+.hud-rng{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-top:10px}
 #hudurOv{position:fixed;inset:0;z-index:50;background:#161817;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;color:#fff}
 #hudurOv img{width:min(88vw,62vh);height:auto;display:block}
 #hudurOv .hv{font-family:var(--f-verse);font-size:30px;color:var(--gold);margin-top:18px}
@@ -660,6 +661,9 @@ const I18N_D={
 "جرّب تذكير الحضور":["Try the presence reminder","Tester le rappel de présence","Probar el recordatorio de presencia","Проверить напоминание"],
 "توقّف لحظة، واستحضر أن الله معك الآن.":["Pause for a moment, and remember that God is with you now.","Arrêtez-vous un instant et souvenez-vous que Dieu est avec vous maintenant.","Detente un momento y recuerda que Dios está contigo ahora.","Остановитесь на миг и вспомните, что Бог с вами сейчас."],
 "الحمد لله":["Praise be to God","Louange à Dieu","Alabado sea Dios","Хвала Богу"],
+"تذكير بمعيّة الله كل ساعة، في الوقت الذي تحدّده":["An hourly reminder that God is with you, during the hours you choose","Un rappel chaque heure que Dieu est avec vous, aux heures que vous choisissez","Un recordatorio cada hora de que Dios está contigo, en las horas que elijas","Ежечасное напоминание, что Бог с вами, в выбранные вами часы"],
+"تذكير الحضور من الساعة":["Presence reminder from","Rappel de présence de","Recordatorio de presencia desde las","Напоминание с"],
+"إلى الساعة":["until","jusqu’à","hasta las","до"],
 "وضع محلي: تُحفظ بياناتك في هذا المتصفح فقط.":["Local mode: your data is saved in this browser only.", "Mode local : vos données sont enregistrées dans ce navigateur uniquement.", "Modo local: tus datos se guardan solo en este navegador.", "Локальный режим: данные хранятся только в этом браузере."],
 "وضع محلي: لم نتمكن من الاتصال بخدمة الحسابات هنا، فتُحفظ بياناتك في هذا المتصفح فقط.":["Local mode: the account service couldn't be reached here, so your data is saved in this browser only.", "Mode local : le service de comptes est injoignable ici, vos données restent dans ce navigateur.", "Modo local: no se pudo contactar el servicio de cuentas; tus datos se guardan solo en este navegador.", "Локальный режим: сервис аккаунтов недоступен, данные хранятся только в этом браузере."],
 "يُحفظ تقدّمك في حسابك، فتجده على أي هاتف تدخل منه.":["Your progress is saved in your account, so you'll find it on any phone you sign in from.", "Votre progression est enregistrée dans votre compte : vous la retrouvez sur tout téléphone.", "Tu progreso se guarda en tu cuenta y lo encontrarás en cualquier teléfono.", "Прогресс хранится в аккаунте и доступен с любого телефона."],
@@ -3662,7 +3666,7 @@ const VAPID='BJUJCmPxkDUS3CbATinyVl07MtSU_E3bBQmv7zAwn2V4KWNmMM-YLGXZfBqsO_U0acQ
 const isIOS=()=>/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 function pushPrefs(){if(!S.push)S.push={enabled:false,on:{sabah:true,masa:true,muhasaba:true,hudur:false},bed:'22:00'};return S.push}
 function pushDoc(){const P=pushPrefs();let tz='Africa/Casablanca';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||tz}catch(e){}
-  return{tz,lat:LAT,lng:LNG,lang:LANG,on:P.on,bed:P.bed,updatedAt:Date.now()}}
+  return{tz,lat:LAT,lng:LNG,lang:LANG,on:P.on,bed:P.bed,hFrom:P.hFrom||'07:00',hTo:P.hTo||'22:00',updatedAt:Date.now()}}
 function pushSync(){const P=pushPrefs();if(!P.enabled||!window.FB||!AUTH.user)return;FB.savePush(AUTH.user.uid,pushDoc()).catch(e=>console.warn('push',e))}
 async function pushEnable(){pushMsg='';
   if(!window.FB||AUTH.state!=='in'){pushMsg='سجّل الدخول بحسابك أولًا لتفعيل التذكيرات.';return render()}
@@ -3694,7 +3698,8 @@ function pushSection(){const P=pushPrefs(),fajr=hm(prayerTimes(new Date()).fajr)
   const row=(k,t,sub,def=true)=>`<label class="wird" for="pu-${k}"><input type="checkbox" id="pu-${k}" data-pushon="${k}" ${(def?P.on[k]!==false:P.on[k]===true)?'checked':''}><span class="t">${t}<small>${sub}</small></span></label>`;
   return `<section id="pushSec"><div class="sh"><h2>التذكيرات على الهاتف</h2></div>
    <p class="muted">تصلك على هاتفك حتى والتطبيق مغلق: أذكار الصباح بعد الفجر، وأذكار المساء بعد المغرب، والمحاسبة قبل النوم، والتذكير بالحضور مع الله كل ساعة إن فعّلته.</p>
-   ${P.enabled?`<div class="box">${row('sabah','أذكار الصباح',`بعد الفجر بنحو 20 دقيقة · اليوم ${fajr}`)}${row('masa','أذكار المساء',`بعد المغرب بنحو 15 دقيقة · اليوم ${magh}`)}${row('muhasaba','محاسبة اليوم قبل النوم','في الوقت الذي تختاره')}${row('hudur','الحضور مع الله','تذكير بمعيّة الله كل ساعة، من بعد الفجر إلى وقت النوم',false)}</div>
+   ${P.enabled?`<div class="box">${row('sabah','أذكار الصباح',`بعد الفجر بنحو 20 دقيقة · اليوم ${fajr}`)}${row('masa','أذكار المساء',`بعد المغرب بنحو 15 دقيقة · اليوم ${magh}`)}${row('muhasaba','محاسبة اليوم قبل النوم','في الوقت الذي تختاره')}${row('hudur','الحضور مع الله','تذكير بمعيّة الله كل ساعة، في الوقت الذي تحدّده',false)}</div>
+   ${P.on.hudur===true?`<div class="hud-rng"><span class="muted">تذكير الحضور من الساعة</span><input type="time" id="hFrom" value="${esc(P.hFrom||'07:00')}" class="time-in" step="3600"><span class="muted">إلى الساعة</span><input type="time" id="hTo" value="${esc(P.hTo||'22:00')}" class="time-in" step="3600"></div>`:''}
    <label for="bedT" class="muted" style="display:block;margin-top:8px">وقت المحاسبة قبل النوم</label><input type="time" id="bedT" value="${esc(P.bed)}" class="time-in">
    <div class="btns"><button class="btn small" data-pushtest="1">جرّب إشعارًا الآن</button><button class="btn small" data-hudurtest="1">جرّب تذكير الحضور</button><button class="btn small" data-pushoff="1">إيقاف التذكيرات</button></div>`
    :`<div class="btns"><button class="btn ok" data-pushon1="1" ${pushBusy?'disabled':''}>فعّل التذكيرات على هاتفي</button></div>${isIOS()&&!isStandalone()?'<p class="meta">على iPhone تعمل التذكيرات فقط إذا ثبّت التطبيق على الشاشة وفتحته من أيقونته.</p>':''}`}
@@ -3714,8 +3719,9 @@ function setPhoto(file){photoMsg='';if(!file)return;if(!/^image\//.test(file.typ
 document.addEventListener('submit',e=>{if(e.target.id==='authForm'){e.preventDefault();authSubmit()}});
 document.addEventListener('change',e=>{
   if(e.target.id==='photoIn'){setPhoto(e.target.files&&e.target.files[0]);return}
-  if(e.target.dataset&&e.target.dataset.pushon){pushPrefs().on[e.target.dataset.pushon]=e.target.checked;save();pushSync();return}
+  if(e.target.dataset&&e.target.dataset.pushon){pushPrefs().on[e.target.dataset.pushon]=e.target.checked;save();pushSync();if(e.target.dataset.pushon==='hudur'){const y=window.scrollY;render();window.scrollTo(0,y)}return}
   if(e.target.id==='bedT'){pushPrefs().bed=e.target.value||'22:00';save();pushSync();return}
+  if(e.target.id==='hFrom'||e.target.id==='hTo'){const P=pushPrefs();P[e.target.id]=e.target.value||(e.target.id==='hFrom'?'07:00':'22:00');save();pushSync();return}
   if(e.target.id==='citySel'){const c=CITIES[+e.target.value];if(c){geoMsg='';setLoc({lat:c[3],lng:c[4],ar:c[1],lt:c[2]})}return}
   const w=e.target.dataset&&e.target.dataset.wird;if(!w)return;const L=dayLog();
   if(w==='salat')L.prayers=e.target.checked?FIVE.map(f=>f[0]):[];
