@@ -21,26 +21,25 @@
 :root{
   --teal:#265661; --teal-deep:#0f3a44; --teal-line:rgba(255,255,255,.28);
   --gold:#f3d6a6; --on-teal:#ffffff; --on-teal-muted:#a9c3c8;
-  --bg:#ffffff; --sheet:#ffffff; --card:#ffffff; --card-line:#eceff0; --ink:#173f48; --muted:#6f8a90;
+  --page:#f3f6f4; --bg:#ffffff; --sheet:#ffffff; --card:#ffffff; --card-line:#eceff0; --ink:#173f48; --muted:#6f8a90;
   --chip:#edf2f4; --chip-ink:#7c99a0; --peach:#f8dcbc; --peach-ink:#2c5c66;
   --green:#2f8a66; --green-soft:#dff1e8; --red:#c4513f; --red-soft:#fbe4df; --amber:#c9862a; --amber-soft:#fbecd5;
   --f:"Readex Pro","Noto Sans Arabic",system-ui,sans-serif; --f-verse:"Amiri","Noto Naskh Arabic",serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --teal:#1d4650; --teal-deep:#0a2a32; --bg:#0d1d21; --sheet:#0d1d21; --card:#142a30; --card-line:#21393f; --ink:#e3eef0; --muted:#8fa9ae;
+  --teal:#1d4650; --teal-deep:#0a2a32; --page:#0d1d21; --bg:#0d1d21; --sheet:#0d1d21; --card:#142a30; --card-line:#21393f; --ink:#e3eef0; --muted:#8fa9ae;
   --chip:#1c353b; --chip-ink:#8fb0b7; --peach:#f2cfa6; --peach-ink:#1d4650;
   --green:#5cc096; --green-soft:#173a2e; --red:#ec8576; --red-soft:#3a2220; --amber:#e8ab55; --amber-soft:#3a2c16; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --teal:#1d4650; --teal-deep:#0a2a32; --bg:#0d1d21; --sheet:#0d1d21; --card:#142a30; --card-line:#21393f; --ink:#e3eef0; --muted:#8fa9ae;
+  --teal:#1d4650; --teal-deep:#0a2a32; --page:#0d1d21; --bg:#0d1d21; --sheet:#0d1d21; --card:#142a30; --card-line:#21393f; --ink:#e3eef0; --muted:#8fa9ae;
   --chip:#1c353b; --chip-ink:#8fb0b7; --peach:#f2cfa6; --peach-ink:#1d4650;
   --green:#5cc096; --green-soft:#173a2e; --red:#ec8576; --red-soft:#3a2220; --amber:#e8ab55; --amber-soft:#3a2c16; color-scheme:dark}
 html,body{background:var(--teal);color:var(--ink)}
 body{font-family:var(--f);font-size:15px;line-height:1.65}
 *{box-sizing:border-box}
-.shell{max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--sheet)}
-.hero{background-color:var(--teal);color:var(--on-teal);padding-inline:24px;padding-block:22px 54px;position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;opacity:.07;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23fff' stroke-width='3'%3E%3Cpath d='M60 10l14 22 26-4-4 26 22 14-22 14 4 26-26-4-14 22-14-22-26 4 4-26-22-14 22-14-4-26 26 4z'/%3E%3Ccircle cx='60' cy='60' r='18'/%3E%3C/g%3E%3C/svg%3E");background-size:150px}
+.shell{max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--page)}
+.hero{background-color:var(--teal);background-image:radial-gradient(120% 90% at 50% 0%,rgba(255,255,255,.07) 0%,rgba(255,255,255,0) 45%,rgba(0,0,0,.28) 100%);color:var(--on-teal);padding-inline:24px;padding-block:22px 54px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;opacity:.11;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23f3d6a6' stroke-width='1'%3E%3Cpath d='M48 18l9 21 21 9-21 9-9 21-9-21-21-9 21-9z'/%3E%3Cpath d='M27 27h42v42H27z'/%3E%3Cpath d='M0 0l18 18M96 0L78 18M0 96l18-18M96 96L78 78'/%3E%3C/g%3E%3C/svg%3E");background-size:96px}
 .hero>*{position:relative}
 .topbar{display:grid;grid-template-columns:52px 1fr 52px;align-items:center}
 .topbar h1{font-size:19px;font-weight:600;text-align:center;margin:0}
@@ -72,9 +71,20 @@ body{font-family:var(--f);font-size:15px;line-height:1.65}
 .prayer.is-next{background:rgba(255,255,255,.1)}
 .prayer.is-next b,.prayer.is-next span{color:var(--gold)}
 .prayer.is-next svg{stroke:var(--gold)}
-.sheet{background:var(--sheet);border-radius:24px 24px 0 0;margin-top:-26px;padding-inline:20px;padding-block:22px 120px;flex:1;position:relative}
+.sheet{background:var(--page);border-radius:28px 28px 0 0;margin-top:-26px;padding-inline:20px;padding-block:22px 120px;flex:1;position:relative}
 .menu{display:flex;flex-direction:column;gap:14px}
 .mcard{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--card-line);border-radius:14px;padding:12px 16px;cursor:pointer;width:100%;text-align:start;font-family:var(--f);color:var(--ink);box-shadow:0 2px 8px rgba(23,63,72,.04)}
+.menu.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{border:0;padding:0;background:var(--card);border-radius:20px;overflow:hidden;text-align:start;font-family:var(--f);color:var(--ink);cursor:pointer;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(15,58,68,.06),0 6px 18px rgba(15,58,68,.07)}
+.tile:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.tile .ill{height:92px;background:linear-gradient(160deg,var(--teal),var(--teal-deep));position:relative;display:grid;place-items:center}
+.tile .ill::before{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23f3d6a6' stroke-width='1'%3E%3Cpath d='M48 18l9 21 21 9-21 9-9 21-9-21-21-9 21-9z'/%3E%3Cpath d='M27 27h42v42H27z'/%3E%3Cpath d='M0 0l18 18M96 0L78 18M0 96l18-18M96 96L78 78'/%3E%3C/g%3E%3C/svg%3E");background-size:64px;opacity:.13}
+.tile .ill svg{width:50px;height:50px;position:relative;fill:none;stroke:var(--gold);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tile .tx{padding:10px 12px 12px;display:flex;flex-direction:column;gap:2px;font-size:15px;font-weight:600;min-width:0}
+.tile .tx small{font-size:12px;font-weight:400;color:var(--muted);line-height:1.5}
+.tile.wide{grid-column:1/-1;flex-direction:row;align-items:center}.tile.wide .ill{height:72px;width:96px;flex:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tile{box-shadow:none;border:1px solid var(--card-line)}}
+:root[data-theme="dark"] .tile{box-shadow:none;border:1px solid var(--card-line)}
 .mcard:focus-visible{outline:2px solid var(--teal)}
 .mcard .ic{width:58px;height:58px;border-radius:50%;background:var(--peach);display:grid;place-content:center;flex:none}
 .mcard .ic svg{width:34px;height:34px;stroke:var(--peach-ink);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
@@ -1513,14 +1523,14 @@ let screen='home',confirmFor=null,confirmReset=false,redoFor=null;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const ARROW='<svg viewBox="0 0 16 16"><path d="M12 12 4 4M4 10V4h6"/></svg>';
 const MENU=[
- {id:'method',t:'المنهج المحمدي',ic:'<path d="M24 6l4.5 6.5L36 11l-1.5 7.5L41 24l-6.5 5.5L36 37l-7.5-1.5L24 42l-4.5-6.5L12 37l1.5-7.5L7 24l6.5-5.5L12 11l7.5 1.5z"/><path d="M18 24l6-6 6 6-6 6z"/>'},
- {id:'tazkiya',t:'التزكية',ic:'<path d="M14 40V22c0-2 3-2 3 0v-8c0-2 3-2 3 0v-2c0-2 3-2 3 0v14"/><path d="M34 40V22c0-2-3-2-3 0v-8c0-2-3-2-3 0v-2c0-2-3-2-3 0v14"/><path d="M12 40h11M25 40h11M14 44h9M25 44h9"/>'},
- {id:'ruhi',t:'بياناتك الروحية',ic:'<circle cx="24" cy="12" r="4.5"/><path d="M20 8.5c1-2 7-2 8 0"/><path d="M15 42V27c0-5 4-9 9-9s9 4 9 9v15"/><path d="M20 26l4 6 4-6"/>'},
- {id:'aamal',t:'الأعمال',ic:'<path d="M8 36h32M10 36c0-5 4-7 8-7h6"/><circle cx="31" cy="25" r="3.5"/><path d="M24 29l5-1 7 5"/><rect x="34" y="31" width="8" height="5" rx="1"/>'},
- {id:'taammulat',t:'تأملات',ic:'<circle cx="24" cy="20" r="9"/><path d="M24 11v-4M24 33v-4M15 20h-4M37 20h-4"/><path d="M10 41c3-5 8-8 14-8s11 3 14 8"/>'},
+ {id:'method',art:'<path d="M8 36V16c5-2 10-2 16 2 6-4 11-4 16-2v20c-5-2-10-2-16 2-6-4-11-4-16-2z"/><path d="M24 18v20"/><path d="M24 3l1.6 2.6 3-.4-.4 3 2.6 1.6-2.6 1.6.4 3-3-.4L24 16l-1.6-2.6-3 .4.4-3L17.2 9.2l2.6-1.6-.4-3 3 .4z"/>',t:'المنهج المحمدي',ic:'<path d="M24 6l4.5 6.5L36 11l-1.5 7.5L41 24l-6.5 5.5L36 37l-7.5-1.5L24 42l-4.5-6.5L12 37l1.5-7.5L7 24l6.5-5.5L12 11l7.5 1.5z"/><path d="M18 24l6-6 6 6-6 6z"/>'},
+ {id:'tazkiya',art:'<path d="M24 6c6 9 11 15 11 21a11 11 0 0 1-22 0c0-6 5-12 11-21z"/><path d="M19 28a5 5 0 0 0 5 5"/><path d="M36 8v4M34 10h4M10 14v3M8.5 15.5h3"/>',t:'التزكية',ic:'<path d="M14 40V22c0-2 3-2 3 0v-8c0-2 3-2 3 0v-2c0-2 3-2 3 0v14"/><path d="M34 40V22c0-2-3-2-3 0v-8c0-2-3-2-3 0v-2c0-2-3-2-3 0v14"/><path d="M12 40h11M25 40h11M14 44h9M25 44h9"/>'},
+ {id:'ruhi',art:'<path d="M24 38s-12-7.5-12-16a6.5 6.5 0 0 1 12-3.5A6.5 6.5 0 0 1 36 22c0 8.5-12 16-12 16z"/><path d="M24 4v4M10 9l2.5 3M38 9l-2.5 3M5 20h3.5M43 20h-3.5"/>',t:'بياناتك الروحية',ic:'<circle cx="24" cy="12" r="4.5"/><path d="M20 8.5c1-2 7-2 8 0"/><path d="M15 42V27c0-5 4-9 9-9s9 4 9 9v15"/><path d="M20 26l4 6 4-6"/>'},
+ {id:'aamal',art:'<circle cx="24" cy="18" r="11" stroke-dasharray="0.1 4.2" stroke-width="3.6"/><path d="M24 29v5"/><path d="M21 34h6l-1 8h-4z"/>',t:'الأعمال',ic:'<path d="M8 36h32M10 36c0-5 4-7 8-7h6"/><circle cx="31" cy="25" r="3.5"/><path d="M24 29l5-1 7 5"/><rect x="34" y="31" width="8" height="5" rx="1"/>'},
+ {id:'taammulat',art:'<path d="M30 8a13 13 0 1 0 10 21A11 11 0 0 1 30 8z"/><path d="M36 10l1 2.2 2.4.3-1.8 1.6.5 2.4-2.1-1.2-2.1 1.2.5-2.4-1.8-1.6 2.4-.3z"/><path d="M6 40h36"/>',t:'تأملات',ic:'<circle cx="24" cy="20" r="9"/><path d="M24 11v-4M24 33v-4M15 20h-4M37 20h-4"/><path d="M10 41c3-5 8-8 14-8s11 3 14 8"/>'},
  {id:'admin',t:'لوحة الإدارة',ic:'<path d="M24 5l15 6v11c0 9.5-6.4 17.4-15 21-8.6-3.6-15-11.5-15-21V11z"/><path d="M17.5 24l4.5 4.5 8.5-9"/>'},
 ,
- {id:'about',t:'عن التطبيق',ic:'<circle cx="24" cy="24" r="16"/><path d="M24 22v10"/><circle cx="24" cy="16.5" r="1.2"/>'}
+ {id:'about',art:'<g transform="translate(13 3) scale(.22)"><path d="M50,3 C53,11 60,16 68,24 C79,35 86,47 86,61 C86,77 72,87 69,99 C68,105 72,109 76,113 C83,119 86,127 86,137 C86,151 70,157 50,157 C30,157 14,151 14,137 C14,127 17,119 24,113 C28,109 32,105 31,99 C28,87 14,77 14,61 C14,47 21,35 32,24 C40,16 47,11 50,3 Z" stroke-width="7.5"/></g>',t:'عن التطبيق',ic:'<circle cx="24" cy="24" r="16"/><path d="M24 22v10"/><circle cx="24" cy="16.5" r="1.2"/>'}
 ];
 const TITLES={method:'المنهج المحمدي',tazkiya:'التزكية',muraqabat:'حالتك الروحية اليومية',sura:'حالة قلبك',aamal:'الأعمال',dhikr_run:'الذكر الشخصي',adh_sabah:'أذكار الصباح',adh_masa:'أذكار المساء',install:'تثبيت التطبيق',notif:'التنبيهات',profile:'الملف الشخصي',admin:'لوحة الإدارة',taammulat:'تأملات',mraqib:'مراقبات',munajat:'مناجاة',muhasaba:'محاسبة اليوم',ruhi:'بياناتك الروحية',about:'عن التطبيق',tahlil:'تحليل الزلّات'};
 const VERSES={dhikr_run:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',adh_sabah:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',adh_masa:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',install:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',method:'«أن تعبد الله كأنك تراه»',tazkiya:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',muraqabat:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',sura:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',aamal:'«أحبّ الأعمال إلى الله أدومها وإن قلّ»',notif:'﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾',profile:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',admin:'﴿إِنْ أُرِيدُ إِلَّا الْإِصْلَاحَ مَا اسْتَطَعْتُ﴾',taammulat:'﴿الَّذِينَ يَذْكُرُونَ اللَّهَ قِيَامًا وَقُعُودًا وَعَلَىٰ جُنُوبِهِمْ وَيَتَفَكَّرُونَ﴾',mraqib:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',munajat:'﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ﴾',muhasaba:'﴿وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ﴾',ruhi:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',about:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',tahlil:'﴿إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ﴾'};
@@ -1557,7 +1567,7 @@ function viewHome(){
   const L=dayLog(),p=pendingOrgans().length;
   const subs={install:isStandalone()?'مثبّت على شاشتك ✓':'افتحه كتطبيق من شاشة هاتفك',method:'الطريقة المحمدية: الأصول والأبواب وطريق التحقق',tazkiya:prepState().status==='active'?`المرحلة التمهيدية · ${Math.min(prepDays(),30)} من 30 · ${activeOrgans().length} جوارح قيد العمل`:`تزكية الجوارح · ${activeOrgans().length} قيد العمل`,muraqabat:`صورتك النورانية · ${litCount()} من 4 أنوار مضيئة`,sura:`مجاري القلب · ${ORGANS.filter(g=>['tanwir','done'].includes(S.organs[g.id].phase)).length} من ${ORGANS.length} مغلقة`,aamal:`${L.awrad.length} من ${AWRAD.length} أوراد اليوم`,admin:'المستعملون، الرسائل، الأعمال المقترحة',ruhi:`${litCount()} من 4 أنوار مضيئة · ${ORGANS.filter(g=>['tanwir','done'].includes(S.organs[g.id].phase)).length} من ${ORGANS.length} مجاري مغلقة`,about:'تثبيت التطبيق، والتذكيرات، والخصوصية، وراسلنا',taammulat:`المراقبات والمناجاة · ${(S.wared||[]).length} واردات مدوّنة`};
   const banner=announcementBanner()+(AUTH.state==='local'?`<p class="muted" style="margin-bottom:12px">وضع محلي: تُحفظ بياناتك في هذا المتصفح فقط.</p>`:'')+(S.demo?`<p class="muted" style="margin-bottom:12px">تعرض الأقسام بيانات تجريبية. يمكنك البدء من الصفر من الملف الشخصي.</p>`:'');
-  return heroHome()+`<main class="sheet">${banner}<div class="menu">${MENU.filter(m=>m.id!=='admin'||isAdmin()).map(m=>`<button class="mcard" data-go="${m.id}"><span class="ic"><svg viewBox="0 0 48 48">${m.ic}</svg></span><span class="tx">${m.t}<small>${subs[m.id]}</small></span><span class="go">${ARROW}</span></button>`).join('')}</div></main>`;
+  return heroHome()+`<main class="sheet">${banner}<div class="menu grid">${[...MENU.filter(m=>m.id!=='admin'),...(isAdmin()?MENU.filter(m=>m.id==='admin'):[])].map(m=>`<button class="tile${m.id==='admin'?' wide':''}" data-go="${m.id}"><span class="ill"><svg viewBox="0 0 48 48" aria-hidden="true">${m.art||m.ic}</svg></span><span class="tx">${m.t}<small>${subs[m.id]}</small></span></button>`).join('')}</div></main>`;
 }
 
 function ring(days,phase){
