@@ -3982,7 +3982,7 @@ const VAPID='BJUJCmPxkDUS3CbATinyVl07MtSU_E3bBQmv7zAwn2V4KWNmMM-YLGXZfBqsO_U0acQ
 const isIOS=()=>/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 function pushPrefs(){if(!S.push)S.push={enabled:false,on:{sabah:true,masa:true,muhasaba:true,hudur:false},bed:'22:00'};return S.push}
 function pushDoc(){const P=pushPrefs();let tz='Africa/Casablanca';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||tz}catch(e){}
-  return{tz,lat:LAT,lng:LNG,lang:LANG,on:P.on,bed:P.bed,hFrom:P.hFrom||'07:00',hTo:P.hTo||'22:00',updatedAt:Date.now()}}
+  return{tz,off:-new Date().getTimezoneOffset(),lat:LAT,lng:LNG,lang:LANG,on:P.on,bed:P.bed,hFrom:P.hFrom||'07:00',hTo:P.hTo||'22:00',updatedAt:Date.now()}}
 function pushSync(){const P=pushPrefs();if(!P.enabled||!window.FB||!AUTH.user)return;FB.savePush(AUTH.user.uid,pushDoc()).catch(e=>console.warn('push',e))}
 async function pushEnable(){pushMsg='';
   if(!window.FB||AUTH.state!=='in'){pushMsg='سجّل الدخول بحسابك أولًا لتفعيل التذكيرات.';return render()}
@@ -3997,12 +3997,13 @@ async function pushEnable(){pushMsg='';
   catch(e){console.warn(e);pushMsg=e&&e.code==='push/unsupported'?(isIOS()?'على iPhone: ثبّت التطبيق على الشاشة أولًا، ثم افتحه من أيقونته وفعّل التذكيرات.':'هذا المتصفح لا يدعم الإشعارات. جرّب Chrome.'):'تعذّر تفعيل التذكيرات. أعد المحاولة.'+(e&&e.code?' ('+e.code+')':'')}
   pushBusy=false;render()}
 async function pushDisable(){const P=pushPrefs();P.enabled=false;save();try{if(window.FB&&AUTH.user)await FB.deletePush(AUTH.user.uid)}catch(e){}pushMsg='أُوقفت التذكيرات.';render()}
+setTimeout(()=>{try{pushSync()}catch(e){}},9000); // keep the phone's clock offset fresh on the server
 async function pushTest(){try{const reg=await navigator.serviceWorker.ready;await reg.showNotification('المرشد',{body:'هكذا ستصلك التذكيرات ✦',icon:'icon-192.png',tag:'murshid-test',lang:'ar',dir:'rtl'});pushMsg=''}catch(e){pushMsg='تعذّر عرض الإشعار على هذا الجهاز.'}render()}
 async function hudurTest(){const base={body:'﴿وَهُوَ مَعَكُمْ أَيْنَمَا كُنتُمْ﴾',icon:'icon-192.png',tag:'murshid-hudur',lang:'ar',dir:'rtl',data:{url:'./#hudur'}};
   try{const reg=await navigator.serviceWorker.ready;
     try{await reg.showNotification('الحضور مع الله',Object.assign({badge:'icon-192.png',image:'maiya-wide.jpg',renotify:true,vibrate:[200,120,200]},base))}
-    catch(x){await reg.showNotification('الحضور مع الله',base)}
-    pushMsg=''}catch(e){pushMsg='تعذّر عرض الإشعار على هذا الجهاز.'}render()}
+    catch(x){try{await reg.showNotification('الحضور مع الله',base)}catch(y){await reg.showNotification('الحضور مع الله',{body:base.body,icon:'icon-192.png',tag:'murshid-test'})}}
+    pushMsg=''}catch(e){pushMsg='تعذّر عرض الإشعار على هذا الجهاز.'+(e&&e.name?' ('+e.name+')':'')}render()}
 function showHudur(){if(document.getElementById('hudurOv'))return;
   const o=document.createElement('div');o.id='hudurOv';o.setAttribute('role','dialog');o.setAttribute('aria-label','الحضور مع الله');
   o.innerHTML=`<img src="maiya.jpg" alt="الله"><p class="hv notr" dir="rtl" lang="ar">﴿وَهُوَ مَعَكُمْ أَيْنَمَا كُنتُمْ﴾</p>${meaning('maiya')}<p class="hs">توقّف لحظة، واستحضر أن الله معك الآن.</p><button class="btn primary" data-hudurclose="1">الحمد لله</button>`;
