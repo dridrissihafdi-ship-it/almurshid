@@ -99,7 +99,7 @@ for (const doc of snap.docs) {
       if (last[k] === L.date || !(L.h >= a && L.h < b)) continue;
       const item = QA.qa[n]; if (!item) continue;
       try {
-        await fcm.send({token: u.token, data: {title: QA_T[u.lang] || QA_T.ar, body: item[1], tag: 'murshid-' + k, url: URL_APP + '#qa=' + n},
+        await fcm.send({token: u.token, data: {title: QA_T[u.lang] || QA_T.ar, body: (QA.tr && QA.tr[u.lang] && QA.tr[u.lang].qa[n] || [item[1]])[0], tag: 'murshid-' + k, url: URL_APP + '#qa=' + n},
           webpush: {headers: {TTL: '7200', Urgency: 'high'}}});
         upd['lastSent.' + k] = L.date; sent++;
       } catch (e) { console.warn(doc.id, k, e.errorInfo && e.errorInfo.code || e.code || ''); }
