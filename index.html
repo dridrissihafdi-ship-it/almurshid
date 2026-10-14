@@ -252,7 +252,10 @@ details ul{margin:6px 0 0;padding-inline-start:18px}
 .pr-chip b{font-size:12px;font-weight:600}
 .pr-chip small{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}
 .pr-chip.on{border-color:var(--teal);background:var(--chip)}
-.pr-chip.on i{background:var(--teal);border-color:var(--teal)}
+.pr-chip.on{border-color:var(--green);background:color-mix(in srgb,var(--green) 14%,var(--card))}
+.pr-chip.on i{background:var(--green);border-color:var(--green)}.pr-chip.on b{color:var(--green)}
+.pr-chip.late{border-color:var(--red);background:color-mix(in srgb,var(--red) 12%,var(--card))}
+.pr-chip.late i{background:var(--red);border-color:var(--red)}.pr-chip.late b{color:var(--red)}
 .pr-chip:focus-visible{outline:2px solid var(--amber)}
 .dl-sum{cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px;list-style:none;padding:2px 0}
 .dl-sum::-webkit-details-marker{display:none}
@@ -2003,8 +2006,10 @@ function setLight(kind,on){
 }
 /* ---------- five prayers, one row ---------- */
 const FIVE=[['fajr','الفجر'],['dhuhr','الظهر'],['asr','العصر'],['maghrib','المغرب'],['isha','العشاء']];
-function prayerChips(L){const pr=L.prayers||[],pt=prayerTimes(new Date());
-  return `<span class="pr-row">${FIVE.map(([k,n])=>{const on=pr.includes(k);return `<button class="pr-chip${on?' on':''}" data-pray="${k}" aria-pressed="${on}"><i>${on?'✓':''}</i><b>${n}</b><small>${hm(pt[k])}</small></button>`}).join('')}</span>`}
+const prLate=(L)=>{const pr=(L&&L.prayers)||[],pt=prayerTimes(new Date()),d=new Date(),h=d.getHours()+d.getMinutes()/60;return FIVE.filter(([k])=>!pr.includes(k)&&h>=pt[k]).map(f=>f[0])};
+function prayerChips(L){const pr=L.prayers||[],pt=prayerTimes(new Date()),late=prLate(L);
+  return `<span class="pr-row">${FIVE.map(([k,n])=>{const on=pr.includes(k),lt=late.includes(k);return `<button class="pr-chip${on?' on':lt?' late':''}" data-pray="${k}" aria-pressed="${on}"${lt?' title="لم تُسجَّل بعد"':''}><i>${on?'✓':lt?'!':''}</i><b>${n}</b><small>${hm(pt[k])}</small></button>`}).join('')}</span>`}
+let prLateKey='';setInterval(()=>{try{if(screen!=='aamal'||document.activeElement&&/INPUT|TEXTAREA/.test(document.activeElement.tagName)&&document.activeElement.type!=='checkbox')return;const k=prLate(S.log[TODAY]).join();if(prLateKey&&k!==prLateKey)render();prLateKey=k}catch(e){}},60000);
 function setPrayer(k){const L=dayLog();L.prayers=L.prayers||[];L.prayers=L.prayers.includes(k)?L.prayers.filter(x=>x!==k):[...L.prayers,k];
   applyWird('salat',L.prayers.length===FIVE.length)}
 function wirdList(items,L){
