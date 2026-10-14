@@ -52,6 +52,11 @@ const TXT = {
   muhasaba: {ar: ['محاسبة اليوم', 'قبل النوم: سجّل يومك في التزكية، وحاسب نفسك.'], en: ['Daily self-review', 'Before sleep: log your day and review yourself.'], fr: ['Bilan du jour', 'Avant de dormir : enregistrez votre journée et faites votre bilan.'], es: ['Repaso del día', 'Antes de dormir: registra tu día y haz tu repaso.'], ru: ['Итог дня', 'Перед сном: отметьте день и подведите итог.']},
 };
 const URL_APP = 'https://dridrissihafdi-ship-it.github.io/almurshid/';
+/* the 100 questions (qa.json, published with the app): one after Fajr, one after Isha */
+let QA = null;
+try { QA = await (await fetch(URL_APP + 'qa.json', {cache: 'no-store'})).json(); } catch (e) { console.warn('qa.json', e.message); }
+const QA_T = {ar: 'سؤال اليوم · الطريق إلى رضوان الله', en: 'Question of the day', fr: 'Question du jour', es: 'Pregunta del día', ru: 'Вопрос дня'};
+const qaIdx = date => { const x = Date.parse(date + 'T00:00:00Z') / 864e5; return [(x * 2) % 100, (x * 2 + 1) % 100]; };
 
 const now = new Date();
 const snap = await db.collection('push').get();
@@ -85,6 +90,19 @@ for (const doc of snap.docs) {
         await doc.ref.update({token: admin.firestore.FieldValue.delete()}); removed++; break;
       }
       console.warn(doc.id, k, c);
+    }
+  }
+  // question & answer: 15 min after Fajr and 30 min after Isha (on unless turned off)
+  if (QA && on.qa !== false && u.token) {
+    const [iM, iE] = qaIdx(L.date);
+    for (const [k, a, b, n] of [['qa1', pt.fajr + 15 / 60, pt.fajr + 2, iM], ['qa2', pt.isha + 30 / 60, Math.min(pt.isha + 2.5, 24), iE]]) {
+      if (last[k] === L.date || !(L.h >= a && L.h < b)) continue;
+      const item = QA.qa[n]; if (!item) continue;
+      try {
+        await fcm.send({token: u.token, data: {title: QA_T[u.lang] || QA_T.ar, body: item[1], tag: 'murshid-' + k, url: URL_APP + '#qa=' + n},
+          webpush: {headers: {TTL: '7200', Urgency: 'high'}}});
+        upd['lastSent.' + k] = L.date; sent++;
+      } catch (e) { console.warn(doc.id, k, e.errorInfo && e.errorInfo.code || e.code || ''); }
     }
   }
   // hourly reminder of God's presence: on the hour, between the user's chosen hours (only if turned on)
