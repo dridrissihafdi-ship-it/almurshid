@@ -39,6 +39,12 @@ function local(tzName, now) {
   return {y, m, d, h, off, date: `${p.year}-${p.month}-${p.day}`};
 }
 
+function localOff(offMin, now) {
+  const t = new Date(now.getTime() + offMin * 6e4), y = t.getUTCFullYear(), m = t.getUTCMonth() + 1, d = t.getUTCDate();
+  const h = t.getUTCHours() + t.getUTCMinutes() / 60 + t.getUTCSeconds() / 3600, p = n => String(n).padStart(2, '0');
+  return {y, m, d, h, off: offMin / 60, date: `${y}-${p(m)}-${p(d)}`};
+}
+
 const TXT = {
   sabah:    {ar: ['أذكار الصباح', 'حان وقت أذكار الصباح. أضئ هالتك لهذا اليوم ✦'], en: ['Morning adhkar', "It's time for the morning adhkar ✦"], fr: ['Adhkar du matin', "C'est l'heure des adhkar du matin ✦"], es: ['Adhkar de la mañana', 'Es la hora de los adhkar de la mañana ✦'], ru: ['Утренние азкары', 'Время утренних азкаров ✦']},
   masa:     {ar: ['أذكار المساء', 'حان وقت أذكار المساء ✦'], en: ['Evening adhkar', "It's time for the evening adhkar ✦"], fr: ['Adhkar du soir', "C'est l'heure des adhkar du soir ✦"], es: ['Adhkar de la tarde', 'Es la hora de los adhkar de la tarde ✦'], ru: ['Вечерние азкары', 'Время вечерних азкаров ✦']},
@@ -53,7 +59,8 @@ let sent = 0, removed = 0;
 for (const doc of snap.docs) {
   const u = doc.data();
   if (!u.token || !u.tz || !isFinite(u.lat) || !isFinite(u.lng)) continue;
-  let L; try { L = local(u.tz, now); } catch (e) { continue; }
+  // the phone's own UTC offset wins: servers can carry outdated time-zone rules (Morocco moved to GMT)
+  let L; try { L = Number.isFinite(u.off) ? localOff(u.off, now) : local(u.tz, now); } catch (e) { continue; }
   const pt = prayerTimes(L.y, L.m, L.d, u.lat, u.lng, L.off);
   const [bh, bm] = String(u.bed || '22:00').split(':').map(Number);
   const bed = (bh || 0) + (bm || 0) / 60;
@@ -69,7 +76,7 @@ for (const doc of snap.docs) {
     if (!(L.h >= a && L.h < b)) continue;
     const [title, body] = (TXT[k][u.lang] || TXT[k].ar);
     try {
-      await fcm.send({token: u.token, data: {title, body, tag: 'murshid-' + k, url: URL_APP},
+      await fcm.send({token: u.token, data: {title, body, tag: 'murshid-' + k, url: URL_APP + (k === 'muhasaba' ? '#muhasaba' : '')},
         webpush: {headers: {TTL: '7200', Urgency: 'high'}}});
       upd['lastSent.' + k] = L.date; sent++;
     } catch (e) {
@@ -98,4 +105,19 @@ for (const doc of snap.docs) {
   }
   if (Object.keys(upd).length) await doc.ref.update(upd);
 }
+/* a message the admin wrote in the app ("إشعار على هواتف المستعملين"): sent once to everyone with reminders on */
+try {
+  const main = (await db.doc('content/main').get()).data() || {}, P = main.push;
+  const stRef = db.doc('content/pushState'), st = (await stRef.get()).data() || {};
+  if (P && P.id && P.title && P.text && st.lastId !== P.id && Date.now() - (P.at || 0) < 24 * 3600e3) {
+    await stRef.set({lastId: P.id, at: Date.now()});            // mark first, so a slow run never sends twice
+    let n = 0;
+    for (const doc of snap.docs) {
+      const u = doc.data(); if (!u.token) continue;
+      try { await fcm.send({token: u.token, data: {title: P.title, body: P.text, tag: 'murshid-admin-' + P.id, url: URL_APP},
+        webpush: {headers: {TTL: '86400', Urgency: 'high'}}}); n++; } catch (e) {}
+    }
+    console.log(`admin message "${P.title}" sent to ${n}`);
+  }
+} catch (e) { console.warn('admin push', e.message); }
 console.log(`users: ${snap.size} · sent: ${sent} · removed tokens: ${removed}`);
