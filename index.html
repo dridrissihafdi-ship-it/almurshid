@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#142a30">
 <meta name="description" content="المرشد: دليلك نحو التزكية والقرب من الله">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
@@ -12,6 +11,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="المرشد">
+<meta name="theme-color" content="#265661">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>المرشد</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,13 +35,10 @@
   --chip:#1c353b; --chip-ink:#8fb0b7; --peach:#f2cfa6; --peach-ink:#1d4650;
   --green:#5cc096; --green-soft:#173a2e; --red:#ec8576; --red-soft:#3a2220; --amber:#e8ab55; --amber-soft:#3a2c16; color-scheme:dark}
 html,body{background:var(--teal);color:var(--ink)}
-/* the page scrolls inside #scr and the tab bar sits below it in normal flow: no position:fixed, which iPhone (iOS 26) misplaces */
-html,body{height:100%;overflow:hidden;margin:0;overscroll-behavior:none}body{display:flex;flex-direction:column;position:fixed;top:0;left:0;right:0;width:100%;height:100%}
-html{background:linear-gradient(var(--teal) 50%,var(--card) 50%)}
 #scr{flex:1;min-height:0;overflow-y:auto;overscroll-behavior-y:contain;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:linear-gradient(var(--teal) 50%,var(--page) 50%)}
 body{font-family:var(--f);font-size:15px;line-height:1.65}
 *{box-sizing:border-box}
-.shell{max-width:520px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;background:var(--page)}
+.shell{max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--page)}
 .hero{background-color:var(--teal);background-image:radial-gradient(120% 90% at 50% 0%,rgba(255,255,255,.07) 0%,rgba(255,255,255,0) 45%,rgba(0,0,0,.28) 100%);color:var(--on-teal);padding-inline:24px;padding-block:22px 54px;position:relative;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;opacity:.11;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23f3d6a6' stroke-width='1'%3E%3Cpath d='M48 18l9 21 21 9-21 9-9 21-9-21-21-9 21-9z'/%3E%3Cpath d='M27 27h42v42H27z'/%3E%3Cpath d='M0 0l18 18M96 0L78 18M0 96l18-18M96 96L78 78'/%3E%3C/g%3E%3C/svg%3E");background-size:96px}
 .hero>*{position:relative}
@@ -75,7 +72,7 @@ body{font-family:var(--f);font-size:15px;line-height:1.65}
 .prayer.is-next{background:rgba(255,255,255,.1)}
 .prayer.is-next b,.prayer.is-next span{color:var(--gold)}
 .prayer.is-next svg{stroke:var(--gold)}
-.sheet{background:var(--page);border-radius:28px 28px 0 0;margin-top:-26px;padding-inline:20px;padding-block:22px 40px;flex:1;position:relative}
+.sheet{background:var(--page);border-radius:28px 28px 0 0;margin-top:-26px;padding-inline:20px;padding-block:22px 120px;flex:1;position:relative}
 .menu{display:flex;flex-direction:column;gap:14px}
 .mcard{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--card-line);border-radius:14px;padding:12px 16px;cursor:pointer;width:100%;text-align:start;font-family:var(--f);color:var(--ink);box-shadow:0 2px 8px rgba(23,63,72,.04)}
 .menu.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -432,7 +429,7 @@ html[dir="ltr"] .acc:not([open]) .acc-ch{transform:rotate(180deg)}
 #hudurOv .hv{font-family:var(--f-verse);font-size:30px;color:var(--gold);margin-top:18px}
 #hudurOv .ob-tr{color:#cfd8d6}
 #hudurOv .hs{color:#b9c6c4;margin:10px 0 22px}
-nav.tabs{position:relative;flex:none;background:var(--card);border-top:1px solid var(--card-line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5;box-shadow:0 -6px 20px rgba(23,63,72,.06)}
+nav.tabs{position:fixed;inset-inline:0;bottom:0;background:var(--card);border-top:1px solid var(--card-line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5;box-shadow:0 -6px 20px rgba(23,63,72,.06)}
 nav.tabs .in{display:grid;grid-template-columns:repeat(4,1fr);max-width:520px;margin:0 auto}
 nav.tabs button{border:0;background:none;padding:16px 4px 18px;color:var(--chip-ink);display:grid;place-content:center;cursor:pointer;position:relative}
 nav.tabs button svg{width:30px;height:30px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -496,9 +493,9 @@ nav.tabs button .badge{position:absolute;top:13px;left:calc(50% + 4px);width:10p
 .wared{white-space:pre-line;color:var(--ink)}
 </style>
 
-<div id="scr"></head>
+</head>
 <body>
-<div class="shell" dir="rtl" lang="ar" id="app"></div></div>
+<div class="shell" dir="rtl" lang="ar" id="app"></div>
 <nav class="tabs" dir="rtl" aria-label="التنقل"><div class="in">
   <button data-nav="home" aria-label="الرئيسية"><svg viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 9.5V21h14V9.5"/></svg></button>
   <button data-nav="notif" aria-label="التنبيهات"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></svg><i class="badge" id="badge" hidden></i></button>
@@ -1652,7 +1649,13 @@ async function authClick(d){
   return false;
 }
 
-const SCR=()=>document.getElementById('scr')||document.scrollingElement;
+const SCR=()=>document.scrollingElement||document.documentElement;
+/* iPhone sometimes paints the fixed tab bar in the wrong place after scrolling or returning to the app: nudge it back */
+function navFix(){const n=document.querySelector('nav.tabs');if(!n)return;n.style.position='relative';void n.offsetHeight;n.style.position=''}
+let navT=null;addEventListener('scroll',()=>{clearTimeout(navT);navT=setTimeout(navFix,180)},{passive:true});
+['resize','orientationchange','pageshow','focus'].forEach(ev=>addEventListener(ev,()=>setTimeout(navFix,120)));
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')setTimeout(navFix,150)});
+if(window.visualViewport)visualViewport.addEventListener('resize',()=>setTimeout(navFix,120));
 const save=()=>{S.updatedAt=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){};cloudSave()};
 const YDAY=addDays(TODAY,-1);
 function normOrgans(){let ch=false;ORGANS.forEach(g=>{

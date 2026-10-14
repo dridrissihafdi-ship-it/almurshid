@@ -1,4 +1,4 @@
-const CACHE='murshid-1791983430',LIB='murshid-lib-v1',MEDIA='murshid-media-v1';
+const CACHE='murshid-1791984069',LIB='murshid-lib-v1',MEDIA='murshid-media-v1';
 const SHELL=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','maskable-512.png','apple-touch-icon.png','maiya.jpg','maiya-wide.jpg'];
 const SDK='https://www.gstatic.com/firebasejs/10.12.2/';
 const LIBS=[SDK+'firebase-app.js',SDK+'firebase-auth.js',SDK+'firebase-firestore.js',SDK+'firebase-messaging.js',
