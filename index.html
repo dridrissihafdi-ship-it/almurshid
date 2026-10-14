@@ -36,7 +36,10 @@
   --green:#5cc096; --green-soft:#173a2e; --red:#ec8576; --red-soft:#3a2220; --amber:#e8ab55; --amber-soft:#3a2c16; color-scheme:dark}
 html,body{background:var(--teal);color:var(--ink)}
 /* the page scrolls inside #scr and the tab bar sits below it in normal flow: no position:fixed, which iPhone (iOS 26) misplaces */
-html,body{height:100%;overflow:hidden;margin:0;overscroll-behavior:none}body{display:flex;flex-direction:column;position:fixed;inset:0;width:100%}
+html,body{height:100%;overflow:hidden;margin:0;overscroll-behavior:none}body{display:flex;flex-direction:column;position:fixed;top:0;left:0;right:0;width:100%;height:100%}
+/* installed app on iPhone: the layout viewport can stop short of the screen bottom, so fill the whole screen */
+@media (display-mode: standalone){body{height:max(100%,100lvh,var(--fullh,0px))}}
+html{background:linear-gradient(var(--teal) 50%,var(--card) 50%)}
 #scr{flex:1;min-height:0;overflow-y:auto;overscroll-behavior-y:contain;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:linear-gradient(var(--teal) 50%,var(--page) 50%)}
 body{font-family:var(--f);font-size:15px;line-height:1.65}
 *{box-sizing:border-box}
@@ -1652,6 +1655,10 @@ async function authClick(d){
 }
 
 const SCR=()=>document.getElementById('scr')||document.scrollingElement;
+function fitScreen(){try{const st=navigator.standalone===true||matchMedia('(display-mode: standalone)').matches;if(!st)return;
+  const portrait=matchMedia('(orientation: portrait)').matches,sh=portrait?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width);
+  document.documentElement.style.setProperty('--fullh',Math.max(innerHeight,sh)+'px')}catch(e){}}
+fitScreen();addEventListener('resize',fitScreen);addEventListener('orientationchange',()=>setTimeout(fitScreen,300));
 const save=()=>{S.updatedAt=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){};cloudSave()};
 const YDAY=addDays(TODAY,-1);
 function normOrgans(){let ch=false;ORGANS.forEach(g=>{
