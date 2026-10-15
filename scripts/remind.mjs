@@ -107,6 +107,33 @@ for (const doc of snap.docs) {
       } catch (e) { console.warn(doc.id, k, e.errorInfo && e.errorInfo.code || e.code || ''); }
     }
   }
+  // scheduled retreats (khalwa / i'tikaf): start, each programme item on time, end
+  if (Array.isArray(u.kh) && u.kh.length && u.token) {
+    const nowL = Date.UTC(L.y, L.m - 1, L.d) + L.h * 3600e3;          // "local time" on a UTC scale
+    const P = v => { const [d, t] = String(v || '').split('T'), [y, m, dd] = d.split('-').map(Number), [h, mi] = (t || '0:0').split(':').map(Number); return Date.UTC(y, m - 1, dd, h || 0, mi || 0); };
+    const sentKh = new Set(u.khSent || []), add = [];
+    const KT = {ar: ['خلوة', 'اعتكاف'], en: ['Retreat', 'I‘tikaf'], fr: ['Retraite', 'I‘tikaf'], es: ['Retiro', 'I‘tikaf'], ru: ['Уединение', 'Итикаф']};
+    const KS = {ar: ['بدأت الآن. اقطع عنك كل شاغل، واستحضر أن الله يراك.', 'انتهت. تقبّل الله منك، وسجّل إتمامها في التطبيق.'], en: ['It begins now. Leave every distraction.', 'It has ended. May God accept it.'], fr: ['Elle commence. Laissez toute distraction.', 'Elle est terminée. Que Dieu l’accepte.'], es: ['Empieza ahora. Deja toda distracción.', 'Ha terminado. Que Dios lo acepte.'], ru: ['Начинается. Оставьте всё отвлекающее.', 'Завершено. Да примет Бог.']};
+    for (const r of u.kh) {
+      const st = P(r.s), en = P(r.e); if (!(en > st)) continue;
+      const nm = (KT[u.lang] || KT.ar)[r.type === 'itikaf' ? 1 : 0], ms = KS[u.lang] || KS.ar;
+      const ev = [{at: st, key: r.id + ':s', body: ms[0]}, {at: en, key: r.id + ':e', body: ms[1]}];
+      const d0 = Date.UTC(new Date(st).getUTCFullYear(), new Date(st).getUTCMonth(), new Date(st).getUTCDate()), nd = Math.ceil((en - d0) / 864e5);
+      (r.p || []).forEach((p, i) => { const [h, mi] = String(p.t || '').split(':').map(Number); if (!isFinite(h)) return;
+        const days = +p.d ? [+p.d - 1] : Array.from({length: nd}, (_, k) => k);
+        for (const k of days) { const at = d0 + k * 864e5 + (h * 60 + (mi || 0)) * 6e4; if (at >= st && at <= en) ev.push({at, key: r.id + ':' + i + ':' + k, body: p.x}); } });
+      for (const e of ev) {
+        if (nowL < e.at || nowL >= e.at + 15 * 6e4 || sentKh.has(e.key)) continue;
+        const hh = new Date(e.at), tm = String(hh.getUTCHours()).padStart(2, '0') + ':' + String(hh.getUTCMinutes()).padStart(2, '0');
+        try {
+          await fcm.send({token: u.token, data: {title: nm + ' · ' + tm, body: String(e.body || '').slice(0, 180), tag: 'murshid-kh-' + e.key, url: URL_APP + '#khalwa'},
+            webpush: {headers: {TTL: '900', Urgency: 'high'}}});
+          add.push(e.key); sent++;
+        } catch (x) { console.warn(doc.id, 'khalwa', x.errorInfo && x.errorInfo.code || x.code || ''); }
+      }
+    }
+    if (add.length) upd.khSent = admin.firestore.FieldValue.arrayUnion(...add);
+  }
   // hourly reminder of God's presence: on the hour, between the user's chosen hours (only if turned on)
   if (on.hudur === true) {
     const hh = v => { const [x, y] = String(v || '').split(':').map(Number); return isFinite(x) ? x + (y || 0) / 60 : NaN; };
