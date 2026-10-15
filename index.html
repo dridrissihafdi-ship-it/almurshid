@@ -1565,8 +1565,11 @@ function prayerTimes(date){
   if(!isFinite(raw.fajr))raw.fajr=raw.sunrise-night/7;
   if(!isFinite(raw.isha))raw.isha=raw.maghrib+night/7;
   const out={};for(const k in raw)out[k]=fix(raw[k]+tz-LNG/15,24);
+  // Morocco: the Ministry of Habous tables add 5 minutes to Dhuhr and Maghrib (precaution) and round Asr up
+  if(inMorocco(LAT,LNG)){out.dhuhr+=5/60;out.maghrib+=5/60;out.asr+=0.5/60}
   return out;
 }
+function inMorocco(lat,lng){return lat>=20.5&&lat<=36.2&&lng>=-17.6&&lng<=-0.9}
 const hm=h=>{let m=Math.round(h*60);return pad(Math.floor(m/60)%24)+':'+pad(m%60)};
 const PRAYERS=[['fajr','الفجر'],['sunrise','الشروق'],['dhuhr','الظهر'],['asr','العصر'],['maghrib','المغرب'],['isha','العشاء']];
 const PICONS={
