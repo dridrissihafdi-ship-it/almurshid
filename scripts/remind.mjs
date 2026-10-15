@@ -27,6 +27,8 @@ function prayerTimes(y, m, d, lat, lng, tz) {
   if (!isFinite(raw.fajr)) raw.fajr = raw.sunrise - night / 7;
   if (!isFinite(raw.isha)) raw.isha = raw.maghrib + night / 7;
   const out = {}; for (const k in raw) out[k] = fix(raw[k] + tz - lng / 15, 24);
+  // Morocco (Ministry of Habous tables): Maghrib is 5 minutes after the computed sunset
+  if (lat >= 20.5 && lat <= 36.2 && lng >= -17.6 && lng <= -0.9) out.maghrib += 5 / 60;
   return out;
 }
 /* local date, hour and UTC offset of a time zone */
