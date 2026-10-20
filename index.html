@@ -5035,6 +5035,7 @@ function render(){
   [app,nav].forEach(el=>{el.dir=rtl?'rtl':'ltr';el.lang=LANG});document.documentElement.lang=LANG;document.documentElement.dir=rtl?'rtl':'ltr';
   document.title=['المرشد','Al-Murshid','Al-Murshid','Al-Murshid','Аль-Муршид'][rtl?0:LIDX[LANG]+1];
   nav.querySelectorAll('[data-nav]').forEach(b=>{b.dataset.al=b.dataset.al||b.getAttribute('aria-label');b.setAttribute('aria-label',b.dataset.al)});
+  nav.querySelectorAll('[data-nav] span').forEach(s=>{s.dataset.ar=s.dataset.ar||s.textContent;s.textContent=s.dataset.ar});
   i18nApply(app);i18nApply(nav);
   nav.hidden=screen==='dhikr_run';
   if(isMedia(screen)){const ph=document.getElementById('mqVideo');if(keepV&&ph&&keepV!==ph&&keepV.getAttribute('src')===ph.getAttribute('src'))ph.replaceWith(keepV);mqBind()}
