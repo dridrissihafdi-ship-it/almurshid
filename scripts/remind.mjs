@@ -53,15 +53,22 @@ const TXT = {
   hudur:    {ar: ['الحضور مع الله', '﴿وَهُوَ مَعَكُمْ أَيْنَمَا كُنتُمْ﴾ — توقّف لحظة واستحضر أن الله معك'], en: ['Presence with God', '“And He is with you wherever you are.” Pause and remember He is with you.'], fr: ['Présence avec Dieu', '« Et Il est avec vous où que vous soyez. » Arrêtez-vous un instant.'], es: ['Presencia con Dios', '«Y Él está con vosotros dondequiera que estéis.» Detente un momento.'], ru: ['Присутствие с Богом', '«Он с вами, где бы вы ни были». Остановитесь на миг.']},
   muhasaba: {ar: ['محاسبة اليوم', 'قبل النوم: سجّل يومك في التزكية، وحاسب نفسك.'], en: ['Daily self-review', 'Before sleep: log your day and review yourself.'], fr: ['Bilan du jour', 'Avant de dormir : enregistrez votre journée et faites votre bilan.'], es: ['Repaso del día', 'Antes de dormir: registra tu día y haz tu repaso.'], ru: ['Итог дня', 'Перед сном: отметьте день и подведите итог.']},
 };
-const URL_APP = 'https://dridrissihafdi-ship-it.github.io/almurshid/';
+const URL_APP = 'https://dridrissihafdi-ship-it.github.io/almurshid/', URL_OLD = URL_APP;
 /* the 100 questions (qa.json, published with the app): one after Fajr, one after Isha */
 let QA = null;
-try { QA = await (await fetch(URL_APP + 'qa.json', {cache: 'no-store'})).json(); } catch (e) { console.warn('qa.json', e.message); }
+for (const base of [URL_APP, URL_OLD]) { try { QA = await (await fetch(base + 'qa.json', {cache: 'no-store'})).json(); break; } catch (e) { console.warn('qa.json', base, e.message); } }
 const QA_T = {ar: 'سؤال اليوم · الطريق إلى رضوان الله', en: 'Question of the day', fr: 'Question du jour', es: 'Pregunta del día', ru: 'Вопрос дня'};
 const qaIdx = date => { const x = Date.parse(date + 'T00:00:00Z') / 864e5; return [(x * 2) % 100, (x * 2 + 1) % 100]; };
 
 const now = new Date();
-const snap = await db.collection('push').get();
+/* Firestore sometimes answers slowly or drops a request: try again before giving up */
+async function retry(fn, label, tries = 4) {
+  for (let i = 1; ; i++) {
+    try { return await fn(); }
+    catch (e) { if (i >= tries) throw e; console.warn(`${label}: attempt ${i} failed (${e.code || e.message}), retrying`); await new Promise(r => setTimeout(r, 4000 * i)); }
+  }
+}
+const snap = await retry(() => db.collection('push').get(), 'read users');
 let sent = 0, removed = 0;
 for (const doc of snap.docs) {
   const u = doc.data();
