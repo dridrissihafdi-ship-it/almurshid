@@ -697,7 +697,7 @@ html[dir=ltr] .h2-chev{transform:scaleX(-1)}
 /* home: real photo of the Green Dome behind the header, fading into the night */
 html[data-scr=home] body::after{content:"";position:fixed;top:0;left:0;right:0;height:78vh;z-index:0;pointer-events:none;
  background:linear-gradient(180deg,rgba(23,18,15,.30) 0%,rgba(23,18,15,.45) 30%,rgba(23,18,15,.70) 60%,rgba(23,18,15,.85) 100%),url(madina.jpg) center 20%/cover no-repeat;-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent 100%);mask-image:linear-gradient(180deg,#000 55%,transparent 100%)}
-html[data-scr=home] .home2 .h2-brand h1,html[data-scr=home] .h2-city{text-shadow:0 1px 10px rgba(0,0,0,.55)}
+html[data-scr=home] .auth-title,html[data-scr=home] .auth-sub,html[data-scr=home] .home2 .h2-brand h1,html[data-scr=home] .h2-city{text-shadow:0 1px 10px rgba(0,0,0,.55)}
 html[data-scr=home] .h2-city{color:rgba(243,237,230,.85)}
 .msh-autob{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin:12px 0 4px;min-height:48px}
 .msh-autob svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -762,6 +762,8 @@ html[data-scr=tazkiya]{--bgimg:url(bg-tazkiya.jpg)}html[data-scr=aamal]{--bgimg:
 html[data-scr=taammulat]{--bgimg:url(bg-taammulat.jpg)}html[data-scr=ruhi]{--bgimg:url(bg-ruhi.jpg)}html[data-scr=quran]{--bgimg:url(bg-quran.jpg)}html[data-scr=quran] body::after{background-position:center 20%}
 html[data-scr=aamal] body::after{background-position:center 30%}
 html[data-scr=tazkiya] .hero h1,html[data-scr=aamal] .hero h1,html[data-scr=taammulat] .hero h1,html[data-scr=ruhi] .hero h1,html[data-scr=quran] .hero h1{text-shadow:0 2px 14px rgba(0,0,0,.6)}
+.auth,#app.shell{background:transparent!important}
+html[data-scr=home] .auth .auth-card,html[data-scr=home] .auth form{background:rgba(28,21,17,.78);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
 </style>
 
 </head>
@@ -5164,7 +5166,7 @@ function skyKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayer
   return h>=pt.fajr&&h<pt.sunrise+.5?'fajr':h>=pt.sunrise+.5&&h<pt.maghrib-.6?'day':h>=pt.maghrib-.6&&h<pt.isha?'maghrib':'night'}
 function render(){
   const app=document.getElementById('app'),nav0=document.querySelector('nav.tabs');
-  if(gated()){app.innerHTML=viewAuth();nav0.hidden=true;const rtl=LANG==='ar';app.dir=rtl?'rtl':'ltr';app.lang=LANG;document.documentElement.lang=LANG;document.documentElement.dir=rtl?'rtl':'ltr';i18nApply(app);return}
+  if(gated()){document.documentElement.dataset.scr='home';document.documentElement.dataset.sky=skyKind();app.innerHTML=viewAuth();nav0.hidden=true;const rtl=LANG==='ar';app.dir=rtl?'rtl':'ltr';app.lang=LANG;document.documentElement.lang=LANG;document.documentElement.dir=rtl?'rtl':'ltr';i18nApply(app);return}
   if(needOnboard()){app.innerHTML=viewOnboard();nav0.hidden=true;const rtl=LANG==='ar';app.dir=rtl?'rtl':'ltr';app.lang=LANG;document.documentElement.lang=LANG;document.documentElement.dir=rtl?'rtl':'ltr';i18nApply(app);return}
   if(screen==='admin'&&!isAdmin())screen='home';
   const keepV=isMedia(screen)?document.getElementById('mqVideo'):null;
