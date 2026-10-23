@@ -1,4 +1,4 @@
-const CACHE='murshid-1792714522',LIB='murshid-lib-v1',MEDIA='murshid-media-v1',QURAN='murshid-quran-v2';
+const CACHE='murshid-1792737489',LIB='murshid-lib-v1',MEDIA='murshid-media-v1',QURAN='murshid-quran-v2';
 const SHELL=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','maskable-512.png','apple-touch-icon.png','maiya.jpg','maiya-wide.jpg','madina.jpg','bg-tazkiya.jpg','bg-aamal.jpg','bg-taammulat.jpg','bg-ruhi.jpg','bg-quran.jpg','bg-method.jpg','bg-about.jpg'];
 const SDK='https://www.gstatic.com/firebasejs/10.12.2/';
 const LIBS=[SDK+'firebase-app.js',SDK+'firebase-auth.js',SDK+'firebase-firestore.js',SDK+'firebase-messaging.js',
@@ -18,6 +18,7 @@ self.addEventListener('fetch',e=>{
       return Promise.race([net.then(res=>res.ok?res:saved,()=>saved),new Promise(ok=>setTimeout(()=>ok(saved),3500))])})());return}
   if(u.origin===location.origin&&/\/[qm]\d\d\.bin$/.test(u.pathname)){e.respondWith((async()=>{const c=await caches.open(QURAN),hit=await c.match(u.pathname);if(hit)return hit;
     const res=await fetch(r);if(res.ok)await c.put(u.pathname,res.clone());return res})());return}
+  if(u.origin===location.origin&&u.pathname.includes('/audio/'))return; // long lessons stream straight from the network
   if(u.origin===location.origin&&/\.(mp4|mp3)$/.test(u.pathname)){e.respondWith((async()=>{const c=await caches.open(MEDIA);let res=await c.match(u.href);
     if(!res){try{res=await fetch(u.href);if(res.status===200)await c.put(u.href,res.clone())}catch(x){return new Response('',{status:504})}}
     const range=r.headers.get('range');if(!range||res.status!==200)return res;
