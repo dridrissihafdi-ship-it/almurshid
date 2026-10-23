@@ -3305,7 +3305,6 @@ function viewMethod(){
   <div class="tq-head"><h2>${D.title}</h2><p class="tq-sub">${D.sub}</p></div>
   <div class="tq-find"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="tqQ" type="search" autocomplete="off" placeholder="${esc(U.ph)}" value="${esc(tqQuery)}"><button class="tq-clr" data-tqclr="1" ${tqQuery?'':'hidden'} aria-label="${esc(U.clr)}">✕</button></div>
   <p class="tq-cnt" id="tqN" hidden></p>
-  <p class="tq-note">${D.note}</p>
   <div id="tqSecs">${D.secs.map((s,i)=>`<details class="tq-s" data-tqs="${i}"><summary>${s.t}</summary>${s.b.map(tqBlock).join('')}</details>`).join('')}</div>
   <div class="tq-ask" id="tqAskBox"><h3>${U.ask}</h3><textarea id="tqAsk" rows="3" placeholder="${esc(U.askp)}">${esc(tqAskDraft)}</textarea>
    <div class="btns"><button class="btn ok" data-tqask="1" ${tqAskBusy?'disabled':''}>${U.send}</button></div>
