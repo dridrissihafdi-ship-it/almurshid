@@ -3618,14 +3618,15 @@ const VIEWS={audio:()=>viewAudio(),sira:()=>viewAudio(SIRA_K),method:viewMethod,
 const TOPTABS=['aamal','tazkiya','quran','taammulat'];
 /* ---------- listening: lessons uploaded to the repo's audio/ folder ---------- */
 const AU_REPO='dridrissihafdi-ship-it/almurshid',AU_EXT=/\.(mp3|m4a|aac|ogg|oga|opus|wav)$/i;
-const SIRA_K='السيرة_النبوية_العطرة',auScr=()=>screen==='audio'||screen==='sira',auHome=p=>p&&p.startsWith('audio/'+SIRA_K+'/')?'sira':'audio';
+const SIRA_K='السيرة_النبوية_العطرة',auScr=()=>screen==='audio'||screen==='sira',auHome=p=>p&&auInv(p).startsWith('audio/'+SIRA_K+'/')?'sira':'audio';
 const AU=new Audio();AU.preload='metadata';
 let auCat=null,auBusy=false,auErr='',auOpen={},auLastSave=0;
 const auSt=()=>{S.au=S.au||{};const a=S.au;a.pos=a.pos||{};a.dur=a.dur||{};a.done=a.done||{};if(a.auto===undefined)a.auto=true;a.rate=a.rate||1;return a};
-const auClean=s=>s.replace(AU_EXT,'').replace(/[_]+/g,' ').replace(/^\s*\d+\s*[-.)ـ]\s*/,'').trim()||s;
+const auInv=s=>String(s).replace(/[\u200b-\u200f\u202a-\u202e\u2066-\u2069\ufeff]/g,'');
+const auClean=s=>{s=auInv(s);return s.replace(AU_EXT,'').replace(/[_]+/g,' ').trim().replace(/^\d+\s*[-.)ـ–]\s*/,'').replace(/^الحلقة\s+[^\s-–:]+\s*[-–:]\s*/,'').trim()||s}
 const auFmt=t=>{t=Math.max(0,Math.floor(t||0));const h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(s).padStart(2,'0')};
 function auBuild(paths){const by={};
-  paths.sort((a,b)=>a.localeCompare(b,'ar',{numeric:true})).forEach(p=>{const parts=p.split('/').slice(1),ser=parts.length>1?parts[0]:'',f=parts[parts.length-1];
+  paths.sort((a,b)=>auInv(a).replace(/\/\s+/g,'/').localeCompare(auInv(b).replace(/\/\s+/g,'/'),'ar',{numeric:true})).forEach(p=>{const parts=p.split('/').slice(1),ser=parts.length>1?auInv(parts[0]).trim():'',f=parts[parts.length-1];
     (by[ser]=by[ser]||[]).push({p,t:auClean(f),s:ser?ser.replace(/_+/g,' '):'دروس متفرقة'})});
   return Object.keys(by).sort((a,b)=>(a===''?1:b===''?-1:a.localeCompare(b,'ar',{numeric:true}))).map(k=>({n:k?k.replace(/_+/g,' '):'دروس متفرقة',k,items:by[k]}))}
 async function auLoad(force){
