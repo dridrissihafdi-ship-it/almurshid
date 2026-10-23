@@ -3624,6 +3624,8 @@ const TOPTABS=['aamal','tazkiya','quran','taammulat'];
 /* ---------- listening: lessons uploaded to the repo's audio/ folder ---------- */
 const AU_REPO='dridrissihafdi-ship-it/almurshid',AU_EXT=/\.(mp3|m4a|aac|ogg|oga|opus|wav)$/i;
 const SIRA_K='السيرة_النبوية_العطرة',auScr=()=>screen==='audio'||screen==='sira',auHome=p=>'sira';
+/* title corrections without re-uploading the file: series → episode number → title */
+const AU_T={'السيرة_النبوية_العطرة':{1:'ولادته ونشأته صلى الله عليه وسلم'}};
 const AU=new Audio();AU.preload='metadata';
 let auCat=null,auBusy=false,auErr='',auOpen={},auLastSave=0;
 const auSt=()=>{S.au=S.au||{};const a=S.au;a.pos=a.pos||{};a.dur=a.dur||{};a.done=a.done||{};if(a.auto===undefined)a.auto=true;a.rate=a.rate||1;return a};
@@ -3632,15 +3634,16 @@ const auClean=s=>{s=auInv(s);return s.replace(AU_EXT,'').replace(/[_]+/g,' ').tr
 const auFmt=t=>{t=Math.max(0,Math.floor(t||0));const h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(s).padStart(2,'0')};
 function auBuild(paths){const by={};
   paths.sort((a,b)=>auInv(a).replace(/\/\s+/g,'/').localeCompare(auInv(b).replace(/\/\s+/g,'/'),'ar',{numeric:true})).forEach(p=>{const parts=p.split('/').slice(1),ser=parts.length>1?auInv(parts[0]).trim():'',f=parts[parts.length-1];
-    (by[ser]=by[ser]||[]).push({p,t:auClean(f),s:ser?ser.replace(/_+/g,' '):'دروس متفرقة'})});
+    const num=+((auInv(f).trim().match(/^\d+/)||[])[0]||0),ov=(AU_T[ser]||{})[num];
+    (by[ser]=by[ser]||[]).push({p,t:ov||auClean(f),s:ser?ser.replace(/_+/g,' '):'دروس متفرقة'})});
   return Object.keys(by).sort((a,b)=>(a===''?1:b===''?-1:a.localeCompare(b,'ar',{numeric:true}))).map(k=>({n:k?k.replace(/_+/g,' '):'دروس متفرقة',k,items:by[k]}))}
 async function auLoad(force){
-  if(!auCat){try{const c=JSON.parse(localStorage.getItem('murshid-au-cat')||'null');if(c){auCat=c.cat;if(!force&&Date.now()-c.at<20*60e3)return}}catch(e){}}
+  if(!auCat){try{const c=JSON.parse(localStorage.getItem('murshid-au-cat2')||'null');if(c){auCat=c.cat;if(!force&&Date.now()-c.at<20*60e3)return}}catch(e){}}
   if(auBusy)return;auBusy=true;auErr='';if(auScr())render();
   try{const r=await fetch(`https://api.github.com/repos/${AU_REPO}/git/trees/main?recursive=1`,{cache:'no-store'});
     if(!r.ok)throw new Error(r.status);const j=await r.json();
     auCat=auBuild((j.tree||[]).filter(x=>x.type==='blob'&&/^audio\//.test(x.path)&&AU_EXT.test(x.path)).map(x=>x.path));
-    lsSet('murshid-au-cat',JSON.stringify({at:Date.now(),cat:auCat}))}
+    lsSet('murshid-au-cat2',JSON.stringify({at:Date.now(),cat:auCat}))}
   catch(e){auErr=navigator.onLine===false?'لا يوجد اتصال بالإنترنت.':'تعذّر تحميل قائمة الدروس. أعد المحاولة بعد قليل.'}
   auBusy=false;if(auScr())render()}
 const auAll=()=>(auCat||[]).flatMap(g=>g.items);
@@ -3677,7 +3680,7 @@ const AU_IC={play:'<svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="cu
  prev:'<svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM19 5v14L9 12z" fill="currentColor"/></svg>',next:'<svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM5 5v14l10-7z" fill="currentColor"/></svg>',
  head:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 30v-6a16 16 0 0 1 32 0v6"/><rect x="6" y="28" width="8" height="12" rx="3"/><rect x="34" y="28" width="8" height="12" rx="3"/></svg>'};
 function auPct(p){const a=auSt();if(a.done[p]&&!a.pos[p])return 100;const d=a.dur[p];return d?Math.min(100,100*(a.pos[p]||0)/d):0}
-function viewAudio(only){if(!auCat||Date.now()-((JSON.parse(localStorage.getItem('murshid-au-cat')||'{}').at)||0)>20*60e3)setTimeout(()=>auLoad(false),0);
+function viewAudio(only){if(!auCat||Date.now()-((JSON.parse(localStorage.getItem('murshid-au-cat2')||'{}').at)||0)>20*60e3)setTimeout(()=>auLoad(false),0);
   const a=auSt(),cat=(auCat||[]).filter(g=>only?g.k===only:g.k!==SIRA_K),cur0=a.last?auFind(a.last)||{p:a.last,t:a.lastT||'',s:a.lastS||''}:null,cur=cur0&&auHome(cur0.p)===(only?'sira':'audio')?cur0:null,playing=!!AU.src&&!AU.paused;
   const dur=AU.src&&AU.duration&&isFinite(AU.duration)?AU.duration:(cur&&a.dur[cur.p])||0,pos=AU.src?AU.currentTime:(cur&&a.pos[cur.p])||0;
   const now=cur?`<div class="box pad au-now"><p class="au-ser">${esc(cur.s||'')}</p><h2 class="au-tt">${esc(cur.t)}</h2>
