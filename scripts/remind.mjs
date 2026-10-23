@@ -54,11 +54,11 @@ const TXT = {
   muhasaba: {ar: ['محاسبة اليوم', 'قبل النوم: سجّل يومك في التزكية، وحاسب نفسك.'], en: ['Daily self-review', 'Before sleep: log your day and review yourself.'], fr: ['Bilan du jour', 'Avant de dormir : enregistrez votre journée et faites votre bilan.'], es: ['Repaso del día', 'Antes de dormir: registra tu día y haz tu repaso.'], ru: ['Итог дня', 'Перед сном: отметьте день и подведите итог.']},
 };
 const URL_APP = 'https://dridrissihafdi-ship-it.github.io/almurshid/', URL_OLD = URL_APP;
-/* the 100 questions (qa.json, published with the app): one after Fajr, one after Isha */
+/* the 200 questions (qa.json, published with the app): one after Fajr, one after Isha */
 let QA = null;
 for (const base of [URL_APP, URL_OLD]) { try { QA = await (await fetch(base + 'qa.json', {cache: 'no-store'})).json(); break; } catch (e) { console.warn('qa.json', base, e.message); } }
 const QA_T = {ar: 'سؤال اليوم · الطريق إلى رضوان الله', en: 'Question of the day', fr: 'Question du jour', es: 'Pregunta del día', ru: 'Вопрос дня'};
-const qaIdx = date => { const x = Date.parse(date + 'T00:00:00Z') / 864e5; return [(x * 2) % 100, (x * 2 + 1) % 100]; };
+const qaIdx = date => { const x = Date.parse(date + 'T00:00:00Z') / 864e5; const N = QA ? QA.qa.length : 200; return [(x * 2) % N, (x * 2 + 1) % N]; };
 
 const now = new Date();
 /* Firestore sometimes answers slowly or drops a request: try again before giving up */
