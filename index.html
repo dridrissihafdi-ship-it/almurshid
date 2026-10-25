@@ -3174,7 +3174,7 @@ function viewIjtihad(){const W=ijWeek(0),W1=ijWeek(1),PN=Object.fromEntries(FIVE
   </section>`}
 
 function viewRuhi(){const t=RUHI_TABS.some(x=>x[0]===ruhiTab)?ruhiTab:'muraqabat';
-  return `<div class="rtabs" role="tablist">${RUHI_TABS.map(([k,l])=>`<button role="tab" aria-selected="${k===t}" class="${k===t?'on':''}" data-rtab="${k}">${l}</button>`).join('')}</div>${VIEWS[t]()}${t==='muraqabat'?`<div class="sh ij-sec" id="ijSec"><h2>مرآة أعمالك</h2></div>${viewIjtihad()}`:''}`}
+  return `<div class="rtabs" role="tablist">${RUHI_TABS.map(([k,l])=>`<button role="tab" aria-selected="${k===t}" class="${k===t?'on':''}" data-rtab="${k}">${l}</button>`).join('')}</div>${VIEWS[t]()}${t==='week'?`<div class="sh ij-sec" id="ijSec"><h2>مرآة أعمالك</h2></div>${viewIjtihad()}`:''}`}
 /* ---------- slip analysis ---------- */
 const SLIP_CATS=[
  {id:'majlis',t:'المجالس والصحبة',w:['مجلس','مجالس','جلسه','جلسة','اصدقاء','اصحاب','صديق','زملاء','زميل','صحبه','رفقه','رفاق','friends','amis']},
@@ -4004,7 +4004,7 @@ function render(){
   auUi();
   const bd=document.getElementById('badge');if(bd)bd.hidden=!(pendingOrgans().length||prepPendingToday()||!lights().halo);
 }
-function go(s){if(s==='ijtihad'){ruhiTab='muraqabat';goRaw('ruhi');setTimeout(()=>{const e=document.getElementById('ijSec');if(e)e.scrollIntoView({block:'start',behavior:'smooth'})},120);return}if(s==='sura'||s==='muraqabat'||s==='tahlil'){ruhiTab=s;s='ruhi'}if(s==='muhasaba'){tzTab='mh';s='tazkiya'}goRaw(s)}
+function go(s){if(s==='ijtihad'){ruhiTab='week';wkOff=0;goRaw('ruhi');setTimeout(()=>{const e=document.getElementById('ijSec');if(e)e.scrollIntoView({block:'start',behavior:'smooth'})},120);return}if(s==='sura'||s==='muraqabat'||s==='tahlil'){ruhiTab=s;s='ruhi'}if(s==='muhasaba'){tzTab='mh';s='tazkiya'}goRaw(s)}
 function goRaw(s){if(s!=='method'&&tts.on)ttsStop();if(s!=='mushaf')mshAuto=false;if(s!=='qalb'){qbShowRes=false;qbRetest=null}if(s==='aamal'&&screen!=='aamal')aDate=null;if(s==='tazkiya'&&!['tazkiya','organ'].includes(screen))tzDate=null;if(s!==screen||!isMedia(s)){const v=document.getElementById('mqVideo');if(v&&!v.paused){v.pause();keepAwake(false)}}if(s!=='dhikr_run'&&run&&!run.done&&screen==='dhikr_run'){/* keep running in background */}screen=s;lightConfirm=null;confirmFor=null;confirmReset=false;redoFor=null;render();SCR().scrollTo(0,0);adhAwake()}
 /* keep the screen on while reading the morning / evening adhkar */
 function adhAwake(){const adh=screen==='adh_sabah'||screen==='adh_masa'||screen==='mushaf'||screen==='subha',v=document.getElementById('mqVideo');
