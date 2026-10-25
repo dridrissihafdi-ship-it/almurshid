@@ -1,4 +1,4 @@
-const CACHE='murshid-1792960804',LIB='murshid-lib-v1',MEDIA='murshid-media-v1',QURAN='murshid-quran-v2';
+const CACHE='murshid-1792961486',LIB='murshid-lib-v1',MEDIA='murshid-media-v1',QURAN='murshid-quran-v2';
 const SHELL=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','maskable-512.png','apple-touch-icon.png','maiya.jpg','maiya-wide.jpg','madina.jpg','bg-tazkiya.jpg','bg-aamal.jpg','bg-taammulat.jpg','bg-ruhi.jpg','bg-quran.jpg','bg-method.jpg','bg-about.jpg'];
 const SDK='https://www.gstatic.com/firebasejs/10.12.2/';
 const LIBS=[SDK+'firebase-app.js',SDK+'firebase-auth.js',SDK+'firebase-firestore.js',SDK+'firebase-messaging.js',
