@@ -11,7 +11,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="المرشد">
-<meta name="theme-color" content="#17120F">
+<meta name="theme-color" content="#2A201A">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>المرشد</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -931,6 +931,16 @@ html[data-scr=aamal] body::after{background-position:center 30%}
 html[data-scr=tazkiya] .hero h1,html[data-scr=aamal] .hero h1,html[data-scr=taammulat] .hero h1,html[data-scr=ruhi] .hero h1,html[data-scr=quran] .hero h1,html[data-scr=method] .hero h1,html[data-scr=about] .hero h1,html[data-scr=audio] .hero h1,html[data-scr=sira] .hero h1,html[data-scr=qiyama] .hero h1{text-shadow:0 2px 14px rgba(0,0,0,.6)}
 .auth,#app.shell{background:transparent!important}
 html[data-scr=home] .auth .auth-card,html[data-scr=home] .auth form{background:rgba(28,21,17,.78);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+/* lighter palette (A): same photos, lifted overlays and warmer browns */
+:root{--page:#2B211B;--bg:#2B211B;--sheet:#2B211B;--card:#3B2F27;--chip:#4A3B31;--card-line:rgba(255,255,255,.12);--muted:#C4B8AC;--teal-deep:#4A3628}
+html,html[data-sky=day]{--sky:linear-gradient(180deg,#2A201A 0%,#3B2D24 55%,#523D30 100%);background:#2A201A}
+html[data-sky=fajr]{--sky:linear-gradient(180deg,#1E2733 0%,#2F3C4B 55%,#4D5A6B 100%);background:#1E2733}
+html[data-sky=maghrib]{--sky:linear-gradient(180deg,#2E1F1A 0%,#4E3127 55%,#784633 100%);background:#2E1F1A}
+body::before{background:radial-gradient(80% 50% at 12% -5%,rgba(230,180,120,.32),transparent 70%)}
+nav.tabs{background:rgba(44,34,28,.9)!important}.au-mini{background:rgba(62,48,39,.95)!important}
+html[data-scr=quran] body::after{background-position:center 20%}html[data-scr=aamal] body::after{background-position:center 30%}
+html[data-scr=home] body::after{height:86vh;background:linear-gradient(180deg,rgba(43,33,27,.10) 0%,rgba(43,33,27,.22) 30%,rgba(43,33,27,.48) 62%,rgba(43,33,27,.72) 100%),url(madina.jpg) center 20%/cover no-repeat}
+html[data-scr=tazkiya] body::after,html[data-scr=aamal] body::after,html[data-scr=taammulat] body::after,html[data-scr=ruhi] body::after,html[data-scr=quran] body::after,html[data-scr=method] body::after,html[data-scr=about] body::after,html[data-scr=audio] body::after,html[data-scr=sira] body::after,html[data-scr=qiyama] body::after{height:80vh;background:linear-gradient(180deg,rgba(43,33,27,.18) 0%,rgba(43,33,27,.32) 32%,rgba(43,33,27,.60) 62%,rgba(43,33,27,.82) 100%),var(--bgimg) center 25%/cover no-repeat}
 </style>
 
 </head>
