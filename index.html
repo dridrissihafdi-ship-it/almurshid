@@ -941,6 +941,14 @@ nav.tabs{background:rgba(44,34,28,.9)!important}.au-mini{background:rgba(62,48,3
 html[data-scr=quran] body::after{background-position:center 20%}html[data-scr=aamal] body::after{background-position:center 30%}
 html[data-scr=home] body::after{height:86vh;background:linear-gradient(180deg,rgba(43,33,27,.10) 0%,rgba(43,33,27,.22) 30%,rgba(43,33,27,.48) 62%,rgba(43,33,27,.72) 100%),url(madina.jpg) center 20%/cover no-repeat}
 html[data-scr=tazkiya] body::after,html[data-scr=aamal] body::after,html[data-scr=taammulat] body::after,html[data-scr=ruhi] body::after,html[data-scr=quran] body::after,html[data-scr=method] body::after,html[data-scr=about] body::after,html[data-scr=audio] body::after,html[data-scr=sira] body::after,html[data-scr=qiyama] body::after{height:80vh;background:linear-gradient(180deg,rgba(43,33,27,.18) 0%,rgba(43,33,27,.32) 32%,rgba(43,33,27,.60) 62%,rgba(43,33,27,.82) 100%),var(--bgimg) center 25%/cover no-repeat}
+/* iOS: the page itself never scrolls; #app is the scroller, so the fixed tab bar cannot drift */
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+#app.shell{position:fixed;top:0;bottom:0;left:0;right:0;width:100%;max-width:520px;margin-inline:auto;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;z-index:1}
+#app.shell>*{flex-shrink:0}
+/* language switcher: readable over the photo */
+.langs{background:rgba(20,15,12,.58);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14);box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.langs .lang{color:rgba(243,237,230,.92);font-weight:600}
+.langs .lang.on{background:var(--gold);color:#2A1F19}
 </style>
 
 </head>
@@ -2527,7 +2535,7 @@ async function authClick(d){
   return false;
 }
 
-const SCR=()=>document.scrollingElement||document.documentElement;
+const SCR=()=>document.getElementById('app')||document.scrollingElement||document.documentElement;
 /* pinch with two fingers anywhere (except the mushaf page, which zooms its image) to enlarge or shrink the content */
 let pz=null;const pzD=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);
 function pzEl(){return document.querySelector('main.sheet')}
@@ -2546,7 +2554,7 @@ document.addEventListener('touchend',pzEnd);document.addEventListener('touchcanc
 
 /* iPhone sometimes paints the fixed tab bar in the wrong place after scrolling or returning to the app: nudge it back */
 function navFix(){const n=document.querySelector('nav.tabs');if(!n)return;n.style.position='relative';void n.offsetHeight;n.style.position=''}
-let navT=null;addEventListener('scroll',()=>{clearTimeout(navT);navT=setTimeout(navFix,180)},{passive:true});
+let navT=null;document.addEventListener('scroll',()=>{clearTimeout(navT);navT=setTimeout(navFix,180)},{passive:true,capture:true});
 ['resize','orientationchange','pageshow','focus'].forEach(ev=>addEventListener(ev,()=>setTimeout(navFix,120)));
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')setTimeout(navFix,150)});
 if(window.visualViewport)visualViewport.addEventListener('resize',()=>setTimeout(navFix,120));
