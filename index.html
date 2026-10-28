@@ -4013,7 +4013,6 @@ function viewAdhkar(kind){
     <button class="btn small" data-adhsize="-1" aria-label="تصغير الخط">أ−</button><button class="btn small" data-adhsize="1" aria-label="تكبير الخط">أ+</button></div>
    ${inWin?'':`<p class="tq-note">${kind==='sabah'?'وقت أذكار الصباح من الفجر إلى المغرب':'وقت أذكار المساء من المغرب إلى الفجر'}. يُسجَّل التأكيد الآن في الأعمال، لكن الهالة لا تظهر إلا إذا أكّدتها في وقتها.</p>`}
    ${adBar(kind)}
-   ${kind==='sabah'?'<p class="tq-note adp-note">الأذكار السبعة التي لفظها «أصبحنا» و«أصبحت» بصوت آلي (قراءة حاسوبية)، وليست بصوت الشيخ أحمد دباغ، حتى يتوفّر تسجيلها.</p>':''}
    ${sec('الاستهلال',[list[0]])}
    ${sec('أولًا: من القرآن الكريم',list.slice(1,1+ADHKAR.quran.length))}
    ${sec('ثانيًا: من السنة النبوية ('+(kind==='sabah'?'صباحًا':'مساءً')+')',list.slice(1+ADHKAR.quran.length))}
