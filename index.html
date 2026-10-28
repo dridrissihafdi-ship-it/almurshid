@@ -3969,11 +3969,11 @@ function adMeta(){if(!('mediaSession' in navigator)||!ADP.on)return;try{navigato
 function adPlay(kind,i){const list=adhList(kind);while(i<list.length&&!adhAu(kind,i))i++;if(i>=list.length)return adStop();
   try{if(AU.src&&!AU.paused){auStore(true);AU.pause()}}catch(e){}try{if(tts.on)ttsStop()}catch(e){}
   ADP.kind=kind;ADP.i=i;ADP.on=true;const u='adhkar/'+adhAu(kind,i)+'.mp3';
-  if(ADA.getAttribute('src')!==u){ADA.src=u}else{try{ADA.currentTime=0}catch(e){}}
+  if(ADA.getAttribute('src')!==u){ADA.src=u}
   ADA.defaultPlaybackRate=adRate;ADA.playbackRate=adRate;ADA.muted=adMute;try{ADA.preservesPitch=true;ADA.webkitPreservesPitch=true}catch(e){}
   const pr=ADA.play();if(pr&&pr.catch)pr.catch(()=>{});adMeta();adUi(true)}
 function adStop(){try{ADA.pause()}catch(e){}ADP.on=false;ADP.i=-1;adUi()}
-function adToggle(kind){if(ADP.on&&ADP.kind===kind){if(ADA.paused){if(ADA.ended||(ADA.duration&&ADA.currentTime>=ADA.duration-0.1))ADA.currentTime=0;ADA.playbackRate=adRate;ADA.play().catch(()=>{})}else ADA.pause();return adUi()}
+function adToggle(kind){if(ADP.on&&ADP.kind===kind){if(ADA.paused){ADA.playbackRate=adRate;ADA.play().catch(()=>{})}else ADA.pause();return adUi()}
   const st=adhState(kind),list=adhList(kind);let i=list.findIndex((a,j)=>st[j]<a.n&&adhAu(kind,j));adPlay(kind,i<0?0:i)}
 function adStep(kind,d){if(!(ADP.on&&ADP.kind===kind))return adPlay(kind,0);let i=ADP.i+d;if(d<0){if(ADA.currentTime>4)i=ADP.i;while(i>0&&!adhAu(kind,i))i--}adPlay(kind,Math.max(0,i))}
 function adUi(scroll){const kind=screen.startsWith('adh_')?screen.slice(4):null,on=ADP.on&&ADP.kind===kind,pl=on&&!ADA.paused;
@@ -3983,7 +3983,7 @@ function adUi(scroll){const kind=screen.startsWith('adh_')?screen.slice(4):null,
   const t=document.getElementById('adpT'),a=on?adhList(kind)[ADP.i]:null,raw=on&&!a.s&&ADP.i!==0;t.textContent=on?(raw?adTitle(kind,ADP.i):Tx(adTitle(kind,ADP.i))):Tx('استمع للأذكار');t.classList.toggle('notr',raw);const vv=document.getElementById('adpV');if(vv)vv.textContent=Tx(on&&adTts(kind,ADP.i)?'صوت آلي (قراءة حاسوبية)':'بصوت الشيخ أحمد دباغ');
   document.getElementById('adpR').textContent=adRateTx(adRate);const mu=document.getElementById('adpMu');mu.innerHTML=adMute?AD_IC.mute:AD_IC.vol;mu.classList.toggle('on',adMute);mu.setAttribute('aria-pressed',adMute);
   if(scroll&&on){const w=document.querySelector(`.adh-w[data-adw="${ADP.i}"]`);if(w){const r=w.getBoundingClientRect();if(r.top<90||r.top>innerHeight*.55)w.scrollIntoView({behavior:'smooth',block:'start'})}}}
-ADA.addEventListener('ended',()=>adUi()); // stays on this dhikr: the seeker taps play (or counts) to hear it again
+ADA.addEventListener('ended',()=>{if(!ADP.on)return;const n=ADP.i+1,L=adhList(ADP.kind);if(n<L.length)adPlay(ADP.kind,n);else{ADP.on=false;ADP.i=-1;adUi()}});
 ['play','pause'].forEach(ev=>ADA.addEventListener(ev,()=>adUi()));
 ADA.addEventListener('timeupdate',()=>{const b=document.getElementById('adpBar');if(b)b.style.width=(ADA.duration?100*ADA.currentTime/ADA.duration:0)+'%'});
 function adClick(d){const kind=screen.startsWith('adh_')?screen.slice(4):null;if(!kind)return false;
@@ -4393,7 +4393,7 @@ document.addEventListener('click',e=>{
     Object.assign(o,{phase:k,days:0,last:null,today:null,broken:false,attempt:1,attemptStart:TODAY,cycle:(o.cycle||1)+1});orgBase(o,k);
     redoFor=null;save();return render()}
   if(d.adh!==undefined&&screen.startsWith('adh_')){const k=screen.slice(4),st=adhState(k),a=adhList(k)[+d.adh];
-    if(st[+d.adh]<a.n){st[+d.adh]++;save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);if(ADP.on&&ADP.kind===k&&adhAu(k,+d.adh))adPlay(k,+d.adh);
+    if(st[+d.adh]<a.n){st[+d.adh]++;save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);
       if(st[+d.adh]>=a.n){const nx=document.querySelector('.adh:not(.full)');if(nx&&nx.getBoundingClientRect().top>window.innerHeight*.6)nx.scrollIntoView({behavior:'smooth',block:'center'})}}return}
   if(d.adhsize){adhSize=Math.max(16,Math.min(30,adhSize+2*(+d.adhsize)));try{localStorage.setItem('murshid-adh-size',adhSize)}catch(x){};const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(d.adhreset){const k=screen.slice(4);dayLog().ad[k]=adhList(k).map(()=>0);save();return render()}
