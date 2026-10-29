@@ -1,0 +1,37 @@
+# Copies the app to the hosting over SFTP after every upload to GitHub.
+# Needs repository secrets: SFTP_HOST, SFTP_USER, SFTP_PASS, SFTP_DIR (and optionally SFTP_PORT).
+name: deploy-sftp
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+concurrency: deploy-sftp
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: Upload over SFTP
+        env:
+          HOST: ${{ secrets.SFTP_HOST }}
+          USER: ${{ secrets.SFTP_USER }}
+          PASS: ${{ secrets.SFTP_PASS }}
+          DIR:  ${{ secrets.SFTP_DIR }}
+          PORT: ${{ secrets.SFTP_PORT }}
+        run: |
+          export LFTP_PASSWORD="$PASS"
+          lftp --env-password -u "$USER" -p "${PORT:-22}" "sftp://$HOST" <<LFTP
+          set sftp:auto-confirm yes
+          set net:max-retries 3
+          set net:timeout 30
+          mkdir -p -f "$DIR"
+          cd "$DIR"
+          mirror -R --ignore-time --parallel=4 --verbose \
+            --exclude-glob .git/ --exclude-glob .github/ --exclude-glob scripts/ \
+            --exclude-glob node_modules/ --exclude-glob '*.md' --exclude-glob '*.zip' ./ ./
+          put -O . index.html
+          put -O . sw.js
+          bye
+          LFTP
