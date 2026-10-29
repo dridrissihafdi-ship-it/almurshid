@@ -21,10 +21,15 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
       - name: Check secrets
         run: |
+          # tidy values pasted with spaces or line breaks
+          trim(){ printf '%s' "$1" | tr -d '\r\n' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'; }
+          HOST=$(trim "$HOST"); USER=$(trim "$USER"); DIR=$(trim "$DIR")
+          PORT=$(printf '%s' "$PORT" | sed 'y/٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹/01234567890123456789/' | tr -cd '0-9'); [ -n "$PORT" ] || PORT=22
+          { echo "HOST=$HOST"; echo "USER=$USER"; echo "DIR=$DIR"; echo "PORT=$PORT"; } >> "$GITHUB_ENV"
           for v in HOST USER LFTP_PASSWORD DIR; do
             if [ -z "${!v}" ]; then echo "::error::Missing secret for $v"; exit 1; fi
           done
-          echo "host=$HOST port=${PORT:-22} user=$USER dir=$DIR"
+          echo "port digits: ${#PORT}, dir starts with: ${DIR:0:1}"
       - name: Test connection
         run: |
           cat > /tmp/test.lftp <<LFTP
