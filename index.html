@@ -12,9 +12,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="المرشد">
 <meta name="theme-color" content="#2A201A">
-<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}/* iPhone zooms the page in when a field under 16px gets focus, and stays zoomed: keep every field at 16px on touch screens */
-@media (pointer:coarse){input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select{font-size:16px!important}}
-</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>المرشد</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Amiri&family=Amiri+Quran&display=swap">
@@ -752,7 +750,6 @@ nav.tabs button .badge{position:absolute;top:13px;left:calc(50% + 4px);width:10p
 .um-in{margin:0 0 10px}
 .um-vid{background:var(--card);border:1px solid var(--card-line);border-radius:20px;padding:12px;margin-bottom:14px}
 .um-vt{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:2px 4px 10px;color:var(--ink)}
-.tw-vid video{max-width:none!important;max-height:none!important;aspect-ratio:1280/700!important}
 .um-vid video{display:block;width:100%;max-width:300px;max-height:52vh;aspect-ratio:720/1232;margin:0 auto;border-radius:14px;background:#000;object-fit:contain}
 .um-dots{display:flex;gap:6px;justify-content:space-between;margin-bottom:12px}.um-dots button{flex:1;height:34px;border-radius:10px;border:1px solid var(--card-line);background:var(--card);color:var(--muted);font:600 13px var(--f);cursor:pointer;padding:0}
 .um-dots button.past{background:color-mix(in srgb,var(--green) 18%,var(--card));color:var(--ink)}.um-dots button.on{background:var(--teal);border-color:var(--teal);color:#fff}
@@ -948,12 +945,6 @@ html[data-scr=tazkiya] body::after,html[data-scr=aamal] body::after,html[data-sc
 html,body{height:100%;overflow:hidden;overscroll-behavior:none}
 #app.shell{position:fixed;top:0;bottom:0;left:0;right:0;width:100%;max-width:520px;margin-inline:auto;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;z-index:1}
 #app.shell>*{flex-shrink:0}
-/* phone turned sideways: the page and its photo stretch to the whole screen */
-@media (orientation:landscape) and (max-height:560px){
- #app.shell{max-width:none}
- html body::after{bottom:0!important;height:auto!important}
- nav.tabs{max-width:640px}
-}
 /* language switcher: readable over the photo */
 .langs{background:rgba(20,15,12,.30);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(255,255,255,.14);box-shadow:0 4px 14px rgba(0,0,0,.25)}
 .langs .lang{color:rgba(243,237,230,.95);font-weight:600;text-shadow:0 1px 5px rgba(0,0,0,.55)}.langs .lang.on{text-shadow:none}
@@ -1048,17 +1039,6 @@ const ADHKAR={"open": {"k": "d", "t": "اللَّهُمَّ صَلِّ عَلَ�
 /* ---------- i18n: exact strings  [en, fr, es, ru] ---------- */
 const I18N_D={
 "اضغط على «العقيدة» أو «الفقه» في الصورة لفتح دروسهما.":["Tap “Creed” or “Jurisprudence” on the picture to open their lessons.", "Touchez « La croyance » ou « La jurisprudence » sur l’image pour ouvrir leurs leçons.", "Toca «El credo» o «La jurisprudencia» en la imagen para abrir sus lecciones.", "Нажмите «Вероубеждение» или «Фикх» на картинке, чтобы открыть уроки."],
-"اضغط على اللافتات المضيئة في الصورة لفتحها.":["Tap the glowing signs on the picture to open them.", "Touchez les panneaux lumineux sur l’image pour les ouvrir.", "Toca los letreros iluminados en la imagen para abrirlos.", "Нажмите на светящиеся таблички на картинке, чтобы открыть их."],
-"اضغط على «العقيدة» أو «الفقه» أو «التوبة» أو «المجاهدة» في الصورة لفتحها.":["Tap “Creed”, “Jurisprudence”, “Repentance” or “Striving” on the picture to open them.", "Touchez « La croyance », « La jurisprudence », « Le repentir » ou « L’effort spirituel » sur l’image pour les ouvrir.", "Toca «El credo», «La jurisprudencia», «El arrepentimiento» o «El esfuerzo espiritual» en la imagen para abrirlos.", "Нажмите «Вероубеждение», «Фикх», «Покаяние» или «Усердие» на картинке, чтобы открыть их."],
-"فيديو: التحليق الروحي، تمنٍّ وإرادة":["Video: spiritual flight, wishing and will", "Vidéo : l’envol spirituel, souhait et volonté", "Vídeo: el vuelo espiritual, deseo y voluntad", "Видео: духовный полёт, желание и воля"],
-"التحليق الروحي، تمنٍّ وإرادة":["Spiritual flight, wishing and will", "L’envol spirituel, souhait et volonté", "El vuelo espiritual, deseo y voluntad", "Духовный полёт, желание и воля"],
-"٨ دقائق":["8 min", "8 min", "8 min", "8 мин"],
-"يومك في تطهير الجوارح ومحاسبتها":["Your day of purifying and reckoning the limbs", "Votre journée de purification et de bilan des membres", "Tu día de purificación y examen de los miembros", "Ваш день очищения и отчёта органов"],
-"المجاهدة بذلُ الجهد في حمل النفس على ما يحبه الله، فالتمني رغبةٌ بلا ثمن، والإرادة عزمٌ يدفع الثمن.":["Striving is spending effort to bring the self to what Allah loves: wishing is desire without a price, will is resolve that pays it.", "L’effort spirituel consiste à porter l’âme vers ce qu’Allah aime : le souhait est un désir sans prix, la volonté une résolution qui le paie.", "El esfuerzo espiritual es llevar el alma hacia lo que Allah ama: el deseo es anhelo sin precio, la voluntad es la determinación que lo paga.", "Усердие — это труд, чтобы склонить душу к тому, что любит Аллах: желание — стремление без платы, воля — решимость, которая платит."],
-"فيديو: مخطط التوبة وإعادة التأهيل":["Video: the plan of repentance and rehabilitation", "Vidéo : le plan du repentir et de la réhabilitation", "Vídeo: el plan del arrepentimiento y la rehabilitación", "Видео: план покаяния и восстановления"],
-"مخطط التوبة وإعادة التأهيل":["The plan of repentance and rehabilitation", "Le plan du repentir et de la réhabilitation", "El plan del arrepentimiento y la rehabilitación", "План покаяния и восстановления"],
-"٦ دقائق":["6 min", "6 min", "6 min", "6 мин"],
-"التوبة أول منازل السالك: ندمٌ على ما فات، وإقلاعٌ عن الذنب، وعزمٌ على ألا يعود، وردٌّ للحقوق إلى أهلها.":["Repentance is the seeker’s first station: regret for what has passed, quitting the sin, resolving never to return, and giving rights back to their owners.", "Le repentir est la première station du cheminant : regretter le passé, cesser le péché, résoudre de ne pas y revenir et rendre les droits à leurs ayants droit.", "El arrepentimiento es la primera estación del caminante: lamentar lo pasado, abandonar el pecado, decidir no volver y devolver los derechos a sus dueños.", "Покаяние — первая стоянка идущего: сожаление о прошлом, отказ от греха, решимость не возвращаться и возврат прав их владельцам."],
 "الفقه المالكي":["Mālikī jurisprudence", "La jurisprudence malikite", "La jurisprudencia malikí", "Маликитский фикх"],
 "دروس مرئية في الفقه المالكي":["Video lessons in Mālikī jurisprudence", "Leçons vidéo de fiqh malikite", "Lecciones en vídeo de fiqh malikí", "Видеоуроки по маликитскому фикху"],
 "الشيخ نايف آل الشيخ مبارك":["Sheikh Nayef Al ash-Sheikh Mubarak", "Cheikh Nayef Al ash-Cheikh Moubarak", "Jeque Nayef Al ash-Sheij Mubarak", "Шейх Наиф Аль аш-Шейх Мубарак"],
@@ -2531,8 +2511,16 @@ async function authSubmit(){
     if(pass.length<6){AUTH.err='كلمة المرور قصيرة: ستة أحرف على الأقل.';return render()}
     if(pass!==pass2){AUTH.err='كلمتا المرور غير متطابقتين.';return render()}
     pendingName=name;AUTH.busy=true;render();try{await FB.signUp(email,pass,name)}catch(e){AUTH.err=authErr(e);AUTH.busy=false;render()}return}
+  if(AUTH.mode!=='up'&&email.toLowerCase()==='test'&&pass==='test')return testSignIn();
   AUTH.busy=true;render();try{await FB.signIn(email,pass)}catch(e){AUTH.err=authErr(e);AUTH.busy=false;render()}
 }
+/* shared trial account: "test" / "test" in the sign-in form maps to a real Firebase account (created on first use) */
+const TEST_ACCT={email:'test.almurshid@example.com',pass:'murshid-test-2026'};
+async function testSignIn(){AUTH.busy=true;render();
+  try{await FB.signIn(TEST_ACCT.email,TEST_ACCT.pass)}
+  catch(e){const c=(e&&e.code)||'';
+    if(/user-not-found|invalid-credential|invalid-login/.test(c)){pendingName='حساب تجريبي';try{await FB.signUp(TEST_ACCT.email,TEST_ACCT.pass,'حساب تجريبي')}catch(e2){AUTH.err=authErr(e2);AUTH.busy=false;render()}}
+    else{AUTH.err=authErr(e);AUTH.busy=false;render()}}}
 async function googleSignIn(){if(!window.FB)return;AUTH.err='';AUTH.busy=true;render();
   try{await FB.google()}catch(e){AUTH.err=authErr(e);AUTH.busy=false;render()}}
 /* called by the module when auth state changes */
@@ -2768,8 +2756,8 @@ const MENU=[
 ,
  {id:'about',art:'<g transform="translate(13 3) scale(.22)"><path d="M50,3 C53,11 60,16 68,24 C79,35 86,47 86,61 C86,77 72,87 69,99 C68,105 72,109 76,113 C83,119 86,127 86,137 C86,151 70,157 50,157 C30,157 14,151 14,137 C14,127 17,119 24,113 C28,109 32,105 31,99 C28,87 14,77 14,61 C14,47 21,35 32,24 C40,16 47,11 50,3 Z" stroke-width="7.5"/></g>',t:'عن التطبيق',ic:'<circle cx="24" cy="24" r="16"/><path d="M24 22v10"/><circle cx="24" cy="16.5" r="1.2"/>'}
 ];
-const TITLES={tawba:'التوبة',mujahada:'المجاهدة',fiqh:'الفقه المالكي',roadmap:'خريطة الطريق إلى رضا الله',aqida:'العقيدة الأشعرية',audio:'الاستماع',sira:'السيرة النبوية العطرة',qiyama:'يوم القيامة',method:'المنهج المحمدي',tazkiya:'التزكية',muraqabat:'حالتك الروحية اليومية',sura:'حالة قلبك',aamal:'الأعمال',dhikr_run:'الذكر الشخصي',adh_sabah:'أذكار الصباح',adh_masa:'أذكار المساء',install:'تثبيت التطبيق',notif:'التنبيهات',profile:'الملف الشخصي',admin:'لوحة الإدارة',taammulat:'تأملات',mraqib:'مراقبات',munajat:'مناجاة',muhasaba:'محاسبة اليوم',ruhi:'بياناتك الروحية',about:'عن التطبيق',tahlil:'تحليل الزلّات',qa:'سؤال وجواب',mushaf:'المصحف',subha:'السبحة',qalb:'أمراض القلب',quran:'القرآن',umrah:'العمرة',khalwa:'الخلوة والاعتكاف'};
-const VERSES={mujahada:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',tawba:'﴿وَتُوبُوا إِلَى اللَّهِ جَمِيعًا أَيُّهَ الْمُؤْمِنُونَ لَعَلَّكُمْ تُفْلِحُونَ﴾',fiqh:'﴿فَلَوْلَا نَفَرَ مِن كُلِّ فِرْقَةٍ مِّنْهُمْ طَائِفَةٌ لِّيَتَفَقَّهُوا فِي الدِّينِ﴾',aqida:'﴿فَاعْلَمْ أَنَّهُ لَا إِلَٰهَ إِلَّا اللَّهُ﴾',roadmap:'﴿وَأَنَّ هَٰذَا صِرَاطِي مُسْتَقِيمًا فَاتَّبِعُوهُ﴾',qiyama:'﴿يَوْمَ يَقُومُ النَّاسُ لِرَبِّ الْعَالَمِينَ﴾',sira:'﴿لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ﴾',audio:'﴿فَبَشِّرْ عِبَادِ ۝ الَّذِينَ يَسْتَمِعُونَ الْقَوْلَ فَيَتَّبِعُونَ أَحْسَنَهُ﴾',qalb:'﴿إِلَّا مَنْ أَتَى اللَّهَ بِقَلْبٍ سَلِيمٍ﴾',quran:'﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾',umrah:'﴿وَأَتِمُّوا الْحَجَّ وَالْعُمْرَةَ لِلَّهِ﴾',khalwa:'﴿وَاذْكُرِ اسْمَ رَبِّكَ وَتَبَتَّلْ إِلَيْهِ تَبْتِيلًا﴾',subha:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',mushaf:'﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾',qa:'﴿فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ﴾',dhikr_run:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',adh_sabah:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',adh_masa:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',install:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',method:'«أن تعبد الله كأنك تراه»',tazkiya:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',muraqabat:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',sura:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',aamal:'«أحبّ الأعمال إلى الله أدومها وإن قلّ»',notif:'﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾',profile:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',admin:'﴿إِنْ أُرِيدُ إِلَّا الْإِصْلَاحَ مَا اسْتَطَعْتُ﴾',taammulat:'﴿الَّذِينَ يَذْكُرُونَ اللَّهَ قِيَامًا وَقُعُودًا وَعَلَىٰ جُنُوبِهِمْ وَيَتَفَكَّرُونَ﴾',mraqib:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',munajat:'﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ﴾',muhasaba:'﴿وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ﴾',ruhi:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',about:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',tahlil:'﴿إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ﴾'};
+const TITLES={fiqh:'الفقه المالكي',roadmap:'خريطة الطريق إلى رضا الله',aqida:'العقيدة الأشعرية',audio:'الاستماع',sira:'السيرة النبوية العطرة',qiyama:'يوم القيامة',method:'المنهج المحمدي',tazkiya:'التزكية',muraqabat:'حالتك الروحية اليومية',sura:'حالة قلبك',aamal:'الأعمال',dhikr_run:'الذكر الشخصي',adh_sabah:'أذكار الصباح',adh_masa:'أذكار المساء',install:'تثبيت التطبيق',notif:'التنبيهات',profile:'الملف الشخصي',admin:'لوحة الإدارة',taammulat:'تأملات',mraqib:'مراقبات',munajat:'مناجاة',muhasaba:'محاسبة اليوم',ruhi:'بياناتك الروحية',about:'عن التطبيق',tahlil:'تحليل الزلّات',qa:'سؤال وجواب',mushaf:'المصحف',subha:'السبحة',qalb:'أمراض القلب',quran:'القرآن',umrah:'العمرة',khalwa:'الخلوة والاعتكاف'};
+const VERSES={fiqh:'﴿فَلَوْلَا نَفَرَ مِن كُلِّ فِرْقَةٍ مِّنْهُمْ طَائِفَةٌ لِّيَتَفَقَّهُوا فِي الدِّينِ﴾',aqida:'﴿فَاعْلَمْ أَنَّهُ لَا إِلَٰهَ إِلَّا اللَّهُ﴾',roadmap:'﴿وَأَنَّ هَٰذَا صِرَاطِي مُسْتَقِيمًا فَاتَّبِعُوهُ﴾',qiyama:'﴿يَوْمَ يَقُومُ النَّاسُ لِرَبِّ الْعَالَمِينَ﴾',sira:'﴿لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ﴾',audio:'﴿فَبَشِّرْ عِبَادِ ۝ الَّذِينَ يَسْتَمِعُونَ الْقَوْلَ فَيَتَّبِعُونَ أَحْسَنَهُ﴾',qalb:'﴿إِلَّا مَنْ أَتَى اللَّهَ بِقَلْبٍ سَلِيمٍ﴾',quran:'﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾',umrah:'﴿وَأَتِمُّوا الْحَجَّ وَالْعُمْرَةَ لِلَّهِ﴾',khalwa:'﴿وَاذْكُرِ اسْمَ رَبِّكَ وَتَبَتَّلْ إِلَيْهِ تَبْتِيلًا﴾',subha:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',mushaf:'﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾',qa:'﴿فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ﴾',dhikr_run:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',adh_sabah:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',adh_masa:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',install:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',method:'«أن تعبد الله كأنك تراه»',tazkiya:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',muraqabat:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',sura:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',aamal:'«أحبّ الأعمال إلى الله أدومها وإن قلّ»',notif:'﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾',profile:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',admin:'﴿إِنْ أُرِيدُ إِلَّا الْإِصْلَاحَ مَا اسْتَطَعْتُ﴾',taammulat:'﴿الَّذِينَ يَذْكُرُونَ اللَّهَ قِيَامًا وَقُعُودًا وَعَلَىٰ جُنُوبِهِمْ وَيَتَفَكَّرُونَ﴾',mraqib:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',munajat:'﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ﴾',muhasaba:'﴿وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ﴾',ruhi:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',about:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',tahlil:'﴿إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ﴾'};
 
 const AVATAR='<svg viewBox="0 0 52 52"><rect width="52" height="52" fill="#eceae6"/><circle cx="26" cy="20" r="9" fill="#c9c4bc"/><path d="M8 52c2-11 9-16 18-16s16 5 18 16z" fill="#c9c4bc"/></svg>';
 function avatarImg(){const src=S.photo||(AUTH.user&&AUTH.user.photoURL)||'';
@@ -4045,15 +4033,15 @@ function viewInstall(){const P=installParts();
 const RM=[{t:'جبل الشروط الأربعة',c:'rm-c',sub:'نقطة الانطلاق',it:['العقيدة','الفقه','التوبة','المجاهدة']},
  {t:'جسر التزكية',c:'rm-b',sub:'العبور',it:['تزكية الجوارح','تزكية العقل','تزكية النفس وتطهير القلب','تنوير الروح']},
  {t:'جبل الأهداف الأربعة',c:'rm-g',sub:'الغاية',it:['التعظيم لأمر الله','التعظيم لأمر رسول الله ﷺ','الشفقة على الخلق','الحضور مع الله']}];
-const RM_GO={'العقيدة':{go:'aqida',s:'دروس صوتية في شرح العقيدة الأشعرية'},'الفقه':{go:'fiqh',s:'دروس مرئية في الفقه المالكي',v:1},'التوبة':{go:'tawba',s:'مخطط التوبة وإعادة التأهيل',v:1},'المجاهدة':{go:'mujahada',s:'التحليق الروحي، تمنٍّ وإرادة',v:1},'تزكية الجوارح':{go:'tazkiya',s:'يومك في تطهير الجوارح ومحاسبتها'}};
+const RM_GO={'العقيدة':{go:'aqida',s:'دروس صوتية في شرح العقيدة الأشعرية'},'الفقه':{go:'fiqh',s:'دروس مرئية في الفقه المالكي',v:1}};
 /* tappable signs on the map image, in % of the picture */
-const RM_HOT=[{go:'aqida',t:'العقيدة',x:83.6,y:75.6,w:13.2,h:9.2},{go:'fiqh',t:'الفقه',x:85.2,y:55.8,w:12.8,h:9.2},{go:'tawba',t:'التوبة',x:82.4,y:35.6,w:12.4,h:9.2},{go:'mujahada',t:'المجاهدة',x:84.6,y:19.6,w:12.4,h:9.2},{go:'tazkiya',t:'تزكية الجوارح',x:61.4,y:42.6,w:11.2,h:9.4}];
+const RM_HOT=[{go:'aqida',t:'العقيدة',x:83.6,y:75.6,w:13.2,h:9.2},{go:'fiqh',t:'الفقه',x:85.2,y:55.8,w:12.8,h:9.2}];
 const rmHot=()=>RM_HOT.map(h=>`<button class="rm-hs" data-go="${h.go}" style="left:${h.x}%;top:${h.y}%;width:${h.w}%;height:${h.h}%" aria-label="${esc(Tx(h.t))}"><i></i></button>`).join('');
 function viewRoadmap(){
   return `<section class="rm">
    <div class="rm-img"><button class="rm-imgb" data-rmzoom="1" aria-label="${esc(Tx('تكبير الخريطة'))}"><img src="roadmap-s.webp" alt="${esc(Tx('خريطة الطريق إلى رضا الله'))}" width="836" height="470" decoding="async"></button>${rmHot()}
     <button class="rm-zm" data-rmzoom="1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg><span>تكبير الخريطة</span></button></div>
-   <p class="meta rm-how rm-tap"><span class="rm-dot"></span><span>اضغط على اللافتات المضيئة في الصورة لفتحها.</span></p>
+   <p class="meta rm-how rm-tap"><span class="rm-dot"></span><span>اضغط على «العقيدة» أو «الفقه» في الصورة لفتح دروسهما.</span></p>
    <p class="meta rm-how">يبدأ السالك من جبل الشروط، ثم يعبر جسر التزكية مرحلةً مرحلة، حتى يبلغ جبل الأهداف.</p>
    <ol class="rm-st">${RM.map((g,k)=>`<li class="box rm-g0 ${g.c}"><div class="rm-h"><span class="rm-n">${k+1}</span><span><b>${g.t}</b><small>${g.sub}</small></span></div>
     <ol class="rm-it">${g.it.map((x,j)=>RM_GO[x]?`<li><button class="rm-lnk" data-go="${RM_GO[x].go}"><span class="rm-k">${j+1}</span><span class="rm-lt"><span>${x}</span><small>${RM_GO[x].s}</small></span>${RM_GO[x].v?'<svg class="rm-hp" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10.5 9.5v5l4.2-2.5z" fill="currentColor"/></svg>':'<svg class="rm-hp" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4.5" height="6.5" rx="1.5"/><rect x="16.5" y="14" width="4.5" height="6.5" rx="1.5"/></svg>'}</button></li>`:`<li><span class="rm-k">${j+1}</span><span>${x}</span></li>`).join('')}</ol></li>`).join('')}</ol>
@@ -4064,13 +4052,6 @@ function rmZoom(){const o=document.createElement('div');o.className='rm-full';o.
   const close=()=>{o.remove();removeEventListener('keydown',esc_)};const esc_=e=>{if(e.key==='Escape')close()};addEventListener('keydown',esc_);
   o.querySelector('.rm-x').addEventListener('click',close);o.querySelectorAll('.rm-hs').forEach(b=>b.addEventListener('click',()=>setTimeout(close,0)));setTimeout(()=>{const t=o.querySelector('.rm-tip');if(t)t.classList.add('off')},2600)}
 
-/* repentance: one explainer video (landscape) */
-const ONEVID={tawba:{f:'tawba',t:'مخطط التوبة وإعادة التأهيل',d:'٦ دقائق',in:'التوبة أول منازل السالك: ندمٌ على ما فات، وإقلاعٌ عن الذنب، وعزمٌ على ألا يعود، وردٌّ للحقوق إلى أهلها.'},
- mujahada:{f:'mujahada',t:'التحليق الروحي، تمنٍّ وإرادة',d:'٨ دقائق',in:'المجاهدة بذلُ الجهد في حمل النفس على ما يحبه الله، فالتمني رغبةٌ بلا ثمن، والإرادة عزمٌ يدفع الثمن.'}};
-function viewOneVid(k){const V=ONEVID[k];return `<section class="um">
-   <div class="um-vid tw-vid"><p class="um-vt"><b>فيديو: ${V.t}</b><span class="meta"><span>${V.d}</span></span></p><video id="oneVideo" src="${V.f}.mp4" poster="${V.f}.jpg" controls playsinline preload="none"></video></div>
-   <p class="muted um-in">${V.in}</p>
-  </section>`}
 /* video lessons (Maliki fiqh): files live in video/<series>/NN - title.mp4, with an optional same-name .jpg poster */
 const FQ_K='الفقه_المالكي',FQ_BY='الشيخ نايف آل الشيخ مبارك';let vdCat=null,vdCur=null;
 function vdSt(){if(!S.vd)S.vd={pos:{},done:{}};return S.vd}
@@ -4246,7 +4227,7 @@ function viewDhikrRun(){
 document.addEventListener('pointerdown',e=>{if(screen!=='dhikr_run'||!run||run.done)return;if(e.target.closest('button'))return;if(!e.target.closest('.dr,#app'))return;e.preventDefault();togglePause()});
 document.addEventListener('toggle',e=>{if(e.target.classList&&e.target.classList.contains('dl-det'))dlOpen=e.target.open},true);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&run&&!run.done){if(!run.paused)tick();if(screen==='dhikr_run')keepAwake(true)}});
-const VIEWS={tawba:()=>viewOneVid('tawba'),mujahada:()=>viewOneVid('mujahada'),roadmap:viewRoadmap,fiqh:viewFiqh,aqida:()=>viewAudio(AQ_K),audio:()=>viewAudio(SIRA_K),sira:()=>viewAudio(SIRA_K),qiyama:()=>viewAudio(QIY_K),method:viewMethod,tazkiya:viewTazkiya,muraqabat:viewMuraqabat,sura:viewSura,aamal:viewAamal,dhikr_run:viewDhikrRun,adh_sabah:()=>viewAdhkar('sabah'),adh_masa:()=>viewAdhkar('masa'),install:viewInstall,notif:viewNotif,profile:viewProfile,admin:viewAdmin,taammulat:viewTaammulat,muhasaba:viewMuhasaba,organ:viewOrgan,qalb:viewQalb,quran:viewQuran,umrah:viewUmrah,khalwa:viewKhalwa,subha:viewSubha,mushaf:viewMushaf,qa:viewQA,week:viewWeek,about:viewAbout,tahlil:viewTahlil,ruhi:viewRuhi,mraqib:viewMraqib,munajat:viewMraqib};
+const VIEWS={roadmap:viewRoadmap,fiqh:viewFiqh,aqida:()=>viewAudio(AQ_K),audio:()=>viewAudio(SIRA_K),sira:()=>viewAudio(SIRA_K),qiyama:()=>viewAudio(QIY_K),method:viewMethod,tazkiya:viewTazkiya,muraqabat:viewMuraqabat,sura:viewSura,aamal:viewAamal,dhikr_run:viewDhikrRun,adh_sabah:()=>viewAdhkar('sabah'),adh_masa:()=>viewAdhkar('masa'),install:viewInstall,notif:viewNotif,profile:viewProfile,admin:viewAdmin,taammulat:viewTaammulat,muhasaba:viewMuhasaba,organ:viewOrgan,qalb:viewQalb,quran:viewQuran,umrah:viewUmrah,khalwa:viewKhalwa,subha:viewSubha,mushaf:viewMushaf,qa:viewQA,week:viewWeek,about:viewAbout,tahlil:viewTahlil,ruhi:viewRuhi,mraqib:viewMraqib,munajat:viewMraqib};
 const TOPTABS=['aamal','tazkiya','quran','taammulat'];
 /* ---------- listening: lessons uploaded to the repo's audio/ folder ---------- */
 const AU_REPO='dridrissihafdi-ship-it/almurshid',AU_EXT=/\.(mp3|m4a|aac|ogg|oga|opus|wav)$/i;
@@ -4367,7 +4348,7 @@ function render(){
   if(gated()){document.documentElement.dataset.scr='home';document.documentElement.dataset.sky=skyKind();app.innerHTML=viewAuth();nav0.hidden=true;const rtl=LANG==='ar';app.dir=rtl?'rtl':'ltr';app.lang=LANG;document.documentElement.lang=LANG;document.documentElement.dir=rtl?'rtl':'ltr';i18nApply(app);return}
   if(needOnboard()){app.innerHTML=viewOnboard();nav0.hidden=true;const rtl=LANG==='ar';app.dir=rtl?'rtl':'ltr';app.lang=LANG;document.documentElement.lang=LANG;document.documentElement.dir=rtl?'rtl':'ltr';i18nApply(app);return}
   if(screen==='admin'&&!isAdmin())screen='home';
-  const keepV=isMedia(screen)?document.getElementById('mqVideo'):null,keepU=screen==='umrah'?document.getElementById('umVideo'):ONEVID[screen]?document.getElementById('oneVideo'):null,keepF=screen==='fiqh'?document.getElementById('vdV'):null;
+  const keepV=isMedia(screen)?document.getElementById('mqVideo'):null,keepU=screen==='umrah'?document.getElementById('umVideo'):null,keepF=screen==='fiqh'?document.getElementById('vdV'):null;
   app.innerHTML=screen==='home'?viewHome():heroSub(screen)+`<main class="sheet">${VIEWS[screen]()}</main>`;
   fzApply();
   const navKey=tabOf(screen);document.documentElement.dataset.sky=skyKind();document.documentElement.dataset.scr=screen;
@@ -4381,7 +4362,7 @@ function render(){
   i18nApply(app);i18nApply(nav);
   nav.hidden=screen==='dhikr_run'||(screen==='mushaf'&&mshAuto);
   if(isMedia(screen)){const ph=document.getElementById('mqVideo');if(keepV&&ph&&keepV!==ph&&keepV.getAttribute('src')===ph.getAttribute('src'))ph.replaceWith(keepV);mqBind()}
-  if(keepU){const ph=document.getElementById(keepU.id);if(ph&&ph!==keepU)ph.replaceWith(keepU)}
+  if(keepU){const ph=document.getElementById('umVideo');if(ph&&ph!==keepU)ph.replaceWith(keepU)}
   if(screen==='fiqh'){const ph=document.getElementById('vdV');if(keepF&&ph&&keepF!==ph&&keepF.getAttribute('src')===ph.getAttribute('src'))ph.replaceWith(keepF);vdBind()}
   if(screen==='dhikr_run')paintRun();
   auUi();
@@ -4721,7 +4702,7 @@ if(inFrame){window.onFbFail()}else(async()=>{
   window.FB={
    signUp:async(email,pass,name)=>{const c=await U.createUserWithEmailAndPassword(auth,email,pass);
      try{await U.updateProfile(c.user,{displayName:name})}catch(e){}
-     try{await U.sendEmailVerification(c.user)}catch(e){}return c.user},
+     if(!/@example\.com$/i.test(email))try{await U.sendEmailVerification(c.user)}catch(e){}return c.user},
    signIn:(email,pass)=>U.signInWithEmailAndPassword(auth,email,pass),
    google:async()=>{try{await U.signInWithPopup(auth,gp)}catch(e){
      if(['auth/popup-blocked','auth/operation-not-supported-in-this-environment','auth/cancelled-popup-request'].includes(e.code))return U.signInWithRedirect(auth,gp);throw e}},
