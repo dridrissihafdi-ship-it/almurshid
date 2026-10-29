@@ -1048,6 +1048,18 @@ html.ed-on #app :is(b,span,small,p,h1,h2,h3,h4,label,strong,em,a,div):not(:has(*
 .ed-sw{display:flex;align-items:center;gap:5px;padding:8px;border-radius:12px;border:1px solid var(--card-line);background:rgba(255,255,255,.04);color:var(--ink);font:12px var(--f);cursor:pointer}
 .ed-sw.on{border-color:var(--gold);background:rgba(230,200,145,.1)}.ed-sw i{flex:none;width:14px;height:14px;border-radius:50%}.ed-sw span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ed-lt{display:flex;align-items:center;gap:12px}.ed-lv{min-width:48px;text-align:center;font-weight:600}
+/* tab bar docked to the very bottom edge, so nothing shows beneath it */
+nav.tabs{left:0!important;right:0!important;inset-inline:0!important;bottom:0!important;max-width:none!important;margin:0!important;border-radius:22px 22px 0 0!important;border-width:1px 0 0!important;
+ background:rgba(30,23,19,.97)!important;padding-bottom:env(safe-area-inset-bottom,0px)!important;box-shadow:0 -8px 24px rgba(0,0,0,.3)!important}
+nav.tabs .in{max-width:520px;margin:0 auto}
+.au-mini,.tts-bar,.adp.on{bottom:calc(env(safe-area-inset-bottom,0px) + 74px)!important}
+@media (orientation:landscape) and (max-height:560px){.au-mini,.tts-bar,.adp.on{bottom:calc(env(safe-area-inset-bottom,0px) + 60px)!important}}
+/* landscape: let the app use the width of the screen */
+@media (orientation:landscape) and (min-width:600px){
+ #app.shell{max-width:min(100vw,980px)!important;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}
+ nav.tabs .in{max-width:760px}
+ .h2-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .au-mini,.tts-bar,.adp.on{max-width:640px!important}}
 </style>
 
 </head>
