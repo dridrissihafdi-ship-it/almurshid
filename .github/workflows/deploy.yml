@@ -25,7 +25,9 @@ jobs:
           trim(){ printf '%s' "$1" | tr -d '\r\n' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'; }
           HOST=$(trim "$HOST"); USER=$(trim "$USER"); DIR=$(trim "$DIR")
           PORT=$(printf '%s' "$PORT" | sed 'y/٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹/01234567890123456789/' | tr -cd '0-9'); [ -n "$PORT" ] || PORT=22
-          { echo "HOST=$HOST"; echo "USER=$USER"; echo "DIR=$DIR"; echo "PORT=$PORT"; } >> "$GITHUB_ENV"
+          PW=$(printf '%s' "$LFTP_PASSWORD" | tr -d '\r\n'); echo "::add-mask::$PW"
+          { echo "HOST=$HOST"; echo "USER=$USER"; echo "DIR=$DIR"; echo "PORT=$PORT"; echo "LFTP_PASSWORD=$PW"; } >> "$GITHUB_ENV"
+          echo "password length: ${#PW}"
           for v in HOST USER LFTP_PASSWORD DIR; do
             if [ -z "${!v}" ]; then echo "::error::Missing secret for $v"; exit 1; fi
           done
