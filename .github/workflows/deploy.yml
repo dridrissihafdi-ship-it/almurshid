@@ -9,29 +9,50 @@ concurrency: deploy-sftp
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      HOST: ${{ secrets.SFTP_HOST }}
+      USER: ${{ secrets.SFTP_USER }}
+      LFTP_PASSWORD: ${{ secrets.SFTP_PASS }}
+      DIR:  ${{ secrets.SFTP_DIR }}
+      PORT: ${{ secrets.SFTP_PORT }}
     steps:
       - uses: actions/checkout@v4
       - name: Install lftp
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-      - name: Upload over SFTP
-        env:
-          HOST: ${{ secrets.SFTP_HOST }}
-          USER: ${{ secrets.SFTP_USER }}
-          PASS: ${{ secrets.SFTP_PASS }}
-          DIR:  ${{ secrets.SFTP_DIR }}
-          PORT: ${{ secrets.SFTP_PORT }}
+      - name: Check secrets
         run: |
-          export LFTP_PASSWORD="$PASS"
-          lftp --env-password -u "$USER" -p "${PORT:-22}" "sftp://$HOST" <<LFTP
+          for v in HOST USER LFTP_PASSWORD DIR; do
+            if [ -z "${!v}" ]; then echo "::error::Missing secret for $v"; exit 1; fi
+          done
+          echo "host=$HOST port=${PORT:-22} user=$USER dir=$DIR"
+      - name: Test connection
+        run: |
+          cat > /tmp/test.lftp <<LFTP
           set sftp:auto-confirm yes
-          set net:max-retries 3
-          set net:timeout 30
-          mkdir -p -f "$DIR"
+          open --env-password -u "$USER" -p "${PORT:-22}" "sftp://$HOST"
+          set cmd:fail-exit yes
+          set net:max-retries 2
+          set net:timeout 20
+          set net:reconnect-interval-base 5
+          pwd
           cd "$DIR"
-          mirror -R --ignore-time --parallel=4 --verbose \
-            --exclude-glob .git/ --exclude-glob .github/ --exclude-glob scripts/ \
-            --exclude-glob node_modules/ --exclude-glob '*.md' --exclude-glob '*.zip' ./ ./
+          cls -1
+          bye
+          LFTP
+          lftp -f /tmp/test.lftp
+      - name: Upload over SFTP
+        run: |
+          cat > /tmp/up.lftp <<LFTP
+          set sftp:auto-confirm yes
+          open --env-password -u "$USER" -p "${PORT:-22}" "sftp://$HOST"
+          set cmd:fail-exit yes
+          set net:max-retries 4
+          set net:timeout 60
+          set net:reconnect-interval-base 5
+          cd "$DIR"
+          mirror -R --ignore-time --parallel=3 --verbose=1 --exclude-glob .git/ --exclude-glob .github/ --exclude-glob scripts/ --exclude-glob node_modules/ --exclude-glob *.md --exclude-glob *.zip ./ ./
           put -O . index.html
           put -O . sw.js
           bye
           LFTP
+          lftp -f /tmp/up.lftp
