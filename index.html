@@ -1020,6 +1020,34 @@ html[data-scr=fiqh] .hero h1{text-shadow:0 2px 14px rgba(0,0,0,.6)}
 @keyframes rmPulse{0%{box-shadow:0 0 0 0 rgba(230,200,145,.6),inset 0 0 12px rgba(230,200,145,.35)}70%{box-shadow:0 0 0 10px rgba(230,200,145,0),inset 0 0 12px rgba(230,200,145,.35)}100%{box-shadow:0 0 0 0 rgba(230,200,145,0),inset 0 0 12px rgba(230,200,145,.35)}}
 @media (prefers-reduced-motion:reduce){.rm-hs i{animation:none}}
 .rm-tap{display:flex;align-items:center;gap:8px}.rm-dot{flex:none;width:12px;height:12px;border-radius:4px;border:2px solid #E6C891}
+/* content editor */
+.ed-hidden{display:none!important}
+.ed-ghost{opacity:.38;outline:2px dashed #F08A7A;outline-offset:-2px}
+html.ed-on #app{padding-top:54px}
+html.ed-on #app :is(b,span,small,p,h1,h2,h3,h4,label,strong,em,a,div):not(:has(*)){cursor:text}
+.ed-bar{position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);inset-inline:8px;z-index:70;display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:16px;background:rgba(20,15,12,.92);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(230,200,145,.45);color:#F3EDE6;font:500 12.5px var(--f);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.ed-bar b{flex:1;min-width:0;font-weight:500;line-height:1.35}
+.ed-dot{flex:none;width:9px;height:9px;border-radius:50%;background:#F08A7A;box-shadow:0 0 0 4px rgba(240,138,122,.25)}
+.ed-seg{display:flex;background:rgba(255,255,255,.08);border-radius:99px;padding:2px}.ed-seg button{border:0;background:none;color:inherit;font:inherit;padding:5px 10px;border-radius:99px;cursor:pointer}.ed-seg button.on{background:#E6C891;color:#2A1F19}
+.ed-x{border:1px solid rgba(255,255,255,.2);background:none;color:inherit;font:inherit;padding:5px 10px;border-radius:99px;cursor:pointer}
+.ed-sheet{position:fixed;inset:0;z-index:90;background:rgba(10,8,6,.55);display:flex;align-items:flex-end;justify-content:center}
+.ed-box{width:100%;max-width:520px;max-height:88vh;overflow:auto;background:#2B221C;border:1px solid rgba(230,200,145,.3);border-radius:22px 22px 0 0;padding:16px 16px calc(env(safe-area-inset-bottom,0px) + 18px);color:var(--ink)}
+.ed-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.ed-hd b{font-size:16px}
+.ed-close{border:0;background:rgba(255,255,255,.08);color:inherit;width:32px;height:32px;border-radius:50%;cursor:pointer}
+.ed-l{display:block;font-size:12px;color:var(--muted);margin:10px 0 4px}
+.ed-orig{margin:0;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.05);font-size:14px;line-height:1.7}
+.ed-box textarea,.ed-box input{width:100%;box-sizing:border-box;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.25);color:var(--ink);font:15px var(--f);padding:9px 10px;line-height:1.6}
+.ed-tr{margin-top:10px}.ed-tr summary{cursor:pointer;font-size:13px;color:var(--gold)}
+.ed-warn{margin:8px 0 0;font-size:12.5px;color:#F0A595}
+.ed-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.ed-danger{border-color:rgba(240,138,122,.5)!important;color:#F0A595!important}
+.ed-note{margin:10px 0 0}
+.ed-toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 100px);transform:translate(-50%,20px);z-index:95;max-width:88vw;padding:9px 16px;border-radius:14px;background:rgba(20,15,12,.94);color:#F3EDE6;font:500 13px var(--f);opacity:0;pointer-events:none;transition:.25s;text-align:center}
+.ed-toast.on{opacity:1;transform:translate(-50%,0)}
+.ed-h{margin:16px 0 8px;font-size:14px}
+.ed-th{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ed-sw{display:flex;align-items:center;gap:5px;padding:8px;border-radius:12px;border:1px solid var(--card-line);background:rgba(255,255,255,.04);color:var(--ink);font:12px var(--f);cursor:pointer}
+.ed-sw.on{border-color:var(--gold);background:rgba(230,200,145,.1)}.ed-sw i{flex:none;width:14px;height:14px;border-radius:50%}.ed-sw span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ed-lt{display:flex;align-items:center;gap:12px}.ed-lv{min-width:48px;text-align:center;font-weight:600}
 </style>
 
 </head>
@@ -1600,7 +1628,7 @@ const I18N_D={
 "المحتوى":["Content", "Contenu", "Contenido", "Содержание"],
 "رسالة في الصفحة الرئيسية":["Message on the home page", "Message sur l’accueil", "Mensaje en la página de inicio", "Сообщение на главной"],
 "ردّ بالبريد":["Reply by email", "Répondre par e-mail", "Responder por correo", "Ответить по почте"],
-"التعديلات في هذه اللوحة تصل إلى كل السالكين فورًا. أما تغيير التصميم أو إضافة خاصية جديدة فيكون برفع ملف index.html الجديد إلى مستودع GitHub.":["Changes made in this panel reach all seekers immediately. Changing the design or adding a feature means uploading the new index.html to the GitHub repository.", "Les modifications faites ici atteignent tous les cheminants aussitôt. Changer le design ou ajouter une fonction se fait en déposant le nouveau index.html sur GitHub.", "Los cambios de este panel llegan a todos al instante. Cambiar el diseño o añadir funciones requiere subir el nuevo index.html a GitHub.", "Изменения здесь сразу доходят до всех. Для нового дизайна или функций нужно загрузить новый index.html в GitHub."],
+"التعديلات في هذه اللوحة تصل إلى كل السالكين فورًا. أما إضافة خاصية جديدة أو تغيير طريقة عمل قسم فيكون برفع ملف index.html الجديد إلى مستودع GitHub.":["Changes made in this panel reach all seekers immediately. Changing the design or adding a feature means uploading the new index.html to the GitHub repository.", "Les modifications faites ici atteignent tous les cheminants aussitôt. Changer le design ou ajouter une fonction se fait en déposant le nouveau index.html sur GitHub.", "Los cambios de este panel llegan a todos al instante. Cambiar el diseño o añadir funciones requiere subir el nuevo index.html a GitHub.", "Изменения здесь сразу доходят до всех. Для нового дизайна или функций нужно загрузить новый index.html в GitHub."],
 "ملفك":["Your profile", "Votre profil", "Tu perfil", "Ваш профиль"],
 "الاسم والصورة":["Name and photo", "Nom et photo", "Nombre y foto", "Имя и фото"],
 "التذكيرات":["Reminders", "Rappels", "Recordatorios", "Напоминания"],
@@ -2455,7 +2483,7 @@ LANG=S.lang&&LIDX[S.lang]!==undefined?S.lang:'ar';computeHijri();applyLoc();
 /* ---------- accounts (Firebase) : classic side ---------- */
 const ADMIN_EMAIL='dr.idrissi.hafdi@gmail.com';
 let AUTH={state:'loading',user:null,mode:'in',err:'',info:'',busy:false};
-let CONTENT={announcement:null,extra:[]};
+let CONTENT={announcement:null,extra:[]};try{const c=JSON.parse(localStorage.getItem('murshid-content')||'null');if(c)CONTENT=Object.assign(CONTENT,c)}catch(e){}
 let adminData={users:null,loading:false,msg:''};
 const isAdmin=()=>!!(AUTH.user&&AUTH.user.email&&AUTH.user.email.toLowerCase()===ADMIN_EMAIL&&AUTH.user.emailVerified);
 const gated=()=>AUTH.state==='loading'||AUTH.state==='out';
@@ -2553,7 +2581,7 @@ async function onAuthUser(u){
   }
   pendingName='';
   FB.touchUser(u,S.name||nm,LANG).catch(e=>console.warn('user',e));
-  FB.loadContent().then(c=>{if(c){CONTENT=Object.assign({announcement:null,extra:[]},c);if(AUTH.state==='in')render()}}).catch(()=>{});
+  FB.loadContent().then(c=>{if(c){CONTENT=Object.assign({announcement:null,extra:[]},c);try{localStorage.setItem('murshid-content',JSON.stringify({ui:CONTENT.ui||null}))}catch(e){}edTheme();if(AUTH.state==='in')render()}}).catch(()=>{});
   render();
 }
 function onFbFail(){if(AUTH.state==='loading'){AUTH.state='local';render()}}
@@ -2610,8 +2638,97 @@ function viewAdmin(){
    <p class="ab-g">التواصل مع السالكين</p>
    <div class="acc-card">${acc('ad-push','bell','إشعار على هواتف المستعملين',pushB)}${acc('ad-ann','megaphone','رسالة في الصفحة الرئيسية',annB,A.on?'منشورة':'غير منشورة')}</div>
    <p class="ab-g">المحتوى</p>
-   <div class="acc-card">${acc('ad-extra','list','أعمال مقترحة من الإدارة',extraB,String(X.length))}${acc('ad-upd','code','تحديث التطبيق نفسه',updB)}</div>`;
+   <div class="acc-card">${acc('ad-edit','font','محرّر المحتوى والتصميم',edAdminBlock(),ED?'مفعّل':'')}${acc('ad-extra','list','أعمال مقترحة من الإدارة',extraB,String(X.length))}${acc('ad-upd','code','تحديث التطبيق نفسه',updB)}</div>`;
 }
+
+/* ---------- content editor (admin): text overrides, hidden items and colours, kept in content/main → ui ---------- */
+let ED=false,edMode='edit';
+const UI=()=>CONTENT.ui||{};
+const edNorm=s=>String(s).replace(/\s+/g,' ').trim();
+const edHash=s=>{let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return 'h'+(h>>>0).toString(36)+s.length.toString(36)};
+const ED_NO='.verse,.tq,.adh.q,.ay,.bas,.sn,.msh-page,.au-mini,input,textarea,select,script,style,.ed-sheet,.ed-bar';
+const ED_CARD='.h2-row,.h2-tile,.ad-tile,.tile,.mcard,.acc,.au-g,.au-row,.vd-row,.rm-g0,.rm-it>li,.adh-w,.wird,li,button,.box';
+const ED_LANGS=[['en','English'],['fr','Français'],['es','Español'],['ru','Русский']];
+function edApply(root){const U=UI(),T=U.t||{},H=U.hide||[];if(!root)return;
+  const hasT=Object.keys(T).some(k=>T[k]);if(!hasT&&!H.length)return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const nodes=[];let n;while(n=w.nextNode())nodes.push(n);
+  nodes.forEach(n=>{const v=n.nodeValue,k=edNorm(v);if(!k||!/[؀-ۿ]/.test(k))return;const el=n.parentElement;if(!el||el.closest('.ed-sheet,.ed-bar,script,style'))return;
+    const h=edHash(k);
+    if(H.includes(h)&&screen!=='admin'){const c=el.closest(ED_CARD);if(c&&c!==root&&!c.closest('nav.tabs')&&!c.matches('[data-go=admin]')&&!c.querySelector('[data-go=admin],[data-edon]'))c.classList.add(ED?'ed-ghost':'ed-hidden')}
+    const o=T[h];if(!o)return;el.dataset.edk=k;const lead=v.match(/^\s*/)[0],trail=v.match(/\s*$/)[0];
+    if(LANG==='ar'){if(o.ar)n.nodeValue=lead+o.ar+trail}else if(o[LANG]){n.nodeValue=lead+o[LANG]+trail}})}
+const edCardOf=k=>{const w=document.createTreeWalker(document.getElementById('app'),NodeFilter.SHOW_TEXT);let t;while(t=w.nextNode()){if(edNorm(t.nodeValue)===k)return t.parentElement.closest(ED_CARD)}return null};
+function edSaveUi(ui,msg){const U=Object.assign({},UI(),ui);CONTENT.ui=U;try{localStorage.setItem('murshid-content',JSON.stringify({ui:U}))}catch(e){}edTheme();
+  adminSave({ui:U},msg).then(()=>{if(screen!=='admin')edToast(adminData.msg||msg)})}
+function edToast(t){let el=document.getElementById('edToast');if(!el){el=document.createElement('div');el.id='edToast';el.className='ed-toast';document.body.appendChild(el)}
+  el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),2600)}
+function edBar(){let b=document.getElementById('edBar');if(!(ED&&isAdmin())){if(b)b.remove();document.documentElement.classList.remove('ed-on');return}
+  document.documentElement.classList.add('ed-on');
+  if(!b){b=document.createElement('div');b.id='edBar';b.className='ed-bar';b.dir='rtl';document.body.appendChild(b);
+    b.addEventListener('click',e=>{const t=e.target.closest('[data-edm]');if(!t)return;const m=t.dataset.edm;
+      if(m==='off'){ED=false;render();return}edMode=m;edBar()})}
+  b.innerHTML=`<span class="ed-dot"></span><b>${edMode==='edit'?'اضغط على أي نص لتعديله أو إخفائه':'تصفّح التطبيق، ثم ارجع إلى التعديل'}</b>
+   <span class="ed-seg"><button data-edm="edit" class="${edMode==='edit'?'on':''}">تعديل</button><button data-edm="browse" class="${edMode==='browse'?'on':''}">تصفّح</button></span><button class="ed-x" data-edm="off">إنهاء</button>`}
+document.addEventListener('click',e=>{if(!ED||edMode!=='edit'||!isAdmin())return;
+  if(e.target.closest('.ed-sheet,.ed-bar,nav.tabs,.ed-toast'))return;
+  e.preventDefault();e.stopPropagation();
+  if(LANG!=='ar'){edToast('بدّل لغة التطبيق إلى العربية لتعديل النصوص.');return}
+  let node=null;try{const r=document.caretRangeFromPoint&&document.caretRangeFromPoint(e.clientX,e.clientY);if(r&&r.startContainer&&r.startContainer.nodeType===3&&edNorm(r.startContainer.nodeValue))node=r.startContainer}catch(x){}
+  if(!node){const w=document.createTreeWalker(e.target,NodeFilter.SHOW_TEXT);let t;while(t=w.nextNode()){if(/[؀-ۿ]/.test(t.nodeValue)){node=t;break}}}
+  if(!node){edToast('لا يوجد نص هنا. اضغط على الكلمات نفسها.');return}
+  const el=node.parentElement;if(el.closest(ED_NO)){edToast('هذا نص محمي (آيات القرآن أو نص يُكتب تلقائيًا)، فلا يُعدَّل من هنا.');return}
+  const k=el.dataset.edk||edNorm(node.nodeValue);if(!/[؀-ۿ]/.test(k)){edToast('اضغط على نص عربي.');return}
+  edOpen(k)},true);
+function edOpen(k){const h=edHash(k),o=(UI().t||{})[h]||{},hid=(UI().hide||[]).includes(h),dyn=/[0-9٠-٩]/.test(k);
+  const d0=I18N_D[k]||null,sh=document.createElement('div');sh.className='ed-sheet';sh.dir='rtl';
+  sh.innerHTML=`<div class="ed-box"><div class="ed-hd"><b>تعديل النص</b><button class="ed-close" data-ed="close" aria-label="إغلاق">✕</button></div>
+   <small class="ed-l">النص الأصلي</small><p class="ed-orig">${esc(k)}</p>
+   ${dyn?'<p class="ed-warn">في هذا النص أرقام قد تتغيّر تلقائيًا (تاريخ، عدد، وقت)، فقد لا يثبت تعديله.</p>':''}
+   <label class="ed-l" for="edAr">النص الجديد</label><textarea id="edAr" dir="rtl" rows="${Math.min(8,Math.max(2,Math.ceil(k.length/38)))}">${esc(o.ar||k)}</textarea>
+   <details class="ed-tr"><summary>الترجمة في اللغات الأخرى (اختياري)</summary>${ED_LANGS.map(([c,n],i)=>`<label class="ed-l" for="edT-${c}">${n}</label><input id="edT-${c}" dir="${c==='ar'?'rtl':'ltr'}" value="${esc(o[c]||(d0?d0[i]:''))}">`).join('')}
+    <p class="meta">إن تركتها كما هي تبقى الترجمة الأصلية.</p></details>
+   <div class="ed-btns"><button class="btn ok" data-ed="save">حفظ للجميع</button>${o.ar||Object.keys(o).length?'<button class="btn" data-ed="reset">إرجاع الأصل</button>':''}
+    <button class="btn ${hid?'':'ed-danger'}" data-ed="${hid?'show':'hide'}">${hid?'إظهار هذا العنصر':'إخفاء هذا العنصر'}</button></div>
+   <p class="meta ed-note">التعديل يظهر عند كل السالكين بعد ثوانٍ. الإخفاء يُخفي البطاقة أو الزر الذي فيه هذا النص.</p></div>`;
+  document.body.appendChild(sh);
+  sh.addEventListener('click',e=>{const b=e.target.closest('[data-ed]');if(e.target===sh){sh.remove();return}if(!b)return;const a=b.dataset.ed,U=UI(),T=Object.assign({},U.t||{});let H=(U.hide||[]).slice();
+    if(a==='close'){sh.remove();return}
+    if(a==='save'){const ar=edNorm(sh.querySelector('#edAr').value);if(!ar){edToast('اكتب النص الجديد.');return}const ob={};if(ar!==k)ob.ar=ar;
+      ED_LANGS.forEach(([c],i)=>{const v=edNorm(sh.querySelector('#edT-'+c).value);if(v&&v!==(d0?d0[i]:''))ob[c]=v});
+      T[h]=Object.keys(ob).length?Object.assign(ob,{src:k,at:Date.now()}):null;sh.remove();edSaveUi({t:T},Object.keys(ob).length?'حُفظ التعديل.':'لا تغيير.');return}
+    if(a==='reset'){T[h]=null;sh.remove();edSaveUi({t:T},'أُرجع النص الأصلي.');return}
+    if(a==='hide'&&(screen==='admin'||document.querySelector('[data-go=admin]')&&edCardOf(k)&&edCardOf(k).matches('[data-go=admin]'))){edToast('لا يمكن إخفاء لوحة الإدارة.');return}
+    if(a==='hide'){if(!H.includes(h))H.push(h);const L=Object.assign({},U.hideL||{});L[h]=k;sh.remove();edSaveUi({hide:H,hideL:L},'أُخفي العنصر عند الجميع.');return}
+    if(a==='show'){H=H.filter(x=>x!==h);sh.remove();edSaveUi({hide:H},'أُظهر العنصر.');return}});
+  setTimeout(()=>{const t=sh.querySelector('#edAr');if(t){t.focus();t.setSelectionRange(t.value.length,t.value.length)}},50)}
+/* colours: swap the gold / copper accents in the stylesheet */
+const ED_THEMES=[{id:'gold',n:'ذهبي (الأصل)',g:'#E6C891',c:'#8A5B3D'},{id:'emerald',n:'زمردي',g:'#9FD8B8',c:'#3E7A60'},{id:'sky',n:'سماوي',g:'#A9CDEB',c:'#466F93'},
+ {id:'rose',n:'وردي عتيق',g:'#EBB2A6',c:'#94554A'},{id:'violet',n:'بنفسجي',g:'#CDB8F2',c:'#65539A'},{id:'sand',n:'رملي فاتح',g:'#F0DDB0',c:'#9A7A4E'}];
+let ED_CSS0=null;
+let ED_ST=null;
+function edTheme(){const st=ED_ST||(ED_ST=[...document.querySelectorAll('style')].sort((x,y)=>y.textContent.length-x.textContent.length)[0]);if(!st)return;if(ED_CSS0===null)ED_CSS0=st.textContent;
+  const T=UI().theme||{},th=ED_THEMES.find(x=>x.id===T.id)||ED_THEMES[0],L=+T.light||0;
+  const rgb=x=>[1,3,5].map(i=>parseInt(x.slice(i,i+2),16)).join(',');
+  let css=ED_CSS0;if(th.id!=='gold')css=css.replace(/#E6C891/gi,th.g).replace(/rgba\(230,\s*200,\s*145/g,'rgba('+rgb(th.g)).replace(/#8A5B3D/gi,th.c).replace(/rgba\(214,160,106/g,'rgba('+rgb(th.g));
+  if(L)css+=`\nbody::after{filter:brightness(${(1+0.12*L).toFixed(2)})!important}body{filter:brightness(${(1+0.04*L).toFixed(2)})}`;
+  if(st.textContent!==css)st.textContent=css}
+function edAdminBlock(){const U=UI(),T=U.t||{},keys=Object.keys(T).filter(k=>T[k]),H=U.hide||[],HL=U.hideL||{},th=(U.theme||{}).id||'gold',L=+(U.theme||{}).light||0;
+  return `<p class="muted" style="margin:0 0 10px">فعّل وضع التعديل، ثم تنقّل في التطبيق واضغط على أي نص لتغييره أو لإخفاء البطاقة التي فيه. التعديلات تصل إلى كل السالكين فورًا، دون رفع أي ملف.</p>
+   <div class="btns"><button class="btn ok" data-edon="1">${ED?'وضع التعديل مفعّل':'تفعيل وضع التعديل'}</button></div>
+   <h4 class="ed-h">الألوان</h4><div class="ed-th">${ED_THEMES.map(x=>`<button class="ed-sw${x.id===th?' on':''}" data-edth="${x.id}"><i style="background:${x.g}"></i><i style="background:${x.c}"></i><span>${x.n}</span></button>`).join('')}</div>
+   <h4 class="ed-h">إضاءة الخلفيات</h4><div class="ed-lt"><button class="btn small" data-edlt="-1" ${L<=-2?'disabled':''}>أغمق</button><span class="ed-lv">${L===0?'الأصل':(L>0?'+':'')+L}</span><button class="btn small" data-edlt="1" ${L>=3?'disabled':''}>أفتح</button></div>
+   <h4 class="ed-h">النصوص المعدّلة <span class="meta">(${keys.length})</span></h4>${keys.length?`<div class="ad-list">${keys.map(h=>`<div class="ad-row ad-x"><div><small class="notr" dir="rtl">${esc(T[h].src||'')}</small><b class="notr" dir="rtl">${esc(T[h].ar||T[h].src||'')}</b></div><button class="btn small" data-edrm="${h}">إرجاع</button></div>`).join('')}</div>`:'<p class="muted">لا توجد نصوص معدّلة.</p>'}
+   <h4 class="ed-h">العناصر المخفية <span class="meta">(${H.length})</span></h4>${H.length?`<div class="ad-list">${H.map(h=>`<div class="ad-row ad-x"><div><b class="notr" dir="rtl">${esc(HL[h]||'عنصر')}</b></div><button class="btn small" data-edshow="${h}">إظهار</button></div>`).join('')}</div>`:'<p class="muted">لا توجد عناصر مخفية.</p>'}
+   ${keys.length||H.length||th!=='gold'||L?'<div class="btns" style="margin-top:12px"><button class="btn small dl-del" data-edall="1">إرجاع كل التعديلات</button></div>':''}`}
+edTheme();
+function edClick(d){if(!isAdmin())return false;const U=UI();
+  if(d.edon){if(LANG!=='ar'){adminData.msg='بدّل لغة التطبيق إلى العربية أولًا لتعديل النصوص.';render();return true}ED=true;edMode='edit';go('home');edToast('وضع التعديل مفعّل: اضغط على أي نص.');return true}
+  if(d.edth){edSaveUi({theme:Object.assign({},U.theme||{},{id:d.edth})},'تغيّرت الألوان عند الجميع.');return true}
+  if(d.edlt){const L=Math.max(-2,Math.min(3,(+(U.theme||{}).light||0)+(+d.edlt)));edSaveUi({theme:Object.assign({},U.theme||{},{light:L})},'تغيّرت إضاءة الخلفيات.');return true}
+  if(d.edrm){const T=Object.assign({},U.t||{});T[d.edrm]=null;edSaveUi({t:T},'أُرجع النص الأصلي.');return true}
+  if(d.edshow){edSaveUi({hide:(U.hide||[]).filter(x=>x!==d.edshow)},'أُظهر العنصر.');return true}
+  if(d.edall){if(!confirm('إرجاع كل النصوص والألوان والعناصر المخفية إلى الأصل؟'))return true;const T={};Object.keys(U.t||{}).forEach(k=>T[k]=null);edSaveUi({t:T,hide:[],hideL:{},theme:{id:'gold',light:0}},'أُرجع كل شيء إلى الأصل.');return true}
+  return false}
 async function adminSave(patch,msg){try{await adminTry(()=>FB.saveContent(patch));Object.assign(CONTENT,patch);adminData.msg=msg}catch(e){adminData.msg='تعذّر الحفظ: '+(e.code||e.message)+(e.diag?' — '+e.diag:'')}render()}
 function announcementBanner(){const A=CONTENT.announcement;if(!A||!A.on||!A.text)return '';
   let seen='';try{seen=localStorage.getItem('murshid-ann')||''}catch(e){}
@@ -2801,7 +2918,7 @@ function heroSub(id){if(id==='organ'){const g=ORGANS.find(x=>x.id===orgSel)||ORG
   return `<header class="hero compact"><div class="topbar"><button class="iconbtn" data-back="${id==='mushaf'?'quran':id==='method'?'tazkiya':tabOf(id)==='home'?'home':tabOf(id)}" aria-label="رجوع">${BACK}</button><h1>${TITLES[id]}</h1><span></span></div><p class="verse" dir="rtl" lang="ar">${VERSES[id]}</p></header>`;
 }
 /* set to the new domain (e.g. 'example.com') once it works, to tell users of the old address to move */
-const NEW_HOST='';
+const NEW_HOST='www.almurshidapp.com';
 function viewHome(){
   const L=dayLog(),[dn,tot]=amProgress(L),C=2*Math.PI*18,lc=litCount();
   const fri=new Date().getDay()===5?`<button class="box pad wk-ban" data-wkopen="1"><b>تقريرك الأسبوعي جاهز</b><span class="meta">صلواتك وأورادك وجوارحك في أسبوع</span></button>`:'';
@@ -4257,7 +4374,10 @@ async function auLoad(force){
   auBusy=false;if(auScr()||screen==='fiqh')render()}
 const auAll=()=>(auCat||[]).flatMap(g=>g.items);
 const auFind=p=>auAll().find(x=>x.p===p);
-const auUrl=p=>p.split('/').map(encodeURIComponent).join('/');
+/* lessons stream from GitHub Pages, which answers byte-range requests (iPhone needs them to play audio/video);
+   the new host serves them without ranges for now */
+const MEDIA_BASE=/github\.io$|^localhost$|^127\./.test(location.hostname)?'':'https://dridrissihafdi-ship-it.github.io/almurshid/';
+const auUrl=p=>MEDIA_BASE+p.split('/').map(encodeURIComponent).join('/');
 function auNext(p,d){for(const g of auCat||[]){const i=g.items.findIndex(x=>x.p===p);if(i>-1)return g.items[i+d]||null}return null}
 function auPlay(p,from){const a=auSt(),it=auFind(p)||{p,t:auClean(p.split('/').pop()),s:''};
   if(a.last!==p||!AU.src){a.last=p;a.lastT=it.t;a.lastS=it.s;AU.src=auUrl(p);
@@ -4359,7 +4479,7 @@ function render(){
   document.title=['المرشد','Al-Murshid','Al-Murshid','Al-Murshid','Аль-Муршид'][rtl?0:LIDX[LANG]+1];
   nav.querySelectorAll('[data-nav]').forEach(b=>{b.dataset.al=b.dataset.al||b.getAttribute('aria-label');b.setAttribute('aria-label',b.dataset.al)});
   nav.querySelectorAll('[data-nav] span').forEach(s=>{s.dataset.ar=s.dataset.ar||s.textContent;s.textContent=s.dataset.ar});
-  i18nApply(app);i18nApply(nav);
+  edApply(app);edApply(nav);i18nApply(app);i18nApply(nav);edBar();
   nav.hidden=screen==='dhikr_run'||(screen==='mushaf'&&mshAuto);
   if(isMedia(screen)){const ph=document.getElementById('mqVideo');if(keepV&&ph&&keepV!==ph&&keepV.getAttribute('src')===ph.getAttribute('src'))ph.replaceWith(keepV);mqBind()}
   if(keepU){const ph=document.getElementById('umVideo');if(ph&&ph!==keepU)ph.replaceWith(keepU)}
@@ -4392,6 +4512,7 @@ document.addEventListener('click',e=>{
   const t=e.target.closest('button');if(!t)return;const d=t.dataset;
   if(auClick(d))return;
   if(adClick(d))return;
+  if(edClick(d))return;
   if(d.rmzoom){rmZoom();return}
   if(d.vdplay){vdCur=d.vdplay;render();SCR().scrollTo({top:0,behavior:'smooth'});const el=document.getElementById('vdV');if(el){const pr=el.play();if(pr&&pr.catch)pr.catch(()=>{})}return}
   if(d.vdrefresh){auLoad(true);return}
