@@ -5677,7 +5677,7 @@ function render(){
   auUi();
   const bd=document.getElementById('badge');if(bd)bd.hidden=!(pendingOrgans().length||prepPendingToday()||!lights().halo);
 }
-function go(s){if(s==='ijtihad'){ruhiTab='week';wkOff=0;goRaw('ruhi');return}if(s==='sura'||s==='muraqabat'||s==='tahlil'){ruhiTab=s;s='ruhi'}if(s==='muhasaba'){tzTab='mh';s='tazkiya'}if(s==='aql'){tzTab='aql';s='tazkiya'}if(/^g[1-4]$/.test(s)){ahTab=s;s='ahdaf'}if(s==='jawarih'){tzTab='jawarih';s='tazkiya'}if(s==='qalbruh'){tzTab='qalb';s='tazkiya'}goRaw(s)}
+function go(s){if(s==='ijtihad'){ruhiTab='week';wkOff=0;goRaw('ruhi');return}if(s==='sura'||s==='muraqabat'||s==='tahlil'){ruhiTab=s;s='ruhi'}if(s==='muhasaba'){tzTab='mh';s='tazkiya'}if(s==='aql'){tzTab='aql';s='tazkiya'}if(/^g[1-4]$/.test(s)){ahTab=s;s='ahdaf'}if(s==='majalis'&&screen!=='majalis')majTab=null;if(s==='jawarih'){tzTab='jawarih';s='tazkiya'}if(s==='qalbruh'){tzTab='qalb';s='tazkiya'}goRaw(s)}
 const NAVH=[];let navBack=false;
 function goRaw(s){if(ADP.on&&s!=='adh_'+ADP.kind)adStop();if(s!==screen&&!navBack){NAVH.push(screen);if(NAVH.length>40)NAVH.shift()}if(s!=='method'&&tts.on)ttsStop();if(s!=='mushaf')mshAuto=false;if(s!=='qalb'){qbShowRes=false;qbRetest=null}if(s==='aamal'&&screen!=='aamal')aDate=null;if(s==='tazkiya'&&!['tazkiya','organ'].includes(screen))tzDate=null;if(s!==screen||!isMedia(s)){const v=document.getElementById('mqVideo');if(v&&!v.paused){v.pause();keepAwake(false)}}if(s!=='dhikr_run'&&run&&!run.done&&screen==='dhikr_run'){/* keep running in background */}screen=s;lightConfirm=null;confirmFor=null;confirmReset=false;redoFor=null;render();SCR().scrollTo(0,0);adhAwake()}
 /* keep the screen on while reading the morning / evening adhkar */
@@ -5712,6 +5712,7 @@ document.addEventListener('click',e=>{
   if(d.rmzoom){rmZoom();return}
   if(d.vdplay){vdCur=d.vdplay;render();SCR().scrollTo({top:0,behavior:'smooth'});const el=document.getElementById('vdV');if(el){const pr=el.play();if(pr&&pr.catch)pr.catch(()=>{})}return}
   if(d.vdrefresh){auLoad(true);return}
+  if(d.back!==undefined&&screen==='majalis'&&majTab){majTab=null;render();SCR().scrollTo(0,0);return}
   if(d.back!==undefined){let prev=null;while(NAVH.length){const x=NAVH.pop();if(x&&x!==screen){prev=x;break}}navBack=true;try{go(prev||d.back||'home')}finally{navBack=false}SCR().scrollTo(0,0);return}
   if(ttsClick(d))return;
   if(d.amode||d.google||d.signout||d.resend||d.verified||d.delacct||d.delno||d.delyes||d.adminreload||d.adpub||d.adhide||d.adxadd||d.adxdel!==undefined||d.anndismiss!==undefined){authClick(d);return}
