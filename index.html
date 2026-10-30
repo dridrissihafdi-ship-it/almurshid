@@ -5200,7 +5200,7 @@ const RM_HOT=[{go:'jawarih',t:'تزكية الجوارح',x:61.6,y:41.8,w:9.8,h:
 const rmHot=()=>RM_HOT.map(h=>`<button class="rm-hs" data-go="${h.go}" style="left:${h.x}%;top:${h.y}%;width:${h.w}%;height:${h.h}%" aria-label="${esc(Tx(h.t))}"><i></i></button>`).join('');
 function viewRoadmap(){
   return `<section class="rm">
-   <div class="rm-img"><button class="rm-imgb" data-rmzoom="1" aria-label="${esc(Tx('تكبير الخريطة'))}"><img src="roadmap-s.webp" alt="${esc(Tx('خريطة الطريق إلى رضا الله'))}" width="836" height="470" decoding="async"></button>${rmHot()}
+   <div class="rm-img"><button class="rm-imgb" data-rmzoom="1" aria-label="${esc(Tx('تكبير الخريطة'))}"><img src="roadmap2-s.webp" alt="${esc(Tx('خريطة الطريق إلى رضا الله'))}" width="836" height="470" decoding="async"></button>${rmHot()}
     <button class="rm-zm" data-rmzoom="1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg><span>تكبير الخريطة</span></button></div>
    <button class="btn ok rm-path" data-go="path">افتح مساري: أين أنا في هذا الطريق؟</button>
    <p class="meta rm-how rm-tap"><span class="rm-dot"></span><span>اضغط على أي محطة في الصورة لفتح درسها.</span></p>
@@ -5208,7 +5208,7 @@ function viewRoadmap(){
    <ol class="rm-st">${RM.map((g,k)=>`<li class="box rm-g0 ${g.c}"><div class="rm-h"><span class="rm-n">${k+1}</span><span><b>${g.t}</b><small>${g.sub}</small></span></div>
     <ol class="rm-it">${g.it.map((x,j)=>RM_GO[x]?`<li><button class="rm-lnk" data-go="${RM_GO[x].go}"><span class="rm-k">${j+1}</span><span class="rm-lt"><span>${x}</span><small>${RM_GO[x].s}</small></span>${RM_GO[x].r?'<svg class="rm-hp" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5c2.7-1 5.3-1 8 .8v13c-2.7-1.8-5.3-1.8-8-.8zM20 5.5c-2.7-1-5.3-1-8 .8v13c2.7-1.8 5.3-1.8 8-.8z"/></svg>':RM_GO[x].v?'<svg class="rm-hp" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10.5 9.5v5l4.2-2.5z" fill="currentColor"/></svg>':'<svg class="rm-hp" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4.5" height="6.5" rx="1.5"/><rect x="16.5" y="14" width="4.5" height="6.5" rx="1.5"/></svg>'}</button></li>`:`<li><span class="rm-k">${j+1}</span><span>${x}</span></li>`).join('')}</ol></li>`).join('')}</ol>
   </section>`}
-function rmZoom(){const o=document.createElement('div');o.className='rm-full';o.innerHTML=`<div class="rm-sc"><div class="rm-fw"><img src="roadmap.webp" alt="">${rmHot()}</div></div><button class="rm-x" aria-label="${esc(Tx('إغلاق'))}"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button><p class="rm-tip">${esc(Tx('اسحب لترى الخريطة كاملة'))}</p>`;
+function rmZoom(){const o=document.createElement('div');o.className='rm-full';o.innerHTML=`<div class="rm-sc"><div class="rm-fw"><img src="roadmap2.webp" alt="">${rmHot()}</div></div><button class="rm-x" aria-label="${esc(Tx('إغلاق'))}"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button><p class="rm-tip">${esc(Tx('اسحب لترى الخريطة كاملة'))}</p>`;
   document.body.appendChild(o);const sc=o.querySelector('.rm-sc'),im=sc.querySelector('img');
   const fit=()=>{sc.scrollLeft=sc.scrollWidth}; im.complete?requestAnimationFrame(fit):im.addEventListener('load',fit);
   const close=()=>{o.remove();removeEventListener('keydown',esc_)};const esc_=e=>{if(e.key==='Escape')close()};addEventListener('keydown',esc_);
