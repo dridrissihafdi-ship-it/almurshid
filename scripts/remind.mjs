@@ -175,3 +175,32 @@ try {
   }
 } catch (e) { console.warn('admin push', e.message); }
 console.log(`users: ${snap.size} · sent: ${sent} · removed tokens: ${removed}`);
+/* private messages the admin sent to one seeker: one notification per new message */
+const INBOX_T = {ar: 'رسالة خاصة من الإدارة', en: 'A private message from the administration', fr: 'Un message privé de l’administration', es: 'Un mensaje privado de la administración', ru: 'Личное сообщение от администрации'};
+try {
+  const ib = await retry(() => db.collection('inbox').where('pushed', '==', false).limit(50).get(), 'inbox');
+  for (const m of ib.docs) {
+    const v = m.data(); let ok = false;
+    try {
+      const p = await db.collection('push').doc(v.uid).get(), u = p.exists ? p.data() : {};
+      if (u.token) {
+        await fcm.send({token: u.token, data: {title: INBOX_T[u.lang] || INBOX_T.ar, body: String(v.text || '').slice(0, 180), tag: 'murshid-inbox-' + m.id, url: URL_APP},
+          webpush: {headers: {TTL: '86400', Urgency: 'high'}}});
+        ok = true;
+      }
+    } catch (e) { console.warn('inbox', m.id, e.errorInfo && e.errorInfo.code || e.code || e.message); }
+    await m.ref.update({pushed: true, pushOk: ok});
+  }
+  if (ib.size) console.log(`private messages: ${ib.size}`);
+} catch (e) { console.warn('inbox', e.message); }
+/* profiles the admin deleted in the app: remove the sign-in account and every remaining record */
+try {
+  const dq = await db.collection('deletions').limit(20).get();
+  for (const r of dq.docs) {
+    const uid = r.data().uid || r.id;
+    try { await admin.auth().deleteUser(uid); } catch (e) { if (e.code !== 'auth/user-not-found') console.warn('delete account', uid, e.code); }
+    for (const c of ['users', 'progress', 'push']) { try { await db.collection(c).doc(uid).delete(); } catch (e) {} }
+    try { const ib = await db.collection('inbox').where('uid', '==', uid).get(); for (const x of ib.docs) await x.ref.delete(); } catch (e) {}
+    await r.ref.delete(); console.log('deleted profile', uid);
+  }
+} catch (e) { console.warn('deletions', e.message); }
