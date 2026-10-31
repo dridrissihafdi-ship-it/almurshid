@@ -53,6 +53,7 @@ const TXT = {
   hudur:    {ar: ['الحضور مع الله', '﴿وَهُوَ مَعَكُمْ أَيْنَمَا كُنتُمْ﴾ — توقّف لحظة واستحضر أن الله معك'], en: ['Presence with God', '“And He is with you wherever you are.” Pause and remember He is with you.'], fr: ['Présence avec Dieu', '« Et Il est avec vous où que vous soyez. » Arrêtez-vous un instant.'], es: ['Presencia con Dios', '«Y Él está con vosotros dondequiera que estéis.» Detente un momento.'], ru: ['Присутствие с Богом', '«Он с вами, где бы вы ни были». Остановитесь на миг.']},
   muhasaba: {ar: ['محاسبة اليوم', 'قبل النوم: سجّل يومك في التزكية، وحاسب نفسك.'], en: ['Daily self-review', 'Before sleep: log your day and review yourself.'], fr: ['Bilan du jour', 'Avant de dormir : enregistrez votre journée et faites votre bilan.'], es: ['Repaso del día', 'Antes de dormir: registra tu día y haz tu repaso.'], ru: ['Итог дня', 'Перед сном: отметьте день и подведите итог.']},
 };
+const TR_T = {ar: ['تدريب التزكية اليوم', 'لم تسجّل يومك بعد في: '], en: ['Today’s purification training', 'Not logged yet: '], fr: ['Entraînement du jour', 'Pas encore noté : '], es: ['Entrenamiento de hoy', 'Aún sin registrar: '], ru: ['Тренировка сегодня', 'Ещё не отмечено: ']};
 const URL_APP = 'https://dridrissihafdi-ship-it.github.io/almurshid/', URL_OLD = URL_APP;
 /* the 200 questions (qa.json, published with the app): one after Fajr, one after Isha */
 let QA = null;
@@ -99,6 +100,18 @@ for (const doc of snap.docs) {
         await doc.ref.update({token: admin.firestore.FieldValue.delete()}); removed++; break;
       }
       console.warn(doc.id, k, c);
+    }
+  }
+  // daily training of the purification stages: an hour before the self-review, if a training is not logged today
+  if (on.tadrib !== false && last.tadrib !== L.date && u.tr && u.token && L.h >= bed - 1 && L.h < bed + 1) {
+    const need = (u.tr.d === L.date ? u.tr.need : u.tr.act) || [];
+    if (need.length) {
+      const [title, body] = (TR_T[u.lang] || TR_T.ar);
+      try {
+        await fcm.send({token: u.token, data: {title, body: body + need.slice(0, 4).join(u.lang === 'ar' ? '، ' : ', '), tag: 'murshid-tadrib', url: URL_APP + '#tadrib'},
+          webpush: {headers: {TTL: '7200', Urgency: 'high'}}});
+        upd['lastSent.tadrib'] = L.date; sent++;
+      } catch (e) { console.warn(doc.id, 'tadrib', e.errorInfo && e.errorInfo.code || e.code || ''); }
     }
   }
   // question & answer: 15 min after Fajr and 30 min after Isha (on unless turned off)
