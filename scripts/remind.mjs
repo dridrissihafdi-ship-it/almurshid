@@ -22,13 +22,14 @@ function prayerTimes(y, m, d, lat, lng, tz) {
   const at = (angle, t, ccw) => { const s = sunPos(jd + t), n = noon(t);
     const T = deg(Math.acos((-Math.sin(rad(angle)) - Math.sin(rad(s.decl)) * Math.sin(rad(lat))) / (Math.cos(rad(s.decl)) * Math.cos(rad(lat))))) / 15;
     return n + (ccw ? -T : T); };
-  const raw = {fajr: at(19, 5 / 24, 1), sunrise: at(0.833, 6 / 24, 1), maghrib: at(0.833, 18 / 24, 0), isha: at(17, 18 / 24, 0)};
+  const asrAngle = t => { const s = sunPos(jd + t); return -deg(Math.atan(1 / (1 + Math.tan(rad(Math.abs(lat - s.decl)))))); };
+  const raw = {fajr: at(19, 5 / 24, 1), sunrise: at(0.833, 6 / 24, 1), dhuhr: noon(12 / 24), asr: at(asrAngle(13 / 24), 13 / 24, 0), maghrib: at(0.833, 18 / 24, 0), isha: at(17, 18 / 24, 0)};
   const night = 24 - (raw.maghrib - raw.sunrise);
   if (!isFinite(raw.fajr)) raw.fajr = raw.sunrise - night / 7;
   if (!isFinite(raw.isha)) raw.isha = raw.maghrib + night / 7;
   const out = {}; for (const k in raw) out[k] = fix(raw[k] + tz - lng / 15, 24);
   // Morocco (Ministry of Habous tables): Maghrib is 5 minutes after the computed sunset
-  if (lat >= 20.5 && lat <= 36.2 && lng >= -17.6 && lng <= -0.9) out.maghrib += 5 / 60;
+  if (lat >= 20.5 && lat <= 36.2 && lng >= -17.6 && lng <= -0.9) { out.maghrib += 5 / 60; out.dhuhr += 5 / 60; out.asr += 0.5 / 60; }
   return out;
 }
 /* local date, hour and UTC offset of a time zone */
@@ -53,7 +54,6 @@ const TXT = {
   hudur:    {ar: ['الحضور مع الله', '﴿وَهُوَ مَعَكُمْ أَيْنَمَا كُنتُمْ﴾ — توقّف لحظة واستحضر أن الله معك'], en: ['Presence with God', '“And He is with you wherever you are.” Pause and remember He is with you.'], fr: ['Présence avec Dieu', '« Et Il est avec vous où que vous soyez. » Arrêtez-vous un instant.'], es: ['Presencia con Dios', '«Y Él está con vosotros dondequiera que estéis.» Detente un momento.'], ru: ['Присутствие с Богом', '«Он с вами, где бы вы ни были». Остановитесь на миг.']},
   muhasaba: {ar: ['محاسبة اليوم', 'قبل النوم: سجّل يومك في التزكية، وحاسب نفسك.'], en: ['Daily self-review', 'Before sleep: log your day and review yourself.'], fr: ['Bilan du jour', 'Avant de dormir : enregistrez votre journée et faites votre bilan.'], es: ['Repaso del día', 'Antes de dormir: registra tu día y haz tu repaso.'], ru: ['Итог дня', 'Перед сном: отметьте день и подведите итог.']},
 };
-const TR_T = {ar: ['تدريب التزكية اليوم', 'لم تسجّل يومك بعد في: '], en: ['Today’s purification training', 'Not logged yet: '], fr: ['Entraînement du jour', 'Pas encore noté : '], es: ['Entrenamiento de hoy', 'Aún sin registrar: '], ru: ['Тренировка сегодня', 'Ещё не отмечено: ']};
 const URL_APP = 'https://dridrissihafdi-ship-it.github.io/almurshid/', URL_OLD = URL_APP;
 /* the 200 questions (qa.json, published with the app): one after Fajr, one after Isha */
 let QA = null;
@@ -102,18 +102,6 @@ for (const doc of snap.docs) {
       console.warn(doc.id, k, c);
     }
   }
-  // daily training of the purification stages: an hour before the self-review, if a training is not logged today
-  if (on.tadrib !== false && last.tadrib !== L.date && u.tr && u.token && L.h >= bed - 1 && L.h < bed + 1) {
-    const need = (u.tr.d === L.date ? u.tr.need : u.tr.act) || [];
-    if (need.length) {
-      const [title, body] = (TR_T[u.lang] || TR_T.ar);
-      try {
-        await fcm.send({token: u.token, data: {title, body: body + need.slice(0, 4).join(u.lang === 'ar' ? '، ' : ', '), tag: 'murshid-tadrib', url: URL_APP + '#tadrib'},
-          webpush: {headers: {TTL: '7200', Urgency: 'high'}}});
-        upd['lastSent.tadrib'] = L.date; sent++;
-      } catch (e) { console.warn(doc.id, 'tadrib', e.errorInfo && e.errorInfo.code || e.code || ''); }
-    }
-  }
   // question & answer: 15 min after Fajr and 30 min after Isha (on unless turned off)
   if (QA && on.qa !== false && u.token) {
     const [iM, iE] = qaIdx(L.date);
@@ -154,6 +142,26 @@ for (const doc of snap.docs) {
     }
     if (add.length) upd.khSent = admin.firestore.FieldValue.arrayUnion(...add);
   }
+  // "prepare for the meeting": about 10 minutes before each of the five prayers (only if turned on)
+  if (on.khushu === true && u.token) {
+    const PN = {ar: {fajr: 'الصبح', dhuhr: 'الظهر', asr: 'العصر', maghrib: 'المغرب', isha: 'العشاء'}, en: {fajr: 'Fajr', dhuhr: 'Dhuhr', asr: 'Asr', maghrib: 'Maghrib', isha: 'Isha'},
+      fr: {fajr: 'Fajr', dhuhr: 'Dhuhr', asr: 'Asr', maghrib: 'Maghrib', isha: 'Isha'}, es: {fajr: 'Fajr', dhuhr: 'Dhuhr', asr: 'Asr', maghrib: 'Maghrib', isha: 'Isha'}, ru: {fajr: 'Фаджр', dhuhr: 'Зухр', asr: 'Аср', maghrib: 'Магриб', isha: 'Иша'}};
+    const KT = {ar: ['تهيّأ للقاء', n => `اقترب وقت صلاة ${n}. توضّأ بحضور، وضع همومك جانبًا، فأنت مقبل على الله.`],
+      en: ['Prepare for the meeting', n => `${n} is near. Make wudu with presence and set your worries aside: you are turning to Allah.`],
+      fr: ['Se préparer à la rencontre', n => `La prière de ${n} approche. Faites vos ablutions avec présence et posez vos soucis : vous allez vers Dieu.`],
+      es: ['Prepárate para el encuentro', n => `Se acerca la oración de ${n}. Haz la ablución con presencia y deja tus preocupaciones: vas hacia Dios.`],
+      ru: ['Подготовиться к встрече', n => `Приближается молитва ${n}. Совершите омовение с присутствием сердца и отложите заботы: вы идёте к Богу.`]};
+    const T = KT[u.lang] || KT.ar, N = PN[u.lang] || PN.ar;
+    for (const k of ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha']) {
+      const key = 'kh_' + k;
+      if (last[key] === L.date || !(L.h >= pt[k] - 14 / 60 && L.h < pt[k] - 1 / 60)) continue;
+      try {
+        await fcm.send({token: u.token, data: {title: T[0], body: T[1](N[k]), tag: 'murshid-khushu', url: URL_APP + '#khushu'},
+          webpush: {headers: {TTL: '900', Urgency: 'high'}}});
+        upd['lastSent.' + key] = L.date; sent++;
+      } catch (e) { console.warn(doc.id, 'khushu', e.errorInfo && e.errorInfo.code || e.code || ''); }
+    }
+  }
   // hourly reminder of God's presence: on the hour, between the user's chosen hours (only if turned on)
   if (on.hudur === true) {
     const hh = v => { const [x, y] = String(v || '').split(':').map(Number); return isFinite(x) ? x + (y || 0) / 60 : NaN; };
@@ -188,32 +196,3 @@ try {
   }
 } catch (e) { console.warn('admin push', e.message); }
 console.log(`users: ${snap.size} · sent: ${sent} · removed tokens: ${removed}`);
-/* private messages the admin sent to one seeker: one notification per new message */
-const INBOX_T = {ar: 'رسالة خاصة من الإدارة', en: 'A private message from the administration', fr: 'Un message privé de l’administration', es: 'Un mensaje privado de la administración', ru: 'Личное сообщение от администрации'};
-try {
-  const ib = await retry(() => db.collection('inbox').where('pushed', '==', false).limit(50).get(), 'inbox');
-  for (const m of ib.docs) {
-    const v = m.data(); let ok = false;
-    try {
-      const p = await db.collection('push').doc(v.uid).get(), u = p.exists ? p.data() : {};
-      if (u.token) {
-        await fcm.send({token: u.token, data: {title: INBOX_T[u.lang] || INBOX_T.ar, body: String(v.text || '').slice(0, 180), tag: 'murshid-inbox-' + m.id, url: URL_APP},
-          webpush: {headers: {TTL: '86400', Urgency: 'high'}}});
-        ok = true;
-      }
-    } catch (e) { console.warn('inbox', m.id, e.errorInfo && e.errorInfo.code || e.code || e.message); }
-    await m.ref.update({pushed: true, pushOk: ok});
-  }
-  if (ib.size) console.log(`private messages: ${ib.size}`);
-} catch (e) { console.warn('inbox', e.message); }
-/* profiles the admin deleted in the app: remove the sign-in account and every remaining record */
-try {
-  const dq = await db.collection('deletions').limit(20).get();
-  for (const r of dq.docs) {
-    const uid = r.data().uid || r.id;
-    try { await admin.auth().deleteUser(uid); } catch (e) { if (e.code !== 'auth/user-not-found') console.warn('delete account', uid, e.code); }
-    for (const c of ['users', 'progress', 'push']) { try { await db.collection(c).doc(uid).delete(); } catch (e) {} }
-    try { const ib = await db.collection('inbox').where('uid', '==', uid).get(); for (const x of ib.docs) await x.ref.delete(); } catch (e) {}
-    await r.ref.delete(); console.log('deleted profile', uid);
-  }
-} catch (e) { console.warn('deletions', e.message); }
