@@ -1232,6 +1232,8 @@ body.yd-mini .snd-mini{inset-inline-end:calc(min(56vw,240px) + 24px)}body.yd-min
 @media (hover:none),(pointer:coarse){input,textarea,select{font-size:16px!important}}
 /* ---- simplified, picture-first UI ---- */
 nav.tabs .in[data-mode="s"]{grid-template-columns:repeat(3,1fr);max-width:420px}nav.tabs .in[data-mode="s"] button{padding-inline:12px}
+.vc-r{margin-bottom:12px}.vc-row{display:flex;gap:8px;align-items:center;margin-top:6px}.vc-sel{flex:1;min-width:0;height:42px;border-radius:12px;border:1px solid var(--card-line);background:var(--chip);color:var(--ink);font-family:var(--f);font-size:14px;padding:0 10px}
+.vc-help{margin-top:6px;padding:10px 12px;border-radius:12px;background:var(--chip);font-size:13.5px;line-height:1.7}.vc-help p{margin:0 0 6px}
 .il{display:block;width:100%;height:auto}img.il{aspect-ratio:16/10;object-fit:cover;background:#2A211B}
 .sm-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0 6px}
 .sm-tile{display:flex;flex-direction:column;padding:0;border-radius:20px;overflow:hidden;border:1px solid var(--card-line);background:var(--card);color:var(--ink);font-family:var(--f);cursor:pointer;text-align:center;transition:transform .15s}
@@ -2475,6 +2477,16 @@ const I18N_D={
 "صورة وفكرة في كل صفحة":["One picture and one idea per page", "Une image et une idée par page", "Una imagen y una idea por página", "Одна картинка и одна мысль на странице", "ہر صفحے پر ایک تصویر اور ایک خیال"],
 "زاد الطريق":["Provisions for the path", "Provisions du chemin", "Provisiones del camino", "Запас в пути", "راستے کا زادِ راہ"],
 "محطات الطريق بالتفصيل":["The path’s stations in detail", "Les étapes du chemin en détail", "Las estaciones del camino en detalle", "Этапы пути подробно", "راستے کی منزلیں تفصیل سے"],
+"صوت القراءة":["Reading voice", "Voix de lecture", "Voz de lectura", "Голос чтения", "پڑھنے کی آواز"],
+"صوت لغة التطبيق":["Voice for the app’s language", "Voix de la langue de l’application", "Voz del idioma de la app", "Голос для языка приложения", "ایپ کی زبان کی آواز"],
+"صوت النصوص العربية (الآيات والأذكار)":["Voice for Arabic texts (verses and adhkar)", "Voix des textes arabes (versets et adhkar)", "Voz de los textos árabes (versículos y adhkar)", "Голос для арабских текстов (аяты и азкары)", "عربی متون کی آواز (آیات اور اذکار)"],
+"تلقائي: أفضل صوت متاح":["Automatic: best available voice", "Automatique : la meilleure voix disponible", "Automático: la mejor voz disponible", "Автоматически: лучший доступный голос", "خودکار: بہترین دستیاب آواز"],
+"جرّب":["Try", "Essayer", "Probar", "Прослушать", "سنیں"],
+"لا يوجد صوت لهذه اللغة في هاتفك.":["Your phone has no voice for this language.", "Votre téléphone n’a pas de voix pour cette langue.", "Tu teléfono no tiene voz para este idioma.", "В вашем телефоне нет голоса для этого языка.", "آپ کے فون میں اس زبان کی آواز موجود نہیں۔"],
+"لصوت أوضح، نزّل صوتًا محسّنًا في هاتفك:":["For a clearer voice, download an enhanced voice on your phone:", "Pour une voix plus claire, téléchargez une voix améliorée sur votre téléphone :", "Para una voz más clara, descarga una voz mejorada en tu teléfono:", "Для более чёткого голоса скачайте улучшенный голос на телефон:", "زیادہ واضح آواز کے لیے اپنے فون پر بہتر آواز ڈاؤن لوڈ کیجیے:"],
+"آيفون: الإعدادات ← تسهيلات الاستخدام ← المحتوى المنطوق ← الأصوات ← اختر اللغة ← نزّل صوتًا «محسّنًا» أو «ممتازًا».":["iPhone: Settings → Accessibility → Spoken Content → Voices → choose the language → download an “Enhanced” or “Premium” voice.", "iPhone : Réglages → Accessibilité → Contenu énoncé → Voix → choisissez la langue → téléchargez une voix « améliorée » ou « premium ».", "iPhone: Ajustes → Accesibilidad → Contenido leído → Voces → elige el idioma → descarga una voz «mejorada» o «premium».", "iPhone: Настройки → Универсальный доступ → Устный контент → Голоса → выберите язык → скачайте «улучшенный» голос или голос «премиум».", "آئی فون: Settings ← Accessibility ← Spoken Content ← Voices ← زبان منتخب کیجیے ← «Enhanced» یا «Premium» آواز ڈاؤن لوڈ کیجیے۔"],
+"أندرويد: الإعدادات ← تسهيلات الاستخدام ← تحويل النص إلى كلام ← محرك Google ← تثبيت بيانات الصوت ← اختر اللغة.":["Android: Settings → Accessibility → Text-to-speech → Google engine → Install voice data → choose the language.", "Android : Paramètres → Accessibilité → Synthèse vocale → moteur Google → Installer les données vocales → choisissez la langue.", "Android: Ajustes → Accesibilidad → Texto a voz → motor de Google → Instalar datos de voz → elige el idioma.", "Android: Настройки → Спец. возможности → Синтез речи → движок Google → Установить голосовые данные → выберите язык.", "اینڈرائیڈ: Settings ← Accessibility ← Text-to-speech ← Google انجن ← Install voice data ← زبان منتخب کیجیے۔"],
+"ثم أغلق التطبيق وافتحه، واختر الصوت الجديد هنا.":["Then close and reopen the app, and choose the new voice here.", "Puis fermez et rouvrez l’application, et choisissez la nouvelle voix ici.", "Luego cierra y vuelve a abrir la app, y elige aquí la nueva voz.", "Затем закройте и снова откройте приложение и выберите здесь новый голос.", "پھر ایپ بند کر کے دوبارہ کھولیے، اور یہاں نئی آواز منتخب کیجیے۔"],
 "ست لغات":["Six languages", "Six langues", "Seis idiomas", "Шесть языков", "چھ زبانیں"],
 "هذه السلسلة غير موجودة.":["This series does not exist.", "Cette série n’existe pas.", "Esta serie no existe.", "Эта серия не существует.", "یہ سلسلہ موجود نہیں ہے۔"],
 "التطبيق":["The app", "L’application", "La aplicación", "Приложение", "ایپ"],
@@ -4742,7 +4754,17 @@ const ABI={
  pin:'<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/>',
  key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l8.5-8.5M16.5 6.5l2.5 2.5M14 9l2 2"/>',
  reset:'<path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/>',
- mail:'<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/>'};
+ mail:'<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/>',
+ speaker:'<path d="M4 9.5v5h3.5l4.5 4v-13l-4.5 4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>'};
+/* settings: the reading voice for the app's language, and for Arabic texts (verses, adhkar) */
+const VC_SAMPLE={ar:'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ. هَذَا صَوْتُ الْقِرَاءَةِ فِي الْمُرْشِدِ.',en:'This is the reading voice of Al-Murshid.',fr:'Voici la voix de lecture d’Al-Murshid.',es:'Esta es la voz de lectura de Al-Murshid.',ru:'Это голос чтения приложения Аль-Муршид.',ur:'یہ المرشد کی پڑھنے والی آواز ہے۔'};
+function voiceBox(){const langs=LANG==='ar'?['ar']:[LANG,'ar'];
+  return langs.map(lg=>{const vs=ttsVoices(lg).sort((a,b)=>ttsScore(b,lg)-ttsScore(a,lg)),cur=(S.ttsV||{})[lg]||'';
+    return `<div class="vc-r"><p class="muted">${lg==='ar'&&LANG!=='ar'?'صوت النصوص العربية (الآيات والأذكار)':'صوت لغة التطبيق'}</p>${vs.length?`<div class="vc-row"><select class="vc-sel notr" data-vclang="${lg}" dir="ltr"><option value="">${esc(Tx('تلقائي: أفضل صوت متاح'))}</option>${vs.map(v=>`<option value="${esc(v.voiceURI)}"${v.voiceURI===cur?' selected':''}>${esc(v.name)} · ${esc(v.lang)}</option>`).join('')}</select><button class="btn small" data-vctry="${lg}">جرّب</button></div>`:'<p class="meta">لا يوجد صوت لهذه اللغة في هاتفك.</p>'}</div>`}).join('')+
+   `<div class="vc-help"><p><b>لصوت أوضح، نزّل صوتًا محسّنًا في هاتفك:</b></p><p>آيفون: الإعدادات ← تسهيلات الاستخدام ← المحتوى المنطوق ← الأصوات ← اختر اللغة ← نزّل صوتًا «محسّنًا» أو «ممتازًا».</p><p>أندرويد: الإعدادات ← تسهيلات الاستخدام ← تحويل النص إلى كلام ← محرك Google ← تثبيت بيانات الصوت ← اختر اللغة.</p><p class="meta">ثم أغلق التطبيق وافتحه، واختر الصوت الجديد هنا.</p></div>`}
+function vcTry(lg){if(!TTS_OK)return;try{speechSynthesis.cancel()}catch(e){}const u=new SpeechSynthesisUtterance(VC_SAMPLE[lg]||VC_SAMPLE.ar),v=ttsVoice(lg);u.lang=v?v.lang:(TTS_LANG[lg]||'ar-SA');if(v)u.voice=v;u.rate=ttsRateFor(lg==='ar');speechSynthesis.speak(u)}
+try{speechSynthesis.addEventListener('voiceschanged',()=>{if(screen==='profile'&&aboutOpen.has('voice'))render()})}catch(e){}
+document.addEventListener('change',e=>{const t=e.target;if(!t||!t.dataset||!t.dataset.vclang)return;S.ttsV=S.ttsV||{};if(t.value)S.ttsV[t.dataset.vclang]=t.value;else delete S.ttsV[t.dataset.vclang];save();vcTry(t.dataset.vclang)});
 const CHEV='<svg class="acc-ch" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>';
 function acc(id,ic,t,body,val){return `<details class="acc" data-acc="${id}"${aboutOpen.has(id)?' open':''}><summary><span class="acc-ic"><svg viewBox="0 0 24 24" aria-hidden="true">${ABI[ic]}</svg></span><span class="acc-t">${t}</span>${val?`<span class="acc-v">${val}</span>`:''}${CHEV}</summary><div class="acc-b">${body}</div></details>`}
 function viewAbout(){
@@ -6815,7 +6837,14 @@ const TTS_LANG={ar:'ar-SA',en:'en-US',fr:'fr-FR',es:'es-ES',ru:'ru-RU',ur:'ur-PK
 const TTS_PBUH={ar:'صلى الله عليه وسلم',en:'peace be upon him',fr:'paix et salut sur lui',es:'la paz sea con él',ru:'мир ему и благословение Аллаха',ur:'صلی اللہ علیہ وسلم'};
 let tts={on:false,all:false,sec:0,i:0,paused:false,rate:1,tok:0};
 try{tts.rate=+localStorage.getItem('murshid-tts-rate')||1}catch(e){}
-const ttsVoice=lg=>{const L=TTS_LANG[lg||LANG]||'ar-SA',vs=speechSynthesis.getVoices();return vs.find(v=>v.lang===L)||vs.find(v=>v.lang&&v.lang.toLowerCase().startsWith(L.slice(0,2)))||null};
+/* choose the clearest voice installed on the phone (or the one the user picked in the settings) */
+const TTS_PREF={ar:['ar-SA','ar-001','ar-EG','ar-AE','ar-MA','ar-JO'],en:['en-GB','en-US','en-AU','en-IE'],fr:['fr-FR','fr-CA','fr-BE'],es:['es-ES','es-MX','es-US'],ru:['ru-RU'],ur:['ur-PK','ur-IN']};
+const TTS_JUNK=/^(Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Deranged|Good News|Hysterical|Jester|Organ|Pipe Organ|Superstar|Trinoids|Whisper|Wobble|Zarvox|Fred|Junior|Kathy|Ralph|Grandma|Grandpa|Eddy|Flo|Reed|Rocko|Sandy|Shelley)\b/i;
+const ttsVoices=lg=>{const L=(lg||LANG).slice(0,2);try{return speechSynthesis.getVoices().filter(v=>(v.lang||'').toLowerCase().replace('_','-').startsWith(L))}catch(e){return[]}};
+function ttsScore(v,lg){const n=v.name||'',l=(v.lang||'').replace('_','-').toLowerCase(),P=(TTS_PREF[lg]||[]).map(x=>x.toLowerCase()),i=P.indexOf(l);let s=i<0?0:10-i;
+  if(/premium|ممتاز/i.test(n))s+=40;if(/enhanced|améliorée|mejorada|улучш|محسّن|محسن/i.test(n))s+=30;if(/neural|natural|online/i.test(n))s+=25;if(/google/i.test(n))s+=15;if(/siri/i.test(n))s+=10;if(/compact/i.test(n))s-=10;if(TTS_JUNK.test(n))s-=100;if(v.localService)s+=2;return s}
+const ttsVoice=lg=>{lg=lg||LANG;const vs=ttsVoices(lg);if(!vs.length)return null;const pk=(S.ttsV||{})[lg],m=pk&&vs.find(v=>v.voiceURI===pk);return m||vs.slice().sort((a,b)=>ttsScore(b,lg)-ttsScore(a,lg))[0]};
+const ttsRateFor=arab=>tts.rate*(arab?.92:1);
 const ttsSecs=()=>[...document.querySelectorAll('.tq-s,.tts-s')];
 const ttsUnits=si=>{const s=ttsSecs()[si];if(!s)return [];const u=[s.querySelector(':scope > summary'),...s.querySelectorAll('h3,h4,p,li,dt,dd,.ls-cmp span,.ls-cmp i,.ls-bird b,td')].filter(x=>x&&!x.closest('.nosay')&&x.innerText&&x.innerText.trim());return u.length?u:[s]};
 function ttsText(el){let t=(el.tagName==='SUMMARY'?el.textContent:el.innerText||el.textContent).replace(/ﷺ/g,' '+(TTS_PBUH[LANG]||TTS_PBUH.ar)+' ').replace(/[﴿﴾«»]/g,'').replace(/\s+/g,' ').trim();return t}
@@ -6825,7 +6854,7 @@ function ttsSpeak(){if(!tts.on)return;const units=ttsUnits(tts.sec);
   if(tts.i>=units.length){const n=ttsSecs().length;if(tts.all&&tts.sec+1<n){tts.sec++;tts.i=0;return ttsSpeak()}return ttsStop()}
   ttsMark();ttsBar();const tok=++tts.tok,parts=ttsChunks(ttsText(units[tts.i]));let k=0;
   const next=()=>{if(tok!==tts.tok||!tts.on)return;if(k>=parts.length){tts.i++;return ttsSpeak()}
-    const txt=parts[k++],urd=LANG==='ur'&&/[ٹڈڑںےۓہھکگپچژیۂ]/.test(txt),arab=!urd&&/[\u0600-\u06FF]/.test(txt)&&(txt.match(/[\u0600-\u06FF]/g)||[]).length>txt.length/4;const u=new SpeechSynthesisUtterance(txt);u.lang=arab?'ar-SA':(TTS_LANG[LANG]||'ar-SA');const v=ttsVoice(arab?'ar':LANG);if(v)u.voice=v;u.rate=tts.rate;
+    const txt=parts[k++],urd=LANG==='ur'&&/[ٹڈڑںےۓہھکگپچژیۂ]/.test(txt),arab=!urd&&/[\u0600-\u06FF]/.test(txt)&&(txt.match(/[\u0600-\u06FF]/g)||[]).length>txt.length/4;const u=new SpeechSynthesisUtterance(txt);u.lang=arab?'ar-SA':(TTS_LANG[LANG]||'ar-SA');const v=ttsVoice(arab?'ar':LANG)||(LANG==='ur'?ttsVoice('ar'):null);if(v){u.voice=v;u.lang=v.lang}u.rate=ttsRateFor(arab||LANG==='ar');
     u.onend=()=>setTimeout(next,60);u.onerror=e=>{if(e&&(e.error==='interrupted'||e.error==='canceled'))return;setTimeout(next,60)};speechSynthesis.speak(u)};
   if(!parts.length){tts.i++;return ttsSpeak()}next()}
 function ttsStart(sec,all){if(!TTS_OK)return;try{if(!AU.paused)AU.pause()}catch(e){}speechSynthesis.cancel();tts.on=true;tts.all=all;tts.sec=sec;tts.i=0;tts.paused=false;const d=ttsSecs()[sec];if(d&&d.tagName==='DETAILS')d.open=true;ttsSpeak()}
@@ -6942,6 +6971,7 @@ function viewProfile(){
     ${geoMsg?`<p class="meta">${esc(geoMsg)}</p>`:''}
     <p class="meta" style="margin:0">الفجر ${hm(prayerTimes(new Date()).fajr)} · المغرب ${hm(prayerTimes(new Date()).maghrib)}</p>
    </div>${ptAdjBox()}${adzBox()}`,`<span class="notr">${esc(cityName(S.loc))}</span>`)}</div>
+   <div class="acc-card">${TTS_OK?acc('voice','speaker','صوت القراءة',voiceBox()):''}</div>
    <div class="acc-card">${acc('font','font','حجم الخط',`<p class="muted">كبّر الخط إن كانت القراءة متعبة، خاصة في الأذكار.</p><p class="meta">ويمكنك أيضًا تكبير النص أو تصغيره بإصبعين في صفحات القراءة والقرآن.</p><div class="fz-row">${[[1,'عادي'],[1.12,'كبير'],[1.25,'أكبر']].map(([v,l])=>`<button class="btn${(S.fz||1)===v?' ok':''}" data-fz="${v}" style="font-size:${14*v}px">${l}</button>`).join('')}</div>`,(S.fz||1)===1?'عادي':S.fz===1.12?'كبير':S.fz===1.25?'أكبر':Math.round(S.fz*100)+'%')}</div>
    <p class="ab-g">التذكيرات</p>
    <div class="acc-card">${acc('push','bell','التذكيرات على الهاتف',strip(pushSection()),P.enabled?'مفعّلة':'غير مفعّلة')}</div>
@@ -7553,7 +7583,7 @@ function storySlides(k){const X=lessonGet(k);if(!X)return[];const out=[{t:X.t||T
 let stSpeakTok=0;
 function stSay(el){if(!TTS_OK)return;speechSynthesis.cancel();const tok=++stSpeakTok,parts=ttsChunks(ttsText(el));let k=0;
   const next=()=>{if(tok!==stSpeakTok||k>=parts.length)return;const txt=parts[k++],urd=LANG==='ur'&&/[ٹڈڑںےۓہھکگپچژیۂ]/.test(txt),arab=!urd&&(txt.match(/[؀-ۿ]/g)||[]).length>txt.length/4;
-    const u=new SpeechSynthesisUtterance(txt);u.lang=arab?'ar-SA':(TTS_LANG[LANG]||'ar-SA');const v=ttsVoice(arab?'ar':LANG);if(v)u.voice=v;u.rate=tts.rate;u.onend=()=>setTimeout(next,60);speechSynthesis.speak(u)};next()}
+    const u=new SpeechSynthesisUtterance(txt);u.lang=arab?'ar-SA':(TTS_LANG[LANG]||'ar-SA');const v=ttsVoice(arab?'ar':LANG)||(LANG==='ur'?ttsVoice('ar'):null);if(v){u.voice=v;u.lang=v.lang}u.rate=ttsRateFor(arab||LANG==='ar');u.onend=()=>setTimeout(next,60);speechSynthesis.speak(u)};next()}
 function storyOpen(k){const SL=storySlides(k);if(!SL.length)return;let i=0;const dir=lsL(k)?'auto':'rtl';
   const o=document.createElement('div');o.className='st-ov';o.dir=RTL()?'rtl':'ltr';
   const paint=()=>{const s=SL[i];o.innerHTML=`<div class="st-bars" dir="${RTL()?'rtl':'ltr'}">${SL.length<=24?SL.map((_,j)=>`<i class="${j<i?'d':j===i?'on':''}"></i>`).join(''):`<i class="on" style="flex:1"><b style="width:${(i+1)/SL.length*100}%"></b></i>`}</div>
@@ -7801,6 +7831,7 @@ document.addEventListener('click',e=>{
   if(d.lang){LANG=d.lang;S.lang=LANG;save();computeHijri();pushSync();return render()}
   if(d.nav==='more'){moreOpen();return}
   if(d.nav==='tariq')return go('roadmap');
+  if(d.vctry){vcTry(d.vctry);return}
   if(d.uimode){S.ui=d.uimode==='classic'?'classic':'';save();screen='home';NAVH.length=0;render();SCR().scrollTo({top:0});return}
   if(d.qm){S.qm=S.qm||{};const D=S.qm[TODAY]=S.qm[TODAY]||{},v=+d.qv;if(D[d.qm]===v)delete D[d.qm];else D[d.qm]=v;const ks=Object.keys(S.qm).sort();while(ks.length>60)delete S.qm[ks.shift()];save();pushSync();return render()}
   if(d.amsel){S.amEx={id:d.amsel,start:TODAY,done:{}};save();pushSync();return render()}
