@@ -7455,8 +7455,11 @@ Object.assign(IL,{
 IL.s7=IL.s5;
 IL.m_mosque=()=>ilBg('mmq','dawn')+ilGround(ILC.sand2,168)+ilMosque(160,168,1.8);
 /* painted pictures (il/<key>.webp) replace the drawn ones as soon as they are added to this list */
+const IL_BAD=new Set();
+/* a picture that fails to load is replaced by its drawing, then retried once from the network */
+function ilFail(el,k,cls){IL_BAD.add(k);el.outerHTML=ilSvg(k,cls);if(!ilFail.r)ilFail.r={};if(ilFail.r[k])return;ilFail.r[k]=1;fetch('il/'+k+'.webp',{cache:'reload'}).then(r=>{if(r.ok&&(r.headers.get('Content-Type')||'').startsWith('image/')){IL_BAD.delete(k);setTimeout(()=>{try{render()}catch(e){}},300)}}).catch(()=>{})}
 const IL_IMG=new Set(['aamal','amrad','ask','dunya','ghadab','ghafla','hasad','hiqd','khushu','kibr','m_book','m_climb','m_door','m_drop','m_heart','m_lamp','m_mosque','m_path','m_tree','majalis','method','qa','quran','riya','s1','s2','s3','s4','s5','s6','s8','s9','salat','sira','taammulat','tazkiya','tools','tree0','tree1','tree2','tree3','tree4','ujb','umrah','w1','w2','w3','w4','w5','w6','w7','w8','w9','wudu']);
-function ilSvg(k,cls){if(k==='s7')k='s5';if(IL_IMG.has(k))return `<img class="il ${cls||''}" src="il/${k}.webp" alt="" loading="lazy" decoding="async" width="960" height="600">`;const f=IL[k]||IL.m_path;return `<svg class="il ${cls||''}" viewBox="0 0 320 200" role="img" aria-hidden="true"><defs>${ilClip('c_'+k)}</defs><g clip-path="url(#c_${k}c)">${f()}</g></svg>`}
+function ilSvg(k,cls){if(k==='s7')k='s5';if(IL_IMG.has(k)&&!IL_BAD.has(k))return `<img class="il ${cls||''}" src="il/${k}.webp" alt="" loading="lazy" decoding="async" width="960" height="600" onerror="ilFail(this,'${k}','${cls||''}')">`;const f=IL[k]||IL.m_path;return `<svg class="il ${cls||''}" viewBox="0 0 320 200" role="img" aria-hidden="true"><defs>${ilClip('c_'+k)}</defs><g clip-path="url(#c_${k}c)">${f()}</g></svg>`}
 
 /* ================= simplified, picture-first interface ================= */
 const SIMPLE=()=>S.ui!=='classic';
