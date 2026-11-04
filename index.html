@@ -1345,6 +1345,7 @@ nav.tabs .in[data-mode="s"]{grid-template-columns:repeat(3,1fr);max-width:420px}
 .am-dl{display:block;margin:-6px 14px 10px;margin-inline-start:52px;border:0;background:none;font:inherit;font-size:12.5px;color:var(--gold);padding:0;cursor:pointer}
 .am-add{display:flex;justify-content:center;gap:18px;padding:12px;border-top:1px solid var(--card-line)}.am-addb{border:0;background:none;font:inherit;font-weight:600;font-size:13.5px;color:var(--gold);cursor:pointer}.am-addb.s{color:var(--muted);font-weight:500}
 .am-mm{margin-bottom:8px}.am-dt{position:relative}.am-dt input{position:absolute;inset:0;opacity:0;width:100%;cursor:pointer}.am-mv{margin:12px 4px 6px}
+.kh-q3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:4px 0 14px}.kh-q3 button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 6px;border-radius:18px;border:1px solid var(--card-line);background:var(--chip);color:var(--ink);font:inherit;font-size:14px;cursor:pointer}.kh-q3 i{font-style:normal;font-size:30px;line-height:1}.kh-q3 button.on{background:var(--gold);color:#221A15;border-color:var(--gold)}
 .uy-sh{padding:4px 2px 8px}.uy-sq{margin:4px 0 10px;font-size:17px}.uy-chips{display:flex;flex-wrap:wrap;gap:8px}.uy-chips button{font:inherit;font-size:14px;padding:8px 12px;border-radius:99px;border:1px solid var(--card-line);background:var(--chip);color:var(--chip-ink);cursor:pointer}
 .uy-in{width:100%;box-sizing:border-box;font:inherit;padding:10px 12px;border-radius:12px;border:1px solid var(--card-line);background:var(--card);color:var(--ink);margin-bottom:8px}
 </style>
@@ -5586,13 +5587,15 @@ function khProg(){const X=KL(),d=khProgDay(),cur=KA.prog.findIndex(p=>d>=p.d[0]&
     :`<div class="box pad kh-hd"><small class="notr" dir="auto">${KU('progH')}</small><b class="notr" dir="auto">${KU('day')} <span dir="ltr">${d}</span> ${KU('of')} <span dir="ltr">40</span></b><div class="kh-pg"><s style="width:${d/40*100}%"></s></div></div>`;
   return `${top}${d&&d<=40?ttsBtn():''}${KA.prog.map(stage).join('')}${d?`<div class="btns"><button class="btn small" data-khpstart="1">${khS(KU('progRestart'))}</button></div>`:''}`}
 /* the after-prayer sheet */
-function khRateHtml(){const X=KL(),r=khRate;
+function khRateHtml(){const X=KL(),r=khRate,Q=[[1,0,'😔'],[3,2,'😐'],[5,4,'😊']];
+  /* step 1: one tap, three answers (غائب / متقطّع / خاشع = 1, 3, 5 on the old scale). Present: saved at once. Otherwise: what distracted you? */
+  const lv=r.h?(r.h<=2?1:r.h>=4?5:3):0,two=lv&&lv<5;
   return `<div class="kh-rt"><div class="bs-top"><h2 class="notr" dir="auto">${KU('after')} ${khPN(r.k)}</h2></div>
-   <p class="kh-lbl notr" dir="auto">${KU('rateH')}</p><div class="kh-scale">${X.scale.map((s,i)=>`<button class="${r.h===i+1?'on':''}" data-khh="${i+1}"><b dir="ltr">${i+1}</b><span class="notr" dir="auto">${s}</span></button>`).join('')}</div>
-   <p class="kh-lbl notr" dir="auto">${KU('distH')}</p><div class="kh-chips kh-wrap">${KA.dist.map((x,i)=>`<button class="kh-chip${r.d.includes(x.id)?' on':''}" data-khd="${x.id}">${khS(X.dist[i].t)}</button>`).join('')}</div>
-   <p class="kh-lbl notr" dir="auto">${KU('bestH')}</p><div class="kh-chips kh-wrap">${KA.rukn.map((x,i)=>`<button class="kh-chip${r.r===x.id?' on':''}" data-khr="${x.id}">${khS(X.rukn[i].n)}</button>`).join('')}</div>
+   <p class="kh-lbl notr" dir="auto">${KU('rateH')}</p><div class="kh-q3">${Q.map(([v,s,f])=>`<button class="${lv===v?'on':''}" data-khq="${v}"><i aria-hidden="true">${f}</i><span class="notr" dir="auto">${X.scale[s]}</span></button>`).join('')}</div>
+   ${two?`<p class="kh-lbl notr" dir="auto">${KU('distH')}</p><div class="kh-chips kh-wrap">${KA.dist.map((x,i)=>x.id==='none'?'':`<button class="kh-chip${r.d.includes(x.id)?' on':''}" data-khd="${x.id}">${khS(X.dist[i].t)}</button>`).join('')}</div>
    ${(()=>{const j=KA.dist.findIndex(x=>r.d.includes(x.id)&&x.id!=='none');return j>=0&&X.dist[j].tip?`<div class="box pad kh-tip"><small class="notr" dir="auto">${KU('tip')}</small><p class="notr" dir="auto">${X.dist[j].tip}</p></div>`:''})()}
-   <div class="btns"><button class="btn primary" data-khsave="1" ${r.h?'':'disabled'}>${khS(KU('save'))}</button><button class="btn" data-bsx="1">${khS(KU('skip'))}</button></div></div>`}
+   <div class="btns"><button class="btn primary" data-khsave="1">${khS(KU('save'))}</button><button class="btn" data-bsx="1">${khS(KU('skip'))}</button></div>`
+   :`<div class="btns"><button class="btn" data-bsx="1">${khS(KU('skip'))}</button></div>`}</div>`}
 function khRateOpen(k,d){const L=S.log[d||TODAY]||{},x=(L.khs||{})[k]||{};khRate={k,day:d||TODAY,h:x.h||0,d:(x.d||[]).slice(),r:x.r||null};sheetOpen(khRateHtml(),'tall')}
 function khRateRedraw(){const o=document.querySelector('#bsheet .kh-rt');if(o)o.outerHTML=khRateHtml()}
 function khStillTick(){khStill--;const a=document.getElementById('khAlh'),s=document.getElementById('khSec');
@@ -5609,6 +5612,7 @@ function khClick(d){
   if(d.khready){const L=dayLog();L.khp=L.khp||[];if(!L.khp.includes(d.khready))L.khp.push(d.khready);save();clearInterval(khStillT);khStill=0;if(TTS_OK&&tts.on)ttsStop();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return true}
   if(d.khrate){khRateOpen(d.khrate,TODAY);return true}
   if(d.khh&&khRate){khRate.h=+d.khh;khRateRedraw();return true}
+  if(d.khq&&khRate){khRate.h=+d.khq;if(khRate.h>=5){khRate.d=['none'];khRate.r=null;return khClick({khsave:'1'})}khRate.d=khRate.d.filter(x=>x!=='none');khRateRedraw();return true}
   if(d.khd&&khRate){const a=khRate.d,id=d.khd;if(id==='none')khRate.d=a.includes('none')?[]:['none'];else{khRate.d=a.filter(x=>x!=='none');const i=khRate.d.indexOf(id);i>=0?khRate.d.splice(i,1):khRate.d.push(id)}khRateRedraw();return true}
   if(d.khr&&khRate){khRate.r=khRate.r===d.khr?null:d.khr;khRateRedraw();return true}
   if(d.khsave&&khRate&&khRate.h){const L=S.log[khRate.day]||(S.log[khRate.day]={awrad:[],heart:null,note:''});L.khs=L.khs||{};L.khs[khRate.k]={h:khRate.h,d:khRate.d,r:khRate.r};save();khRate=null;sheetClose();if(screen==='khushu'||screen==='aamal'||screen==='ruhi'){const y=SCR().scrollTop;render();SCR().scrollTo(0,y)}return true}
