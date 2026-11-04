@@ -1,0 +1,70 @@
+# One-time cleanup: removes files the app no longer uses (duplicates, old copies, files uploaded by mistake)
+# from the repository AND from the hosting. Run it by hand: Actions → cleanup → Run workflow.
+# Everything removed stays in the repository history and can be restored.
+name: cleanup
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: deploy-sftp
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    env:
+      HOST: ${{ secrets.SFTP_HOST }}
+      USER: ${{ secrets.SFTP_USER }}
+      LFTP_PASSWORD: ${{ secrets.SFTP_PASS }}
+      DIR:  ${{ secrets.SFTP_DIR }}
+      PORT: ${{ secrets.SFTP_PORT }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove unused files from the repository
+        run: |
+          cat > /tmp/list.txt <<'L'
+          index 2.html
+          icon-512.html
+          IMG_1616.jpeg
+          rm_cmp.jpg
+          roadmap.webp
+          roadmap-s.webp
+          README.txt
+          tawba.mp4
+          tawba.jpg
+          mujahada.mp4
+          mujahada.jpg
+          remind.mjs
+          qa.json
+          scripts/index.html
+          scripts/sw.js
+          scripts/maiya.jpg
+          scripts/maiya-wide.jpg
+          scripts/hudur.mp3
+          data/rw/.keep
+          fonts/.keep
+          L
+          sed -i 's/^ *//' /tmp/list.txt
+          # the 12 lessons copied by mistake to the top folder (they are in audio/العقيدة_الأشعرية) and the stray copy of the page
+          git -c core.quotePath=false ls-files -- ':(glob)[0-9][0-9] - *.mp3' ':(glob)*المرشد*.html' >> /tmp/list.txt
+          echo "files to remove:"; cat /tmp/list.txt
+          while IFS= read -r f; do [ -n "$f" ] && git rm -q --ignore-unmatch -- "$f"; done < /tmp/list.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --cached --quiet; then echo "nothing to remove"; else git commit -q -m "تنظيف: حذف الملفات غير المستعملة" && git push; fi
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: Remove the same files from the hosting
+        run: |
+          trim(){ printf '%s' "$1" | tr -d '\r\n' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'; }
+          HOST=$(trim "$HOST"); USER=$(trim "$USER"); DIR=$(trim "$DIR")
+          PORT=$(printf '%s' "$PORT" | sed 'y/٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹/01234567890123456789/' | tr -cd '0-9'); [ -n "$PORT" ] || PORT=22
+          export LFTP_PASSWORD=$(printf '%s' "$LFTP_PASSWORD" | tr -d '\r\n'); echo "::add-mask::$LFTP_PASSWORD"
+          { echo 'set sftp:auto-confirm yes'
+            echo "open --env-password -u \"$USER\" -p \"$PORT\" \"sftp://$HOST\""
+            echo 'set cmd:fail-exit no'
+            echo 'set net:max-retries 2'
+            echo "cd \"$DIR\""
+            while IFS= read -r f; do [ -n "$f" ] && printf 'rm -f "%s"\n' "$f"; done < /tmp/list.txt
+            echo 'rm -f index.html.new sw.js.new index.html.old sw.js.old'
+            echo 'cls -1'
+            echo 'bye'; } > /tmp/clean.lftp
+          lftp -f /tmp/clean.lftp
