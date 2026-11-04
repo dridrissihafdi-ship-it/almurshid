@@ -49,6 +49,8 @@ jobs:
           lftp -f /tmp/test.lftp
       - name: Upload over SFTP
         run: |
+          # index.html and sw.js are uploaded last, under a temporary name, then renamed:
+          # the site never serves a half-uploaded page (that left the app on a blank screen while the upload ran)
           cat > /tmp/up.lftp <<LFTP
           set sftp:auto-confirm yes
           open --env-password -u "$USER" -p "${PORT:-22}" "sftp://$HOST"
@@ -57,9 +59,18 @@ jobs:
           set net:timeout 60
           set net:reconnect-interval-base 5
           cd "$DIR"
-          mirror -R --ignore-time --parallel=3 --verbose=1 --exclude-glob .git/ --exclude-glob .github/ --exclude-glob scripts/ --exclude-glob node_modules/ --exclude-glob *.md --exclude-glob *.zip ./ ./
-          put -O . index.html
-          put -O . sw.js
+          mirror -R --ignore-time --parallel=3 --verbose=1 --exclude-glob .git/ --exclude-glob .github/ --exclude-glob scripts/ --exclude-glob node_modules/ --exclude-glob *.md --exclude-glob *.zip --exclude "^index\.html$" --exclude "^sw\.js$" ./ ./
+          put index.html -o index.html.new
+          put sw.js -o sw.js.new
+          set cmd:fail-exit no
+          rm -f index.html.old sw.js.old
+          mv index.html index.html.old
+          mv index.html.new index.html
+          mv sw.js sw.js.old
+          mv sw.js.new sw.js
+          rm -f index.html.old sw.js.old
+          set cmd:fail-exit yes
+          cls -l index.html sw.js
           bye
           LFTP
           lftp -f /tmp/up.lftp
