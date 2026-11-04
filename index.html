@@ -1337,6 +1337,14 @@ nav.tabs .in[data-mode="s"]{grid-template-columns:repeat(3,1fr);max-width:420px}
 .uy-fh{overflow:hidden;border-radius:20px;margin-bottom:6px}.uy-fh .il{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}.uy-fh .pad{padding:14px 16px}.uy-fh h2{margin:0;font-size:22px}.uy-fh .verse{margin:4px 0 0;font-size:17px;color:var(--gold)}
 .uy-learn,.uy-ih,.uy-cure,.uy-ujb{border-radius:18px;margin-bottom:6px}.uy-ls h4{margin:10px 0 2px;color:var(--gold);font-size:13.5px}.uy-ls:first-child h4{margin-top:0}.uy-ls p{margin:0;line-height:1.85}
 .uy-cure .uy-do:first-child{margin-top:0}.uy-prog{margin-top:12px}.uy-prog b{font-size:16px}.uy-prog .meta{margin:4px 0 8px}.uy-chips button.on{background:var(--gold);color:#221A15;border-color:var(--gold)}.uy-ujb .uy-chips{margin:8px 0}
+.am-dots{font-size:22px;line-height:1;color:var(--gold)}.am-h{margin:16px 2px 8px}.am-s5 .pr-cell{display:flex;flex-direction:column;align-items:center;gap:3px}
+.am-mt{border:0;background:none;font:inherit;font-size:10.5px;color:var(--green);padding:0;cursor:pointer}
+.am-ask{display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.04);font-size:13px}.am-ask b{flex:1;font-weight:500}
+.am-list{padding:0;overflow:hidden}.am-it{border-bottom:1px solid var(--card-line)}.am-it:last-of-type{border-bottom:0}.am-it .wird{border:0}.am-it.dim{opacity:.5}
+.am-done{display:flex;align-items:center;gap:10px;width:100%;padding:12px 14px;border:0;border-bottom:1px solid var(--card-line);background:none;font:inherit;color:var(--green);font-size:13.5px;text-align:start;cursor:pointer}.am-done small{margin-inline-start:auto;color:var(--muted);font-size:12px;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.am-dl{display:block;margin:-6px 14px 10px;margin-inline-start:52px;border:0;background:none;font:inherit;font-size:12.5px;color:var(--gold);padding:0;cursor:pointer}
+.am-add{display:flex;justify-content:center;gap:18px;padding:12px;border-top:1px solid var(--card-line)}.am-addb{border:0;background:none;font:inherit;font-weight:600;font-size:13.5px;color:var(--gold);cursor:pointer}.am-addb.s{color:var(--muted);font-weight:500}
+.am-mm{margin-bottom:8px}.am-dt{position:relative}.am-dt input{position:absolute;inset:0;opacity:0;width:100%;cursor:pointer}.am-mv{margin:12px 4px 6px}
 .uy-sh{padding:4px 2px 8px}.uy-sq{margin:4px 0 10px;font-size:17px}.uy-chips{display:flex;flex-wrap:wrap;gap:8px}.uy-chips button{font:inherit;font-size:14px;padding:8px 12px;border-radius:99px;border:1px solid var(--card-line);background:var(--chip);color:var(--chip-ink);cursor:pointer}
 .uy-in{width:100%;box-sizing:border-box;font:inherit;padding:10px 12px;border-radius:12px;border:1px solid var(--card-line);background:var(--card);color:var(--ink);margin-bottom:8px}
 </style>
@@ -3479,7 +3487,8 @@ function ramCard(full){const h=hijriMonth(),pt=ptDay(),L=dayLog();if(h.m!==9&&!f
 function viewTools(){const row=(go,ic,t,sub)=>`<button class="h2-row" data-go="${go}"><span class="h2-ri"><svg viewBox="0 0 48 48" aria-hidden="true">${ic}</svg></span><span class="tx">${t}<small>${sub}</small></span><svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>`;
   const h=hz(),n2=Object.values(h.m).filter(v=>v===2).length;
   return `<section><div class="box h2-more">${row('qibla','<circle cx="24" cy="24" r="16"/><path d="M24 12l5 12-5 12-5-12z"/>','اتجاه القبلة',`<span class="notr" dir="ltr">${qiblaDeg().toFixed(0)}°</span> · <span>بوصلة</span>`)}
-   ${row('duas','<path d="M14 22c0-6 4-12 10-12s10 6 10 12v8l4 6H10l4-6z"/><path d="M20 40h8"/>','سنن الرسول ﷺ',`<span>أدعية النبي ﷺ وأذكاره في أحوال اليوم</span>`)}
+   ${row('subha','<circle cx="24" cy="10" r="4"/><circle cx="14" cy="18" r="4"/><circle cx="34" cy="18" r="4"/><circle cx="24" cy="26" r="4"/><path d="M24 30v12"/>','السبحة',`<span>تسبيحات اليوم:</span> ${sbTotal()}`)}
+    ${row('duas','<path d="M14 22c0-6 4-12 10-12s10 6 10 12v8l4 6H10l4-6z"/><path d="M20 40h8"/>','سنن الرسول ﷺ',`<span>أدعية النبي ﷺ وأذكاره في أحوال اليوم</span>`)}
    ${row('fatur','<path d="M24 40s-13-8-13-18a7 7 0 0 1 13-4 7 7 0 0 1 13 4c0 10-13 18-13 18z"/>','عند الفتور وضيق الصدر','<span>كيف تستعيد همّتك برفق</span>')}</div>
    ${ramCard(true)}</section>`}
 function toolsClick(d){
@@ -4877,6 +4886,58 @@ function adzBox(){const A=adzP(),PN=Object.fromEntries(FIVE),pt=prayerTimes(new 
    <div class="btns"><button class="btn small" data-adztest="1">${!ADZ.paused?'إيقاف':'استمع إلى الأذان'}</button></div>
    <p class="meta" style="margin:6px 0 0">عندما يكون التطبيق مغلقًا لا يسمح الهاتف بتشغيل الأذان، فيصلك التذكير بصوت الإشعار العادي إن فعّلته.</p></div>`}
 function adzClick(d){if(d.adztest){if(!ADZ.paused)adzStop();else adzPlay(null);const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return true}return false}
+/* ---------- «الأعمال» in the simple UI: one line on top, the five prayers, then one list of the day in the order of its hours ---------- */
+let amDoneOpen=false,amDlOpen=false,amMineOpen=false;
+function amSimple(o){const {L,past,D,P,awL,nfOn,lateAw,IT,pt,pr,late,sum2}=o,PN=Object.fromEntries(FIVE),h0=dH(),hh=h0<pt.fajr?h0+24:h0;
+  const head=sum2.replace(/<label class="am-ib"[\s\S]*?<\/label>/,'').replace(/<button class="am-ib[^"]*" data-ampickopen="1"[\s\S]*?<\/button>/,`<button class="am-ib am-dots" data-ammore="1" aria-label="${esc(Tx('المزيد'))}">⋯</button>`);
+  /* the five prayers; "in the mosque?" is asked once, for the last prayer recorded */
+  const lastK=FIVE.map(f=>f[0]).filter(k=>pr.includes(k)).pop(),askK=!past&&lastK&&!inMsj(L,lastK)&&!(L.msjNo||[]).includes(lastK)?lastK:null;
+  const five=`<div class="sh am-h"><h2>الفرائض</h2><span dir="ltr">${pr.length} / 5</span></div><div class="box pad am-five am-s5"><span class="pr-row">${FIVE.map(([k,n])=>{const on=pr.includes(k),lt=late.includes(k),m=on&&inMsj(L,k);
+    return `<span class="pr-cell"><button class="pr-chip${on?(m?' on':' home'):lt?' late':''}" data-pray="${k}" aria-pressed="${on}"><i>${on?'✓':lt?'!':''}</i><b>${n}</b><small>${hm(pt[k])}</small></button>${m?`<button class="am-mt" data-masjid="${k}">في المسجد</button>`:''}</span>`}).join('')}</span>
+    ${askK?`<div class="am-ask"><b><span>صلّيت</span> ${PN[askK]}<span>: في المسجد؟</span></b><button class="btn small ok" data-masjid="${askK}">نعم</button><button class="btn small" data-msjno="${askK}">لا</button></div>`:''}</div>`;
+  /* the day's deeds, sorted by the hour they belong to */
+  const ND=Object.fromEntries(naflDefs(pt).map(x=>[x.id,x]));
+  const AT={sawm_mon:-1,sawm_thu:-1,sabah:pt.fajr,quran:pt.fajr+.05,sadaqa:pt.dhuhr+.01,help:pt.dhuhr+.02,masa:pt.maghrib,dhikr:pt.maghrib+.05,qiyam:24+pt.fajr-1};
+  const ST={sabah:pt.fajr,masa:pt.maghrib,qiyam:pt.isha};
+  const it=[];
+  seasonal().filter(x=>x.id!=='khalwa').forEach(x=>it.push({k:'x',id:x.id,t:-2,a:{id:x.id,t:x.t,s:x.s}}));
+  awL.forEach(i=>it.push({k:'a',id:i,t:AT[i]!==undefined?AT[i]:pt.dhuhr,st:ST[i]}));
+  nfOn.forEach(i=>{const x=ND[i];if(x)it.push({k:'n',id:i,t:x.w[0],st:x.w[0]})});
+  (CONTENT.extra||[]).forEach(x=>it.push({k:'x',id:x.id,t:98,a:{id:x.id,t:'<span class="notr" dir="auto">'+esc(x.t)+'</span>',s:x.s?'<span class="notr" dir="auto">'+esc(x.s)+'</span>':''}}));
+  myDeeds().filter(m=>mineDue(m,D)).forEach(m=>it.push({k:'x',id:m.id,t:99,a:{id:m.id,t:'<span class="notr" dir="auto">'+esc(m.t)+'</span>',s:(m.s?'<span class="notr" dir="auto">'+esc(m.s)+'</span> · ':'')+'<span>من أعمالي الخاصة</span>'}}));
+  it.sort((a,b)=>a.t-b.t);
+  const isDone=x=>x.k==='n'?(()=>{const n=(L.nafl||{})[x.id];return !!n&&nfFull(ND[x.id],n)})():L.awrad.includes(x.id);
+  const strip=s=>s.replace(/^<div class="box">/,'').replace(/<\/div>$/,'');
+  const row=x=>{const dim=!past&&!isDone(x)&&x.st!==undefined&&hh<x.st&&!lateAw.includes(x.id);
+    let r=x.k==='n'?naflRows([x.id],L,pt):strip(wirdList([x.k==='a'?Object.assign({},IT[x.id],{tag:null}):x.a],L,x.k==='a'?lateAw:[]));
+    if(x.id==='dhikr'&&!past)r+=`<button class="am-dl" data-amdl="1">${amDlOpen?'إخفاء أذكارك':'تعديل أذكارك'}</button>`;
+    return `<div class="am-it${dim?' dim':''}">${r}</div>`};
+  const done=it.filter(isDone),todo=it.filter(x=>!isDone(x));
+  const list=`<div class="sh am-h"><h2>أعمال اليوم</h2><span dir="ltr">${done.length} / ${it.length}</span></div>
+   <div class="box am-list">${done.length?`<button class="am-done" data-amdone="1"><span>✓ <span>أتممت</span> ${done.length}</span><small>${amDoneOpen?'<span>إخفاء</span>':done.slice(0,3).map(x=>x.k==='n'?ND[x.id].t:x.k==='a'?IT[x.id].t:x.a.t).join(RTL()?'، ':', ')}</small></button>`:''}
+    ${amDoneOpen?done.map(row).join(''):''}${todo.map(row).join('')}
+    ${past?'':`<div class="am-add"><button class="am-addb" data-mineadd="1">+ <span>أضف عملًا</span></button>${myDeeds().length?`<button class="am-addb s" data-ammine="1">${amMineOpen?'إخفاء':'أعمالي الخاصة'}</button>`:''}</div>`}</div>
+   ${amDlOpen&&!past?dhikrEditor():''}${(mineForm||amMineOpen)&&!past?mineBlock(L,D,past):''}`;
+  return `${past?aDateBar():''}${head}${amPickOpen?'':''}${five}${list}`}
+function amMore(){const D=aDate||TODAY;
+  const r=(attr,ic,t,s)=>`<button class="h2-row" ${attr} data-bsx="1"><span class="h2-ri"><svg viewBox="0 0 24 24" aria-hidden="true">${ic}</svg></span><span class="tx">${t}${s?`<small>${s}</small>`:''}</span></button>`;
+  sheetOpen(`<div class="bs-top"><h2>أعمالك</h2><button class="qa-ed" data-bsx="1">إغلاق</button></div><div class="box h2-more am-mm">
+   ${r('data-ampickopen="1"','<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>','اختر أعمالك ونوافلك','ما يظهر في قائمة اليوم')}
+   <label class="h2-row am-dt"><span class="h2-ri"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span><span class="tx">يوم آخر<small>سجّل ما فاتك تسجيله</small></span><input type="date" id="aDateIn" value="${D}" max="${TODAY}" min="${addDays(TODAY,-365)}"></label>
+   ${r('data-amview="type"','<path d="M4 6h16M4 12h16M4 18h16"/>','العرض حسب نوع العمل','الأقسام كما كانت من قبل')}</div>
+   <p class="meta am-mv">وتجد أيضًا:</p><div class="box h2-more am-mm">
+   ${r('data-go="ijtihad"','<path d="M5 19V13M10 19V9M15 19V11M20 19V5"/>','مرآة أعمالك','درجة أسبوعك ونصائح لك · في «أنا»')}
+   ${r('data-go="subha"','<circle cx="12" cy="5" r="2"/><circle cx="7" cy="9" r="2"/><circle cx="17" cy="9" r="2"/><circle cx="12" cy="13" r="2"/><path d="M12 15v6"/>','السبحة','في «أدوات السالك»')}
+   ${r('data-go="khalwa"','<path d="M12 3a7 7 0 1 0 7 9 5.5 5.5 0 0 1-7-9z"/>','الخلوة والاعتكاف','في الطريق · الروحانيات')}</div>`)}
+document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;const d=t.dataset;
+  if(d.ammore){amMore();return}
+  if(d.amdone){amDoneOpen=!amDoneOpen;return render()}
+  if(d.amdl){amDlOpen=!amDlOpen;if(amDlOpen)dlOpen=true;render();if(amDlOpen)setTimeout(()=>{const b=document.querySelector('.dl-box');b&&b.scrollIntoView({block:'start',behavior:'smooth'})},60);return}
+  if(d.ammine){amMineOpen=!amMineOpen;return render()}
+  if(d.msjno){const L=aLog();L.msjNo=L.msjNo||[];if(!L.msjNo.includes(d.msjno))L.msjNo.push(d.msjno);save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
+});
+document.addEventListener('change',e=>{if(e.target&&e.target.id==='aDateIn'&&e.target.closest('#bsheet'))setTimeout(sheetClose,0)});
+
 function viewAamal(){
   const past=!!aDate,L=aLog(),l=lights(),M=S.marks,D=aDate||TODAY,view=S.amView==='time'?'time':'type';
   const LIGHT={sabah:['الهالة',l.halo&&l.p.kind==='sabah'],masa:['الهالة',l.halo&&l.p.kind==='masa'],quran:['الرأس',l.head],dhikr:['القلب',l.heart]};
@@ -4894,9 +4955,10 @@ function viewAamal(){
   const C=2*Math.PI*26,ring=`<svg viewBox="0 0 64 64" class="am-ring"><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="6"/><circle cx="32" cy="32" r="26" fill="none" stroke="var(--gold)" stroke-width="6" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-doneN/total)}" transform="rotate(-90 32 32)"/><text x="32" y="37" text-anchor="middle">${doneN}/${total}</text></svg>`;
   const C2=2*Math.PI*21,ring2=`<svg viewBox="0 0 52 52" class="am-ring2" aria-hidden="true"><circle cx="26" cy="26" r="21" fill="none" stroke="rgba(243,237,230,.16)" stroke-width="5"/><circle cx="26" cy="26" r="21" fill="none" stroke="var(--gold)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${C2}" stroke-dashoffset="${C2*(1-(total?doneN/total:0))}" transform="rotate(-90 26 26)"/><text x="26" y="31" text-anchor="middle" dir="ltr">${doneN}/${total}</text></svg>`;
   const sum2=`<div class="am-sum2">${ring2}<div class="am-sm"><b>${past?'<span>يوم مضى</span> · '+WDAYS[new Date(D+'T12:00:00').getDay()]+' '+fmtD(D):'<span>اليوم</span> · '+WDAYS[new Date(D+'T12:00:00').getDay()]+' '+fmtD(D)}</b><small>${doneN===total?'أتممت أعمال اليوم ✓ تقبّل الله منك':left.length?'<span>باقٍ:</span> '+left.slice(0,3).map(t=>'<span>'+t+'</span>').join(RTL()?'، ':', ')+(left.length>3?' …':''):''}</small></div>${past?'':`<label class="am-ib" aria-label="اختيار يوم آخر"><input type="date" id="aDateIn" value="${D}" max="${TODAY}" min="${addDays(TODAY,-365)}">${'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>'}</label>`}<button class="am-ib${amPickOpen?' on':''}" data-ampickopen="1" aria-label="اختر أعمالك ونوافلك">${'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>'}</button></div>${amPickOpen?amPickBox(P,pt0):''}`;
+  if(SIMPLE()){if(!S.amV2){S.amV2=1;S.amView='list';save()}if(S.amView==='list')return amSimple({L,past,D,P,awL,nfOn,lateAw,IT,pt,pr,late,sum2})}
   const sum=`<div class="am-sum">${ring}<div><b>${past?'أعمال ذلك اليوم':'يومك حتى الآن'}</b><small>${doneN===total?'أتممت أعمال اليوم ✓ تقبّل الله منك':left.length?'<span>باقٍ:</span> '+left.slice(0,4).map(t=>'<span>'+t+'</span>').join(RTL()?'، ':', ')+(left.length>4?' …':''):''}</small></div></div>`;
   const pickBtn=`<div class="am-pickbar"><button class="btn small" data-ampickopen="1">${amPickOpen?'إغلاق':'اختر أعمالك ونوافلك'}</button></div>${amPickOpen?amPickBox(P,pt0):''}`;
-  const tabs=`<div class="rtabs am-tabs" role="tablist"><button role="tab" class="${view==='type'?'on':''}" data-amview="type">حسب نوع العمل</button><button role="tab" class="${view==='time'?'on':''}" data-amview="time">حسب أوقات اليوم</button></div>`;
+  const tabs=`<div class="rtabs am-tabs" role="tablist"><button role="tab" class="${view==='type'?'on':''}" data-amview="type">حسب نوع العمل</button><button role="tab" class="${view==='time'?'on':''}" data-amview="time">حسب أوقات اليوم</button>${SIMPLE()?'<button role="tab" data-amview="list">قائمة واحدة</button>':''}</div>`;
   // what is due now (today only)
   let now='';if(!past){const P=period(),h=dH();
     const due=FIVE.filter(([k])=>!pr.includes(k)&&h>=pt[k]).map(f=>f[0]).pop();
@@ -5692,12 +5754,12 @@ function tabS(s){if(s==='home'||s.startsWith('adh_')||['aamal','dhikr_run','subh
   if(['me','profile','ruhi','notif','about','admin','week','install','muraqabat','sura','tahlil','mraqib','munajat'].includes(s))return 'me';return 'tariq'}
 
 /* picture tiles */
-const SMT={h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'الروحانيات',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',ahdaf:'جبل الأهداف الأربعة',mraqib:'مراقبات',munajat:'مناجاة',qiyama:'يوم القيامة',aqida:'العقيدة',fiqh:'الفقه',tawba:'التوبة',mujahada:'المجاهدة',hifz:'حفظ القرآن وتسميعه',tasmi:'التسميع',aamal:'أعمال اليوم',quran:'القرآن',khushu:'الخشوع',amrad:'أمراض القلب',qa:'سؤال وجواب',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',method:'المنهج المحمدي',taammulat:'تأملات',majalis:'المجالس والدروس',ask:'اسأل الشيخ',tools:'أدوات السالك',umrah:'العمرة',wudu:'الوضوء',salat:'الصلاة',sira:'السيرة النبوية'};
+const SMT={h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'الروحانيات',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',ahdaf:'جبل الأهداف الأربعة',mraqib:'مراقبات',munajat:'مناجاة',qiyama:'يوم القيامة',aqida:'العقيدة',fiqh:'الفقه',tawba:'التوبة',mujahada:'المجاهدة',hifz:'حفظ القرآن وتسميعه',tasmi:'التسميع',aamal:'أعمال اليوم',quran:'القرآن',khushu:'الخشوع',amrad:'أمراض القلب',qa:'سؤال وجواب',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',khalwa:'الخلوة والاعتكاف',method:'المنهج المحمدي',taammulat:'تأملات',majalis:'المجالس والدروس',ask:'اسأل الشيخ',tools:'أدوات السالك',umrah:'العمرة',wudu:'الوضوء',salat:'الصلاة',sira:'السيرة النبوية'};
 
 /* the Path's sections ("tabs"): each opens a page of picture tiles */
-const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['taammulat','uyub','khushu','mraqib','munajat'],
+const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['taammulat','uyub','khushu','mraqib','munajat','khalwa'],
  h_ilm:['method','majalis','sira','qiyama','h_shurut','ahdaf','qa','ask'],h_shurut:['aqida','fiqh','tawba','mujahada']};
-const IL_ALIAS={h_quran:'quran',h_ibadat:'salat',h_ruh:'taammulat',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
+const IL_ALIAS={h_quran:'quran',h_ibadat:'salat',h_ruh:'taammulat',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],khalwa:['khalwa','m_lamp'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
 const viewHub=k=>()=>`<section>${smTiles(HUBS[k],HUBS[k].length%2?'odd':'')}</section>`;
 
 /* Today's four tiles: the user can change or remove each one (long press), and fill an empty place with "+" */
@@ -5756,6 +5818,7 @@ function viewMe(){const u=AUTH.user,ex=S.amEx&&AMRAD.ar[S.amEx.id]?S.amEx:null,A
    ${treeCard()}${exc}${qmCard()}
    <div class="box h2-more me-list">
     ${row('data-go="ruhi"','بياناتك الروحية','<path d="M12 20s-8-4.8-8-10.5A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 8 2.5C20 15.2 12 20 12 20z"/>')}
+    ${row('data-go="ijtihad"','مرآة أعمالك','<path d="M5 19V13M10 19V9M15 19V11M20 19V5"/>')}
     ${row('data-go="notif"','التنبيهات','<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/>')}
     ${row('data-go="profile"','الإعدادات','<circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>')}
     ${row('data-go="about"','عن التطبيق','<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>')}
