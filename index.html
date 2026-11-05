@@ -1375,6 +1375,7 @@ nav.tabs .in[data-mode="s"]{grid-template-columns:repeat(3,1fr);max-width:420px}
 .me-sh{margin:20px 2px 8px}.me-x{color:var(--muted);font-size:12.5px;margin-inline-start:auto}
 .kh-never{display:block;margin:12px auto 0;background:none;border:0;color:var(--muted);font:inherit;font-size:13px;text-decoration:underline;cursor:pointer}
 .us{padding-top:4px}.us-h{margin:16px 2px 8px}.us-r .tx{display:flex;flex-direction:column;gap:2px}.us-r small{color:var(--muted);font-size:12px}.us-more{padding:8px 14px;margin:0}.us-tip{text-align:center;margin-top:20px}
+.mh-sh{margin:18px 2px 8px}.qm-all{margin-inline-start:auto;font-size:13px}
 .fs-card{margin:0 0 14px;border:1px solid color-mix(in srgb,var(--gold) 45%,var(--card-line))}.fs-top{display:flex;align-items:center;gap:8px}.fs-top h2{margin:0;font-size:16px;flex:1}.fs-top span{color:var(--muted);font-size:13px}
 .fs-x{width:32px;height:32px;border:0;border-radius:10px;background:var(--chip);color:var(--muted);font-size:18px;line-height:1;cursor:pointer}
 .fs-bar{display:block;height:5px;border-radius:5px;background:var(--chip);overflow:hidden;margin:10px 0 6px}.fs-bar b{display:block;height:100%;background:var(--gold)}
@@ -1812,7 +1813,7 @@ function adminPush(){const t=(document.getElementById('ad-pt').value||'').trim()
   adminSave({push:{id:'p'+Date.now().toString(36),title:t,text:b,at:Date.now()}},'سُجّل الإشعار، وسيصل إلى الهواتف خلال دقائق.')}
 let adU={open:null,inbox:{},q:''};
 const uName=u=>u.aName||u.name||'';
-const SCR_N={home:'اليوم',aamal:'الأعمال',tazkiya:'التزكية',quran:'القرآن',taammulat:'تأمّلات',profile:'الملف الشخصي',adh_sabah:'أذكار الصباح',adh_masa:'أذكار المساء',dhikr_run:'الذكر الشخصي',admin:'لوحة الإدارة'};
+const SCR_N={home:'اليوم',aamal:'الأعمال',tazkiya:'التزكية',quran:'القرآن',taammulat:'تأمّلات',profile:'الإعدادات',adh_sabah:'أذكار الصباح',adh_masa:'أذكار المساء',dhikr_run:'الذكر الشخصي',admin:'لوحة الإدارة'};
 const scrName=k=>SCR_N[k]||(TITLES[k]&&TITLES[k].replace(/<[^>]+>/g,''))||(MENU.find(m=>m&&m.id===k)||{}).t||k;
 function scrTop(m,n){const E=Object.entries(m||{}).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]),tot=E.reduce((a,x)=>a+x[1],0)||1;
   return E.length?`<ol class="st-scr">${E.slice(0,n).map(([k,v])=>`<li><span>${esc(scrName(k))}</span><i><b style="width:${Math.max(3,Math.round(v/E[0][1]*100))}%"></b></i><small>${fmtDur(v)} · ${Math.round(v/tot*100)}%</small></li>`).join('')}</ol>`:'<p class="meta">لم تُسجَّل بيانات بعد.</p>'}
@@ -2134,7 +2135,7 @@ const MENU=[
 ,
  {id:'about',art:'<g transform="translate(13 3) scale(.22)"><path d="M50,3 C53,11 60,16 68,24 C79,35 86,47 86,61 C86,77 72,87 69,99 C68,105 72,109 76,113 C83,119 86,127 86,137 C86,151 70,157 50,157 C30,157 14,151 14,137 C14,127 17,119 24,113 C28,109 32,105 31,99 C28,87 14,77 14,61 C14,47 21,35 32,24 C40,16 47,11 50,3 Z" stroke-width="7.5"/></g>',t:'عن التطبيق',ic:'<circle cx="24" cy="24" r="16"/><path d="M24 22v10"/><circle cx="24" cy="16.5" r="1.2"/>'}
 ];
-const TITLES={search:'البحث',h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'الروحانيات',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',tasmi:'التسميع',me:'أنا',amrad:'أمراض القلب',wudu:'الوضوء',salat:'الصلاة',khushu:'الخشوع',khr:'الخشوع',ikhub:'الإخلاص',ikhlas:'ورقة الإخلاص',sirr:'أعمال السر',ikhl:'الإخلاص',ahdaf:'جبل الأهداف الأربعة',tawba:'التوبة',mujahada:'المجاهدة',series:'',fatur:'عند الفتور وضيق الصدر',tools:'أدوات السالك',duas:'سنن الرسول ﷺ',qibla:'اتجاه القبلة',hifz:'حفظ القرآن وتسميعه',ask:'اسأل الشيخ',majalis:'المجالس والدروس',path:'مساري إلى رضا الله',fiqh:'الفقه المالكي',roadmap:'خريطة الطريق إلى رضا الله',aqida:'العقيدة الأشعرية',audio:'الاستماع',sira:'السيرة النبوية العطرة',qiyama:'يوم القيامة',method:'المنهج المحمدي',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',muraqabat:'حالتك الروحية اليومية',sura:'حالة قلبك',aamal:'الأعمال',dhikr_run:'الذكر الشخصي',adh_sabah:'أذكار الصباح',adh_masa:'أذكار المساء',install:'تثبيت التطبيق',notif:'التنبيهات',profile:'الملف الشخصي',admin:'لوحة الإدارة',taammulat:'تأملات',mraqib:'مراقبات',munajat:'مناجاة',muhasaba:'محاسبة اليوم',ruhi:'بياناتك الروحية',about:'عن التطبيق',tahlil:'تحليل الزلّات',qa:'سؤال وجواب',mushaf:'المصحف',subha:'السبحة',qalb:'أمراض القلب',quran:'القرآن',umrah:'العمرة',khalwa:'الخلوة والاعتكاف'};
+const TITLES={search:'البحث',h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'الروحانيات',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',tasmi:'التسميع',me:'أنا',amrad:'أمراض القلب',wudu:'الوضوء',salat:'الصلاة',khushu:'الخشوع',khr:'الخشوع',ikhub:'الإخلاص',ikhlas:'ورقة الإخلاص',sirr:'أعمال السر',ikhl:'الإخلاص',ahdaf:'جبل الأهداف الأربعة',tawba:'التوبة',mujahada:'المجاهدة',series:'',fatur:'عند الفتور وضيق الصدر',tools:'أدوات السالك',duas:'سنن الرسول ﷺ',qibla:'اتجاه القبلة',hifz:'حفظ القرآن وتسميعه',ask:'اسأل الشيخ',majalis:'المجالس والدروس',path:'مساري إلى رضا الله',fiqh:'الفقه المالكي',roadmap:'خريطة الطريق إلى رضا الله',aqida:'العقيدة الأشعرية',audio:'الاستماع',sira:'السيرة النبوية العطرة',qiyama:'يوم القيامة',method:'المنهج المحمدي',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',muraqabat:'حالتك الروحية اليومية',sura:'حالة قلبك',aamal:'الأعمال',dhikr_run:'الذكر الشخصي',adh_sabah:'أذكار الصباح',adh_masa:'أذكار المساء',install:'تثبيت التطبيق',notif:'ما بقي من يومك',profile:'الإعدادات',admin:'لوحة الإدارة',taammulat:'تأملات',mraqib:'مراقبات',munajat:'مناجاة',muhasaba:'محاسبة الليلة',ruhi:'بياناتك الروحية',about:'عن التطبيق',tahlil:'تحليل الزلّات',qa:'سؤال وجواب',mushaf:'المصحف',subha:'السبحة',qalb:'أمراض القلب',quran:'القرآن',umrah:'العمرة',khalwa:'الخلوة والاعتكاف'};
 const VERSES={search:'﴿وَقُل رَّبِّ زِدْنِي عِلْمًا﴾',h_quran:'﴿إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ﴾',h_ibadat:'﴿وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ﴾',h_ruh:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',h_ilm:'﴿وَقُل رَّبِّ زِدْنِي عِلْمًا﴾',h_shurut:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',tasmi:'﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ﴾',me:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',amrad:'﴿إِلَّا مَنْ أَتَى اللَّهَ بِقَلْبٍ سَلِيمٍ﴾',wudu:'﴿إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ﴾',salat:'﴿وَأَقِمِ الصَّلَاةَ لِذِكْرِي﴾',khushu:'﴿الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ﴾',khr:'﴿الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ﴾',ikhub:'﴿أَلَا لِلَّهِ الدِّينُ الْخَالِصُ﴾',ikhlas:'﴿وَمَا أُمِرُوا إِلَّا لِيَعْبُدُوا اللَّهَ مُخْلِصِينَ لَهُ الدِّينَ﴾',sirr:'«صدقة السر تطفئ غضب الرب»',ikhl:'﴿أَلَا لِلَّهِ الدِّينُ الْخَالِصُ﴾',ahdaf:'﴿وَأَنَّ إِلَىٰ رَبِّكَ الْمُنتَهَىٰ﴾',tawba:'﴿إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ﴾',mujahada:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',series:'',fatur:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',tools:'﴿وَمَا جَعَلَ عَلَيْكُمْ فِي الدِّينِ مِنْ حَرَجٍ﴾',duas:'﴿ادْعُونِي أَسْتَجِبْ لَكُمْ﴾',qibla:'﴿فَوَلِّ وَجْهَكَ شَطْرَ الْمَسْجِدِ الْحَرَامِ﴾',hifz:'﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ﴾',ask:'﴿فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ﴾',majalis:'«ما جلس قوم يذكرون الله إلا حفّتهم الملائكة»',path:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',fiqh:'﴿فَلَوْلَا نَفَرَ مِن كُلِّ فِرْقَةٍ مِّنْهُمْ طَائِفَةٌ لِّيَتَفَقَّهُوا فِي الدِّينِ﴾',aqida:'﴿فَاعْلَمْ أَنَّهُ لَا إِلَٰهَ إِلَّا اللَّهُ﴾',roadmap:'﴿وَأَنَّ هَٰذَا صِرَاطِي مُسْتَقِيمًا فَاتَّبِعُوهُ﴾',qiyama:'﴿يَوْمَ يَقُومُ النَّاسُ لِرَبِّ الْعَالَمِينَ﴾',sira:'﴿لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ﴾',audio:'﴿فَبَشِّرْ عِبَادِ ۝ الَّذِينَ يَسْتَمِعُونَ الْقَوْلَ فَيَتَّبِعُونَ أَحْسَنَهُ﴾',qalb:'﴿إِلَّا مَنْ أَتَى اللَّهَ بِقَلْبٍ سَلِيمٍ﴾',quran:'﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾',umrah:'﴿وَأَتِمُّوا الْحَجَّ وَالْعُمْرَةَ لِلَّهِ﴾',khalwa:'﴿وَاذْكُرِ اسْمَ رَبِّكَ وَتَبَتَّلْ إِلَيْهِ تَبْتِيلًا﴾',subha:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',mushaf:'﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾',qa:'﴿فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ﴾',dhikr_run:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',adh_sabah:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',adh_masa:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',install:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',method:'«أن تعبد الله كأنك تراه»',tazkiya:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',uyub:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',muraqabat:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',sura:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',aamal:'«أحبّ الأعمال إلى الله أدومها وإن قلّ»',notif:'﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾',profile:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',admin:'﴿إِنْ أُرِيدُ إِلَّا الْإِصْلَاحَ مَا اسْتَطَعْتُ﴾',taammulat:'﴿الَّذِينَ يَذْكُرُونَ اللَّهَ قِيَامًا وَقُعُودًا وَعَلَىٰ جُنُوبِهِمْ وَيَتَفَكَّرُونَ﴾',mraqib:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',munajat:'﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ﴾',muhasaba:'﴿وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ﴾',ruhi:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',about:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',tahlil:'﴿إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ﴾'};
 
 const AVATAR='<svg viewBox="0 0 52 52"><rect width="52" height="52" fill="#eceae6"/><circle cx="26" cy="20" r="9" fill="#c9c4bc"/><path d="M8 52c2-11 9-16 18-16s16 5 18 16z" fill="#c9c4bc"/></svg>';
@@ -2156,7 +2157,7 @@ function heroHome(){
   return `<header class="hero home2">
    <div class="langs" role="group" aria-label="اللغة">${LANGS.map(([c,l,n])=>`<button class="lang notr${c===LANG?' on':''}" data-lang="${c}" aria-pressed="${c===LANG}" title="${n}" lang="${c}">${l}</button>`).join('')}</div>
    <div class="h2-top"><div class="h2-brand"><h1>المرشد</h1><button class="h2-city notr" data-go="profile" data-cityfocus="1">${esc(cityName(S.loc))} · ${dateL} · ${hijriLabel}</button></div>
-    <div class="h2-btns"><button class="h2-ib" data-go="search" aria-label="${esc(Tx('بحث'))}"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg></button><button class="h2-ib" data-go="notif" aria-label="التنبيهات"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></svg><i class="badge" id="badge" hidden></i></button><button class="avatar h2-av" data-go="profile" aria-label="الملف الشخصي">${avatarImg()}</button></div></div>
+    <div class="h2-btns"><button class="h2-ib" data-go="search" aria-label="${esc(Tx('بحث'))}"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg></button><button class="h2-ib" data-go="notif" aria-label="ما بقي من يومك"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></svg><i class="badge" id="badge" hidden></i></button><button class="avatar h2-av" data-go="profile" aria-label="الإعدادات">${avatarImg()}</button></div></div>
    <section class="h2-pr" aria-label="مواقيت الصلاة"><div class="h2-prh"><span>مواقيت الصلاة</span><b><span>صلاة</span> ${nx.n} <span>بعد</span> ${mins>=60?Math.floor(mins/60)+' <span>س</span> ':''}${mins%60} <span>د</span></b></div>
     <svg class="h2-curve" viewBox="0 0 340 50" aria-hidden="true"><path d="M6 14 Q90 46 170 40 T334 12" fill="none" stroke="rgba(243,237,230,.32)" stroke-width="1.2"/>${(RTL()?X:X.slice().reverse()).map((x,i)=>i===ki?`<circle cx="${x}" cy="${Y[i]}" r="8" fill="none" stroke="#E6C891" stroke-width="1.6"/><circle cx="${x}" cy="${Y[i]}" r="3.6" fill="#E6C891"/>`:`<circle cx="${x}" cy="${Y[i]}" r="2.8" fill="#F3EDE6"/>`).join('')}</svg>
     <div class="h2-pl">${F.map(([k,n])=>`<div class="${k===nx.k?'on':''}"><span>${n}</span><small>${hm(pt[k])}</small></div>`).join('')}</div></section>
@@ -2196,7 +2197,7 @@ const QA_ALL=[
  {id:'muhasaba',t:'المحاسبة',ic:'n_muhasaba'},
  {id:'aamal',t:'الأعمال',ic:'n_aamal'},{id:'quran',t:'المصحف',ic:'n_quran'},{id:'khushu',t:'الخشوع',ic:'n_khushu'},{id:'hifz',t:'الحفظ',ic:'n_hifz'},
  {id:'majalis',t:'المجالس',ic:'n_majalis'},{id:'salat',t:'الصلاة ﷺ',ic:'n_salat'},{id:'qibla',t:'القبلة',ic:'n_qibla'},{id:'duas',t:'السنن',ic:'n_duas'},{id:'method',t:'المنهج',ic:'n_method'},
- {id:'taammulat',t:'تأمّلات',ic:'n_taammulat'},{id:'khalwa',t:'الخلوة',ic:'n_khalwa'},{id:'ruhi',t:'بياناتي',ic:'n_ruhi'},{id:'fatur',t:'عند الفتور',ic:'n_fatur'},{id:'tools',t:'الأدوات',ic:'n_tools'},
+ {id:'khalwa',t:'الخلوة',ic:'n_khalwa'},{id:'ruhi',t:'بياناتي',ic:'n_ruhi'},{id:'fatur',t:'عند الفتور',ic:'n_fatur'},{id:'tools',t:'الأدوات',ic:'n_tools'},
  {id:'profile',t:'حسابي',ic:'n_profile'},{id:'about',t:'عن التطبيق',ic:'n_about'},{id:'admin',t:'الإدارة',ic:'n_admin',adm:1}];
 const QA_DEF=['roadmap','tazkiya','khushu','majalis','salat','qibla','duas','method','path'];
 const qaSel=()=>(Array.isArray(S.quick)?S.quick:QA_DEF).filter(id=>QA_ALL.some(x=>x.id===id&&(!x.adm||isAdmin())));
@@ -2208,14 +2209,14 @@ function qaGo(id){sheetClose();if(id==='madh'){setTimeout(madhOpen,240);return}i
 function homeProg(){if(S.ikMode){const L=dayLog(),left=[];const P=amPick(L);if((L.prayers||[]).length<5)left.push(Tx('الصلوات'));P.aw.forEach(w=>{if(!L.awrad.includes(w)){const n={sabah:'أذكار الصباح',masa:'أذكار المساء',quran:'ورد القرآن',dhikr:'الذكر الشخصي'}[w];if(n)left.push(Tx(n))}});
   return `<div class="sh qa-sh"><h2>يومك</h2></div><button class="box pad hp-ik" data-go="aamal">${left.length?`<span>بقي:</span> <span class="notr">${left.join(RTL()?'، ':', ')}</span>`:'<span>أتممت أعمال اليوم، تقبّل الله منك</span>'}</button>`}const L=dayLog(),[dn,tot]=amProgress(L),lc=litCount();let pc=0;try{pc=pathPct(pathData())}catch(e){}
   const mini=(go,t,v,p,c)=>`<button class="hp-m" data-go="${go}"><small>${t}</small><b dir="ltr">${v}</b><i><b style="width:${Math.round(p)}%;background:${c}"></b></i></button>`;
-  return `<div class="sh qa-sh"><h2>تقدّمي</h2></div><div class="hp">${mini('aamal','يومك',dn+' / '+tot,tot?dn/tot*100:0,'var(--gold)')}${mini('ruhi','أنوارك',lc+' / 4',lc/4*100,'var(--green)')}${mini('path','مساري',Math.round(pc)+'%',pc,'#C9A6E8')}</div>`}
+  return `<div class="sh qa-sh"><h2>تقدّمي</h2></div><div class="hp">${mini('aamal','يومك',dn+' / '+tot,tot?dn/tot*100:0,'var(--gold)')}${mini('me','شجرتك',treeDays()+' / 30',treeDays()/30*100,'var(--green)')}${mini('path','مساري',Math.round(pc)+'%',pc,'#C9A6E8')}</div>`}
 /* bottom sheets */
 function sheetOpen(html,cls){let o=document.getElementById('bsheet');if(!o){o=document.createElement('div');o.id='bsheet';document.body.appendChild(o);
     o.addEventListener('click',e=>{if(e.target===o||e.target.closest('[data-bsx]')){sheetClose();return}const q=e.target.closest('[data-qat]');if(q){e.stopPropagation();qaToggle(q.dataset.qat);return}if(e.target.closest('[data-qareset]')){e.stopPropagation();S.quick=QA_DEF.slice();save();qaEditOpen(true);if(screen==='home')render()}})}
   o.className=cls||'';o.dir=RTL()?'rtl':'ltr';o.innerHTML=`<div class="bs"><i class="bs-grab" data-bsx="1"></i>${html}</div>`;i18nApply(o);o.hidden=false;requestAnimationFrame(()=>o.classList.add('on'))}
 function sheetClose(){const o=document.getElementById('bsheet');if(!o||o.hidden)return;o.classList.remove('on');setTimeout(()=>{o.hidden=true},220)}
 function moreOpen(){const sec=(t,ids)=>`<h3 class="bs-h">${t}</h3><div class="qa-grid">${ids.map(id=>QA_ALL.find(x=>x.id===id)).filter(x=>x&&(!x.adm||isAdmin())).map(qaBtn).join('')}</div>`;
-  sheetOpen(`<div class="bs-top"><h2>المزيد</h2><button class="qa-ed" data-qaedit="1">تعديل الرئيسية</button></div>${sec('الأدوات',['tools','qibla','duas','hifz','fatur'])}${sec('الطريق',['roadmap','path','tazkiya','method'])}${sec('العبادة',['aamal','khushu','quran','khalwa','muhasaba'])}${sec('المجالس والتأمّل',['majalis','salat','taammulat','ruhi'])}${sec('الحساب',['profile','about','admin'])}`)}
+  sheetOpen(`<div class="bs-top"><h2>المزيد</h2><button class="qa-ed" data-qaedit="1">تعديل الرئيسية</button></div>${sec('الأدوات',['tools','qibla','duas','hifz','fatur'])}${sec('الطريق',['roadmap','path','tazkiya','method'])}${sec('العبادة',['aamal','khushu','quran','khalwa','muhasaba'])}${sec('المجالس والتأمّل',['majalis','salat','h_ruh','ruhi'])}${sec('الحساب',['profile','about','admin'])}`)}
 function qaEditOpen(keep){const sel=qaSel();sheetOpen(`<div class="bs-top"><h2>الوصول السريع</h2><button class="qa-ed" data-bsx="1">تمّ</button></div><p class="meta">اضغط على أيقونة لإضافتها إلى الصفحة الرئيسية أو إزالتها. تظهر بالترتيب الذي تختاره، حتى 12 أيقونة.</p>
    <div class="qa-grid qa-pick">${QA_ALL.filter(x=>!x.adm||isAdmin()).map(x=>{const k=sel.indexOf(x.id);return `<button class="qa-ic${k>=0?' sel':''}" data-qat="${x.id}"><i><svg viewBox="0 0 24 24" aria-hidden="true">${QI[x.ic]}</svg>${k>=0?`<em class="n">${k+1}</em>`:''}</i><span>${x.t}</span></button>`}).join('')}</div>
    <div class="btns" style="margin-top:14px"><button class="btn small" data-qareset="1">استعادة الاختيار الأول</button></div>`,'tall')}
@@ -2264,7 +2265,7 @@ const RM_INFO={
  tawba:['أن تقطع ما بينك وبين الذنوب، وتعتاد مراجعة نفسك كل ليلة.',[['tawba','التوبة'],['muhasaba','محاسبة اليوم'],['uyub','اعرف عيوبك']]],
  mujahada:['أن تحمل نفسك على الفرائض حتى تصير عادة لا تنقطع.',[['mujahada','المجاهدة'],['aamal','الأعمال'],['fatur','عند الفتور']]],
  jawarih:['أن تحفظ جوارحك من المعصية، ثم تستعملها في الطاعة.',[['tazkiya','التزكية'],['uyub','اعرف عيوبك']]],
- aql:['أن تطهّر فكرك من الأوهام وسوء الظن، وتعوّده التأمل والتدبر.',[['aql','تزكية العقل'],['taammulat','تأملات']]],
+ aql:['أن تطهّر فكرك من الأوهام وسوء الظن، وتعوّده التأمل والتدبر.',[['aql','تزكية العقل'],['mraqib','مراقبات'],['qa','سؤال وجواب']]],
  nafs:['أن يصفو قلبك من العجب والرياء والكبر، ويتحقق بالإخلاص والتواضع والشكر.',[['qalbruh','العهود السماوية'],['uyub','اعرف عيوبك'],['khushu','الخشوع']]],
  g1:['أن يعظم أمر الله في قلبك، فتبادر إليه ولا تؤخّره.',[['g1','التعظيم لأمر الله'],['aamal','الأعمال'],['khushu','الخشوع']]],
  g2:['أن تحب رسول الله ﷺ، فتتبع سنته في يومك.',[['g2','التعظيم لأمر رسول الله ﷺ'],['duas','سنن الرسول ﷺ'],['sira','السيرة النبوية العطرة']]],
@@ -2302,13 +2303,14 @@ document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)r
   if(d.hint){hintOpen(d.hint);return}
   if(d.khnever){S.khAsk=false;save();sheetClose();miniToast(Tx('لن يُسأل بعد الصلاة. تعيده من صفحة الخشوع.'));return}
   if(d.auplay&&screen==='search'){const p=d.auplay;e.stopImmediatePropagation();go(d.ausc||'audio');setTimeout(()=>{try{auPlay(p)}catch(x){}},150);return}},true);
+(function(){try{let ch=0;['quick','homeT'].forEach(k=>{if(Array.isArray(S[k])&&S[k].some(x=>x==='taammulat'||x==='h_quran')){S[k]=S[k].map(x=>x==='taammulat'?(S[k].includes('h_ruh')?null:'h_ruh'):x==='h_quran'?(S[k].includes('quran')?null:'quran'):x);if(k==='quick')S[k]=S[k].filter(Boolean);ch=1}});if(ch)save()}catch(e){}})();
 function viewHome(){
   const L=dayLog(),[dn,tot]=amProgress(L),C=2*Math.PI*18,lc=litCount();
   const fri=new Date().getDay()===5?`<button class="box pad wk-ban" data-wkopen="1"><b>تقريرك الأسبوعي جاهز</b><span class="meta">صلواتك وأورادك وجوارحك في أسبوع</span></button>`:'';
   const moved=NEW_HOST&&/github\.io$/.test(location.hostname)?`<div class="box pad mv-ban"><b>انتقل «المرشد» إلى عنوانه الجديد</b><span class="notr" dir="ltr">${NEW_HOST}</span><p class="meta">${AUTH.state==='local'?'بياناتك محفوظة في هذا المتصفح فقط: احفظ نسخة احتياطية أولًا، ثم استرجعها في العنوان الجديد من «ملفك».':'سجّل الدخول بحسابك نفسه في العنوان الجديد، وستجد بياناتك كما هي. ثم أضف التطبيق إلى شاشتك من جديد.'}</p><div class="btns">${AUTH.state==='local'?'<button class="btn" data-bkexp="1">حفظ نسخة احتياطية</button>':''}<a class="btn ok" href="https://${NEW_HOST}/">افتح العنوان الجديد</a></div></div>`:'';
   const banner=moved+fri+announcementBanner()+(AUTH.state==='local'?`<p class="muted" style="margin-bottom:12px">وضع محلي: تُحفظ بياناتك في هذا المتصفح فقط.</p>`:'')+(S.demo?`<p class="muted" style="margin-bottom:12px">تعرض الأقسام بيانات تجريبية. يمكنك البدء من الصفر من الملف الشخصي.</p>`:'');
   const tiles=`<div class="h2-tiles"><button class="h2-tile" data-go="aamal"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18" fill="none" stroke="rgba(243,237,230,.18)" stroke-width="4"/><circle cx="22" cy="22" r="18" fill="none" stroke="#E6C891" stroke-width="4" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-(tot?dn/tot:0))}" transform="rotate(-90 22 22)"/></svg><span><small>يومك</small><b dir="ltr">${dn} / ${tot}</b></span></button>
-   <button class="h2-tile" data-go="ruhi"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18" fill="rgba(230,200,145,.12)"/><path d="M22 32s-9-5.6-9-12a4.9 4.9 0 0 1 9-2.6 4.9 4.9 0 0 1 9 2.6c0 6.4-9 12-9 12z" fill="none" stroke="#E6C891" stroke-width="1.8"/></svg><span><small>أنوارك</small><b dir="ltr">${lc} / 4</b></span></button></div>`;
+   <button class="h2-tile" data-go="me"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18" fill="rgba(230,200,145,.12)"/><path d="M22 34V22M22 24c-5 0-8-3-8-7 4 0 8 2 8 7zM22 21c4 0 7-3 7-7-4 0-7 2-7 7z" fill="none" stroke="#E6C891" stroke-width="1.8" stroke-linecap="round"/></svg><span><small>شجرتك</small><b dir="ltr">${treeDays()} / 30</b></span></button></div>`;
   const more=[...['roadmap','tools','majalis','ruhi','method','about'].map(id=>MENU.find(m=>m&&m.id===id)).filter(Boolean),...(isAdmin()?MENU.filter(m=>m.id==='admin'):[])];
   const subs={tools:'القبلة، سنن الرسول ﷺ، حفظ القرآن، وضع رمضان',ask:askUnseen()?'وصلك جواب جديد ✦':'سؤالك يصل إلى الشيخ، والجواب هنا',majalis:majUpcoming().length?'<span>المجلس القادم:</span> <span class="notr">'+majFmt(majUpcoming()[0].at)+'</span>':'مواعيد مجالس الذكر والدروس',roadmap:'الشروط الأربعة، الجسر، والأهداف الأربعة',audio:'دروس ومحاضرات صوتية',method:'الطريقة المحمدية: الأصول والأبواب وطريق التحقق',ruhi:`${lc} <span>من 4 أنوار مضيئة</span>`,admin:'المستعملون، الرسائل، الأعمال المقترحة',about:'التعريف بالتطبيق والإعدادات'};
   const list=`<div class="sh" style="margin:22px 2px 10px"><h2>المزيد</h2></div><div class="box h2-more">${more.map(m=>`<button class="h2-row" data-go="${m.id}"><span class="h2-ri"><svg viewBox="0 0 48 48" aria-hidden="true">${m.ic||m.art}</svg></span><span class="tx">${m.t}<small>${subs[m.id]||''}</small></span><svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>`).join('')}</div>`;
@@ -2813,10 +2815,10 @@ const TZI={book:'<path d="M8 10c5-2 10-2 16 1v28c-6-3-11-3-16-1zM40 10c-5-2-10-2
  star:'<path d="M24 8l4.5 10 10.5 1-8 7 2.5 11L24 31l-9.5 6 2.5-11-8-7 10.5-1z"/>',moon:'<path d="M30 8a16 16 0 1 0 10 26A13 13 0 0 1 30 8z"/>',chart:'<path d="M10 38V10M10 38h28M16 30l7-8 6 5 9-11"/>',map:'<path d="M8 12l10-4 12 4 10-4v28l-10 4-12-4-10 4z"/><path d="M18 8v28M30 12v28"/>'};
 function tzHead(k,st){const [t,x]=TZ_INFO[k],v=st[k],n=Math.min(v.n||0,v.goal||1),pct=v.done?100:n/(v.goal||1)*100;
   return `<div class="box pad tz-sh"><b>${t}</b><p>${x}</p><i class="tz-bar"><b style="width:${pct}%"></b></i><small>${v.done?'<span>أتممت هذه المرحلة ✓</span>':v.hint?esc(v.hint):''}</small></div>`}
-function tzStage(k,st){const mh=(mhState()[nowStr()]||{}).saved,pr=prepState();
+function tzStage(k,st){const mh=mhOn(nowStr()),pr=prepState();
   if(k==='prep')return prepCard();
   if(k==='jawarih')return tzHead(k,st)+(pr.status==='idle'?`<div class="box pad tz-note"><span>يُستحسن أن تبدأ بالمرحلة التمهيدية قبل تزكية الجوارح.</span><button class="btn small ok" data-tztab="prep">المرحلة التمهيدية</button></div>`:'')
-    +(tzDate?tzPast():tzToday())+`<div class="box h2-more tz-more">${tzRow('data-tztab="mh"',TZI.mh,'محاسبة الليلة',mh?'سجّلت محاسبة اليوم ✓':'ماذا حفظت اليوم؟ وأين زللت؟')}</div>`
+    +(tzDate?tzPast():tzToday())+`<div class="box h2-more tz-more">${tzRow('data-go="muhasaba"',TZI.mh,'محاسبة الليلة',mh?'سجّلت محاسبة اليوم ✓':'ماذا حفظت اليوم؟ وأين زللت؟')}</div>`
     +`<div class="sh" id="tzMap" style="margin:22px 2px 8px"><h2>رحلة الجوارح</h2></div>`+tzPath();
   if(k==='aql'){const X=lessonGet('aql');return tzHead(k,st)+ilBan('aql','tz-ban')+aqlCard()+`<div class="sh" style="margin:22px 2px 8px"><h2>شرح المستويات العشرة</h2></div>${LANG!=='ar'&&!lsL('aql')?'<p class="ls-ar">هذا الشرح متوفر بالعربية فقط.</p>':''}${ttsBtn('استمع إلى الشرح كاملًا','#lsAql')}<div class="box pad ls-lead tts-s notr" id="lsAql" ${lsDir('aql')}>${X.lead}</div>${lsAcc(X,-1)}<p class="meta">ملخّص منقّح لمادة الدرس. يُستحسن مراجعته مع الشيخ.</p>`}
   const X=lessonGet('qalb'),cur=ahdSel||ahdCur();return tzHead(k,st)+`<div class="ahd-sel" role="tablist">${AHD.map(a=>{const A=trS(a.id),dn=A.done.length>=a.lv.length;return `<button class="${a.id===cur?'on':''}${dn?' dn':''}" data-ahdsel="${a.id}"><b>${ahN(a)}</b><small dir="ltr">${dn?'✓':A.done.length+' / '+a.lv.length}</small></button>`}).join('')}</div>`+ilBan('q_'+cur,'tz-ban')+(tzDate?trPast(cur):trCard(cur))+`<div class="sh qa-sh"><h2>الإخلاص</h2></div><div class="box h2-more tz-more">${tzRow('data-go="ikhlas"',Q2('star'),'ورقة الإخلاص · 90 يومًا','')}${tzRow('data-madh="1"',Q2('heart'),'مُدِحتُ الآن','')}${tzRow('data-go="sirr"',Q2('moon'),'أعمال السر','')}${tzRow('data-go="ikhl"',Q2('book'),'درس الإخلاص','')}${tzRow('data-go="ikhub"',Q2('star'),'إعدادات الإخلاص','<span>وضع الإخلاص، تذكير النية</span>')}</div>`+`<div class="sh" style="margin:22px 2px 8px"><h2>شرح المرحلة والعهود السماوية</h2></div>${LANG!=='ar'&&!lsL('qalbIntro')?'<p class="ls-ar">هذا الشرح متوفر بالعربية فقط.</p>':''}${ttsBtn('استمع إلى الشرح كاملًا','#lsQalb')}<div class="box pad ls-lead tts-s notr" id="lsQalb" ${lsDir('qalbIntro')}>${X.lead}</div>${lsAcc(X,-1)}<p class="meta">ملخّص منقّح لمادة الدرس. يُستحسن مراجعته مع الشيخ.</p>`}
@@ -2843,10 +2845,10 @@ function tzToday(){
     const btns=o.today?'':`<div class="tz-btn2"><button class="btn ok" data-ok="${g.id}">حفظتُها</button><button class="btn tz-slipb" data-slip="${g.id}">زلّة</button></div>`;
     return `<section class="tz-card${o.today?' logged':''}">${head}${pend}${btns}${acts}</section>`}).join('');
   const empty=!act.length?`<div class="box pad tz-empty"><b>لم تبدأ تزكية أي جارحة بعد</b><p class="muted" style="margin:4px 0 10px">اختر جارحة أو جارحتين من «رحلة الجوارح» وابدأ تطهيرها.</p><button class="btn primary" data-tzmap="1">اختر من رحلة الجوارح</button></div>`:'';
-  const mh=(mhState()[nowStr()]||{}).saved,n=Math.min(prepDays(),30);
+  const mh=mhOn(nowStr()),n=Math.min(prepDays(),30);
   const prepFull=P.status!=='done'&&((prepOn&&!prepDone)||tzPrepOpen);
   const prepRow=P.status!=='done'&&!prepFull?`<button class="h2-row" data-tzprep="1"><span class="h2-ri tz-n">${n}</span><span class="tx"><span>المرحلة التمهيدية</span><small>${P.status==='idle'?'لم تبدأ · ثلاثون يومًا على ثلاث وصايا نبوية':prepDone?'<span>سُجّل اليوم ✓</span> · '+n+' <span>من</span> 30':''}</small><i class="tz-bar"><b style="width:${n/30*100}%"></b></i></span><svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>`:'';
-  const list=`<div class="box h2-more tz-more">${prepRow}<button class="h2-row" data-tztab="mh"><span class="h2-ri"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 8h20v32H14z"/><path d="M19 16h10M19 22h10M19 28h6"/></svg></span><span class="tx">محاسبة الليلة<small>${mh?'سجّلت محاسبة اليوم ✓':'ماذا حفظت اليوم؟ وأين زللت؟'}</small></span><svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button class="h2-row" data-go="ruhi"><span class="h2-ri"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 38s-12-7.5-12-16a6.5 6.5 0 0 1 12-3.5A6.5 6.5 0 0 1 36 22c0 8.5-12 16-12 16z"/></svg></span><span class="tx">حالتك الروحية اليومية<small><span>${litCount()} من 4 أنوار مضيئة</span></small></span><svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button></div>`;
+  const list=`<div class="box h2-more tz-more">${prepRow}<button class="h2-row" data-go="muhasaba"><span class="h2-ri"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 8h20v32H14z"/><path d="M19 16h10M19 22h10M19 28h6"/></svg></span><span class="tx">محاسبة الليلة<small>${mh?'سجّلت محاسبة اليوم ✓':'ماذا حفظت اليوم؟ وأين زللت؟'}</small></span><svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button class="h2-row" data-go="ruhi"><span class="h2-ri"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 38s-12-7.5-12-16a6.5 6.5 0 0 1 12-3.5A6.5 6.5 0 0 1 36 22c0 8.5-12 16-12 16z"/></svg></span><span class="tx">حالتك الروحية اليومية<small><span>${litCount()} من 4 أنوار مضيئة</span></small></span><svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button></div>`;
   return `${day}${cards}${empty}`;
 }
 function tzPath(){
@@ -2866,18 +2868,25 @@ function viewOrgan(){const g=ORGANS.find(x=>x.id===orgSel)||ORGANS[0],o=S.organs
 }
 /* ---------- daily self-review (muhasaba) ---------- */
 function mhState(){if(!S.muhasaba)S.muhasaba={};return S.muhasaba}
+/* a night counts as reckoned when the faces were answered, or something was written */
+const mhOn=d=>!!((mhState()[d]||{}).saved)||(()=>{try{return qmRows().length>0&&qmDone(d)}catch(e){return false}})();
+function ikMh(){const K=ikS();if(!K.base||ikDays().n>=90&&ikDone(TODAY))return '';const a=(K.log[TODAY]||{}).a||[],n=Math.min(ikDays().n,90);
+  return `<div class="sh mh-sh"><h2>أسئلة الإخلاص</h2><span><span>اليوم</span> ${Math.min(n+(ikDone(TODAY)?0:1),90)} <span>من</span> 90</span></div>
+   <div class="box ik-q">${IKQ.map((q,i)=>`<div class="ik-r"><span>${q}</span><div class="ik-yn">${[1,0].map(v=>`<button class="${a[i]===v?(v===IKGOOD[i]?'g':'b'):''}" data-ikq="${i}" data-v="${v}">${v?'نعم':'لا'}</button>`).join('')}</div></div>`).join('')}</div>`}
 let mhMsg='';
 function viewMuhasaba(){
   const M=mhState(),k=tzDate||nowStr(),T=M[k]||{},days=Object.keys(M).filter(d=>M[d]&&M[d].saved).sort().reverse();
   const past=days.filter(d=>d!==k).slice(0,60);
-  return `<section><p class="muted">قبل النوم، قف مع نفسك دقيقتين: ما الذي حفظته اليوم من جوارحك وأورادك؟ وأين زللت؟ من حاسب نفسه في الدنيا خفّ حسابه يوم القيامة.</p>${khMuhLine()}
+  return `<section><p class="muted">قبل النوم، قف مع نفسك دقيقة: كيف كانت جوارحك اليوم؟ وأين زللت؟ من حاسب نفسه في الدنيا خفّ حسابه يوم القيامة.</p>${khMuhLine()}
+   ${qmRows().length?qmCard(0,1):''}${ikMh()}
+   <div class="sh mh-sh"><h2>اكتب محاسبتك</h2><span>اختياري</span></div>
    <div class="box pad mh-card">
     <label for="mh-good" class="mh-q">ماذا حفظت اليوم؟</label>
     <textarea id="mh-good" dir="auto" placeholder="مثال: حفظت لساني من الغيبة في مجلس العمل، وصليت الفجر في وقته…">${esc(T.good||'')}</textarea>
     <label for="mh-slip" class="mh-q">أين زللت؟</label>
     <textarea id="mh-slip" dir="auto" placeholder="مثال: غضبت في نقاش، وسهرت على الهاتف…">${esc(T.slip||'')}</textarea>
-    <div class="btns"><button class="btn primary" data-mhsave="1">${T.saved?'تحديث محاسبة اليوم':'سجّل محاسبة اليوم'}</button></div>
-    ${mhMsg?`<p class="logged">${esc(mhMsg)}</p>`:T.saved?'<p class="logged">سُجّلت محاسبة اليوم ✓</p>':''}
+    <div class="btns"><button class="btn primary" data-mhsave="1">${T.saved?'تحديث ما كتبت':'احفظ ما كتبت'}</button></div>
+    ${mhMsg?`<p class="logged">${esc(mhMsg)}</p>`:T.saved?'<p class="logged">حُفظ ما كتبت ✓</p>':''}
    </div></section>
    <section><div class="sh"><h2>محاسباتك السابقة</h2><span>${past.length}</span></div>
    ${past.length?`<div class="box">${past.map(d=>{const x=M[d];return `<details class="mh-past"><summary><b>${fmtD(d)}</b></summary>${x.good?`<p><span class="mh-tag ok">حفظت</span> <span class="notr" dir="auto">${esc(x.good)}</span></p>`:''}${x.slip?`<p><span class="mh-tag bad">زللت</span> <span class="notr" dir="auto">${esc(x.slip)}</span></p>`:''}</details>`}).join('')}</div>`:'<p class="muted">لم تسجّل محاسبة سابقة بعد. تظهر هنا محاسباتك يومًا بعد يوم.</p>'}</section>`;
@@ -2885,16 +2894,16 @@ function viewMuhasaba(){
 
 /* ---------- your spiritual data: daily state, heart, slip analysis ---------- */
 let ruhiTab='muraqabat';
-const RUHI_TABS=[['muraqabat','الحالة اليومية'],['sura','حالة القلب'],['tahlil','تحليل الزلّات'],['week','الأسبوع'],['khr','الخشوع']];
+const RUHI_TABS=[['muraqabat','الحالة اليومية'],['sura','حالة القلب'],['tahlil','تحليل الزلّات'],['week','الأسبوع']];
 let wkOff=0;
 function wkData(){const E=addDays(TODAY,-7*wkOff),days=Array.from({length:7},(_,i)=>addDays(E,i-6));
   const now=new Date(),h=now.getHours()+now.getMinutes()/60,pt=prayerTimes(now);
-  let pDone=0,pDue=0;const grid=days.map(D=>{const L=S.log[D]||{},pr=L.prayers||[];return FIVE.map(([k])=>{const on=pr.includes(k),due=D<TODAY||(D===TODAY&&h>=pt[k]);if(due)pDue++;if(on)pDone++;return on?'on':due?'late':''})});
+  let pDone=0,pDue=0;const grid=days.map(D=>{const L=S.log[D]||{},pr=L.prayers||[];return FIVE.map(([k])=>{const on=pr.includes(k),due=D<TODAY||(D===TODAY&&h>=pt[k])||on;if(due)pDue++;if(on)pDone++;return on?'on':due?'late':''})});
   const aw={};AWRAD.forEach(a=>aw[a.id]=days.filter(D=>((S.log[D]||{}).awrad||[]).includes(a.id)).length);
   const sl=allSlips().filter(x=>x.date>=days[0]&&x.date<=E&&x.reason!=='انقطاع: يوم لم يُسجَّل');
   const cats={};sl.forEach(x=>slipCats(x.reason).forEach(c=>cats[c.t]=(cats[c.t]||0)+1));
   const top=Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,3);
-  const mh=days.filter(D=>(mhState()[D]||{}).saved).length;
+  const mh=days.filter(D=>mhOn(D)).length;
   const org=ORGANS.filter(g=>S.organs[g.id].phase!=='idle').map(g=>({g,o:S.organs[g.id],n:sl.filter(x=>x.oid===g.id).length}));
   return {days,E,grid,pDone,pDue,aw,sl,top,mh,org}}
 function wkShare(){const W=wkData(),c=RTL()?'، ':', ',lines=[Tx('تقريري الأسبوعي في «المرشد»'),fmtD(W.days[0])+' – '+fmtD(W.E),Tx('الصلوات المسجّلة:')+' '+W.pDone+'/'+W.pDue,Tx('أذكار الصباح:')+' '+W.aw.sabah+'/7 · '+Tx('أذكار المساء:')+' '+W.aw.masa+'/7',Tx('ورد القرآن:')+' '+W.aw.quran+'/7 · '+Tx('قيام الليل:')+' '+W.aw.qiyam+'/7',Tx('ليالي المحاسبة:')+' '+W.mh+'/7',...W.org.map(x=>Tx(x.g.name)+': '+(x.o.phase==='done'?Tx('مكتملة'):Tx(PHASE[x.o.phase])+' '+x.o.days+'/30')+(x.n?' · '+Tx('زلّات:')+' '+x.n:'')),...(W.top.length?[Tx('أكثر أسباب الزلّات:')+' '+W.top.map(t=>Tx(t[0])).join(c)]:[])];
@@ -3303,7 +3312,7 @@ const lastDays=n=>{const o=[];for(let i=0;i<n;i++)o.push(addDays(TODAY,-i));retu
 function pathData(){const a=auSt(),v=vdSt(),man=pathMan(),M=S.marks||{};
   const aqI=((auCat||[]).find(g=>g.k===AQ_K)||{items:[]}).items,aqN=aqI.length||32,aqD=aqI.filter(x=>a.done[x.p]).length;
   const fqL=vdList(FQ_K),fqN=fqL.length||3,fqD=fqL.filter(p=>v.done[p]).length;
-  const mh=Object.values(mhState()).filter(x=>x&&x.saved).length;
+  const mh=(()=>{const s=new Set(Object.keys(mhState()).filter(d=>mhState()[d]&&mhState()[d].saved));Object.keys(S.qm||{}).forEach(d=>{if(mhOn(d))s.add(d)});return s.size})();
   const full5=d=>((S.log[d]||{}).prayers||[]).length>=5;
   const muj=lastDays(40).filter(full5).length;
   const org=ORGANS.filter(g=>{const o=S.organs[g.id];return o&&(o.phase==='tanwir'||o.phase==='done'||(o.phase==='tathir'&&(o.ready||o.parked)))}).length;
@@ -5345,7 +5354,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   <p class="muted">التنبيهات هنا داخل الصفحة. التنبيهات الفعلية على الهاتف تحتاج نسخة التطبيق المثبّتة.</p></section>`;
 }
-const APP_VER='2026-11-05 12:28';
+const APP_VER='2026-11-05 21:53';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
@@ -5951,13 +5960,13 @@ function tabS(s){if(s==='home'||s.startsWith('adh_')||['aamal','dhikr_run','qura
 const SMT={h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'الروحانيات',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',ahdaf:'جبل الأهداف الأربعة',mraqib:'مراقبات',munajat:'مناجاة',qiyama:'يوم القيامة',aqida:'العقيدة',fiqh:'الفقه',tawba:'التوبة',mujahada:'المجاهدة',hifz:'حفظ القرآن وتسميعه',tasmi:'التسميع',aamal:'أعمال اليوم',quran:'القرآن',khushu:'الخشوع',amrad:'أمراض القلب',qa:'سؤال وجواب',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',khalwa:'الخلوة والاعتكاف',method:'المنهج المحمدي',taammulat:'تأملات',majalis:'المجالس والدروس',ask:'اسأل الشيخ',tools:'أدوات السالك',umrah:'العمرة',wudu:'الوضوء',salat:'الصلاة',sira:'السيرة النبوية'};
 
 /* the Path's sections ("tabs"): each opens a page of picture tiles */
-const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['taammulat','uyub','khushu','mraqib','munajat','khalwa'],
- h_ilm:['method','majalis','sira','qiyama','h_shurut','ahdaf','qa','ask'],h_shurut:['aqida','fiqh','tawba','mujahada']};
+const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['uyub','khushu','mraqib','munajat','khalwa'],
+ h_ilm:['method','majalis','sira','qiyama','qa','ask'],h_shurut:['aqida','fiqh','tawba','mujahada']};
 const IL_ALIAS={h_quran:'quran',h_ibadat:'salat',h_ruh:'taammulat',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],khalwa:['khalwa','m_lamp'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
 const viewHub=k=>()=>`<section>${smTiles(HUBS[k],HUBS[k].length%2?'odd':'')}</section>`;
 
 /* Today's four tiles: the user can change or remove each one (long press), and fill an empty place with "+" */
-const HT_ALL=['aamal','quran','tazkiya','qa','hifz','khushu','taammulat','wudu','salat','umrah','method','majalis','sira','qiyama','ask','tools','h_shurut','ahdaf','mraqib','munajat','h_ibadat','h_ruh','h_ilm','uyub'];
+const HT_ALL=['aamal','quran','tazkiya','qa','hifz','khushu','wudu','salat','umrah','method','majalis','sira','qiyama','ask','tools','h_shurut','ahdaf','mraqib','munajat','h_ibadat','h_ruh','h_ilm','uyub','muhasaba'];
 function htGet(){if(!Array.isArray(S.homeT)||S.homeT.length!==4)S.homeT=['aamal','quran','tazkiya','qa'];const T=S.homeT,a=T.indexOf('amrad');if(a>=0)T[a]=T.includes('uyub')?null:'uyub';return T}
 function homeTiles(){const T=htGet();return `<div class="sm-tiles ht">${T.map((id,i)=>id&&SMT[id]?`<button class="sm-tile" data-go="${id}" data-ht="${i}">${ilSvg(id)}<span>${SMT[id]}</span></button>`:`<button class="sm-tile ht-add" data-htadd="${i}" aria-label="${esc(Tx('أضف تبويبة'))}"><i>+</i><span>أضف تبويبة</span></button>`).join('')}</div><div class="ht-tip"><button class="ht-ed" data-htedit="1">تخصيص هذه البلاطات</button></div>`}
 function htPick(i){const T=htGet();sheetOpen(`<div class="bs-top"><h2>اختر التبويبة</h2><button class="qa-ed" data-bsx="1">إلغاء</button></div><div class="sm-tiles c3 ht-pick">${HT_ALL.filter(id=>SMT[id]).map(id=>`<button class="sm-tile${T.includes(id)?' on':''}" data-htset="${i}" data-id="${id}">${ilSvg(id)}<span>${SMT[id]}</span></button>`).join('')}</div>`);i18nApply(document.getElementById('bsheet'))}
@@ -5991,12 +6000,12 @@ const QM_EXTRA={qadam:'<path d="M9 4c2 0 3 2 3 5s-1 6-3 6-3-3-3-6 1-5 3-5zM8 17h
 const qmRows=()=>{const act=activeOrgans().map(g=>g.id),pre=qmPrepOn()?PREP.map(x=>['p_'+x.id,x.t,QM_PI[x.id]||'','prep']):[];
   const org=act.length?ORGANS.filter(g=>act.includes(g.id)).map(g=>{const q=QM_ORG.find(r=>r[0]===g.id);return [g.id,g.name,q?q[2]:(QM_EXTRA[g.id]||''),'org']}):pre.length?[]:QM_ORG.map(r=>[...r,'gen']);
   return [...pre,...org]};
-function qmCard(compact){const R=qmRows(),D=Object.fromEntries(R.map(([id])=>[id,qmVal(id)])),done=qmDone(),bad=R.filter(([id])=>D[id]===0).map(o=>o[1]),ACT=activeOrgans().map(g=>g.id),pn=Math.min(prepDays(),30);let grp='';
+function qmCard(compact,full){const R=qmRows(),D=Object.fromEntries(R.map(([id])=>[id,qmVal(id)])),done=qmDone(),bad=R.filter(([id])=>D[id]===0).map(o=>o[1]),ACT=activeOrgans().map(g=>g.id),pn=Math.min(prepDays(),30);let grp='';
   const last7=[...Array(7)].map((_,i)=>{const d=ds(new Date(Date.now()-(6-i)*DAY)),x=qmDay(d),v=Object.values(x).filter(n=>typeof n==='number');const a=v.length?v.reduce((p,n)=>p+n,0)/v.length:-1;return `<i style="background:${a<0?'var(--chip)':a>=1.5?'#3f8f68':a>=.8?'#c9a24a':'#c8553d'}"></i>`}).join('');
   return `<section class="box qm${compact?' qm-c':''}"><div class="qm-h"><b>حاسب نفسك في عشرين ثانية</b><span>${R.some(r=>r[3]==='prep')?'كيف كان يومك مع وصايا المرحلة التمهيدية وجوارحك؟':'كيف كانت جوارحك اليوم؟'}</span></div>
-   ${R.map(([id,n,ic,g])=>{const o=ACT.includes(id)?S.organs[id]:null,hd=g!==grp&&g!=='gen'?`<p class="qm-g">${g==='prep'?'<span>المرحلة التمهيدية</span> · <span>اليوم</span> '+tsDig(Math.min(pn+1,30))+' <span>من</span> 30':'<span>الجوارح التي تزكّيها</span>'}</p>`:'';grp=g;return `${hd}<div class="qm-r"><span class="qm-o"><svg viewBox="0 0 24 24" aria-hidden="true">${ic}</svg><span>${n}${o?`<small class="qm-ph"><span>${PHASE[o.phase]}</span> · ${o.today==='ok'?'<span>حُسبت اليوم ✓</span>':o.today==='slip'?'<span>سُجّلت زلّة</span>':'<span>يُحسب في رحلتك</span>'}</small>`:''}</span></span><span class="qm-f">${[2,1,0].map(k=>`<button data-qm="${id}" data-qv="${k}" aria-pressed="${D[id]===k}" aria-label="${n} ${k}">${qmFace(k,D[id]===k)}</button>`).join('')}</span></div>${qmSlip===id?`<div class="qm-why"><b><span>ما الذي أوقعك في زلة</span> ${n}<span>؟</span></b><div class="qm-ch">${QM_REASONS.map(r=>`<button data-qmwhy="${esc(r)}">${r}</button>`).join('')}</div></div>`:''}`}).join('')}
+   ${R.map(([id,n,ic,g])=>{const o=ACT.includes(id)?S.organs[id]:null,hd=g!==grp&&g!=='gen'?`<p class="qm-g">${g==='prep'?'<span>المرحلة التمهيدية</span> · <span>اليوم</span> '+tsDig(Math.min(pn+1,30))+' <span>من</span> 30':'<span>الجوارح التي تزكّيها</span>'}</p>`:'';grp=g;return `${hd}<div class="qm-r"><span class="qm-o"><svg viewBox="0 0 24 24" aria-hidden="true">${ic}</svg><span>${n}${o?`<small class="qm-ph"><span>${PHASE[o.phase]}</span> · ${o.today==='ok'?'<span>حُسبت اليوم ✓</span>':o.today==='slip'?'<span>سُجّلت زلّة</span>':'<span>يُحسب في رحلتك</span>'}</small>`:''}</span></span><span class="qm-f">${[2,1,0].map(k=>`<button data-qm="${id}" data-qv="${k}" aria-pressed="${D[id]===k}" aria-label="${esc(Tx(n)+' · '+Tx(['وقعت زلّة','بين بين','حفظتُها'][k]))}">${qmFace(k,D[id]===k)}</button>`).join('')}</span></div>${qmSlip===id?`<div class="qm-why"><b><span>ما الذي أوقعك في زلة</span> ${n}<span>؟</span></b><div class="qm-ch">${QM_REASONS.map(r=>`<button data-qmwhy="${esc(r)}">${r}</button>`).join('')}</div></div>`:''}`}).join('')}
    ${done?`<p class="qm-ok">${bad.length?'<span>استغفر الله، وابدأ غدًا بنيّة جديدة.</span>':'<span>الحمد لله، ثبّتك الله.</span>'}</p>`:''}
-   <div class="qm-w"><span>هذا الأسبوع</span><span class="qm-dots" dir="ltr">${last7}</span></div></section>`}
+   <div class="qm-w"><span>هذا الأسبوع</span><span class="qm-dots" dir="ltr">${last7}</span>${full?'':`<button class="lnk qm-all" data-go="muhasaba">${ikS().base?'<span>أسئلة الإخلاص والكتابة</span>':'<span>اكتب محاسبتك</span>'} ←</button>`}</div></section>`}
 
 /* ---------- the growing tree ---------- */
 function treeDays(){let n=0;for(let i=0;i<30;i++){const d=ds(new Date(Date.now()-i*DAY)),l=(S.log||{})[d];if(l&&((l.prayers||[]).length>=3||(l.awrad||[]).length))n++}return n}
@@ -6009,18 +6018,17 @@ function treeCard(){const n=treeDays(),st=Math.min(4,Math.floor(n/7)),C=ILC;
 function viewMe(){const u=AUTH.user,ex=S.amEx&&AMRAD.ar[S.amEx.id]?S.amEx:null,A=AMRAD[LANG]||AMRAD.ar;
   const row=(go,t,ic,extra)=>`<button class="h2-row me-row" ${go}><span class="h2-ri"><svg viewBox="0 0 24 24" aria-hidden="true">${ic}</svg></span><span class="h2-rt"><b>${t}</b></span>${extra||''}<svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>`;
   const exc=ex?`<section class="box am-my"><div>${ilSvg(ex.id,'am-th')}</div><div><small>تمرينك هذا الأسبوع</small><b class="notr" ${LANG==='ar'||LANG==='ur'?'dir="rtl"':'dir="ltr"'}>${A[ex.id][4]}</b>${(ex.done||{})[TODAY]?'<span class="logged">فعلته اليوم ✓</span>':'<button class="btn ok small" data-amdone="1">فعلته اليوم</button>'}</div></section>`:'';
-  return `<section class="me-hd"><button class="avatar big" data-go="profile" aria-label="الملف الشخصي">${avatarImg()}</button><div><h2>${esc(S.name||'')}</h2><p class="muted notr">${esc(cityName(S.loc))}</p></div></section>
-   ${treeCard()}${exc}${qmCard()}
+  return `<section class="me-hd"><button class="avatar big" data-go="profile" aria-label="الإعدادات">${avatarImg()}</button><div><h2>${esc(S.name||'')}</h2><p class="muted notr">${esc(cityName(S.loc))}</p></div></section>
+   ${treeCard()}${qmCard()}
    <div class="sh me-sh"><h2>رحلتي</h2></div><div class="box h2-more me-list">
     ${row('data-go="path"','مساري: أين أنا في الطريق؟','<path d="M5 19c3-1 4-5 7-6s5 1 7-2 2-5 2-5"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="6" r="2"/>',`<small class="me-x" dir="ltr">${pathPct(pathData())}%</small>`)}
     ${row('data-go="uyub"','اعرف عيوبك وعالجها','<ellipse cx="12" cy="10" rx="6" ry="7"/><path d="M12 17v4M9 21h6"/>')}
     ${row('data-go="ruhi"','بياناتك الروحية','<path d="M12 20s-8-4.8-8-10.5A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 8 2.5C20 15.2 12 20 12 20z"/>')}
     ${row('data-go="ijtihad"','مرآة أعمالك','<path d="M5 19V13M10 19V9M15 19V11M20 19V5"/>')}
-    ${row('data-wkopen="1"','التقرير الأسبوعي','<rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 14h6"/>')}
    </div>
    <div class="sh me-sh"><h2>التطبيق</h2></div><div class="box h2-more me-list">
     ${row('data-go="search"','البحث في التطبيق','<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>')}
-    ${row('data-go="notif"','التنبيهات','<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/>')}
+    ${row('data-go="notif"','ما بقي من يومك','<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/>')}
     ${row('data-go="profile"','الإعدادات','<circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>')}
     ${row('data-go="about"','عن التطبيق','<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>')}
     ${isAdmin()?row('data-go="admin"','لوحة الإدارة','<path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"/>'):''}
@@ -6514,7 +6522,7 @@ document.addEventListener('change',e=>{const el=e.target;if(!el||!el.dataset||!e
   tsRes=null;save();render()});
 
 const VIEWS={search:viewSearch,h_quran:viewHub('h_quran'),h_ibadat:viewHub('h_ibadat'),h_ruh:viewHub('h_ruh'),h_ilm:viewHub('h_ilm'),h_shurut:viewHub('h_shurut'),tasmi:viewTasmi,me:viewMe,amrad:viewAmrad,wudu:()=>viewGuide('wudu'),salat:()=>viewGuide('salat'),khushu:viewKhushu,khr:viewKhushuR,ikhub:viewIkhub,ikhlas:viewIkhlas,sirr:viewSirr,ikhl:()=>viewLesson('ikhlas'),ahdaf:viewAhdaf,tawba:()=>viewLesson('tawba'),mujahada:()=>viewLesson('mujahada'),series:viewSeries,fatur:viewFatur,tools:viewTools,duas:viewDuas,qibla:viewQibla,hifz:viewHifz,ask:viewAsk,majalis:viewMajalis,path:viewPath,roadmap:viewRoadmap,fiqh:viewFiqh,aqida:()=>viewAudio(AQ_K),audio:()=>viewAudio(SIRA_K),sira:()=>viewAudio(SIRA_K),qiyama:()=>viewAudio(QIY_K),method:viewMethod,tazkiya:viewTazkiya,uyub:viewUyub,muraqabat:viewMuraqabat,sura:viewSura,aamal:viewAamal,dhikr_run:viewDhikrRun,adh_sabah:()=>viewAdhkar('sabah'),adh_masa:()=>viewAdhkar('masa'),install:viewInstall,notif:viewNotif,profile:viewProfile,admin:viewAdmin,taammulat:viewTaammulat,muhasaba:viewMuhasaba,organ:viewOrgan,qalb:viewQalb,quran:viewQuran,umrah:viewUmrah,khalwa:viewKhalwa,subha:viewSubha,mushaf:viewMushaf,qa:viewQA,week:viewWeek,about:viewAbout,tahlil:viewTahlil,ruhi:viewRuhi,mraqib:viewMraqib,munajat:viewMraqib};
-const TOPTABS=['aamal','tazkiya','quran','taammulat'];
+const TOPTABS=['aamal','tazkiya','quran'];
 /* ---------- listening: lessons uploaded to the repo's audio/ folder ---------- */
 const AU_REPO='dridrissihafdi-ship-it/almurshid',AU_EXT=/\.(mp3|m4a|aac|ogg|oga|opus|wav)$/i;
 const SIRA_K='السيرة_النبوية_العطرة',QIY_K='يوم_القيامة',AQ_K='العقيدة_الأشعرية',auScr=()=>['audio','sira','qiyama','aqida'].includes(screen)||(screen==='series'&&serCur()&&serCur().kind!=='video'),
@@ -6630,7 +6638,7 @@ document.addEventListener('change',e=>{if(e.target.id!=='auSeek')return;delete e
 
 function tabOf(s){if(s.startsWith('adh_')||['dhikr_run','khalwa','aamal'].includes(s))return 'aamal';
   if(['tazkiya','organ','method','tawba','mujahada','ikhlas','ikhl','ikhub','sirr'].includes(s))return 'tazkiya';if(['quran','mushaf'].includes(s))return 'quran';
-  if(isMedia(s)||['taammulat','qa','qalb','umrah','sira','qiyama','series'].includes(s))return 'taammulat';return 'home'}
+  if(isMedia(s)||['qa','qalb','umrah','sira','qiyama','series','h_ruh','h_ilm','mraqib','munajat'].includes(s))return 'more';return 'home'}
 /* the background follows the time of day: dawn, day, sunset, night */
 function ptKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayerTimes(n);return h<pt.fajr?'isha':h<pt.sunrise+.5?'fajr':h<pt.asr?'dhuhr':h<pt.maghrib-.4?'asr':h<pt.isha?'maghrib':'isha'}
 function skyKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayerTimes(n);
@@ -6661,7 +6669,7 @@ function render(){
   auUi();try{sndUi()}catch(e){}
   const bd=document.getElementById('badge');if(bd)bd.hidden=!(pendingOrgans().length||prepPendingToday()||!lights().halo);
 }
-function go(s){if(s==='amrad')s='uyub';if(s==='qalb'){s='uyub';uyF=null;uyProg=true}else if(s==='uyub'){uyF=null;uyProg=false}if(s==='ijtihad'){ruhiTab='week';wkOff=0;goRaw('ruhi');return}if(s==='sura'||s==='muraqabat'||s==='tahlil'){ruhiTab=s;s='ruhi'}if(s==='muhasaba'){tzTab='mh';s='tazkiya'}if(s==='aql'){tzTab='aql';s='tazkiya'}if(/^g[1-4]$/.test(s)){ahTab=s;s='ahdaf'}if(s==='majalis'&&screen!=='majalis')majTab=null;if(s==='jawarih'){tzTab='jawarih';s='tazkiya'}if(s==='qalbruh'){tzTab='qalb';s='tazkiya'}goRaw(s)}
+function go(s){if(s==='amrad')s='uyub';if(s==='qalb'){s='uyub';uyF=null;uyProg=true}else if(s==='uyub'){uyF=null;uyProg=false}if(s==='ijtihad'){ruhiTab='week';wkOff=0;goRaw('ruhi');return}if(s==='sura'||s==='muraqabat'||s==='tahlil'){ruhiTab=s;s='ruhi'}if(s==='taammulat')s='h_ruh';if(s==='h_quran')s='quran';if(s==='khr'){khTab='mine';s='khushu'}if(s==='aql'){tzTab='aql';s='tazkiya'}if(/^g[1-4]$/.test(s)){ahTab=s;s='ahdaf'}if(s==='majalis'&&screen!=='majalis')majTab=null;if(s==='jawarih'){tzTab='jawarih';s='tazkiya'}if(s==='qalbruh'){tzTab='qalb';s='tazkiya'}goRaw(s)}
 const NAVH=[];let navBack=false,navRoute=null;
 function navUrl(s){try{const u=s==='home'?location.pathname+location.search:'#/'+s;if(navBack||!history.state)history.replaceState({s},'',u);else history.pushState({s},'',u)}catch(e){}}
 (function(){const m=/^#\/([a-z_0-9]+)$/.exec(location.hash);if(m)navRoute=m[1];try{history.replaceState({s:'home'},'',m||!location.hash?location.pathname+location.search:location.href)}catch(e){}})();
