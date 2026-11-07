@@ -32,9 +32,15 @@ const AUTH_ERR={
  'auth/quota-exceeded':'تجاوزت الخدمة حدّها اليوم. أعد المحاولة لاحقًا.'
 };
 const authErr=e=>AUTH_ERR[e&&e.code]||'تعذّر إتمام العملية. أعد المحاولة.';
+let authLangOpen=false;
+/* language picker: shown in full the first time, then folded into one small button (and kept in the settings) */
+function langPick(){const bar=`<div class="langs" role="group" aria-label="اللغة">${LANGS.map(([c,l,n])=>`<button class="lang notr${c===LANG?' on':''}" data-lang="${c}" aria-pressed="${c===LANG}" title="${n}" lang="${c}">${l}</button>`).join('')}</div>`;
+  if(!S.langPicked)return `<div class="lp-first"><small class="notr" dir="auto">اختر لغتك · Choose your language</small>${bar}</div>`;
+  if(authLangOpen)return bar;
+  return `<button class="lang-mini notr" data-authlang="1" aria-label="${Tx('اللغة')}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>${(LANGS.find(x=>x[0]===LANG)||[0,0,''])[2]}</button>`}
 function viewAuth(){
   const up=AUTH.mode==='up',reset=AUTH.mode==='reset';
-  const langs=`<div class="langs" role="group" aria-label="اللغة">${LANGS.map(([c,l,n])=>`<button class="lang notr${c===LANG?' on':''}" data-lang="${c}" aria-pressed="${c===LANG}" title="${n}" lang="${c}">${l}</button>`).join('')}</div>`;
+  const langs=langPick();
   if(AUTH.state==='loading')return `<section class="auth">${langs}<div class="auth-logo">${LOGO}</div><h1 class="auth-title">المرشد</h1><p class="auth-sub">جارٍ التحميل…</p></section>`;
   return `<section class="auth">${langs}
    <div class="auth-logo">${LOGO}</div><h1 class="auth-title">المرشد</h1><p class="auth-sub">دليلك نحو التزكية والقرب من الله</p>

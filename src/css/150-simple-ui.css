@@ -182,3 +182,14 @@ mark.qa-m{background:color-mix(in srgb,var(--gold) 55%,transparent);color:inheri
 .um-more{margin:10px 0;border:1px solid var(--card-line);border-radius:12px;padding:8px 12px}.um-more>summary{cursor:pointer;font-weight:700;color:var(--ink);min-height:32px;display:flex;align-items:center}
 .um-more ul{margin:6px 0;padding-inline-start:18px;display:grid;gap:4px}#umVideo{display:block;width:100%;max-width:300px;max-height:60vh;aspect-ratio:720/1232;margin:0 auto;border-radius:12px;object-fit:cover;background:#000}
 .um-note b{color:var(--ink)}
+.me-g{margin-top:12px;background:var(--card);border:1px solid var(--card-line);border-radius:18px;overflow:hidden}
+.me-gs{display:flex;align-items:center;gap:12px;padding:15px 16px;cursor:pointer;list-style:none;min-height:48px}.me-gs::-webkit-details-marker{display:none}
+.me-gt{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}.me-gt b{font-size:17px;color:var(--ink)}.me-gt small{color:var(--muted);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.me-gc{width:20px;height:20px;flex:none;fill:none;stroke:var(--gold);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.me-g[open] .me-gc{transform:rotate(180deg)}.me-g[open] .me-gt small{display:none}
+.me-g .me-list{margin:0;border:0;border-radius:0;border-top:1px solid var(--card-line);background:transparent;box-shadow:none}
+.me-g[open] .me-list{animation:meIn .25s ease-out}@keyframes meIn{from{opacity:0;transform:translateY(-6px)}}
+.me-g+.me-ui{margin-top:18px}
+.lp-first{display:flex;flex-direction:column;align-items:center;gap:8px}.lp-first small{color:var(--muted);font-size:13px}
+.lang-mini{display:inline-flex;align-items:center;gap:6px;align-self:flex-end;background:transparent;border:1px solid var(--card-line);color:var(--muted);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}.lang-mini svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6}
+@media (prefers-reduced-motion:reduce){.me-g[open] .me-list{animation:none}}

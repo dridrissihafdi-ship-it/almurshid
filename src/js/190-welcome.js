@@ -23,7 +23,7 @@ function viewOnboard(){
     <p class="ob-p small">سجّل كل يوم ما حققته. وإن أخفقت فلا يُعاد العدّ: دوّن السبب واستمر.</p>`];
   const last=obStep===pages.length-1;
   return `<section class="ob">
-   <div class="langs" role="group" aria-label="اللغة">${LANGS.map(([c,l,n])=>`<button class="lang notr${c===LANG?' on':''}" data-lang="${c}" aria-pressed="${c===LANG}" title="${n}" lang="${c}">${l}</button>`).join('')}</div>
+   ${obStep===0?langPick():''}
    <div class="ob-top">${obStep>0?'<button class="btn link-btn ob-skip" data-ob="prev">رجوع</button>':'<span></span>'}${last?'<span></span>':'<button class="btn link-btn ob-skip" data-ob="skip">تخطّي</button>'}</div>
    <div class="ob-card">${pages[obStep]}</div>
    <div class="ob-dots" aria-hidden="true">${pages.map((_,i)=>`<i class="${i===obStep?'on':''}"></i>`).join('')}</div>
@@ -34,7 +34,7 @@ function obClick(k){
   if(k==='next'){obStep++;return render()}
   if(k==='prev'){obStep=Math.max(0,obStep-1);return render()}
   if(k==='skip'){obStep=2;return render()}
-  S.onboarded=true;
+  S.onboarded=true;S.langPicked=1;
   if(k==='start'){const P=prepState();if(P.status==='idle'){P.status='active';P.start=TODAY;P.log={}}prepOpen=true;save();obStep=0;return go('tazkiya')}
   save();obStep=0;go('home');
 }

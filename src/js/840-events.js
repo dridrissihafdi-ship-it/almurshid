@@ -80,7 +80,8 @@ document.addEventListener('click',e=>{
   if(d.wsave){const t=(document.getElementById('waredIn').value||'').trim();if(!t){waredMsg='اكتب الوارد أولًا.';return render()}
     (S.wared=S.wared||[]).push({ts:Date.now(),text:t,k:screen});(S.waredDrafts=S.waredDrafts||{})[screen]='';if(screen==='mraqib')S.waredDraft='';save();waredMsg='حُفظ الوارد ✓';render();setTimeout(()=>{waredMsg=''},3000);return}
   if(d.wdel){S.wared=(S.wared||[]).filter(w=>String(w.ts)!==d.wdel);save();return render()}
-  if(d.lang){LANG=d.lang;S.lang=LANG;save();computeHijri();pushSync();if(LANG!=='ar'&&!I18N_OK){i18nLoad().then(()=>render());return}return render()}
+  if(d.authlang){authLangOpen=true;return render()}
+  if(d.lang){LANG=d.lang;S.lang=LANG;S.langPicked=1;authLangOpen=false;save();computeHijri();pushSync();if(LANG!=='ar'&&!I18N_OK){i18nLoad().then(()=>render());return}return render()}
   if(d.nav==='more'){moreOpen();return}
   if(d.nav==='tariq')return go('roadmap');
   if(d.htadd!==undefined){htPick(+d.htadd);return}

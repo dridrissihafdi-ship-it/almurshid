@@ -13,7 +13,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **060-dates.js** (1 KB): pad, ds, addDays, TODAY, hijriDay, hijriLabel, DOW, seasonal()
 - **070-prayer-times.js** (5 KB): rad, deg, fix, sunPos(), PT_M, ptAuto(), ptMethod(), prayerTimes(), ptAdjBox(), inMorocco(), hm, PRAYERS, PICONS
 - **080-state.js** (2 KB): demoState(), blankOrgan(), freshState(), S
-- **090-accounts.js** (30 KB): ADMIN_EMAIL, AUTH, CONTENT, adminData, isAdmin, gated, AUTH_ERR, authErr, viewAuth(), LOGO, GLOGO, authSubmit(), TEST_ACCT, testSignIn(), googleSignIn(), pendingName, OWNER, lsGet, lsSet, onAuthUser(), onFbFail(), cloudTimer, cloudSaveNow(), cloudSave(), adminTry(), TT, ttTick(), ttFlush(), INBOX, inboxLoad(), inboxCard(), fmtDur, adminLoad(), adminMsgsLoad(), adminMsgDel(), adminPush(), adU, uName, SCR_N, scrName …
+- **090-accounts.js** (31 KB): ADMIN_EMAIL, AUTH, CONTENT, adminData, isAdmin, gated, AUTH_ERR, authErr, authLangOpen, langPick(), viewAuth(), LOGO, GLOGO, authSubmit(), TEST_ACCT, testSignIn(), googleSignIn(), pendingName, OWNER, lsGet, lsSet, onAuthUser(), onFbFail(), cloudTimer, cloudSaveNow(), cloudSave(), adminTry(), TT, ttTick(), ttFlush(), INBOX, inboxLoad(), inboxCard(), fmtDur, adminLoad(), adminMsgsLoad(), adminMsgDel(), adminPush(), adU, uName …
 - **100-content-editor.js** (24 KB): ED, edMode, UI, edNorm, edHash, ED_NO, ED_CARD, ED_LANGS, edApply(), edCardOf, edSaveUi(), edToast(), edBar(), edOpen(), ED_THEMES, ED_CSS0, ED_ST, edTheme(), edAdminBlock(), edClick(), adminSave(), announcementBanner(), onAuthRedirectError(), delAsk, acctMsg, accountSection(), authClick(), SCR, pz, pzD, pzEl(), PZ_OK, pzEnd(), navFix(), navT, save, YDAY, normOrgans(), orgMigrate(), orgSetStart() …
 - **110-views.js** (14 KB): screen, confirmFor, confirmReset, redoFor, esc, ARROW, MENU, TITLES, VERSES, AVATAR, avatarImg(), MENUICON, BACK, nextPrayer(), heroHome(), homeNow(), amProgress(), heroSub(), NEW_HOST
 - **120-quick-access-data.js** (8 KB): QI
@@ -78,7 +78,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **680-simple-ui.js** (6 KB): SIMPLE, NAV_CLASSIC, NAV_SIMPLE, navSync(), tabS(), SMT, HUBS, IL_ALIAS, viewHub, HT_ALL, htGet(), homeTiles(), htPick(), htEdit(), htMenu(), htLP, htSkip, smGroup, smTiles
 - **690-quick-muhasaba.js** (5 KB): QM_ORG, QM_FACE, qmFace, qmDay, QM_PI, qmPrepOn, qmVal, qmDone, QM_EXTRA, qmRows, qmCard()
 - **700-tree.js** (4 KB): trDay(), trR, trMemo, treeState(), treeDays(), TREE_ST, TREE_HS, TR_FP, treeArt(), treeCard()
-- **710-screen-me.js** (5 KB): viewMe()
+- **710-screen-me.js** (5 KB): meOpen, meG, viewMe()
 - **720-screen-heart-cards.js** (2 KB): amI, viewAmrad(), amBind()
 - **730-screen-wudu-salat.js** (1 KB): viewGuide()
 - **740-lesson-stories.js** (4 KB): ST_MOTIF, ST_ROT, storySlides(), stSpeakTok, stSay(), storyOpen()

@@ -18,5 +18,6 @@ function freshState(name){const o={};ORGANS.forEach(g=>o[g.id]=blankOrgan());ret
 let S;try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
 if(!S||!S.organs)S=freshState('');
 if(S.demo){const lg=S.lang;S=freshState('');if(lg)S.lang=lg}
+if(S.onboarded&&S.langPicked===undefined)S.langPicked=1;
 if(S.onboarded===undefined&&(Object.values(S.organs).some(o=>o.phase!=='idle')||(S.prep&&S.prep.status!=='idle')||(S.marks&&(S.marks.dhikr.length||S.marks.quran.length))))S.onboarded=true;
 LANG=S.lang&&LIDX[S.lang]!==undefined?S.lang:'ar';computeHijri();applyLoc();
