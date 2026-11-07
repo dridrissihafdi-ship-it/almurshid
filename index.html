@@ -1426,20 +1426,18 @@ mark.qa-m{background:color-mix(in srgb,var(--gold) 55%,transparent);color:inheri
 /* «معركة اليوم» */
 .mk-lvh{text-align:center;margin:4px 0 10px}.mk-lvh h3{margin:2px 0;font-size:22px}.mk-k{margin:0;color:var(--muted);font-size:13px}
 .mk-v{font-family:var(--f-verse);font-size:19px;line-height:1.9;color:var(--red);margin:6px 0 0}
-.mk-scene{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 6px 22px rgba(0,0,0,.18)}.mk-scene svg{display:block;width:100%;height:auto}
+.mk-scene{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 6px 22px rgba(0,0,0,.18);aspect-ratio:3/2;background:#1d3140}.mk-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.mk-scene svg{position:absolute;inset:0;width:100%;height:100%}
 .mk-sh{transform-box:fill-box;transform-origin:50% 100%;transform:scale(var(--mk));transition:transform .8s ease}
 .mk-shb{transform-box:fill-box;transform-origin:50% 100%}
 .mk-f .mk-shb{animation:mkSway 6s ease-in-out infinite}
 .mk-w .mk-shb{animation:mkVanish 2.6s ease-out forwards}
 .mk-w .mk-p{transform-box:fill-box;animation:mkUp 2.8s ease-out calc(var(--i)*.09s) forwards}
-.mk-w .mk-me{animation:mkGlow 3s ease-in-out infinite alternate}
 .mk-l .mk-sh{transform:scale(1.18)}.mk-l .mk-shb{animation:mkLaugh .32s ease-in-out 9,mkSway 6s ease-in-out 3s infinite}
 .mk-i .mk-sh{transform:scale(.4);opacity:.3;transition:transform 1.6s ease,opacity 1.6s ease}
 @keyframes mkSway{0%,100%{transform:translateX(0) scaleY(1)}50%{transform:translateX(-6px) scaleY(1.04)}}
 @keyframes mkLaugh{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-7px) scale(1.03,.97)}}
 @keyframes mkVanish{0%{opacity:1;transform:none;filter:none}100%{opacity:0;transform:translateY(-40px) scale(1.3)}}
 @keyframes mkUp{0%{opacity:.9;transform:none}100%{opacity:0;transform:translate(14px,-110px) scale(.3)}}
-@keyframes mkGlow{from{opacity:.92}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.mk-scene *{animation:none!important;transition:none!important}.mk-w .mk-sh{opacity:0}}
 .mk-snd{position:absolute;top:8px;inset-inline-end:8px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.35);color:#fff;font-size:18px}
 .mk-bar{display:flex;align-items:center;gap:10px;margin:10px 4px 12px;font-size:13px;color:var(--muted)}.mk-bar i{flex:1;height:8px;border-radius:8px;background:var(--chip);overflow:hidden}.mk-bar b{display:block;height:100%;background:#3a3344;border-radius:8px;transition:width .6s}
@@ -1459,6 +1457,19 @@ mark.qa-m{background:color-mix(in srgb,var(--gold) 55%,transparent);color:inheri
 .mk-f>span:last-child{display:block;padding:6px 10px;font-weight:600}.mk-f small{color:var(--muted)}.mk-f.cur{outline:2px solid var(--teal)}.mk-f.done .il{filter:saturate(.75)}
 .mk-fi{position:relative}.mk-f.lock .il{filter:grayscale(1) blur(1.5px) brightness(.7)}.mk-f.lock>span:last-child{opacity:.7}
 .mk-lk{position:absolute;inset:0;display:grid;place-items:center;font-size:26px}.mk-lk.ok{inset:auto 8px 8px auto;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font-size:15px;font-weight:700}
+.mk-bg{animation:mkIn .6s ease}@keyframes mkIn{from{opacity:.4}to{opacity:1}}
+.mk-shb{opacity:.9}.mk-w1,.mk-w2{transform-box:fill-box;transform-origin:50% 100%;animation:mkWisp 5s ease-in-out infinite}.mk-w2{animation-delay:-2.5s}
+@keyframes mkWisp{0%,100%{transform:translateY(0) scale(1);opacity:.65}50%{transform:translateY(-8px) scale(1.15,1.25);opacity:.35}}
+.mk-dv{position:absolute;right:3%;bottom:4%;height:78%;width:auto;transform-origin:50% 100%;transform:scale(var(--mf));transition:transform .8s ease,opacity .8s;pointer-events:none}
+.mk-f .mk-dv{animation:mkFloat 5s ease-in-out infinite}
+.mk-w .mk-dv{animation:mkGone 3s ease-out forwards}
+.mk-l .mk-dv{animation:mkHa .3s ease-in-out 10,mkFloat 5s ease-in-out 3s infinite;--mf:1.08}
+.mk-i .mk-dv{--mf:.45;opacity:.25;filter:blur(2px);transition:transform 1.8s ease,opacity 1.8s ease,filter 1.8s}
+.mk-sh{opacity:.85}.mk-l .mk-sh{opacity:1}
+@keyframes mkFloat{0%,100%{transform:scale(var(--mf)) translateY(0)}50%{transform:scale(var(--mf)) translateY(-6px)}}
+@keyframes mkHa{0%,100%{transform:scale(var(--mf)) translateY(0) rotate(0)}50%{transform:scale(var(--mf)) translateY(-7px) rotate(-1.5deg)}}
+@keyframes mkGone{0%{opacity:1;filter:blur(0);transform:scale(var(--mf))}55%{opacity:.6;filter:blur(3px)}100%{opacity:0;filter:blur(12px);transform:scale(calc(var(--mf)*1.15)) translateY(-34px)}}
+@media (prefers-reduced-motion:reduce){.mk-w .mk-dv{opacity:0}}
 </style>
 
 </head>
@@ -5467,7 +5478,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   <p class="muted">التنبيهات هنا داخل الصفحة. التنبيهات الفعلية على الهاتف تحتاج نسخة التطبيق المثبّتة.</p></section>`;
 }
-const APP_VER='2026-11-07 12:23';
+const APP_VER='2026-11-07 13:22';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
@@ -6056,7 +6067,7 @@ const SCR_BAN={aqida:'c_aqida',fiqh:'c_fiqh',fatur:'fatur',khalwa:'khalwa',adh_s
 const scrBan=s=>{const b=SCR_BAN[s];return b?ilBan(typeof b==='function'?b():b,'scr-ban'):''};
 /* a picture that fails to load is replaced by its drawing, then retried once from the network */
 function ilFail(el,k,cls){IL_BAD.add(k);el.outerHTML=ilSvg(k,cls);if(!ilFail.r)ilFail.r={};if(ilFail.r[k])return;ilFail.r[k]=1;fetch('il/'+k+'.webp',{cache:'reload'}).then(r=>{if(r.ok&&(r.headers.get('Content-Type')||'').startsWith('image/')){IL_BAD.delete(k);setTimeout(()=>{try{render()}catch(e){}},300)}}).catch(()=>{})}
-const IL_IMG=new Set(['aamal','amrad','ask','dunya','ghadab','ghafla','hasad','hiqd','khushu','kibr','m_book','m_climb','m_door','m_drop','m_heart','m_lamp','m_mosque','m_path','m_tree','majalis','method','qa','quran','riya','s1','s2','s3','s4','s5','s6','s8','s9','salat','sira','taammulat','tazkiya','tools','tree0','tree1','tree2','tree3','tree4','ujb','um_halq','um_ihram','um_kaaba','um_maqam','um_masjid','um_miqat','um_sai','um_tawaf','umrah','w1','w2','w3','w4','w5','w6','w7','w8','w9','wudu']);
+const IL_IMG=new Set(['mk_d1','mk_d2','mk_s1','mk_s2','mk_s3','mk_s4','mk_l1','mk_l2','mk_l3','mk_l4','mk_l5','mk_l6','mk_l7','mk_l8','mk_l9','mk_l10','aamal','amrad','ask','dunya','ghadab','ghafla','hasad','hiqd','khushu','kibr','m_book','m_climb','m_door','m_drop','m_heart','m_lamp','m_mosque','m_path','m_tree','majalis','method','qa','quran','riya','s1','s2','s3','s4','s5','s6','s8','s9','salat','sira','taammulat','tazkiya','tools','tree0','tree1','tree2','tree3','tree4','ujb','um_halq','um_ihram','um_kaaba','um_maqam','um_masjid','um_miqat','um_sai','um_tawaf','umrah','w1','w2','w3','w4','w5','w6','w7','w8','w9','wudu']);
 function ilSvg(k,cls){if(k==='s7')k='s5';if(!IL_IMG.has(k)&&typeof IL_ALIAS!=='undefined'&&IL_ALIAS[k]){const a=[].concat(IL_ALIAS[k]);k=a.find(x=>IL_IMG.has(x))||a[a.length-1]}if(IL_IMG.has(k)&&!IL_BAD.has(k))return `<img class="il ${cls||''}" src="il/${k}.webp" alt="" loading="lazy" decoding="async" width="960" height="600" onerror="ilFail(this,'${k}','${cls||''}')">`;const f=IL[k]||IL.m_path;return `<svg class="il ${cls||''}" viewBox="0 0 320 200" role="img" aria-hidden="true"><defs>${ilClip('c_'+k)}</defs><g clip-path="url(#c_${k}c)">${f()}</g></svg>`}
 
 /* ================= simplified, picture-first interface ================= */
@@ -6075,7 +6086,7 @@ const SMT={maraka:'معركة اليوم',h_quran:'القرآن',h_ibadat:'عب�
 /* the Path's sections ("tabs"): each opens a page of picture tiles */
 const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['maraka','uyub','khushu','mraqib','munajat','khalwa'],
  h_ilm:['method','majalis','sira','qiyama','qa','ask'],h_shurut:['aqida','fiqh','tawba','mujahada']};
-const IL_ALIAS={maraka:['m_climb'],h_quran:'quran',h_ibadat:'salat',h_ruh:'taammulat',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],khalwa:['khalwa','m_lamp'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
+const IL_ALIAS={maraka:['mk_s1','m_climb'],h_quran:'quran',h_ibadat:'salat',h_ruh:'taammulat',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],khalwa:['khalwa','m_lamp'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
 const viewHub=k=>()=>`<section>${smTiles(HUBS[k],HUBS[k].length%2?'odd':'')}</section>`;
 
 /* Today's four tiles: the user can change or remove each one (long press), and fill an empty place with "+" */
@@ -6258,34 +6269,34 @@ const MK_AUTO={
 const MK_GO={pr5:'aamal',fajr:'aamal',sabah:'adh_sabah',masa:'adh_masa',adh2:'aamal',quran:'quran',qiyam:'aamal',sadaqa:'aamal',help:'aamal',mh:'muhasaba'};
 const MK_PR={a:'pr5',t:'الصلوات الخمس في أوقاتها',s:'الفريضة أولًا: بها تبدأ كل معركة'};
 const MK_LV=[
- {t:'الغفلة',s:'يبدأ بإنسائك ذكر الله',img:'ghafla',v:'﴿وَلَا تُطِعْ مَنْ أَغْفَلْنَا قَلْبَهُ عَن ذِكْرِنَا﴾',k:[
+ {t:'الغفلة',s:'يبدأ بإنسائك ذكر الله',img:'mk_l1',v:'﴿وَلَا تُطِعْ مَنْ أَغْفَلْنَا قَلْبَهُ عَن ذِكْرِنَا﴾',k:[
   {a:'sabah',t:'أذكار الصباح',s:'حصنك قبل أن تخرج'},{a:'masa',t:'أذكار المساء',s:'حصنك حين يقبل الليل'},
   {t:'مئة استغفار',s:'متفرقة في يومك'},{t:'آية الكرسي قبل النوم',s:'لا يقربك شيطان حتى تصبح'}]},
- {t:'الكسل والتسويف',s:'«سوف أفعل غدًا»',img:'m_path',v:'﴿وَلَا تَتَّبِعُوا خُطُوَاتِ الشَّيْطَانِ﴾',k:[
+ {t:'الكسل والتسويف',s:'«سوف أفعل غدًا»',img:'mk_l2',v:'﴿وَلَا تَتَّبِعُوا خُطُوَاتِ الشَّيْطَانِ﴾',k:[
   {a:'fajr',t:'صلاة الصبح في وقتها',s:'أول انتصار في اليوم'},{a:'quran',t:'ورد القرآن',s:'ولو صفحة'},
   {t:'إنجاز عمل أجّلته',s:'ابدأ به قبل غيره'},{t:'السنن الرواتب',s:'قبل الفريضة أو بعدها'}]},
- {t:'آفات اللسان',s:'كلمة لا يلقي لها بالًا',img:'m_door',v:'﴿مَا يَلْفِظُ مِن قَوْلٍ إِلَّا لَدَيْهِ رَقِيبٌ عَتِيدٌ﴾',k:[
+ {t:'آفات اللسان',s:'كلمة لا يلقي لها بالًا',img:'mk_l3',v:'﴿مَا يَلْفِظُ مِن قَوْلٍ إِلَّا لَدَيْهِ رَقِيبٌ عَتِيدٌ﴾',k:[
   {t:'يوم بلا غيبة',s:'وإن سمعتها فغيّر الحديث'},{t:'ترك الجدال',s:'ولو كنت محقًّا'},
   {t:'كلمة طيبة لثلاثة أشخاص',s:'والكلمة الطيبة صدقة'},{t:'الصمت عمّا لا يعنيك',s:'من حسن إسلام المرء'}]},
- {t:'النظر والشاشة',s:'سهم من سهامه',img:'m_lamp',v:'﴿قُل لِّلْمُؤْمِنِينَ يَغُضُّوا مِنْ أَبْصَارِهِمْ﴾',k:[
+ {t:'النظر والشاشة',s:'سهم من سهامه',img:'mk_l4',v:'﴿قُل لِّلْمُؤْمِنِينَ يَغُضُّوا مِنْ أَبْصَارِهِمْ﴾',k:[
   {t:'غضّ البصر',s:'في الطريق وعلى الشاشة'},{t:'ساعة كاملة بلا هاتف',s:'اختر وقتها بنفسك'},
   {t:'لا تصفّح بعد العشاء',s:'إلا لحاجة'},{t:'قراءة صفحة نافعة',s:'بدل التمرير'}]},
- {t:'الغضب',s:'جمرة يوقدها في القلب',img:'ghadab',v:'﴿وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ﴾',k:[
+ {t:'الغضب',s:'جمرة يوقدها في القلب',img:'mk_l5',v:'﴿وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ﴾',k:[
   {t:'الاستعاذة عند أول انفعال',s:'«أعوذ بالله من الشيطان الرجيم»'},{t:'العفو عن شخص',s:'في قلبك قبل لسانك'},
   {t:'الابتسامة في وجه من أساء',s:'تطفئ النار'},{t:'الدعاء لمن ضايقك',s:'بظهر الغيب'}]},
- {t:'البخل وحبّ الدنيا',s:'يعدك الفقر',img:'dunya',v:'﴿الشَّيْطَانُ يَعِدُكُمُ الْفَقْرَ وَيَأْمُرُكُم بِالْفَحْشَاءِ﴾',k:[
+ {t:'البخل وحبّ الدنيا',s:'يعدك الفقر',img:'mk_l6',v:'﴿الشَّيْطَانُ يَعِدُكُمُ الْفَقْرَ وَيَأْمُرُكُم بِالْفَحْشَاءِ﴾',k:[
   {a:'sadaqa',t:'صدقة اليوم',s:'ولو بشقّ تمرة'},{a:'help',t:'مساعدة شخص',s:'قضاء حاجة أو عون'},
   {t:'صلة رحم',s:'ولو بمكالمة'},{t:'كتابة نعمة تشكر الله عليها',s:'بعينها لا بالجملة'}]},
- {t:'الرياء والعُجب',s:'يفسد العمل بعد أن تعمله',img:'riya',v:'﴿وَلَا يُشْرِكْ بِعِبَادَةِ رَبِّهِ أَحَدًا﴾',k:[
+ {t:'الرياء والعُجب',s:'يفسد العمل بعد أن تعمله',img:'mk_l7',v:'﴿وَلَا يُشْرِكْ بِعِبَادَةِ رَبِّهِ أَحَدًا﴾',k:[
   {t:'عمل صالح خفيّ',s:'لا يعلمه أحد'},{t:'لا تذكر إنجازاتك اليوم',s:'لا قولًا ولا نشرًا'},
   {t:'ركعتان في خلوة',s:'بينك وبين الله'},{t:'دعاء الإخلاص',s:'«اللهم إني أعوذ بك أن أشرك بك وأنا أعلم، وأستغفرك لما لا أعلم»'}]},
- {t:'الوسوسة',s:'يوسوس ثم يخنس',img:'m_drop',v:'﴿مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ﴾',k:[
+ {t:'الوسوسة',s:'يوسوس ثم يخنس',img:'mk_l8',v:'﴿مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ﴾',k:[
   {t:'المعوّذتان صباحًا ومساءً',s:'ثلاث مرات'},{t:'الإعراض عن الوسواس',s:'لا تسترسل معه ولا تجادله'},
   {t:'قراءة من سورة البقرة في البيت',s:'ينفر منه الشيطان'},{t:'البقاء على طهارة',s:'جدّد وضوءك'}]},
- {t:'اليأس والقنوط',s:'«ذنوبك أكبر من أن تُغفر»',img:'m_heart',v:'﴿لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ﴾',k:[
+ {t:'اليأس والقنوط',s:'«ذنوبك أكبر من أن تُغفر»',img:'mk_l9',v:'﴿لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ﴾',k:[
   {t:'تأمّل آية رجاء',s:'اقرأها ببطء مرتين'},{t:'الاستغفار بعد الذنب فورًا',s:'لا تؤجّل التوبة'},
   {t:'«لا حول ولا قوة إلا بالله» مئة مرة',s:'كنز من كنوز الجنة'},{t:'الدعاء بإلحاح في السجود',s:'أقرب ما يكون العبد من ربه'}]},
- {t:'الثبات',s:'الحرب لا تنتهي ما دامت الروح في الجسد',img:'m_climb',v:'﴿إِنَّ الَّذِينَ قَالُوا رَبُّنَا اللَّهُ ثُمَّ اسْتَقَامُوا﴾',k:[
+ {t:'الثبات',s:'الحرب لا تنتهي ما دامت الروح في الجسد',img:'mk_l10',v:'﴿إِنَّ الَّذِينَ قَالُوا رَبُّنَا اللَّهُ ثُمَّ اسْتَقَامُوا﴾',k:[
   {a:'qiyam',t:'قيام الليل',s:'ولو ركعتين'},{a:'quran',t:'ورد القرآن',s:'مع التدبر'},
   {a:'mh',t:'محاسبة الليلة',s:'قبل أن تنام'},{a:'adh2',t:'أذكار الصباح والمساء',s:'كلاهما'}]}];
 const MK_WIN_N=5,MK_WIN_IN=7;
@@ -6305,23 +6316,16 @@ function mkDay(){const M=mkS();
   return M.d[TODAY]}
 function mkCanJudge(){const f=mkDone(TODAY);if(f.every(Boolean))return true;try{return dH()>=prayerTimes(new Date()).isha+0.5}catch(e){return dH()>=21}}
 /* the scene: the seeker, and the shadow whose strength is what remains of the day's tasks */
-function mkScene(st,left){const k=Math.max(.25,left/5),dawn=st==='w';
-  return `<div class="mk-scene mk-${st}" style="--mk:${k}" role="img" aria-label="${esc(Tx(st==='w'?'تبخّر الشيطان واختفى':st==='l'?'الشيطان يضحك':st==='i'?'خنس الشيطان بالاستغفار':'الشيطان أمامك'))}">
-  <svg viewBox="0 0 360 230" aria-hidden="true">
-   <defs><linearGradient id="mkSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${dawn?'#f4c98a':'#152536'}"/><stop offset=".65" stop-color="${dawn?'#fbe7c4':'#243c4f'}"/><stop offset="1" stop-color="${dawn?'#fff4df':'#35505f'}"/></linearGradient>
-    <radialGradient id="mkSm"><stop offset="0" stop-color="#0b0a10" stop-opacity=".95"/><stop offset=".55" stop-color="#17141f" stop-opacity=".75"/><stop offset="1" stop-color="#2a2433" stop-opacity="0"/></radialGradient>
-    <radialGradient id="mkLt"><stop offset="0" stop-color="#fff6d8" stop-opacity=".95"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></radialGradient>
-    <filter id="mkBlur" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4"><animate attributeName="baseFrequency" dur="9s" values=".035;.05;.035" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" scale="26"/><feGaussianBlur stdDeviation="2.5"/></filter></defs>
-   <rect width="360" height="230" fill="url(#mkSky)"/>
-   ${dawn?`<circle cx="250" cy="150" r="70" fill="url(#mkLt)"/>`:[[30,30],[70,55],[120,22],[300,40],[330,70],[200,18],[255,60]].map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="${i%3?1.2:1.8}" fill="#f6e7b0" opacity=".8"/>`).join('')+`<path d="M318 26a14 14 0 1 0 10 24a11 11 0 1 1 -10 -24z" fill="#f3dc9a"/>`}
-   <path d="M0 192 Q90 176 180 186 T360 182 V230 H0z" fill="${dawn?'#d9b98a':'#1d3140'}"/>
-   <path d="M282 188v-34l6-10 6 10v34z M276 188h24" fill="${dawn?'#b48d5e':'#122230'}" opacity=".8"/>
-   <g class="mk-me"><ellipse cx="96" cy="196" rx="24" ry="4" fill="#000" opacity=".18"/>${ilFig(96,196,1.25,st==='w'?'takbir':st==='i'?'dua':st==='l'?'bow':'stand')}
-    ${st==='w'?`<circle cx="96" cy="140" r="52" fill="url(#mkLt)" opacity=".6"/>`:''}</g>
-   <g class="mk-sh"><g class="mk-shb" filter="url(#mkBlur)">
-    <ellipse cx="236" cy="132" rx="58" ry="66" fill="url(#mkSm)"/><ellipse cx="214" cy="96" rx="34" ry="36" fill="url(#mkSm)"/><ellipse cx="262" cy="110" rx="30" ry="40" fill="url(#mkSm)"/><ellipse cx="236" cy="182" rx="66" ry="20" fill="url(#mkSm)"/></g>
-    ${st==='w'?Array.from({length:14},(_,i)=>`<circle class="mk-p" style="--i:${i}" cx="${190+i*7%96}" cy="${150-i*5%60}" r="${3+i%4}" fill="#3a3344"/>`).join(''):''}</g>
-  </svg>${st==='l'?`<button class="mk-snd" data-mksnd="1" aria-pressed="${!!S.mkSnd}" aria-label="${esc(Tx('صوت الضحكة'))}">${S.mkSnd?'🔊':'🔈'}</button>`:''}</div>`}
+function mkScene(st,left){const k=Math.max(.3,left/5),mf=(.55+.45*left/5).toFixed(2),n={f:1,w:2,l:3,i:4}[st];
+  return `<div class="mk-scene mk-${st}" style="--mk:${k};--mf:${st==='w'?.8:mf}" role="img" aria-label="${esc(Tx(st==='w'?'تبخّر الشيطان واختفى':st==='l'?'الشيطان يضحك':st==='i'?'خنس الشيطان بالاستغفار':'الشيطان أمامك'))}">
+  <img class="mk-bg" src="il/mk_s${n}.webp" alt="" width="1200" height="800" decoding="async" onerror="this.style.visibility='hidden'">
+  <svg viewBox="0 0 360 240" aria-hidden="true">
+   <defs><radialGradient id="mkSm"><stop offset="0" stop-color="#08070c" stop-opacity=".92"/><stop offset=".5" stop-color="#16121d" stop-opacity=".72"/><stop offset="1" stop-color="#2b2433" stop-opacity="0"/></radialGradient>
+    <filter id="mkBlur" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="2" seed="4"><animate attributeName="baseFrequency" dur="10s" values=".03;.046;.03" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" scale="38"/><feGaussianBlur stdDeviation="4.5"/></filter></defs>
+   <g class="mk-sh"><g class="mk-shb" filter="url(#mkBlur)"><g transform="translate(24 6)">
+    <ellipse cx="258" cy="134" rx="60" ry="64" fill="url(#mkSm)"/><ellipse cx="236" cy="92" rx="34" ry="38" fill="url(#mkSm)"/><ellipse cx="284" cy="102" rx="32" ry="44" fill="url(#mkSm)"/><ellipse cx="258" cy="186" rx="76" ry="20" fill="url(#mkSm)"/><ellipse class="mk-w1" cx="246" cy="52" rx="16" ry="26" fill="url(#mkSm)" opacity=".7"/><ellipse class="mk-w2" cx="276" cy="58" rx="12" ry="22" fill="url(#mkSm)" opacity=".6"/><ellipse cx="214" cy="150" rx="26" ry="34" fill="url(#mkSm)" opacity=".7"/><ellipse cx="304" cy="152" rx="24" ry="30" fill="url(#mkSm)" opacity=".7"/></g></g>
+    ${st==='w'?Array.from({length:16},(_,i)=>`<circle class="mk-p" style="--i:${i}" cx="${212+i*7%96}" cy="${160-i*5%70}" r="${3+i%4}" fill="#2e2838"/>`).join(''):''}</g>
+  </svg><img class="mk-dv" src="il/mk_d${st==='l'?2:1}.webp" alt="" width="524" height="720" decoding="async" onerror="this.remove()">${st==='l'?`<button class="mk-snd" data-mksnd="1" aria-pressed="${!!S.mkSnd}" aria-label="${esc(Tx('صوت الضحكة'))}">${S.mkSnd?'🔊':'🔈'}</button>`:''}</div>`}
 /* a short, low laugh drawn with the Web Audio API; only when the seeker turned the sound on */
 function mkLaugh(){if(!S.mkSnd)return;try{const C=mkSnd=mkSnd||new (window.AudioContext||window.webkitAudioContext)(),t=C.currentTime+.05;
   [0,.32,.62,.9].forEach((o,i)=>{const g=C.createGain(),f=C.createBiquadFilter(),s=C.createOscillator();s.type='sawtooth';s.frequency.setValueAtTime(150-i*12,t+o);s.frequency.exponentialRampToValueAtTime(90-i*8,t+o+.24);

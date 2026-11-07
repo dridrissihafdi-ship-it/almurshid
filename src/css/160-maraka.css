@@ -1,20 +1,18 @@
 /* «معركة اليوم» */
 .mk-lvh{text-align:center;margin:4px 0 10px}.mk-lvh h3{margin:2px 0;font-size:22px}.mk-k{margin:0;color:var(--muted);font-size:13px}
 .mk-v{font-family:var(--f-verse);font-size:19px;line-height:1.9;color:var(--red);margin:6px 0 0}
-.mk-scene{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 6px 22px rgba(0,0,0,.18)}.mk-scene svg{display:block;width:100%;height:auto}
+.mk-scene{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 6px 22px rgba(0,0,0,.18);aspect-ratio:3/2;background:#1d3140}.mk-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.mk-scene svg{position:absolute;inset:0;width:100%;height:100%}
 .mk-sh{transform-box:fill-box;transform-origin:50% 100%;transform:scale(var(--mk));transition:transform .8s ease}
 .mk-shb{transform-box:fill-box;transform-origin:50% 100%}
 .mk-f .mk-shb{animation:mkSway 6s ease-in-out infinite}
 .mk-w .mk-shb{animation:mkVanish 2.6s ease-out forwards}
 .mk-w .mk-p{transform-box:fill-box;animation:mkUp 2.8s ease-out calc(var(--i)*.09s) forwards}
-.mk-w .mk-me{animation:mkGlow 3s ease-in-out infinite alternate}
 .mk-l .mk-sh{transform:scale(1.18)}.mk-l .mk-shb{animation:mkLaugh .32s ease-in-out 9,mkSway 6s ease-in-out 3s infinite}
 .mk-i .mk-sh{transform:scale(.4);opacity:.3;transition:transform 1.6s ease,opacity 1.6s ease}
 @keyframes mkSway{0%,100%{transform:translateX(0) scaleY(1)}50%{transform:translateX(-6px) scaleY(1.04)}}
 @keyframes mkLaugh{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-7px) scale(1.03,.97)}}
 @keyframes mkVanish{0%{opacity:1;transform:none;filter:none}100%{opacity:0;transform:translateY(-40px) scale(1.3)}}
 @keyframes mkUp{0%{opacity:.9;transform:none}100%{opacity:0;transform:translate(14px,-110px) scale(.3)}}
-@keyframes mkGlow{from{opacity:.92}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.mk-scene *{animation:none!important;transition:none!important}.mk-w .mk-sh{opacity:0}}
 .mk-snd{position:absolute;top:8px;inset-inline-end:8px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.35);color:#fff;font-size:18px}
 .mk-bar{display:flex;align-items:center;gap:10px;margin:10px 4px 12px;font-size:13px;color:var(--muted)}.mk-bar i{flex:1;height:8px;border-radius:8px;background:var(--chip);overflow:hidden}.mk-bar b{display:block;height:100%;background:#3a3344;border-radius:8px;transition:width .6s}
@@ -34,3 +32,16 @@
 .mk-f>span:last-child{display:block;padding:6px 10px;font-weight:600}.mk-f small{color:var(--muted)}.mk-f.cur{outline:2px solid var(--teal)}.mk-f.done .il{filter:saturate(.75)}
 .mk-fi{position:relative}.mk-f.lock .il{filter:grayscale(1) blur(1.5px) brightness(.7)}.mk-f.lock>span:last-child{opacity:.7}
 .mk-lk{position:absolute;inset:0;display:grid;place-items:center;font-size:26px}.mk-lk.ok{inset:auto 8px 8px auto;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font-size:15px;font-weight:700}
+.mk-bg{animation:mkIn .6s ease}@keyframes mkIn{from{opacity:.4}to{opacity:1}}
+.mk-shb{opacity:.9}.mk-w1,.mk-w2{transform-box:fill-box;transform-origin:50% 100%;animation:mkWisp 5s ease-in-out infinite}.mk-w2{animation-delay:-2.5s}
+@keyframes mkWisp{0%,100%{transform:translateY(0) scale(1);opacity:.65}50%{transform:translateY(-8px) scale(1.15,1.25);opacity:.35}}
+.mk-dv{position:absolute;right:3%;bottom:4%;height:78%;width:auto;transform-origin:50% 100%;transform:scale(var(--mf));transition:transform .8s ease,opacity .8s;pointer-events:none}
+.mk-f .mk-dv{animation:mkFloat 5s ease-in-out infinite}
+.mk-w .mk-dv{animation:mkGone 3s ease-out forwards}
+.mk-l .mk-dv{animation:mkHa .3s ease-in-out 10,mkFloat 5s ease-in-out 3s infinite;--mf:1.08}
+.mk-i .mk-dv{--mf:.45;opacity:.25;filter:blur(2px);transition:transform 1.8s ease,opacity 1.8s ease,filter 1.8s}
+.mk-sh{opacity:.85}.mk-l .mk-sh{opacity:1}
+@keyframes mkFloat{0%,100%{transform:scale(var(--mf)) translateY(0)}50%{transform:scale(var(--mf)) translateY(-6px)}}
+@keyframes mkHa{0%,100%{transform:scale(var(--mf)) translateY(0) rotate(0)}50%{transform:scale(var(--mf)) translateY(-7px) rotate(-1.5deg)}}
+@keyframes mkGone{0%{opacity:1;filter:blur(0);transform:scale(var(--mf))}55%{opacity:.6;filter:blur(3px)}100%{opacity:0;filter:blur(12px);transform:scale(calc(var(--mf)*1.15)) translateY(-34px)}}
+@media (prefers-reduced-motion:reduce){.mk-w .mk-dv{opacity:0}}

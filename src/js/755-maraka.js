@@ -13,34 +13,34 @@ const MK_AUTO={
 const MK_GO={pr5:'aamal',fajr:'aamal',sabah:'adh_sabah',masa:'adh_masa',adh2:'aamal',quran:'quran',qiyam:'aamal',sadaqa:'aamal',help:'aamal',mh:'muhasaba'};
 const MK_PR={a:'pr5',t:'الصلوات الخمس في أوقاتها',s:'الفريضة أولًا: بها تبدأ كل معركة'};
 const MK_LV=[
- {t:'الغفلة',s:'يبدأ بإنسائك ذكر الله',img:'ghafla',v:'﴿وَلَا تُطِعْ مَنْ أَغْفَلْنَا قَلْبَهُ عَن ذِكْرِنَا﴾',k:[
+ {t:'الغفلة',s:'يبدأ بإنسائك ذكر الله',img:'mk_l1',v:'﴿وَلَا تُطِعْ مَنْ أَغْفَلْنَا قَلْبَهُ عَن ذِكْرِنَا﴾',k:[
   {a:'sabah',t:'أذكار الصباح',s:'حصنك قبل أن تخرج'},{a:'masa',t:'أذكار المساء',s:'حصنك حين يقبل الليل'},
   {t:'مئة استغفار',s:'متفرقة في يومك'},{t:'آية الكرسي قبل النوم',s:'لا يقربك شيطان حتى تصبح'}]},
- {t:'الكسل والتسويف',s:'«سوف أفعل غدًا»',img:'m_path',v:'﴿وَلَا تَتَّبِعُوا خُطُوَاتِ الشَّيْطَانِ﴾',k:[
+ {t:'الكسل والتسويف',s:'«سوف أفعل غدًا»',img:'mk_l2',v:'﴿وَلَا تَتَّبِعُوا خُطُوَاتِ الشَّيْطَانِ﴾',k:[
   {a:'fajr',t:'صلاة الصبح في وقتها',s:'أول انتصار في اليوم'},{a:'quran',t:'ورد القرآن',s:'ولو صفحة'},
   {t:'إنجاز عمل أجّلته',s:'ابدأ به قبل غيره'},{t:'السنن الرواتب',s:'قبل الفريضة أو بعدها'}]},
- {t:'آفات اللسان',s:'كلمة لا يلقي لها بالًا',img:'m_door',v:'﴿مَا يَلْفِظُ مِن قَوْلٍ إِلَّا لَدَيْهِ رَقِيبٌ عَتِيدٌ﴾',k:[
+ {t:'آفات اللسان',s:'كلمة لا يلقي لها بالًا',img:'mk_l3',v:'﴿مَا يَلْفِظُ مِن قَوْلٍ إِلَّا لَدَيْهِ رَقِيبٌ عَتِيدٌ﴾',k:[
   {t:'يوم بلا غيبة',s:'وإن سمعتها فغيّر الحديث'},{t:'ترك الجدال',s:'ولو كنت محقًّا'},
   {t:'كلمة طيبة لثلاثة أشخاص',s:'والكلمة الطيبة صدقة'},{t:'الصمت عمّا لا يعنيك',s:'من حسن إسلام المرء'}]},
- {t:'النظر والشاشة',s:'سهم من سهامه',img:'m_lamp',v:'﴿قُل لِّلْمُؤْمِنِينَ يَغُضُّوا مِنْ أَبْصَارِهِمْ﴾',k:[
+ {t:'النظر والشاشة',s:'سهم من سهامه',img:'mk_l4',v:'﴿قُل لِّلْمُؤْمِنِينَ يَغُضُّوا مِنْ أَبْصَارِهِمْ﴾',k:[
   {t:'غضّ البصر',s:'في الطريق وعلى الشاشة'},{t:'ساعة كاملة بلا هاتف',s:'اختر وقتها بنفسك'},
   {t:'لا تصفّح بعد العشاء',s:'إلا لحاجة'},{t:'قراءة صفحة نافعة',s:'بدل التمرير'}]},
- {t:'الغضب',s:'جمرة يوقدها في القلب',img:'ghadab',v:'﴿وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ﴾',k:[
+ {t:'الغضب',s:'جمرة يوقدها في القلب',img:'mk_l5',v:'﴿وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ﴾',k:[
   {t:'الاستعاذة عند أول انفعال',s:'«أعوذ بالله من الشيطان الرجيم»'},{t:'العفو عن شخص',s:'في قلبك قبل لسانك'},
   {t:'الابتسامة في وجه من أساء',s:'تطفئ النار'},{t:'الدعاء لمن ضايقك',s:'بظهر الغيب'}]},
- {t:'البخل وحبّ الدنيا',s:'يعدك الفقر',img:'dunya',v:'﴿الشَّيْطَانُ يَعِدُكُمُ الْفَقْرَ وَيَأْمُرُكُم بِالْفَحْشَاءِ﴾',k:[
+ {t:'البخل وحبّ الدنيا',s:'يعدك الفقر',img:'mk_l6',v:'﴿الشَّيْطَانُ يَعِدُكُمُ الْفَقْرَ وَيَأْمُرُكُم بِالْفَحْشَاءِ﴾',k:[
   {a:'sadaqa',t:'صدقة اليوم',s:'ولو بشقّ تمرة'},{a:'help',t:'مساعدة شخص',s:'قضاء حاجة أو عون'},
   {t:'صلة رحم',s:'ولو بمكالمة'},{t:'كتابة نعمة تشكر الله عليها',s:'بعينها لا بالجملة'}]},
- {t:'الرياء والعُجب',s:'يفسد العمل بعد أن تعمله',img:'riya',v:'﴿وَلَا يُشْرِكْ بِعِبَادَةِ رَبِّهِ أَحَدًا﴾',k:[
+ {t:'الرياء والعُجب',s:'يفسد العمل بعد أن تعمله',img:'mk_l7',v:'﴿وَلَا يُشْرِكْ بِعِبَادَةِ رَبِّهِ أَحَدًا﴾',k:[
   {t:'عمل صالح خفيّ',s:'لا يعلمه أحد'},{t:'لا تذكر إنجازاتك اليوم',s:'لا قولًا ولا نشرًا'},
   {t:'ركعتان في خلوة',s:'بينك وبين الله'},{t:'دعاء الإخلاص',s:'«اللهم إني أعوذ بك أن أشرك بك وأنا أعلم، وأستغفرك لما لا أعلم»'}]},
- {t:'الوسوسة',s:'يوسوس ثم يخنس',img:'m_drop',v:'﴿مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ﴾',k:[
+ {t:'الوسوسة',s:'يوسوس ثم يخنس',img:'mk_l8',v:'﴿مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ﴾',k:[
   {t:'المعوّذتان صباحًا ومساءً',s:'ثلاث مرات'},{t:'الإعراض عن الوسواس',s:'لا تسترسل معه ولا تجادله'},
   {t:'قراءة من سورة البقرة في البيت',s:'ينفر منه الشيطان'},{t:'البقاء على طهارة',s:'جدّد وضوءك'}]},
- {t:'اليأس والقنوط',s:'«ذنوبك أكبر من أن تُغفر»',img:'m_heart',v:'﴿لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ﴾',k:[
+ {t:'اليأس والقنوط',s:'«ذنوبك أكبر من أن تُغفر»',img:'mk_l9',v:'﴿لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ﴾',k:[
   {t:'تأمّل آية رجاء',s:'اقرأها ببطء مرتين'},{t:'الاستغفار بعد الذنب فورًا',s:'لا تؤجّل التوبة'},
   {t:'«لا حول ولا قوة إلا بالله» مئة مرة',s:'كنز من كنوز الجنة'},{t:'الدعاء بإلحاح في السجود',s:'أقرب ما يكون العبد من ربه'}]},
- {t:'الثبات',s:'الحرب لا تنتهي ما دامت الروح في الجسد',img:'m_climb',v:'﴿إِنَّ الَّذِينَ قَالُوا رَبُّنَا اللَّهُ ثُمَّ اسْتَقَامُوا﴾',k:[
+ {t:'الثبات',s:'الحرب لا تنتهي ما دامت الروح في الجسد',img:'mk_l10',v:'﴿إِنَّ الَّذِينَ قَالُوا رَبُّنَا اللَّهُ ثُمَّ اسْتَقَامُوا﴾',k:[
   {a:'qiyam',t:'قيام الليل',s:'ولو ركعتين'},{a:'quran',t:'ورد القرآن',s:'مع التدبر'},
   {a:'mh',t:'محاسبة الليلة',s:'قبل أن تنام'},{a:'adh2',t:'أذكار الصباح والمساء',s:'كلاهما'}]}];
 const MK_WIN_N=5,MK_WIN_IN=7;
@@ -60,23 +60,16 @@ function mkDay(){const M=mkS();
   return M.d[TODAY]}
 function mkCanJudge(){const f=mkDone(TODAY);if(f.every(Boolean))return true;try{return dH()>=prayerTimes(new Date()).isha+0.5}catch(e){return dH()>=21}}
 /* the scene: the seeker, and the shadow whose strength is what remains of the day's tasks */
-function mkScene(st,left){const k=Math.max(.25,left/5),dawn=st==='w';
-  return `<div class="mk-scene mk-${st}" style="--mk:${k}" role="img" aria-label="${esc(Tx(st==='w'?'تبخّر الشيطان واختفى':st==='l'?'الشيطان يضحك':st==='i'?'خنس الشيطان بالاستغفار':'الشيطان أمامك'))}">
-  <svg viewBox="0 0 360 230" aria-hidden="true">
-   <defs><linearGradient id="mkSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${dawn?'#f4c98a':'#152536'}"/><stop offset=".65" stop-color="${dawn?'#fbe7c4':'#243c4f'}"/><stop offset="1" stop-color="${dawn?'#fff4df':'#35505f'}"/></linearGradient>
-    <radialGradient id="mkSm"><stop offset="0" stop-color="#0b0a10" stop-opacity=".95"/><stop offset=".55" stop-color="#17141f" stop-opacity=".75"/><stop offset="1" stop-color="#2a2433" stop-opacity="0"/></radialGradient>
-    <radialGradient id="mkLt"><stop offset="0" stop-color="#fff6d8" stop-opacity=".95"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></radialGradient>
-    <filter id="mkBlur" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4"><animate attributeName="baseFrequency" dur="9s" values=".035;.05;.035" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" scale="26"/><feGaussianBlur stdDeviation="2.5"/></filter></defs>
-   <rect width="360" height="230" fill="url(#mkSky)"/>
-   ${dawn?`<circle cx="250" cy="150" r="70" fill="url(#mkLt)"/>`:[[30,30],[70,55],[120,22],[300,40],[330,70],[200,18],[255,60]].map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="${i%3?1.2:1.8}" fill="#f6e7b0" opacity=".8"/>`).join('')+`<path d="M318 26a14 14 0 1 0 10 24a11 11 0 1 1 -10 -24z" fill="#f3dc9a"/>`}
-   <path d="M0 192 Q90 176 180 186 T360 182 V230 H0z" fill="${dawn?'#d9b98a':'#1d3140'}"/>
-   <path d="M282 188v-34l6-10 6 10v34z M276 188h24" fill="${dawn?'#b48d5e':'#122230'}" opacity=".8"/>
-   <g class="mk-me"><ellipse cx="96" cy="196" rx="24" ry="4" fill="#000" opacity=".18"/>${ilFig(96,196,1.25,st==='w'?'takbir':st==='i'?'dua':st==='l'?'bow':'stand')}
-    ${st==='w'?`<circle cx="96" cy="140" r="52" fill="url(#mkLt)" opacity=".6"/>`:''}</g>
-   <g class="mk-sh"><g class="mk-shb" filter="url(#mkBlur)">
-    <ellipse cx="236" cy="132" rx="58" ry="66" fill="url(#mkSm)"/><ellipse cx="214" cy="96" rx="34" ry="36" fill="url(#mkSm)"/><ellipse cx="262" cy="110" rx="30" ry="40" fill="url(#mkSm)"/><ellipse cx="236" cy="182" rx="66" ry="20" fill="url(#mkSm)"/></g>
-    ${st==='w'?Array.from({length:14},(_,i)=>`<circle class="mk-p" style="--i:${i}" cx="${190+i*7%96}" cy="${150-i*5%60}" r="${3+i%4}" fill="#3a3344"/>`).join(''):''}</g>
-  </svg>${st==='l'?`<button class="mk-snd" data-mksnd="1" aria-pressed="${!!S.mkSnd}" aria-label="${esc(Tx('صوت الضحكة'))}">${S.mkSnd?'🔊':'🔈'}</button>`:''}</div>`}
+function mkScene(st,left){const k=Math.max(.3,left/5),mf=(.55+.45*left/5).toFixed(2),n={f:1,w:2,l:3,i:4}[st];
+  return `<div class="mk-scene mk-${st}" style="--mk:${k};--mf:${st==='w'?.8:mf}" role="img" aria-label="${esc(Tx(st==='w'?'تبخّر الشيطان واختفى':st==='l'?'الشيطان يضحك':st==='i'?'خنس الشيطان بالاستغفار':'الشيطان أمامك'))}">
+  <img class="mk-bg" src="il/mk_s${n}.webp" alt="" width="1200" height="800" decoding="async" onerror="this.style.visibility='hidden'">
+  <svg viewBox="0 0 360 240" aria-hidden="true">
+   <defs><radialGradient id="mkSm"><stop offset="0" stop-color="#08070c" stop-opacity=".92"/><stop offset=".5" stop-color="#16121d" stop-opacity=".72"/><stop offset="1" stop-color="#2b2433" stop-opacity="0"/></radialGradient>
+    <filter id="mkBlur" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="2" seed="4"><animate attributeName="baseFrequency" dur="10s" values=".03;.046;.03" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" scale="38"/><feGaussianBlur stdDeviation="4.5"/></filter></defs>
+   <g class="mk-sh"><g class="mk-shb" filter="url(#mkBlur)"><g transform="translate(24 6)">
+    <ellipse cx="258" cy="134" rx="60" ry="64" fill="url(#mkSm)"/><ellipse cx="236" cy="92" rx="34" ry="38" fill="url(#mkSm)"/><ellipse cx="284" cy="102" rx="32" ry="44" fill="url(#mkSm)"/><ellipse cx="258" cy="186" rx="76" ry="20" fill="url(#mkSm)"/><ellipse class="mk-w1" cx="246" cy="52" rx="16" ry="26" fill="url(#mkSm)" opacity=".7"/><ellipse class="mk-w2" cx="276" cy="58" rx="12" ry="22" fill="url(#mkSm)" opacity=".6"/><ellipse cx="214" cy="150" rx="26" ry="34" fill="url(#mkSm)" opacity=".7"/><ellipse cx="304" cy="152" rx="24" ry="30" fill="url(#mkSm)" opacity=".7"/></g></g>
+    ${st==='w'?Array.from({length:16},(_,i)=>`<circle class="mk-p" style="--i:${i}" cx="${212+i*7%96}" cy="${160-i*5%70}" r="${3+i%4}" fill="#2e2838"/>`).join(''):''}</g>
+  </svg><img class="mk-dv" src="il/mk_d${st==='l'?2:1}.webp" alt="" width="524" height="720" decoding="async" onerror="this.remove()">${st==='l'?`<button class="mk-snd" data-mksnd="1" aria-pressed="${!!S.mkSnd}" aria-label="${esc(Tx('صوت الضحكة'))}">${S.mkSnd?'🔊':'🔈'}</button>`:''}</div>`}
 /* a short, low laugh drawn with the Web Audio API; only when the seeker turned the sound on */
 function mkLaugh(){if(!S.mkSnd)return;try{const C=mkSnd=mkSnd||new (window.AudioContext||window.webkitAudioContext)(),t=C.currentTime+.05;
   [0,.32,.62,.9].forEach((o,i)=>{const g=C.createGain(),f=C.createBiquadFilter(),s=C.createOscillator();s.type='sawtooth';s.frequency.setValueAtTime(150-i*12,t+o);s.frequency.exponentialRampToValueAtTime(90-i*8,t+o+.24);
