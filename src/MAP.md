@@ -47,8 +47,8 @@ The app is built from these files, joined in the order of their names (`node scr
 - **390-prayers-row.js** (12 KB): FIVE, aDate, aLog, aDateBar(), prLate, MSJ, inMsj, prayerChips(), prLateKey, setPrayer(), wirdList(), naflDefs(), NAFL_IDS, AW_PICK, AW_X, AW_DAY, awDayOk, awList, nfFull, amPick(), naflLate(), awLate(), amPickOpen, amOpen, amPickBox(), NAFL_SLOT, naflRows(), mineForm, myDeeds, mineDue, mineDays, mineBlock(), mineClick()
 - **400-my-path.js** (9 KB): pathMan(), lastDays, pathData(), pathWhere(), pathPlan(), pathPct(), pathHomeCard(), viewPath()
 - **410-ask-sheikh.js** (4 KB): askData, tsMs, askLoad(), askUnseen(), viewAsk(), askSend(), adQ, adQLoad(), adQBlock()
-- **420-majalis.js** (43 KB): majNext(), majUpcoming(), majFmt, majCard(), MAJ_PL, majPl, majLive, majTab, ytLiveOpen, YT_CH_DEF, fbInfo, ytInfo, ytCh, ytId(), ytList(), recOpen, SAL, salUrl, salPos(), salStart(), salStop(), salUi(), salStTxt, REC_EPS, recLC, recBusy, recEps, recAutoFetch(), recHid, epsOf, recP(), recAuto, hms, ytP, ytRid, ytIv, ytApiP, sndUi(), DOCK, dockEl() …
-- **425-yt-series.js** (9 KB): YS_DATA, YS, ysLang, ysRid, ysOf, ysEps, ysNotes, ysProg, ysNoteBox(), ysUi(), ysCard(), ysCarry(), viewYS, ysSerCard(), ysNt
+- **420-majalis.js** (44 KB): majNext(), majUpcoming(), majFmt, majCard(), MAJ_PL, majPl, majLive, majTab, ytLiveOpen, YT_CH_DEF, fbInfo, ytInfo, ytCh, ytId(), ytList(), recOpen, SAL, salUrl, salPos(), salStart(), salStop(), salUi(), salStTxt, REC_EPS, recLC, recBusy, recEps, recAutoFetch(), recHid, epsOf, recP(), recAuto, hms, ytP, ytRid, ytIv, ytApiP, ytOn, sndUi(), DOCK …
+- **425-yt-series.js** (10 KB): YS_DATA, YS, ysLang, ysRid, ysOf, ysEps, ysNotes, ysProg, ysNoteBox(), ysUi(), ysCard(), ysCarry(), viewYS, ysSerCard(), ysNt
 - **430-tools.js** (11 KB): DUAS, duaOpen, viewDuas(), KAABA, qiblaDeg(), qbH, qbOn, viewQibla(), qibStart(), hzDone, hz(), hzF, hzToday(), viewHifz(), hijriMonth(), RAM_IT, ramCard(), viewTools(), toolsClick()
 - **440-series.js** (4 KB): serSel, serCur, serSet(), viewSeries(), serCards(), adSerBlock(), serClick()
 - **450-care.js** (1 KB): careCard()

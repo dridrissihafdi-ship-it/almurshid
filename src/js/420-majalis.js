@@ -42,7 +42,7 @@ const epsOf=rid=>{const y=ysEps(rid);if(y)return y;const h=recHid(rid);return (r
 function recP(rid){if(!S.recPos)S.recPos={};if(!S.recPos[rid])S.recPos[rid]={i:0,t:0,w:{}};return S.recPos[rid]}
 const recAuto=()=>S.recAuto!==false;
 const hms=x=>{x=Math.max(0,Math.round(x||0));const h=Math.floor(x/3600),m=Math.floor(x%3600/60),s2=x%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(s2).padStart(2,'0')};
-let ytP=null,ytRid=null,ytIv=0,ytApiP=null;
+let ytP=null,ytRid=null,ytIv=0,ytApiP=null,ytOn=false;
 /* a small bar that keeps the adhkar or the salawat gathering playing while the seeker moves around the app */
 function sndUi(){let m=document.getElementById('sndMini');const ad=ADP.on&&screen!=='adh_'+ADP.kind,sl=SAL.on&&!(screen==='majalis'&&!majTab),show=(ad||sl)&&!gated()&&screen!=='dhikr_run';
   if(!show){if(m)m.hidden=true;document.body.classList.remove('snd-on');return}
@@ -62,25 +62,30 @@ function dockEl(){let d=document.getElementById('ytDock');if(!d){d=document.crea
 function dockOpen(key,title,src){const d=dockEl();if(DOCK.on&&DOCK.key===key)return false;
   if(ytP){try{recSave()}catch(e){}try{ytP.destroy()}catch(e){}ytP=null;ytRid=null;clearInterval(ytIv)}
   d.querySelector('.yd-v').innerHTML=src?`<iframe src="${src}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`:'<div id="ytDockIn"></div>';
-  Object.assign(DOCK,{on:true,key,title,tab:majTab||'rec',scr:''});d.querySelector('.yd-t').textContent=title||'';d.hidden=false;requestAnimationFrame(dockLoop);return true}
+  Object.assign(DOCK,{on:true,key,title,tab:majTab||'rec',scr:'',idle:false});d.querySelector('.yd-t').textContent=title||'';d.hidden=false;requestAnimationFrame(dockLoop);return true}
 function dockClose(){if(ytP){try{recSave()}catch(e){}try{ytP.destroy()}catch(e){}ytP=null;ytRid=null;clearInterval(ytIv)}const d=dockEl();d.querySelector('.yd-v').innerHTML='';d.hidden=true;DOCK.on=false;DOCK.key='';recOpen=null;ytLiveOpen=false;document.body.classList.remove('yd-mini');if(screen==='majalis')render()}
 function dockLoop(){if(!DOCK.on)return;const d=dockEl(),slot=document.getElementById('ytSlot');
   if(gated()){d.hidden=true}else if(slot&&slot.dataset.k===DOCK.key){d.hidden=false;const r=slot.getBoundingClientRect();d.className='full';d.style.cssText=`top:${r.top}px;left:${r.left}px;width:${r.width}px;height:${r.height}px`;document.body.classList.remove('yd-mini')}
+  else if(DOCK.idle&&!ytOn){dockClose();return}
   else{d.hidden=false;if(d.className!=='mini'){d.className='mini';d.style.cssText=''}document.body.classList.add('yd-mini')}
   requestAnimationFrame(dockLoop)}
 
 function ytApi(){if(window.YT&&YT.Player)return Promise.resolve();if(ytApiP)return ytApiP;ytApiP=new Promise(res=>{const prev=window.onYouTubeIframeAPIReady;window.onYouTubeIframeAPIReady=()=>{try{prev&&prev()}catch(e){}res()};const sc=document.createElement('script');sc.src='https://www.youtube.com/iframe_api';sc.onerror=()=>{ytApiP=null};document.head.appendChild(sc)});return ytApiP}
-function recSave(){if(!ytP||!ytRid||!ytP.getCurrentTime)return;try{const P=recP(ytRid),E=epsOf(ytRid)||[],t=ytP.getCurrentTime()||0,du=(ytP.getDuration&&ytP.getDuration())||(E[P.i]&&E[P.i][3])||0;P.t=t;P.ts=Date.now();if(du){P.d=P.d||{};P.d[P.i]=Math.round(du)}if(du&&t>du-60)P.w[P.i]=1;save()}catch(e){}}
+function recSave(){if(!ytP||!ytRid||!ytP.getCurrentTime)return;try{const st=ytP.getPlayerState?ytP.getPlayerState():-1;if(!ytOn||st===-1||st===5)return;
+  const P=recP(ytRid),E=epsOf(ytRid)||[],t=ytP.getCurrentTime()||0,du=(ytP.getDuration&&ytP.getDuration())||(E[P.i]&&E[P.i][3])||0;if(t<1)return;
+  P.tt=P.tt||{};P.t=t;P.ts=Date.now();if(du){P.d=P.d||{};P.d[P.i]=Math.round(du)}if(du&&t>du-60){P.w[P.i]=1;delete P.tt[P.i]}else P.tt[P.i]=Math.floor(t);save()}catch(e){}}
+const recAt=(rid,i)=>{const P=recP(rid),E=epsOf(rid)||[],du=(E[i]&&E[i][3])||(P.d&&P.d[i])||0,t=(P.tt?P.tt[i]:(i===P.i?P.t:0))||0;return du&&t>du-30?0:Math.floor(t)};
 const epDur=(rid,k)=>{const e=epsOf(rid)[k],P=recP(rid);return (e&&e[3])||(P.d&&P.d[k])||0};
 function recInfo(rid,k){const e=epsOf(rid)[k],P=recP(rid);if(!e)return '';const du=epDur(rid,k);return `<b class="rec-et"><span>الحلقة</span> ${e[0]}${e[1]?`: <span class="notr" dir="auto">${esc(e[1])}</span>`:''}</b><span class="rec-em">${[du?`<span dir="ltr">${hms(du)}</span>`:'',e[4]?`<span class="notr" dir="auto">${esc(e[4])}</span>`:'',P.w[k]?'<span class="rec-ok">✓ <span>شاهدتها</span></span>':''].filter(Boolean).join(' · ')}</span>`}
 function recUi(rid){const E=epsOf(rid)||[],P=recP(rid),e=E[P.i];if(!e)return;const n=document.getElementById('recNow');if(n)n.innerHTML=recInfo(rid,P.i);const sb=document.getElementById('recSum');if(sb)sb.innerHTML=sumBox('v:'+e[2],Tx('خلاصة الحلقة'));
   document.querySelectorAll('[data-epli]').forEach(b=>{const k=+b.dataset.epli;b.classList.toggle('cur',k===P.i);b.classList.toggle('seen',!!P.w[k])});
   const c=document.getElementById('recCnt');if(c)c.textContent=Object.keys(P.w).length;const a=document.getElementById('recAutoB');if(a){a.classList.toggle('on',recAuto());a.innerHTML=`<span>${Tx(recAuto()?'التشغيل المتتالي: مفعّل':'التشغيل المتتالي: متوقف')}</span>`}ysUi(rid)}
-function recGo(rid,i){const E=epsOf(rid)||[];if(i<0||i>=E.length)return;recSave();const P=recP(rid);P.i=i;P.t=0;save();if(ytP&&ytRid===rid&&ytP.loadVideoById)ytP.loadVideoById({videoId:E[i][2],startSeconds:0});recUi(rid)}
-function recInit(rid){const E=epsOf(rid),P=recP(rid),rr=recList().find(x=>x.id===rid)||{},yo=ysOf(rid);if(!E.length)return;dockOpen('r:'+rid,rr.t||(yo?Tx(YS[yo.k].t):''));if(yo)DOCK.scr=YS[yo.k].scr;
+function recGo(rid,i){const E=epsOf(rid)||[];if(i<0||i>=E.length)return;recSave();const P=recP(rid),at=recAt(rid,i);P.i=i;P.t=at;save();
+  if(ytP&&ytRid===rid&&ytP.loadVideoById){if(ytOn)ytP.loadVideoById({videoId:E[i][2],startSeconds:at});else ytP.cueVideoById({videoId:E[i][2],startSeconds:at})}recUi(rid)}
+function recInit(rid,play){if(play===undefined)play=true;ytOn=false;const E=epsOf(rid),P=recP(rid),rr=recList().find(x=>x.id===rid)||{},yo=ysOf(rid);if(!E.length)return;dockOpen('r:'+rid,rr.t||(yo?Tx(YS[yo.k].t):''));if(yo)DOCK.scr=YS[yo.k].scr;
   ytApi().then(()=>{if(DOCK.key!=='r:'+rid||!document.getElementById('ytDockIn'))return;try{if(ytP&&ytP.destroy)ytP.destroy()}catch(e){}ytRid=rid;
-    ytP=new YT.Player('ytDockIn',{host:'https://www.youtube-nocookie.com',videoId:E[P.i][2],playerVars:{start:Math.floor(E[P.i][3]&&P.t>E[P.i][3]-30?0:P.t),autoplay:1,playsinline:1,rel:0,modestbranding:1,iv_load_policy:3},
-      events:{onStateChange:ev=>{if(ev.data===1){clearInterval(ytIv);ytIv=setInterval(recSave,5000)}else if(ev.data===2){recSave()}else if(ev.data===0){clearInterval(ytIv);const Q=recP(rid);Q.w[Q.i]=1;Q.t=0;save();if(recAuto()&&Q.i<E.length-1)recGo(rid,Q.i+1);else recUi(rid)}}}})}).catch(()=>{})}
+    ytP=new YT.Player('ytDockIn',{host:'https://www.youtube-nocookie.com',videoId:E[P.i][2],playerVars:{start:recAt(rid,P.i),autoplay:play?1:0,playsinline:1,rel:0,modestbranding:1,iv_load_policy:3},
+      events:{onStateChange:ev=>{if(ev.data===1){ytOn=true;clearInterval(ytIv);ytIv=setInterval(recSave,5000)}else if(ev.data===2){recSave()}else if(ev.data===0){clearInterval(ytIv);const Q=recP(rid);Q.w[Q.i]=1;Q.t=0;if(Q.tt)delete Q.tt[Q.i];save();if(recAuto()&&Q.i<E.length-1)recGo(rid,Q.i+1);else recUi(rid)}}}})}).catch(()=>{})}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')recSave()});window.addEventListener('pagehide',recSave);
 /* summaries the administration writes for a live gathering or a lesson, read by every seeker */
 const NOTES=()=>Array.isArray(CONTENT.notes)?CONTENT.notes:[];
@@ -168,7 +173,7 @@ function askClick(d){
   if(d.majtab!==undefined){if(d.majtab==='salat'){if(SAL.on)salStop();else salStart();majTab=null}else majTab=d.majtab||null;render();SCR().scrollTo(0,0);return true}
   if(d.salt){if(SAL.on)salStop();else salStart();render();return true}
   if(d.ytlive){ytLiveOpen=true;dockOpen('live',ytInfo().n||Tx('البث المباشر'),`https://www.youtube-nocookie.com/embed/live_stream?channel=${ytCh()}&autoplay=1&playsinline=1`);render();return true}
-  if(d.recep!==undefined){const rid=d.rid;if(recOpen!==rid){const P=recP(rid);P.i=+d.recep;P.t=0;save();recOpen=rid;render();return true}recGo(rid,+d.recep);return true}
+  if(d.recep!==undefined){const rid=d.rid;if(recOpen!==rid){const P=recP(rid);P.i=+d.recep;P.t=recAt(rid,P.i);save();recOpen=rid;render();return true}recGo(rid,+d.recep);if(ysOf(rid)){const sl=document.getElementById('ytSlot');if(sl)sl.scrollIntoView({behavior:'smooth',block:'center'})}return true}
   if(d.recw!==undefined){const P=recP(d.rid),k=+d.recw;if(P.w[k])delete P.w[k];else P.w[k]=1;save();recUi(d.rid);if(recOpen!==d.rid){const c=document.getElementById('recCnt');if(c)c.textContent=Object.keys(P.w).length}return true}
   if(d.recprev){recGo(d.recprev,recP(d.recprev).i-1);return true}
   if(d.recnext){recGo(d.recnext,recP(d.recnext).i+1);return true}
