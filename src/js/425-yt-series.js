@@ -32,6 +32,10 @@ function ysCard(k){const rid=ysRid(k),E=ysEps(rid),P=recP(rid);ysCarry(k,rid,E,P
 /* the series follows the app's language; when the language changes, the episodes seen and the current one carry over */
 function ysCarry(k,rid,E,P){S.ysLr=S.ysLr||{};const last=S.ysLr[k];if(last&&last!==rid&&ysOf(last)){const Po=recP(last);Object.assign(P.w,Po.w);if(!P.t)P.i=Math.min(Po.i,E.length-1);
   if(DOCK.key==='r:'+last)dockClose();if(recOpen===last)recOpen=null}if(last!==rid){S.ysLr[k]=rid;save()}}
+/* choosing an episode while nothing is playing: show its own picture; a tap on it plays (true when handled here) */
+function ysPick(rid,i){if(!ysOf(rid)||(DOCK.key==='r:'+rid&&ytOn))return false;const E=ysEps(rid);if(i<0||i>=E.length)return true;
+  if(DOCK.key==='r:'+rid)dockClose();const P=recP(rid);P.t=recAt(rid,i);P.i=i;save();recOpen=null;render();
+  const th=document.querySelector('.rec-th');if(th)th.scrollIntoView({behavior:'smooth',block:'center'});return true}
 const viewYS=k=>`<section>${ysCard(k)}</section>`;
 /* the card in «تأملات» */
 function ysSerCard(k,v){const [d,n]=ysProg(k);
