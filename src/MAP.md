@@ -77,7 +77,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **670-illustrations-2.js** (7 KB): ilHeadBig, ilArm, IL_BAD, ilBan, SCR_BAN, scrBan, ilFail(), IL_IMG, ilSvg()
 - **680-simple-ui.js** (6 KB): SIMPLE, NAV_CLASSIC, NAV_SIMPLE, navSync(), tabS(), SMT, HUBS, IL_ALIAS, viewHub, HT_ALL, htGet(), homeTiles(), htPick(), htEdit(), htMenu(), htLP, htSkip, smGroup, smTiles
 - **690-quick-muhasaba.js** (5 KB): QM_ORG, QM_FACE, qmFace, qmDay, QM_PI, qmPrepOn, qmVal, qmDone, QM_EXTRA, qmRows, qmCard()
-- **700-tree.js** (2 KB): treeDays(), TREE_ST, treeCard()
+- **700-tree.js** (4 KB): trDay(), trR, trMemo, treeState(), treeDays(), TREE_ST, TREE_HS, TR_FP, treeArt(), treeCard()
 - **710-screen-me.js** (5 KB): viewMe()
 - **720-screen-heart-cards.js** (2 KB): amI, viewAmrad(), amBind()
 - **730-screen-wudu-salat.js** (1 KB): viewGuide()

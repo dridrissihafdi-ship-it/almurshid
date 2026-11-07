@@ -1488,6 +1488,17 @@ body.msh-focus:not(.msh-show) .msh-page::after{content:'';display:block;height:6
 .tr-k{display:block;color:var(--muted);font-size:12px;letter-spacing:.2px}.tr-n{margin:6px 0 0}.tr-dn{margin:6px 0 0;color:var(--ink)}.tr-nb{margin:6px 0 0;font-size:12px}
 /* ---- languages in the settings ---- */
 .pf-langs{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:static}.pf-langs .lang{display:flex;gap:8px;align-items:center;justify-content:flex-start;padding:10px 12px;border-radius:12px;min-height:44px;width:auto;height:auto}.pf-langs .lang small{opacity:.8}
+.tr-im{position:relative;overflow:hidden}.tr-im .il{transition:filter .6s}
+.tr-f{position:absolute;width:3.9%;transform:translate(-50%,-50%) scale(var(--s,1));pointer-events:none;animation:trF .6s ease-out both}.tr-f img{display:block;width:100%;height:auto}
+.tr-f:nth-child(3n){animation-delay:.08s}.tr-f:nth-child(3n+1){animation-delay:.16s}
+@keyframes trF{from{opacity:0;transform:translate(-50%,-50%) scale(.2)}}
+.tr-h1 .il,.tr-h1 .tr-f{filter:saturate(.82) hue-rotate(-8deg)}
+.tr-h2 .il,.tr-h2 .tr-f{filter:sepia(.4) hue-rotate(-24deg) saturate(.75)}
+.tr-h3 .il{filter:sepia(.7) saturate(.5) brightness(.9)}
+.tr-h4 .il{filter:grayscale(.85) sepia(.25) brightness(.72)}
+.tr-t .tr-m{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;font-size:13px;color:var(--muted)}.tr-t .tr-m b{font-size:14px;color:var(--ink)}
+.tr-t .tr-m+.tr-bar{margin-top:4px}.tr-bf b{background:var(--gold)}
+@media (prefers-reduced-motion:reduce){.tr-f{animation:none}}
 /* the Sira and the Day of Judgment, in every language */
 .ys-note{margin-top:10px}.ys-nl{display:block;font-weight:600;font-size:14px;margin:0 0 4px}.ys-note textarea{width:100%;box-sizing:border-box;border-radius:12px;border:1px solid var(--card-line);background:var(--page);color:var(--ink);padding:10px;font:inherit;font-size:14.5px;line-height:1.7;resize:vertical}
 .ys-ns{min-height:1.2em;margin:2px 0 0;font-size:12px}
@@ -2299,7 +2310,7 @@ function qaGo(id){sheetClose();if(id==='madh'){setTimeout(madhOpen,240);return}i
 function homeProg(){if(S.ikMode){const L=dayLog(),left=[];const P=amPick(L);if((L.prayers||[]).length<5)left.push(Tx('الصلوات'));P.aw.forEach(w=>{if(!L.awrad.includes(w)){const n={sabah:'أذكار الصباح',masa:'أذكار المساء',quran:'ورد القرآن',dhikr:'الذكر الشخصي'}[w];if(n)left.push(Tx(n))}});
   return `<div class="sh qa-sh"><h2>يومك</h2></div><button class="box pad hp-ik" data-go="aamal">${left.length?`<span>بقي:</span> <span class="notr">${left.join(RTL()?'، ':', ')}</span>`:'<span>أتممت أعمال اليوم، تقبّل الله منك</span>'}</button>`}const L=dayLog(),[dn,tot]=amProgress(L),lc=litCount();let pc=0;try{pc=pathPct(pathData())}catch(e){}
   const mini=(go,t,v,p,c)=>`<button class="hp-m" data-go="${go}"><small>${t}</small><b dir="ltr">${v}</b><i><b style="width:${Math.round(p)}%;background:${c}"></b></i></button>`;
-  return `<div class="sh qa-sh"><h2>تقدّمي</h2></div><div class="hp">${mini('aamal','يومك',dn+' / '+tot,tot?dn/tot*100:0,'var(--gold)')}${mini('me','شجرتك',treeDays()+' / 30',treeDays()/30*100,'var(--green)')}${mini('path','مساري',Math.round(pc)+'%',pc,'#C9A6E8')}</div>`}
+  return `<div class="sh qa-sh"><h2>تقدّمي</h2></div><div class="hp">${mini('aamal','يومك',dn+' / '+tot,tot?dn/tot*100:0,'var(--gold)')}${mini('me','شجرتك',Math.round(treeState().h*100)+'%',treeState().h*100,'var(--green)')}${mini('path','مساري',Math.round(pc)+'%',pc,'#C9A6E8')}</div>`}
 /* bottom sheets */
 function sheetOpen(html,cls){let o=document.getElementById('bsheet');if(!o){o=document.createElement('div');o.id='bsheet';document.body.appendChild(o);
     o.addEventListener('click',e=>{if(e.target===o||e.target.closest('[data-bsx]')){sheetClose();return}const q=e.target.closest('[data-qat]');if(q){e.stopPropagation();qaToggle(q.dataset.qat);return}if(e.target.closest('[data-qareset]')){e.stopPropagation();S.quick=QA_DEF.slice();save();qaEditOpen(true);if(screen==='home')render()}})}
@@ -2339,7 +2350,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)r
 /* ---------- what each progress number means, and how they fit together ---------- */
 const HINTS={
  day:['أعمال اليوم','عدد ما أتممته من أعمال يومك التي اخترتها: الصلوات والأذكار والنوافل وأعمالك الخاصة. يبدأ من الصفر كل يوم، وتختار ما يظهر فيه من «⋯».'],
- tree:['شجرة المداومة','صورة لانتظامك في الأعمال، لا لمنزلتك عند الله. يُحسب كل يوم من آخر ثلاثين يومًا صلّيت فيه ثلاث صلوات على الأقل أو أتممت وردًا. كل سبعة أيام تكبر خطوة: بذرة، نبتة، غرسة، شجرة، شجرة مثمرة. وإذا قلّت أيام انتظامك رجعت خطوة، لأن الأيام القديمة تخرج من الثلاثين، ثم تعود بعودتك.'],
+ tree:['شجرة المداومة','صورة لانتظامك في الأعمال، لا لمنزلتك عند الله. ثمارها أعمال يومك: كل صلاة أو ورد أو نافلة اخترتها تضيف ثمرة، وتكتمل الثمار حين تتم أعمال اليوم كلها. وأوراقها نضارة الأيام السبعة الأخيرة: إذا قلّت أعمالك بدأت تذبل، ثم ذبلت، ثم يبست، وإذا انقطعت ماتت أغصانها. وكل عمل تتمه يسقيها فتعود. وفي البداية تنمو من بذرة إلى نبتة إلى غرسة إلى شجرة بالأيام التي تتم فيها نصف أعمالك على الأقل.'],
  organ:['أيام الجارحة','لكل جارحة ثلاثون يومًا للتطهير: تحفظها فيها من المعصية، ثم ثلاثون للتنوير: تستعملها في الطاعة. الزلّة تعيد العدّ من الأول، لأن المقصود الثبات لا الكثرة.'],
  road:['تقدّمك في الطريق','موقعك في الطريق كله: جبل الشروط الأربعة، ثم جسر التزكية، ثم جبل الأهداف الأربعة. يُحسب من دروسك ومحاسبتك وصلواتك وجوارحك، وتسجّل بنفسك ما لا يُقاس.']};
 const HINT_LINK='أعمال اليوم هي الزاد، والشجرة تقيس مداومتك عليه، وأيام الجارحة تقيس تزكيتك لها، وتقدّمك في الطريق يجمع ذلك كله مع العلم والمحاسبة.';
@@ -2402,7 +2413,7 @@ function viewHome(){
   const moved=NEW_HOST&&/github\.io$/.test(location.hostname)?`<div class="box pad mv-ban"><b>انتقل «المرشد» إلى عنوانه الجديد</b><span class="notr" dir="ltr">${NEW_HOST}</span><p class="meta">${AUTH.state==='local'?'بياناتك محفوظة في هذا المتصفح فقط: احفظ نسخة احتياطية أولًا، ثم استرجعها في العنوان الجديد من «ملفك».':'سجّل الدخول بحسابك نفسه في العنوان الجديد، وستجد بياناتك كما هي. ثم أضف التطبيق إلى شاشتك من جديد.'}</p><div class="btns">${AUTH.state==='local'?'<button class="btn" data-bkexp="1">حفظ نسخة احتياطية</button>':''}<a class="btn ok" href="https://${NEW_HOST}/">افتح العنوان الجديد</a></div></div>`:'';
   const banner=moved+fri+announcementBanner()+(AUTH.state==='local'?`<p class="muted" style="margin-bottom:12px">وضع محلي: تُحفظ بياناتك في هذا المتصفح فقط.</p>`:'')+(S.demo?`<p class="muted" style="margin-bottom:12px">تعرض الأقسام بيانات تجريبية. يمكنك البدء من الصفر من الملف الشخصي.</p>`:'');
   const tiles=`<div class="h2-tiles"><button class="h2-tile" data-go="aamal"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18" fill="none" stroke="rgba(243,237,230,.18)" stroke-width="4"/><circle cx="22" cy="22" r="18" fill="none" stroke="#E6C891" stroke-width="4" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-(tot?dn/tot:0))}" transform="rotate(-90 22 22)"/></svg><span><small>يومك</small><b dir="ltr">${dn} / ${tot}</b></span></button>
-   <button class="h2-tile" data-go="me"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18" fill="rgba(230,200,145,.12)"/><path d="M22 34V22M22 24c-5 0-8-3-8-7 4 0 8 2 8 7zM22 21c4 0 7-3 7-7-4 0-7 2-7 7z" fill="none" stroke="#E6C891" stroke-width="1.8" stroke-linecap="round"/></svg><span><small>شجرتك</small><b dir="ltr">${treeDays()} / 30</b></span></button></div>`;
+   <button class="h2-tile" data-go="me"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18" fill="rgba(230,200,145,.12)"/><path d="M22 34V22M22 24c-5 0-8-3-8-7 4 0 8 2 8 7zM22 21c4 0 7-3 7-7-4 0-7 2-7 7z" fill="none" stroke="#E6C891" stroke-width="1.8" stroke-linecap="round"/></svg><span><small>شجرتك</small><b dir="ltr">${Math.round(treeState().h*100)}%</b></span></button></div>`;
   const more=[...['roadmap','tools','majalis','ruhi','method','about'].map(id=>MENU.find(m=>m&&m.id===id)).filter(Boolean),...(isAdmin()?MENU.filter(m=>m.id==='admin'):[])];
   const subs={tools:'القبلة، سنن الرسول ﷺ، حفظ القرآن، وضع رمضان',ask:askUnseen()?'وصلك جواب جديد ✦':'سؤالك يصل إلى الشيخ، والجواب هنا',majalis:majUpcoming().length?'<span>المجلس القادم:</span> <span class="notr">'+majFmt(majUpcoming()[0].at)+'</span>':'مواعيد مجالس الذكر والدروس',roadmap:'الشروط الأربعة، الجسر، والأهداف الأربعة',audio:'دروس ومحاضرات صوتية',method:'الطريقة المحمدية: الأصول والأبواب وطريق التحقق',ruhi:`${lc} <span>من 4 أنوار مضيئة</span>`,admin:'المستعملون، الرسائل، الأعمال المقترحة',about:'التعريف بالتطبيق والإعدادات'};
   const list=`<div class="sh" style="margin:22px 2px 10px"><h2>المزيد</h2></div><div class="box h2-more">${more.map(m=>`<button class="h2-row" data-go="${m.id}"><span class="h2-ri"><svg viewBox="0 0 48 48" aria-hidden="true">${m.ic||m.art}</svg></span><span class="tx">${m.t}<small>${subs[m.id]||''}</small></span><svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>`).join('')}</div>`;
@@ -5566,7 +5577,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   <p class="muted">التنبيهات هنا داخل الصفحة. التنبيهات الفعلية على الهاتف تحتاج نسخة التطبيق المثبّتة.</p></section>`;
 }
-const APP_VER='2026-11-07 17:40';
+const APP_VER='2026-11-07 18:27';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
@@ -6157,7 +6168,7 @@ const SCR_BAN={aqida:'c_aqida',fiqh:'c_fiqh',fatur:'fatur',khalwa:'khalwa',adh_s
 const scrBan=s=>{const b=SCR_BAN[s];return b?ilBan(typeof b==='function'?b():b,'scr-ban'):''};
 /* a picture that fails to load is replaced by its drawing, then retried once from the network */
 function ilFail(el,k,cls){IL_BAD.add(k);el.outerHTML=ilSvg(k,cls);if(!ilFail.r)ilFail.r={};if(ilFail.r[k])return;ilFail.r[k]=1;fetch('il/'+k+'.webp',{cache:'reload'}).then(r=>{if(r.ok&&(r.headers.get('Content-Type')||'').startsWith('image/')){IL_BAD.delete(k);setTimeout(()=>{try{render()}catch(e){}},300)}}).catch(()=>{})}
-const IL_IMG=new Set(['mk_d1','mk_d2','mk_s1','mk_s2','mk_s3','mk_s4','mk_l1','mk_l2','mk_l3','mk_l4','mk_l5','mk_l6','mk_l7','mk_l8','mk_l9','mk_l10','aamal','amrad','ask','dunya','ghadab','ghafla','hasad','hiqd','khushu','kibr','m_book','m_climb','m_door','m_drop','m_heart','m_lamp','m_mosque','m_path','m_tree','majalis','method','qa','quran','riya','s1','s2','s3','s4','s5','s6','s8','s9','salat','sira','taammulat','tazkiya','tools','tree0','tree1','tree2','tree3','tree4','ujb','um_halq','um_ihram','um_kaaba','um_maqam','um_masjid','um_miqat','um_sai','um_tawaf','umrah','w1','w2','w3','w4','w5','w6','w7','w8','w9','wudu']);
+const IL_IMG=new Set(['mk_d1','mk_d2','mk_s1','mk_s2','mk_s3','mk_s4','mk_l1','mk_l2','mk_l3','mk_l4','mk_l5','mk_l6','mk_l7','mk_l8','mk_l9','mk_l10','aamal','amrad','ask','dunya','ghadab','ghafla','hasad','hiqd','khushu','kibr','m_book','m_climb','m_door','m_drop','m_heart','m_lamp','m_mosque','m_path','m_tree','majalis','method','qa','quran','riya','s1','s2','s3','s4','s5','s6','s8','s9','salat','sira','taammulat','tazkiya','tools','tree0','tree1','tree2','tree3','tree4','tree_wilt','tree_dry','tree_dead','ujb','um_halq','um_ihram','um_kaaba','um_maqam','um_masjid','um_miqat','um_sai','um_tawaf','umrah','w1','w2','w3','w4','w5','w6','w7','w8','w9','wudu']);
 function ilSvg(k,cls){if(k==='s7')k='s5';if(!IL_IMG.has(k)&&typeof IL_ALIAS!=='undefined'&&IL_ALIAS[k]){const a=[].concat(IL_ALIAS[k]);k=a.find(x=>IL_IMG.has(x))||a[a.length-1]}if(IL_IMG.has(k)&&!IL_BAD.has(k))return `<img class="il ${cls||''}" src="il/${k}.webp" alt="" loading="lazy" decoding="async" width="960" height="600" onerror="ilFail(this,'${k}','${cls||''}')">`;const f=IL[k]||IL.m_path;return `<svg class="il ${cls||''}" viewBox="0 0 320 200" role="img" aria-hidden="true"><defs>${ilClip('c_'+k)}</defs><g clip-path="url(#c_${k}c)">${f()}</g></svg>`}
 
 /* ================= simplified, picture-first interface ================= */
@@ -6222,21 +6233,44 @@ function qmCard(compact,full){const R=qmRows(),D=Object.fromEntries(R.map(([id])
    <div class="qm-w"><span>هذا الأسبوع</span><span class="qm-dots" dir="ltr">${last7}</span>${full?'':`<button class="lnk qm-all" data-go="muhasaba">${ikS().base?'<span>أسئلة الإخلاص والكتابة</span>':'<span>اكتب محاسبتك</span>'} ←</button>`}</div></section>`}
 
 /* ---------- the tree of constancy ----------
-   It pictures regularity only, never a spiritual rank: it grows with the days kept in the last thirty, and if it
-   goes back a step, the seeker is told plainly that this measures regularity, not his standing with Allah. */
-function treeDays(){let n=0;for(let i=0;i<30;i++){const d=ds(new Date(Date.now()-i*DAY)),l=(S.log||{})[d];if(l&&((l.prayers||[]).length>=3||(l.awrad||[]).length))n++}return n}
-const TREE_ST=['بذرة','نبتة','غرسة','شجرة','شجرة مثمرة'];
-function treeCard(){const n=treeDays(),st=Math.min(4,Math.floor(n/7)),C=ILC;
-  const svg=IL_IMG.has('tree'+st)?ilSvg('tree'+st):`<svg class="il" viewBox="0 0 320 200" aria-hidden="true">${ilBg('tr',skyKind()==='night'?'night':'dawn')}${ilGround('#cfe0b6',168)}${st===0?`<ellipse cx="160" cy="168" rx="16" ry="6" fill="#8a5a3a"/><path d="M160 166c0-8 4-12 10-14-2 6-6 10-10 14z" fill="${C.green}"/>`:ilTree(160,168,.7+st*.22,st,C.green)}${st===4?[[132,92],[188,84],[160,70],[146,112],[176,108]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="5" fill="${C.rose}"/>`).join(''):''}</svg>`;
-  const prev=S.treeSt,down=prev!=null&&st<prev;if(prev!==st){S.treeSt=st;if(!down)S.treeDown=null;else S.treeDown=TODAY;save()}
-  const next=st<4?7*(st+1)-n:0,dn=S.treeDown&&S.treeDown>=addDays(TODAY,-2);
-  return `<section class="box tr-c">${svg}<div class="tr-t"><small class="tr-k">شجرة المداومة</small><b>${TREE_ST[st]}</b>
-   <span><span>تنمو بانتظامك: كل يوم صلّيت فيه ثلاث صلوات على الأقل أو أتممت وردًا، من آخر ثلاثين يومًا.</span> <span dir="ltr">${n}/30</span> ${hintBtn('tree')}</span>
-   <i class="tr-bar"><b style="width:${n/30*100}%"></b></i>
-   ${next?`<p class="meta tr-n">${next} <span>${next===1?'يوم آخر':'أيام أخرى'} وتصير</span> «<span>${TREE_ST[st+1]}</span>»</p>`:''}
-   ${dn?`<p class="meta tr-dn">قلّت أيام انتظامك في الثلاثين الأخيرة، فرجعت الشجرة خطوة. هي مقياس للمداومة لا لمنزلتك عند الله، وكل يوم تحافظ فيه يعيدها.</p>`:''}
+   Fruits = today's deeds (each completed deed adds fruit; all done = full tree).
+   Leaves = the last seven days: when deeds fall away the tree wilts, dries, then dies; deeds bring it back.
+   Growth from seed to tree = days on which at least half the day's deeds were done.
+   It pictures regularity only, never a spiritual rank. */
+function trDay(d){const L=(S.log||{})[d];if(!L)return [0,0];if(d===TODAY)return amProgress(L);
+  const P=L.pick||S.amPick||{aw:AW_PICK.slice(),nf:['raghiba','witr']},aw=awList(P,d),nf=(P.nf||[]).filter(i=>NAFL_IDS.includes(i)),A=L.awrad||[],my=(S.mine||[]).filter(m=>mineDue(m,d));
+  return [(L.prayers||[]).length+aw.filter(i=>A.includes(i)).length+nf.filter(i=>(L.nafl||{})[i]).length+my.filter(m=>A.includes(m.id)).length,FIVE.length+aw.length+nf.length+my.length]}
+const trR=([a,b])=>b?Math.min(1,a/b):0;
+let trMemo=null;
+function treeState(){const key=TODAY+'|'+JSON.stringify(S.log[TODAY]||0);if(trMemo&&trMemo.k===key&&Date.now()-trMemo.at<4000)return trMemo.v;
+  const T=trDay(TODAY),t=trR(T),days=Object.keys(S.log||{}).filter(k=>k<=TODAY).sort(),first=days[0]||TODAY;
+  let s=0,n=0;for(let i=1;i<=7;i++){const d=addDays(TODAY,-i);if(d<first)break;s+=trR(trDay(d));n++}
+  const past=n?s/n:t,h=n?Math.max(past,(past*(n)+t)/(n+1)):t;
+  let g=0;days.forEach(k=>{if(trR(k===TODAY?T:trDay(k))>=.5)g++});
+  const st=g<2?0:g<5?1:g<10?2:3,hs=h>=.7?0:h>=.45?1:h>=.2?2:h>=.07?3:4;
+  const v={t,dn:T[0],tot:T[1],h,st,hs,g};trMemo={k:key,at:Date.now(),v};return v}
+/* kept for older callers: a 0..30 figure */
+function treeDays(){return Math.round(treeState().h*30)}
+const TREE_ST=['بذرة','نبتة','غرسة','شجرة'];
+const TREE_HS=['شجرة نضرة','بدأت تذبل','شجرة ذابلة','شجرة يابسة','شجرة ميتة'];
+const TR_FP=[[470,95],[390,205],[600,175],[330,160],[510,150],[430,255],[630,140],[545,215],[380,110],[650,215],[460,200],[560,105],[355,265],[610,250],[420,150],[575,285],[330,215],[500,260]];
+function treeArt(T){const C=ILC;
+  if(T.st<3){const k='tree'+T.st;return `<div class="tr-im${T.hs>=2&&T.st?' tr-h'+T.hs:''}">${IL_IMG.has(k)?ilSvg(k):`<svg class="il" viewBox="0 0 320 200" aria-hidden="true">${ilBg('tr','dawn')}${ilGround('#cfe0b6',168)}${ilTree(160,168,.7+T.st*.22,T.st,C.green)}</svg>`}</div>`}
+  const own={2:'tree_wilt',3:'tree_dry',4:'tree_dead'}[T.hs],img=own&&IL_IMG.has(own)?own:'tree3',cls=own&&img==='tree3'?' tr-h'+T.hs:T.hs===1?' tr-h1':'';
+  const nf=T.hs<=2&&img==='tree3'?Math.round(TR_FP.length*T.t):0;
+  const fr=TR_FP.slice(0,nf).map(([x,y],i)=>`<i class="tr-f" style="left:${(x/9.6).toFixed(2)}%;top:${(y/6).toFixed(2)}%;--s:${[1,.88,.96,.92,1.04][i%5]}"><img src="il/tr_f${i%3+1}.webp" alt=""></i>`).join('');
+  return `<div class="tr-im${cls}">${ilSvg(img)}${fr}</div>`}
+function treeCard(){const T=treeState();
+  const title=T.st<3?TREE_ST[T.st]:T.hs===0?(T.t>=1?'شجرة مثمرة كاملة':T.t>0?'شجرة مثمرة':'شجرة نضرة'):TREE_HS[T.hs];
+  const need=[2,5,10][T.st],left=T.st<3?need-T.g:0;
+  const msg=T.st<3?'':T.hs===4?'ماتت أغصانها لأن الأعمال انقطعت في الأيام الأخيرة، لكن جذورها باقية: كل عمل تتمه اليوم يعيد إليها الحياة.':T.hs>=2?'ذبلت لأن أعمالك قلّت في الأيام الأخيرة. كل عمل تتمه اليوم يسقيها، ومع الأيام تعود نضرة.':'';
+  return `<section class="box tr-c">${treeArt(T)}<div class="tr-t"><small class="tr-k">شجرة المداومة</small><b>${title}</b>
+   <span><span>ثمارها أعمال يومك: كل عمل تتمه يضيف ثمرة، وتكتمل حين تتم أعمال اليوم كلها. وأوراقها انتظامك في الأيام السبعة الأخيرة: إن قلّت أعمالك ذبلت، وإن انقطعت يبست ثم ماتت.</span> ${hintBtn('tree')}</span>
+   ${T.st<3?`<p class="meta tr-n">${left} <span>${left===1?'يوم آخر تتم فيه نصف أعمالك على الأقل وتصير':'أيام أخرى تتم فيها نصف أعمالك على الأقل وتصير'}</span> «<span>${T.st<2?TREE_ST[T.st+1]:'شجرة'}</span>»</p>`:''}
+   <div class="tr-m"><small>ثمار اليوم</small><b dir="ltr">${T.dn} / ${T.tot}</b></div><i class="tr-bar tr-bf"><b style="width:${T.t*100}%"></b></i>
+   <div class="tr-m"><small>نضارة الأوراق</small><b dir="ltr">${Math.round(T.h*100)}%</b></div><i class="tr-bar"><b style="width:${T.h*100}%"></b></i>
+   ${msg?`<p class="meta tr-dn">${msg}</p>`:''}
    <p class="meta tr-nb">الشجرة صورة لانتظامك في الأعمال، لا حكم على حالك عند الله.</p></div></section>`}
-
 /* ---------- screen: me ---------- */
 function viewMe(){const u=AUTH.user,ex=S.amEx&&AMRAD.ar[S.amEx.id]?S.amEx:null,A=AMRAD[LANG]||AMRAD.ar;
   const row=(go,t,ic,extra)=>`<button class="h2-row me-row" ${go}><span class="h2-ri"><svg viewBox="0 0 24 24" aria-hidden="true">${ic}</svg></span><span class="h2-rt"><b>${t}</b></span>${extra||''}<svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>`;

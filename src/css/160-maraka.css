@@ -57,3 +57,14 @@ body.msh-focus:not(.msh-show) .msh-page::after{content:'';display:block;height:6
 .tr-k{display:block;color:var(--muted);font-size:12px;letter-spacing:.2px}.tr-n{margin:6px 0 0}.tr-dn{margin:6px 0 0;color:var(--ink)}.tr-nb{margin:6px 0 0;font-size:12px}
 /* ---- languages in the settings ---- */
 .pf-langs{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:static}.pf-langs .lang{display:flex;gap:8px;align-items:center;justify-content:flex-start;padding:10px 12px;border-radius:12px;min-height:44px;width:auto;height:auto}.pf-langs .lang small{opacity:.8}
+.tr-im{position:relative;overflow:hidden}.tr-im .il{transition:filter .6s}
+.tr-f{position:absolute;width:3.9%;transform:translate(-50%,-50%) scale(var(--s,1));pointer-events:none;animation:trF .6s ease-out both}.tr-f img{display:block;width:100%;height:auto}
+.tr-f:nth-child(3n){animation-delay:.08s}.tr-f:nth-child(3n+1){animation-delay:.16s}
+@keyframes trF{from{opacity:0;transform:translate(-50%,-50%) scale(.2)}}
+.tr-h1 .il,.tr-h1 .tr-f{filter:saturate(.82) hue-rotate(-8deg)}
+.tr-h2 .il,.tr-h2 .tr-f{filter:sepia(.4) hue-rotate(-24deg) saturate(.75)}
+.tr-h3 .il{filter:sepia(.7) saturate(.5) brightness(.9)}
+.tr-h4 .il{filter:grayscale(.85) sepia(.25) brightness(.72)}
+.tr-t .tr-m{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;font-size:13px;color:var(--muted)}.tr-t .tr-m b{font-size:14px;color:var(--ink)}
+.tr-t .tr-m+.tr-bar{margin-top:4px}.tr-bf b{background:var(--gold)}
+@media (prefers-reduced-motion:reduce){.tr-f{animation:none}}
