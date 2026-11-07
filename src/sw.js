@@ -1,12 +1,12 @@
 const CACHE='murshid-__BUILD__',LIB='murshid-lib-v1',MEDIA='murshid-media-v1',QURAN='murshid-quran-v2',IMG='murshid-img-v2';
-const SHELL=['./','index.html','i18n.json','manifest.webmanifest','icon-192.png','icon-512.png','maskable-512.png','apple-touch-icon.png','maiya.jpg','maiya-wide.jpg','madina.jpg','bg-tazkiya.jpg','bg-aamal.jpg','bg-taammulat.jpg','bg-ruhi.jpg','bg-quran.jpg','bg-method.jpg','bg-about.jpg','heart.webp','rays.webp','roadmap2.webp','roadmap2-s.webp','data/tq.json','data/qa.json','manifest.json','madina_fajr.webp','madina_dhuhr.webp','madina_asr.webp','madina_maghrib.webp','madina_isha.webp','munajat.jpg','muraqaba.jpg','umrah.jpg'];
+const SHELL=['./','index.html','i18n/en.json','i18n/fr.json','i18n/es.json','i18n/ru.json','i18n/ur.json','manifest.webmanifest','icon-192.png','icon-512.png','maskable-512.png','apple-touch-icon.png','maiya.jpg','maiya-wide.jpg','madina.jpg','bg-tazkiya.jpg','bg-aamal.jpg','bg-taammulat.jpg','bg-ruhi.jpg','bg-quran.jpg','bg-method.jpg','bg-about.jpg','heart.webp','rays.webp','roadmap2.webp','roadmap2-s.webp','data/tq.json','data/qa.json','manifest.json','madina_fajr.webp','madina_dhuhr.webp','madina_asr.webp','madina_maghrib.webp','madina_isha.webp','munajat.jpg','muraqaba.jpg','umrah.jpg'];
 const SDK='https://www.gstatic.com/firebasejs/10.12.2/';
 const LIBS=[SDK+'firebase-app.js',SDK+'firebase-auth.js',SDK+'firebase-firestore.js',SDK+'firebase-messaging.js',
  'https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Amiri&family=Amiri+Quran&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap'];
 async function cacheMedia(){try{const c=await caches.open(MEDIA),u=new URL('hudur.mp3',self.registration.scope).href;if(!(await c.match(u))){const r=await fetch(u);if(r.ok)await c.put(u,r)}}catch(x){}}
 async function cacheLibs(){try{const c=await caches.open(LIB);await Promise.all(LIBS.map(async l=>{if(await c.match(l))return;try{const r=await fetch(l,{mode:'cors'});if(r.ok)await c.put(l,r)}catch(x){}}))}catch(x){}}
 /* install: the page itself must be saved; every other file is saved on its own, so one missing picture never stops the app from working offline */
-const CORE=n=>n<4;
+const CORE=n=>n<2;
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(async c=>{const req=SHELL.map(u=>new Request(u,{cache:'reload'}));
   await c.addAll(req.filter((_,i)=>CORE(i)));
   await Promise.all(req.filter((_,i)=>!CORE(i)).map(r=>fetch(r).then(res=>{if(res.ok)return c.put(r,res)}).catch(()=>{})))}).then(cacheLibs).then(cacheMedia).then(()=>self.skipWaiting()))});

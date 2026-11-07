@@ -1,7 +1,7 @@
 /* ---------- ikhlas: intention at the start, middle and end; praise; the 90-day sheet; secret deeds ---------- */
 const niyaOn=()=>S.niya!==false&&S.niyaOff!==TODAY;
 let niyaT=0,niyaLast={};
-function niyaStart(scr){if(!niyaOn())return;const k=scr.startsWith('adh_')?scr:'quran';if(Date.now()-(niyaLast[k]||0)<15*60e3)return;niyaLast[k]=Date.now();
+function niyaStart(scr){if(!niyaOn())return;const k=scr.startsWith('adh_')?scr:'quran';if((S.niyaD||{})[k]===TODAY||Date.now()-(niyaLast[k]||0)<15*60e3)return;niyaLast[k]=Date.now();S.niyaD=Object.assign(S.niyaD||{},{[k]:TODAY});save();
   setTimeout(()=>{if(screen!==scr)return;sheetOpen(`<div class="niy"><div class="niy-em"><svg viewBox="0 0 24 24">${QI.heart}</svg></div><h3>جدّد نيتك قبل أن تبدأ</h3><p class="meta">لا لثواب ولا لثناء، بل لوجه الله وحده</p><p class="niy-du">«اللهم اجعل عملي كله صالحًا، واجعله لوجهك خالصًا، ولا تجعل لأحد فيه شيئًا»</p><button class="btn ok niy-b" data-bsx="1">نويتُ لله، ابدأ</button><button class="btn niy-b" data-niyaoff="1">لا تذكّرني اليوم</button></div>`)},350);
   clearTimeout(niyaT);niyaT=setTimeout(()=>{if(screen!==scr||!niyaOn())return;niyaToast()},4*60e3)}
 function niyaToast(){let t=document.getElementById('niyT');if(t)t.remove();t=document.createElement('div');t.id='niyT';t.className='niy-t';t.dir=RTL()?'rtl':'ltr';

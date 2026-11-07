@@ -1,3 +1,6 @@
+/* religious review credit: fill REVIEW_BY (e.g. 'الشيخ فلان') and it shows in «عن المرشد»; also editable from the content panel (CONTENT.review) */
+const REVIEW_BY='';
+function reviewLine(){const r=(typeof CONTENT!=='undefined'&&CONTENT.review)||REVIEW_BY;return r?`<p class="rv-by"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><span><span>راجع المحتوى الشرعي:</span> <b class="notr">${esc(r)}</b></span></p>`:''}
 /* ---------- about, privacy, contact ---------- */
 let contactMsg='',contactBusy=false;
 const aboutOpen=new Set();
@@ -6,6 +9,7 @@ const ABI={
  font:'<path d="M4 19 9 5l5 14M6 14h6"/><path d="M15 19l3-8 3 8M16 16.5h4"/>',
  backup:'<path d="M12 4v10M8 10l4 4 4-4"/><path d="M5 15v4h14v-4"/>',
  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r=".9" fill="currentColor" stroke="none"/>',
+ theme:'<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/>',
  install:'<rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M12 7v7M9.2 11.4 12 14.2l2.8-2.8M10.5 18.5h3"/>',
  bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/>',
  help:'<circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .8-1 1.5v.4"/><circle cx="12" cy="16.9" r=".9" fill="currentColor" stroke="none"/>',
@@ -52,7 +56,7 @@ function viewAbout(){
     <p class="ab-tag">رفيق السالك في طريق التزكية على المنهج المحمدي</p>
     <div class="ab-chips"><span>مجاني</span><span>بلا إعلانات</span><span>يعمل دون إنترنت</span><span>ست لغات</span></div>${status?`<div class="ab-st">${status}</div>`:''}</section>
    <p class="ab-g">التطبيق</p>
-   <div class="acc-card">${acc('about','info','عن المرشد','<p style="margin:0">يعين المرشد السالك على تطهير جوارحه وتنويرها، والمداومة على أوراده، ومحاسبة نفسه، ومراقبة قلبه يومًا بعد يوم. وهو مجاني، بلا إعلانات.</p>')}
+   <div class="acc-card">${acc('about','info','عن المرشد','<p style="margin:0">يعين المرشد السالك على تطهير جوارحه وتنويرها، والمداومة على أوراده، ومحاسبة نفسه، ومراقبة قلبه يومًا بعد يوم. وهو مجاني، بلا إعلانات.</p>'+reviewLine())}
     ${acc('install','install','تثبيت التطبيق',install)}${acc('notif','bell','تفعيل التذكيرات',P.notS.replace(/<b class="acc-sub">[^<]*<\/b>/,''))}
     ${acc('tips','help','إن لم تصلك التذكيرات',P.tipS.replace(/<b class="acc-sub">[^<]*<\/b>/,''))}${acc('offline','offline','العمل دون إنترنت',P.offS.replace(/<b class="acc-sub">[^<]*<\/b>/,''))}
     ${acc('transfer','transfer','نقل بياناتك',P.transfer)}</div>

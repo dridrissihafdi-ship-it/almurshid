@@ -50,7 +50,12 @@ function viewKhalwa(){if(khEdit)return khForm();const L=khList().slice().sort((a
    ${khMsg?`<p class="logged">${esc(khMsg)}</p>`:''}</section>
    ${soon.length?`<section><div class="sh"><h2>المبرمجة</h2><span>${soon.length}</span></div>${soon.map(khCard).join('')}</section>`:''}
    ${past.length?`<section><div class="sh"><h2>السابقة</h2><span>${past.length}</span></div>${past.slice(0,10).map(khCard).join('')}</section>`:''}
-   ${!L.length?'<p class="muted">برمج خلوتك أو اعتكافك: حدّد البداية والنهاية، ورتّب برنامجك بالساعة والدقيقة، فيذكّرك التطبيق بكل عمل في وقته.</p>':''}`}
+   ${!L.length?khIntro():''}`}
+/* shown while nothing is programmed yet: what a khalwa and an i'tikaf are, and how the programme works */
+function khIntro(){return `<section class="box kh-intro">${ilSvg('taammulat')}<div class="pad">
+   <div class="kh-two"><div><b>الخلوة</b><span>وقت تنقطع فيه عن الناس والشواغل، في بيتك أو في مكان هادئ، للذكر والقرآن والتفكّر، ساعةً أو أكثر.</span></div>
+   <div><b>الاعتكاف</b><span>لزوم المسجد بنية التقرّب إلى الله. وعند المالكية: يُشترط فيه الصوم، وأقلّه يوم وليلة.</span></div></div>
+   <ol class="kh-steps"><li><b>حدّد البداية والنهاية</b><span>اختر خلوة أو اعتكافًا، ويومه وساعته.</span></li><li><b>رتّب برنامجك</b><span>ذكر، قرآن، صلاة، تفكّر… كل فقرة بساعتها ودقيقتها.</span></li><li><b>يذكّرك التطبيق</b><span>بنغمة هادئة عند كل فقرة، فلا تنشغل بالوقت.</span></li></ol></div></section>`}
 /* while the app is open: chime and a banner when a programme item arrives */
 let khAlerted=new Set();
 setInterval(()=>{try{const n=Date.now();for(const r of khList()){if(khState(r)!=='now')continue;for(const e of khEvents(r)){const k=r.id+e.at;if(n>=e.at&&n<e.at+60000&&!khAlerted.has(k)){khAlerted.add(k);sndPlay('step',()=>bell([784,988],.28,1.4,.35));khToast(khName(r)+' · '+hmMs(e.at),e.x)}}}}catch(x){}},15000);

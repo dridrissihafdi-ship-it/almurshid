@@ -74,5 +74,12 @@ fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 fs.writeFileSync(path.join(OUT, 'sw.js'), sw);
 fs.writeFileSync(path.join(OUT, 'i18n.json'), JSON.stringify(i18n));
+/* one small file per language (i18n/en.json …): the app loads only the reader's language. Written to dist/ and to the
+   repository root, so the deploy workflow commits and uploads them without any change to it. */
+const LNS = ['en', 'fr', 'es', 'ru', 'ur'];
+for (const dir of [path.join(OUT, 'i18n'), path.join(ROOT, 'i18n')]) {
+  fs.mkdirSync(dir, { recursive: true });
+  LNS.forEach((l, i) => { const o = {}; for (const [k, v] of Object.entries(i18n)) if (v[i]) o[k] = v[i]; fs.writeFileSync(path.join(dir, l + '.json'), JSON.stringify(o)); });
+}
 const kb = (f) => Math.round(fs.statSync(path.join(OUT, f)).size / 1024) + ' KB';
 console.log(`built ${STAMP}: index.html ${kb('index.html')} (${cssFiles.length} css + ${jsFiles.length} js files), sw.js, i18n.json ${kb('i18n.json')} (${Object.keys(i18n).length} entries)`);

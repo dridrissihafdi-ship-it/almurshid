@@ -39,10 +39,15 @@ function figureSVG(l){
     <radialGradient id="gHeart"><stop offset="0" stop-color="#fff8dc"/><stop offset=".35" stop-color="#f6e3a8" stop-opacity=".9"/><stop offset="1" stop-color="#f6e3a8" stop-opacity="0"/></radialGradient>
     <radialGradient id="gHead"><stop offset="0" stop-color="#fffbe8"/><stop offset=".45" stop-color="#f6e3a8" stop-opacity=".85"/><stop offset="1" stop-color="#f6e3a8" stop-opacity="0"/></radialGradient>
     <radialGradient id="gBody" cx="50%" cy="35%" r="75%"><stop offset="0" stop-color="#fffaf0"/><stop offset=".55" stop-color="#f6e6b8"/><stop offset="1" stop-color="#e6cf92"/></radialGradient>
+    <linearGradient id="gOff" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a8673"/><stop offset=".5" stop-color="#7b6a5b"/><stop offset="1" stop-color="#5c4f45"/></linearGradient>
+    <radialGradient id="gRim" cx="50%" cy="40%" r="65%"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#2a1f18" stop-opacity=".45"/></radialGradient>
+    <filter id="wcT" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".018 .03" numOctaves="3" seed="7"/><feColorMatrix values="0 0 0 0 .95  0 0 0 0 .85  0 0 0 0 .7  0 0 0 1.1 -.35"/></filter>
    </defs>
    ${l.halo||l.body?`<g class="halo"><g filter="url(#haloF)" opacity="${l.body?1:.9}"><rect x="-70" y="-45" width="460" height="800" fill="#ffe39a" mask="url(#bm)"/></g><g filter="url(#haloF2)" opacity=".85"><rect x="-70" y="-45" width="460" height="800" fill="#fff1c4" mask="url(#bm)"/></g></g>`:''}
    <g mask="url(#bm)">
-    <rect x="0" y="0" width="${W}" height="${H}" fill="#6f8b94"/>
+    <rect x="0" y="0" width="${W}" height="${H}" fill="url(#gOff)"/>
+    <rect x="0" y="0" width="${W}" height="${H}" filter="url(#wcT)" opacity=".38"/>
+    <rect x="0" y="0" width="${W}" height="${H}" fill="url(#gRim)"/>
     ${l.body?`<rect class="bodylit" x="0" y="0" width="${W}" height="${H}" fill="url(#gBody)" opacity=".92"/>`:''}
     ${l.heart?`<ellipse class="pulse" cx="159" cy="246" rx="78" ry="118" fill="url(#gHeart)"/>`:''}
     ${l.head?`<circle class="pulse" cx="159" cy="62" r="80" fill="url(#gHead)"/>`:''}

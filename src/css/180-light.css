@@ -1,0 +1,23 @@
+/* light appearance (setting «المظهر»: فاتح، أو تلقائي = فاتح في النهار) — the photo headers keep their own colours */
+html[data-theme=light]{--page:#F6F1EA;--bg:#F6F1EA;--sheet:#F6F1EA;--card:#FFFDF9;--card-line:rgba(60,40,25,.12);--ink:#2A1F19;--muted:#5C5047;
+  --chip:#EFE6DA;--chip-ink:#5B4B3F;--gold:#875719;--amber:#875719;--amber-soft:#F4E6CC;--green:#22704B;--green-soft:#DDF0E4;--red:#A63D2C;--red-soft:#F8E1DB;
+  --cta:#2A1F19;--cta-ink:#FFFDF9;color-scheme:light}
+html[data-theme=light] main.sheet,html[data-theme=light] .sheet{background:var(--sheet);color:var(--ink)}
+html[data-theme=light] .box,html[data-theme=light] .me-g,html[data-theme=light] .h2-more{background:var(--card);border-color:var(--card-line);box-shadow:0 2px 10px rgba(60,40,25,.07)}
+html[data-theme=light] nav.tabs{background:rgba(255,253,249,.96)!important;border-top:1px solid var(--card-line)!important;box-shadow:0 -4px 18px rgba(60,40,25,.08)!important}
+html[data-theme=light] nav.tabs button{color:#5f5146}html[data-theme=light] nav.tabs button[aria-current]{color:#2A1F19}
+html[data-theme=light] .btn{background:var(--chip);color:var(--ink);border-color:var(--card-line)}html[data-theme=light] .btn.ok{background:var(--cta);color:var(--cta-ink)}
+html[data-theme=light] input,html[data-theme=light] textarea,html[data-theme=light] select{background:#fff;color:var(--ink);border-color:var(--card-line)}
+html[data-theme=light] .me-gt b,html[data-theme=light] .tr-t .tr-m b{color:var(--ink)}
+html[data-theme=light] .figure-box{background:radial-gradient(ellipse at 50% 38%,#EFE3D2,#D9C8B2 80%)}
+.th-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.th-o{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;border-radius:14px;border:1px solid var(--card-line);background:var(--chip);color:var(--ink);font:inherit;cursor:pointer;text-align:center}
+.th-o.on{outline:2px solid var(--gold);outline-offset:1px}.th-o small{font-size:11px;color:var(--muted);line-height:1.4}
+.th-sw{width:34px;height:34px;border-radius:50%;border:1px solid var(--card-line)}.th-dark{background:#2A211B}.th-light{background:#FFFDF9}.th-auto{background:linear-gradient(90deg,#FFFDF9 50%,#2A211B 50%)}
+html[data-theme=light] .hero{--ink:#F3EDE6;--muted:#C9BBAE;--gold:#E6C891;--chip:#3A2E26;--chip-ink:#CDBFB2;--card:#2A211B;--card-line:rgba(255,255,255,.12);color:#F3EDE6}
+html[data-theme=light] .mk-strip{--ink:#F3EDE6}
+html[data-theme=light] #bsheet .bs{background:#FFFDF9;color:var(--ink)}html[data-theme=light] .bs-grab{background:#d8ccbd}
+html[data-theme=light] .tq-head,html[data-theme=light] .tq-head *{color:#F3EDE6}
+html[data-theme=light] .hq-n,html[data-theme=light] .hq-n b{color:#F3EDE6}
+html[data-theme=light] .pth-gn{color:#fff}
+html[data-theme=light] .rt2{background:var(--chip)}html[data-theme=light] .rt2 button.on{background:var(--card);color:var(--gold);box-shadow:0 1px 4px rgba(60,40,25,.12)}
+html[data-theme=light] button[data-pray] b{color:#6B4512}

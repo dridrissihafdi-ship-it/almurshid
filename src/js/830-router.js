@@ -5,7 +5,9 @@ function tabOf(s){if(s.startsWith('adh_')||['dhikr_run','khalwa','aamal','maraka
 function ptKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayerTimes(n);return h<pt.fajr?'isha':h<pt.sunrise+.5?'fajr':h<pt.asr?'dhuhr':h<pt.maghrib-.4?'asr':h<pt.isha?'maghrib':'isha'}
 function skyKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayerTimes(n);
   return h>=pt.fajr&&h<pt.sunrise+.5?'fajr':h>=pt.sunrise+.5&&h<pt.maghrib-.6?'day':h>=pt.maghrib-.6&&h<pt.isha?'maghrib':'night'}
+const themeNow=()=>S.theme==='light'||(S.theme==='auto'&&skyKind()==='day')?'light':'dark';
 function render(){
+  document.documentElement.dataset.theme=themeNow();
   if(screen!=='mushaf'||!S.mshFocus)document.body.classList.remove('msh-focus','msh-show');
   if(navRoute&&!gated()&&typeof VIEWS!=='undefined'){const r=navRoute;navRoute=null;if(VIEWS[r]&&r!==screen){setTimeout(()=>go(r),0)}}
   navSync();const app=document.getElementById('app'),nav0=document.querySelector('nav.tabs');
@@ -30,6 +32,7 @@ function render(){
   if(screen==='fiqh'||screen==='series'){const ph=document.getElementById('vdV');if(keepF&&ph&&keepF!==ph&&keepF.getAttribute('src')===ph.getAttribute('src'))ph.replaceWith(keepF);vdBind()}
   if(screen==='dhikr_run')paintRun();if(screen==='amrad')amBind();
   auUi();try{sndUi()}catch(e){}
+  if(typeof deedPulse==='function')deedPulse();
   const bd=document.getElementById('badge');if(bd)bd.hidden=!(pendingOrgans().length||prepPendingToday()||!lights().halo);
 }
 function go(s){if(s==='amrad')s='uyub';if(s==='qalb'){s='uyub';uyF=null;uyProg=true}else if(s==='uyub'){uyF=null;uyProg=false}if(s==='ijtihad'){ruhiTab='week';wkOff=0;goRaw('ruhi');return}if(s==='sura'||s==='muraqabat'||s==='tahlil'){ruhiTab=s;s='ruhi'}if(s==='taammulat')s='h_ruh';if(s==='h_quran')s='quran';if(s==='khr'){khTab='mine';s='khushu'}if(s==='aql'){tzTab='aql';s='tazkiya'}if(/^g[1-4]$/.test(s)){ahTab=s;s='ahdaf'}if(s==='majalis'&&screen!=='majalis')majTab=null;if(s==='jawarih'){tzTab='jawarih';s='tazkiya'}if(s==='qalbruh'){tzTab='qalb';s='tazkiya'}goRaw(s)}

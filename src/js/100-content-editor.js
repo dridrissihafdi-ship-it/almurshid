@@ -36,7 +36,7 @@ document.addEventListener('click',e=>{if(!ED||edMode!=='edit'||!isAdmin())return
   const el=node.parentElement;if(el.closest(ED_NO)){edToast('هذا نص محمي (آيات القرآن أو نص يُكتب تلقائيًا)، فلا يُعدَّل من هنا.');return}
   const k=el.dataset.edk||edNorm(node.nodeValue);if(!/[؀-ۿ]/.test(k)){edToast('اضغط على نص عربي.');return}
   edOpen(k)},true);
-function edOpen(k){if(!I18N_OK){i18nLoad().then(()=>edOpen(k));return}const h=edHash(k),o=(UI().t||{})[h]||{},hid=(UI().hide||[]).includes(h),dyn=/[0-9٠-٩]/.test(k);
+function edOpen(k){if(!I18N_ALL){i18nLoadAll().then(()=>edOpen(k));return}const h=edHash(k),o=(UI().t||{})[h]||{},hid=(UI().hide||[]).includes(h),dyn=/[0-9٠-٩]/.test(k);
   const d0=I18N_D[k]||null,sh=document.createElement('div');sh.className='ed-sheet';sh.dir='rtl';
   sh.innerHTML=`<div class="ed-box"><div class="ed-hd"><b>تعديل النص</b><button class="ed-close" data-ed="close" aria-label="إغلاق">✕</button></div>
    <small class="ed-l">النص الأصلي</small><p class="ed-orig">${esc(k)}</p>

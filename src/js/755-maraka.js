@@ -99,7 +99,7 @@ function viewMaraka(){const M=mkS(),D=mkDay(),lv=D.lv,L=MK_LV[lv],T=mkTasks(lv),
   </section>`}
 document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;const d=t.dataset;
   if(d.mkt!==undefined){const D=mkDay(),j=+d.mkt;if(D.r)return;D.m=D.m.includes(j)?D.m.filter(x=>x!==j):[...D.m,j];save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
-  if(d.mkj){const M=mkS(),D=mkDay();if(D.r||!mkCanJudge())return;D.r=mkWon(TODAY)?'w':'l';
+  if(d.mkj){const M=mkS(),D=mkDay();if(D.r||!mkCanJudge())return;D.r=mkWon(TODAY)?'w':'l';try{stMark(D.r==='w'?'f_mkw':'f_mkl')}catch(x){}
     if(D.r==='w'){try{navigator.vibrate&&navigator.vibrate([40,60,40])}catch(x){}if(mkWins()>=MK_WIN_N&&M.lv<MK_LV.length-1){M.lv++;M.up=TODAY}}else mkAnim=TODAY;
     save();render();SCR().scrollTo({top:0,behavior:'smooth'});return}
   if(d.mkist){const D=mkDay();D.ist=1;save();render();return}

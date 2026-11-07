@@ -17,7 +17,7 @@ function viewQA(){if(!QA.qa.length)return '<p class="muted">جارٍ التحم�
   const fav=S.qaFav||[],list=QA.qa.map((x,i)=>i).filter(i=>qaSec===-2?fav.includes(i):qaSec<0||QA.qa[i][0]===qaSec),last=S.qaLast;
   return `<div class="qa-search"><input type="search" id="qaQ" placeholder="${esc(Tx('ابحث في الأسئلة والأجوبة'))}" aria-label="${esc(Tx('ابحث في الأسئلة والأجوبة'))}" autocomplete="off"><p class="meta" id="qaNone" hidden>لا توجد نتيجة.</p><p class="meta" id="qaCnt" aria-live="polite" hidden><span id="qaCntN" dir="ltr"></span> <span>نتيجة</span> · <span>الكلمة مبرزة، والجواب ظاهر حين تكون الكلمة فيه</span></p></div>
   ${last!=null&&last>=0&&last<QA.qa.length?`<button class="box qa-last" data-qaopen="${last}"><small>آخر ما قرأت</small><b class="notr" ${qaDir()}>${qaT(last)[0]}</b></button>`:''}
-  <section class="qa-daysec"><div class="sh"><h2>سؤالا اليوم</h2><span dir="ltr">${seen} / ${QA.qa.length}</span></div>
+  <section class="qa-daysec"><div class="sh"><h2>سؤالا اليوم</h2><span class="qa-cnt"><span>قرأت</span> <b dir="ltr">${seen} / ${QA.qa.length}</b></span></div>
    <div class="qa-day"><div><p class="meta">بعد الفجر</p>${qaCard(m,1)}</div><div><p class="meta">بعد العشاء</p>${qaCard(e,1)}</div></div></section>
   <section><div class="sh"><h2>كل الأسئلة</h2></div>
    <div class="qa-chips"><button class="${qaSec===-1?'on':''}" data-qasec="-1">الكل</button><button class="${qaSec===-2?'on':''}" data-qasec="-2">★ <span>المحفوظة</span> <span dir="ltr">${fav.length}</span></button>${QA.secs.map((t,k)=>`<button class="${qaSec===k?'on':''} notr" data-qasec="${k}">${qaSecT(k)}</button>`).join('')}</div>

@@ -98,7 +98,7 @@ function viewNotif(){
   if(!lt.quranToday)items.push({on:!lt.head,t:'الورد اليومي من القرآن',s:lt.head?`الرأس مستنير حتى ${tHM(lt.headEnd)}`:'الرأس مطفأ',go:'aamal'});
   seasonal().filter(s=>s.tag==='اليوم'||s.tag==='الجمعة').forEach(s=>items.push({on:!L.awrad.includes(s.id),t:s.t,s:s.s,go:'aamal'}));
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
-  <p class="muted">التنبيهات هنا داخل الصفحة. التنبيهات الفعلية على الهاتف تحتاج نسخة التطبيق المثبّتة.</p></section>`;
+  ${isStandalone()?`<button class="btn notif-cta" data-go="profile" data-openacc="push">فعّل التذكيرات على هاتفك</button>`:`<button class="btn ok notif-cta" data-go="install">ثبّت التطبيق لتصلك التذكيرات على هاتفك</button>`}</section>`;
 }
 const APP_VER='__BUILD__';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
@@ -109,7 +109,7 @@ let OFFREADY=null,OFFST=null;
 async function checkOffline(){let st={sw:false,app:false,i18n:LANG==='ar',quran:0,img:0};
   try{st.sw=!!(navigator.serviceWorker&&navigator.serviceWorker.controller);
     if(window.caches){st.app=!!(await caches.match('index.html',{ignoreSearch:true}));
-      if(LANG!=='ar')st.i18n=!!(await caches.match('i18n.json',{ignoreSearch:true}));
+      if(LANG!=='ar')st.i18n=!!(await caches.match('i18n/'+LANG+'.json',{ignoreSearch:true}));
       const ks=await caches.keys();for(const k of ks){if(/quran/.test(k)){const c=await caches.open(k);const r=await c.keys();st.quran=new Set(r.map(x=>(x.url.match(/\/[qm](\d\d)\.bin/)||[])[1]).filter(Boolean)).size}
         if(/murshid-img/.test(k)){const c=await caches.open(k);st.img=(await c.keys()).length}}}}catch(e){}
   const ok=st.sw&&st.app&&st.i18n,ch=JSON.stringify(st)!==JSON.stringify(OFFST);OFFST=st;
@@ -178,6 +178,7 @@ function viewProfile(){
    <div class="acc-card">${acc('push','bell','التذكيرات على الهاتف',strip(pushSection()),P.enabled?'مفعّلة':'غير مفعّلة')}</div>
    <div class="acc-card">${TTS_OK?acc('voice','speaker','صوت القراءة',voiceBox()):''}</div>
    <div class="acc-card">${acc('font','font','حجم الخط',`<p class="muted">كبّر الخط إن كانت القراءة متعبة، خاصة في الأذكار.</p><p class="meta">ويمكنك أيضًا تكبير النص أو تصغيره بإصبعين في صفحات القراءة والقرآن.</p><div class="fz-row">${[[1,'عادي'],[1.12,'كبير'],[1.25,'أكبر']].map(([v,l])=>`<button class="btn${(S.fz||1)===v?' ok':''}" data-fz="${v}" style="font-size:${14*v}px">${l}</button>`).join('')}</div>`,(S.fz||1)===1?'عادي':S.fz===1.12?'كبير':S.fz===1.25?'أكبر':Math.round(S.fz*100)+'%')}</div>
+   <div class="acc-card">${acc('theme','theme','المظهر',`<div class="th-opts" role="group" aria-label="المظهر">${[['','داكن','دائمًا'],['light','فاتح','دائمًا'],['auto','تلقائي','فاتح في النهار، داكن في الليل']].map(([k,t,d])=>`<button class="th-o${(S.theme||'')===k?' on':''}" data-theme="${k}" aria-pressed="${(S.theme||'')===k}"><i class="th-sw th-${k||'dark'}"></i><b>${t}</b><small>${d}</small></button>`).join('')}</div>`,(S.theme==='light'?'فاتح':S.theme==='auto'?'تلقائي':'داكن'))}</div>
    <div class="acc-card">${acc('offl','offline','العمل دون إنترنت',offlineLine())}</div>
    ${isAdmin()?'<div class="btns" style="justify-content:center;margin-top:16px"><button class="btn ok" data-go="admin">لوحة الإدارة</button></div>':''}`;
 }

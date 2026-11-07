@@ -3,9 +3,9 @@
    (and once ever for the milestones). Nothing identifies the phone or the person: no account, no id,
    no text, no times — only "one more phone opened «الأعمال» today". The seeker can turn it off in the settings.
    The list of counters must match ST_KEYS in firestore.rules. */
-const ST_SCR=['home','search','h_ibadat','h_ruh','h_ilm','h_shurut','tasmi','me','wudu','salat','khushu','ikhub','ikhlas','sirr','ikhl','ahdaf','tawba','mujahada','series','fatur','tools','duas','qibla','hifz','ask','majalis','path','roadmap','fiqh','aqida','audio','sira','qiyama','method','tazkiya','uyub','muraqabat','sura','aamal','dhikr_run','adh_sabah','adh_masa','notif','profile','muhasaba','organ','quran','umrah','khalwa','subha','mushaf','qa','week','about','tahlil','ruhi','mraqib','munajat'];
+const ST_SCR=['home','maraka','search','h_ibadat','h_ruh','h_ilm','h_shurut','tasmi','me','wudu','salat','khushu','ikhub','ikhlas','sirr','ikhl','ahdaf','tawba','mujahada','series','fatur','tools','duas','qibla','hifz','ask','majalis','path','roadmap','fiqh','aqida','audio','sira','qiyama','method','tazkiya','uyub','muraqabat','sura','aamal','dhikr_run','adh_sabah','adh_masa','notif','profile','muhasaba','organ','quran','umrah','khalwa','subha','mushaf','qa','week','about','tahlil','ruhi','mraqib','munajat'];
 /* daily: one per phone per day */
-const ST_DAY=['dev','acct','guest','inst','l_ar','l_en','l_fr','l_es','l_ru','l_ur','ui_s','ui_c','f_pray','f_mh','f_kh','f_adh','f_q'];
+const ST_DAY=['dev','acct','guest','inst','l_ar','l_en','l_fr','l_es','l_ru','l_ur','ui_s','ui_c','f_pray','f_mh','f_kh','f_adh','f_q','f_mkw','f_mkl'];
 /* milestones: one per phone, ever — they show how far seekers go */
 const ST_MS=['m_seen','m_new','m_pray','m_uy','m_prep1','m_prep7','m_prep30','m_org','m_org7','m_org30','m_mh7','m_acct','m_push','m_inst'];
 const ST_KEYS=[...ST_DAY,...ST_MS,...ST_SCR.map(s=>'v_'+s)];
@@ -71,7 +71,7 @@ function stBlock(){if(!stData){setTimeout(stRead,0);return '<p class="muted" sty
    <div class="st-g">${card('هواتف نشطة اليوم',(D[TODAY]||{}).dev||0)}${card('معدّل الهواتف في اليوم',avg('dev'))}${card('هواتف جديدة في 30 يومًا',sum('m_new'))}${card('بلا حساب',pct(sum('guest'),sum('dev')),'من أيام الاستعمال')}${card('مثبّت على الشاشة',pct(sum('inst'),sum('dev')))}${card('الواجهة المبسّطة',pct(sum('ui_s'),sum('dev')))}</div>
    <h4 class="st-h">الهواتف النشطة في آخر 14 يومًا</h4><div class="st-bars">${d14.map(d=>{const v=(D[d]||{}).dev||0;return `<div class="st-b" title="${d}"><i style="height:${Math.round(v/mx*100)}%"></i><small>${+d.slice(8)}</small><em>${v||''}</em></div>`}).join('')}</div>
    <h4 class="st-h">أين يصل السالكون في الطريق؟</h4><p class="meta">عدد الهواتف التي بلغت كل خطوة، منذ بدء هذا الإحصاء. حيث ينقص العدد كثيرًا بين خطوتين، فهناك ما يحتاج تيسيرًا.</p>${funnel}
-   <h4 class="st-h">ما يفعلونه في يومهم</h4><div class="st-g">${card('سجّلوا صلاة',pct(sum('f_pray'),sum('dev')),'من أيام الاستعمال')}${card('فتحوا الأذكار',pct(sum('f_adh'),sum('dev')))}${card('حاسبوا أنفسهم',pct(sum('f_mh'),sum('dev')))}${card('أجابوا عن الخشوع',pct(sum('f_kh'),sum('dev')))}${card('قرأوا سؤالًا',pct(sum('f_q'),sum('dev')))}</div>
+   <h4 class="st-h">ما يفعلونه في يومهم</h4><div class="st-g">${card('سجّلوا صلاة',pct(sum('f_pray'),sum('dev')),'من أيام الاستعمال')}${card('فتحوا الأذكار',pct(sum('f_adh'),sum('dev')))}${card('حاسبوا أنفسهم',pct(sum('f_mh'),sum('dev')))}${card('أجابوا عن الخشوع',pct(sum('f_kh'),sum('dev')))}${card('قرأوا سؤالًا',pct(sum('f_q'),sum('dev')))}${card('انتصروا في معركة اليوم',pct(sum('f_mkw'),sum('f_mkw')+sum('f_mkl')),'من المعارك المعلنة')}</div>
    <h4 class="st-h">الأقسام الأكثر فتحًا</h4><p class="meta">الرقم: عدد مرات فتح القسم، مرة واحدة على الأكثر لكل هاتف في اليوم.</p>${top.length?scList(top.slice(0,12)):'<p class="meta">لا توجد بيانات بعد.</p>'}
    ${top.length>12?`<h4 class="st-h">الأقل فتحًا</h4>${scList(top.slice(-8).reverse())}`:''}
    ${zero.length?`<h4 class="st-h">لم يفتحها أحد في 30 يومًا</h4><div class="st-l">${zero.map(k=>`<span>${esc(scrName(k))}</span>`).join('')}</div>`:''}

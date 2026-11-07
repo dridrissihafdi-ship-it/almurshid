@@ -15,10 +15,9 @@ function viewMe(){const u=AUTH.user,ex=S.amEx&&AMRAD.ar[S.amEx.id]?S.amEx:null,A
     ${row('data-go="uyub"','اعرف عيوبك وعالجها','<ellipse cx="12" cy="10" rx="6" ry="7"/><path d="M12 17v4M9 21h6"/>')}
     ${row('data-go="notif"','ما بقي من يومك','<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/>')}
    </div></details>
-   ${meG('rep','تقاريري',['مرآة أعمالك','بياناتك الروحية','التقرير الأسبوعي'])}<div class="box h2-more me-list">
-    ${row('data-go="ijtihad"','مرآة أعمالك','<path d="M5 19V13M10 19V9M15 19V11M20 19V5"/>')}
+   ${meG('rep','تقاريري',['التقرير الأسبوعي','بياناتك الروحية'])}<div class="box h2-more me-list">
+    ${row('data-go="ijtihad"','التقرير الأسبوعي: مرآة أعمالك','<path d="M5 19V13M10 19V9M15 19V11M20 19V5"/>')}
     ${row('data-go="ruhi"','بياناتك الروحية','<path d="M12 20s-8-4.8-8-10.5A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 8 2.5C20 15.2 12 20 12 20z"/>')}
-    ${row('data-go="week"','التقرير الأسبوعي','<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>')}
    </div></details>
    ${meG('acc','حسابي',['الاسم والصورة','الحساب','النسخة الاحتياطية'])}<div class="box h2-more me-list">
     ${row('data-go="profile" data-openacc="pname"','الاسم والصورة','<circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/>')}

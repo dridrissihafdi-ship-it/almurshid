@@ -7,7 +7,7 @@ The app is built from these files, joined in the order of their names (`node scr
 
 - **010-adhkar-data.js** (20 KB): ADHKAR
 - **020-i18n-data.js** (20 KB): I18N_D, I18N_P
-- **030-i18n.js** (6 KB): I18N_W, LIDX, RTL, LOC, LANGS, LANG, deDigits, hasAr, I18N_OK, i18nLoad(), Tx(), I18N_SKIP, i18nApply(), computeHijri(), KEY, LAT, LNG, CITIES, cityName, applyLoc(), nearestCity()
+- **030-i18n.js** (6 KB): I18N_W, LIDX, RTL, LOC, LANGS, LANG, deDigits, hasAr, I18N_OK, I18N_L, I18N_ALL, i18nLoad(), i18nLoadAll(), Tx(), I18N_SKIP, i18nApply(), computeHijri(), KEY, LAT, LNG, CITIES, cityName, applyLoc(), nearestCity()
 - **040-organs-data.js** (6 KB): ORGANS
 - **050-organs.js** (1 KB): fmtD, AWRAD, HEARTS, PHASE
 - **060-dates.js** (1 KB): pad, ds, addDays, TODAY, hijriDay, hijriLabel, DOW, seasonal()
@@ -15,7 +15,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **080-state.js** (2 KB): demoState(), blankOrgan(), freshState(), S
 - **090-accounts.js** (31 KB): ADMIN_EMAIL, AUTH, CONTENT, adminData, isAdmin, gated, AUTH_ERR, authErr, authLangOpen, langPick(), viewAuth(), LOGO, GLOGO, authSubmit(), TEST_ACCT, testSignIn(), googleSignIn(), pendingName, OWNER, lsGet, lsSet, onAuthUser(), onFbFail(), cloudTimer, cloudSaveNow(), cloudSave(), adminTry(), TT, ttTick(), ttFlush(), INBOX, inboxLoad(), inboxCard(), fmtDur, adminLoad(), adminMsgsLoad(), adminMsgDel(), adminPush(), adU, uName …
 - **100-content-editor.js** (24 KB): ED, edMode, UI, edNorm, edHash, ED_NO, ED_CARD, ED_LANGS, edApply(), edCardOf, edSaveUi(), edToast(), edBar(), edOpen(), ED_THEMES, ED_CSS0, ED_ST, edTheme(), edAdminBlock(), edClick(), adminSave(), announcementBanner(), onAuthRedirectError(), delAsk, acctMsg, accountSection(), authClick(), SCR, pz, pzD, pzEl(), PZ_OK, pzEnd(), navFix(), navT, save, YDAY, normOrgans(), orgMigrate(), orgSetStart() …
-- **110-views.js** (14 KB): screen, confirmFor, confirmReset, redoFor, esc, ARROW, MENU, TITLES, VERSES, AVATAR, avatarImg(), MENUICON, BACK, nextPrayer(), heroHome(), homeNow(), amProgress(), heroSub(), NEW_HOST
+- **110-views.js** (15 KB): screen, confirmFor, confirmReset, redoFor, esc, ARROW, MENU, TITLES, VERSES, AVATAR, avatarImg(), avatarIni(), MENUICON, BACK, nextPrayer(), heroHome(), homeNow(), amProgress(), navRoot, heroSub(), NEW_HOST
 - **120-quick-access-data.js** (8 KB): QI
 - **130-quick-access.js** (5 KB): QA_ALL, QA_DEF, qaSel, qaDot, qaBtn, qaGrid(), qaGo(), homeProg(), sheetOpen(), sheetClose(), moreOpen(), qaEditOpen(), qaToggle()
 - **140-first-steps.js** (3 KB): fsSteps(), fsCard(), iosGuide()
@@ -24,12 +24,12 @@ The app is built from these files, joined in the order of their names (`node scr
 - **170-search-home.js** (16 KB): usQ, viewSearch(), usIndex(), US_G, usResults(), usT, viewHome(), ring(), pendTxt(), tzEditBox(), tanwirAsk(), organCard()
 - **180-prep-phase.js** (6 KB): PREP, prepFail, prepRedo, prepOpen, prepState(), prepDayDone, prepDays, prepReady, prepPendingToday, prepCard(), prepSet()
 - **190-welcome.js** (4 KB): obStep, MEAN, meaning, needOnboard, viewOnboard(), obClick()
-- **200-qa-cards.js** (4 KB): waredMsg, QA, qaDayIdx, DATA_OK, dataLoad(), qaSec, qaFocus, qaT, qaSecT, qaDir, qaCard(), viewQA(), openQA()
+- **200-qa-cards.js** (5 KB): waredMsg, QA, qaDayIdx, DATA_OK, dataLoad(), qaSec, qaFocus, qaT, qaSecT, qaDir, qaCard(), viewQA(), openQA()
 - **210-mushaf-index-data.js** (9 KB): QIDX
 - **220-mushaf-index-m-data.js** (8 KB): QIDXM
 - **230-mushaf.js** (18 KB): WIRD_OPTS, QBUF, QURL, mshMsg, mshDl, msh(), qKey, qHQ, qBundle(), qPage(), mshBr, mshCP, mushafPaint(), mushafGo(), SURAS, suraAt(), suraOnPage(), mshSur, mshY, mshAuto, mshRun, mshRaf, mshLast, mshEndAt, mshAcc, mshHold, MSEC, mshSpd, IC_PAUSE, IC_PLAY, mshPos, mshSet, mshUserTs, mshBase(), mshToTop(), mshTick(), mshAutoBar(), mshSurList(), viewQuran(), viewMushaf() …
 - **240-subha.js** (6 KB): SUBHA_DEF, sbAdd, sbReset, sbEdit, sbZero, sb(), sbCount, sbTotal, subhaCard(), viewSubha(), sbMore(), sbTick()
-- **250-khalwa.js** (8 KB): khEdit, khMsg, khDel, khList, pad2, localStr, khMs, khName, khEvents(), khState, fmtDT, hmMs, KH_SHORT, KH_DAY, khTemplate(), khNew(), khReadForm(), khForm(), khCard(), viewKhalwa(), khAlerted, khToast()
+- **250-khalwa.js** (9 KB): khEdit, khMsg, khDel, khList, pad2, localStr, khMs, khName, khEvents(), khState, fmtDT, hmMs, KH_SHORT, KH_DAY, khTemplate(), khNew(), khReadForm(), khForm(), khCard(), viewKhalwa(), khIntro(), khAlerted, khToast()
 - **260-qalb-data.js** (7 KB): QALB
 - **270-qalb.js** (12 KB): QLEV, qbI, qbStop, qbRetest, qb(), qbScore, qbLevel, qbRank, qbDay, qbD, viewQalb(), qbQuestion(), qbResults(), qbToday(), qbShowRes, UMRAH
 - **280-umrah-data.js** (5 KB): UMART
@@ -42,9 +42,9 @@ The app is built from these files, joined in the order of their names (`node scr
 - **330-ijtihad-mirror.js** (11 KB): IJ_W, IJ_AW, IJ_BIRR, ijFirst(), ijDay(), ijWeek(), ijStreak(), ijTips(), ijNext(), viewIjtihad()
 - **340-ruhi.js** (9 KB): RT_IC, RT_L, ruhiTabs(), viewMuraqabat(), wkHowOpen, viewWeek(), viewRuhi()
 - **350-slips.js** (5 KB): SLIP_CATS, normAr, allSlips(), slipCands, slipCats(), WDAYS_AR, WDAYS, viewTahlil()
-- **360-about.js** (10 KB): contactMsg, contactBusy, aboutOpen, ABI, VC_SAMPLE, voiceBox(), vcTry(), CHEV, acc(), viewAbout(), contactSend()
+- **360-about.js** (10 KB): REVIEW_BY, reviewLine(), contactMsg, contactBusy, aboutOpen, ABI, VC_SAMPLE, voiceBox(), vcTry(), CHEV, acc(), viewAbout(), contactSend()
 - **370-lights-data.js** (18 KB): BODY_MASK
-- **380-lights.js** (5 KB): DAY, emptyMarks(), atH, nowStr, dayKey(), dH, ptDay, period(), lastTs, lights(), litCount, tHM, dayLbl, syncWird(), lightConfirm, figureSVG(), lightRow(), setLight()
+- **380-lights.js** (6 KB): DAY, emptyMarks(), atH, nowStr, dayKey(), dH, ptDay, period(), lastTs, lights(), litCount, tHM, dayLbl, syncWird(), lightConfirm, figureSVG(), lightRow(), setLight()
 - **390-prayers-row.js** (12 KB): FIVE, aDate, aLog, aDateBar(), prLate, MSJ, inMsj, prayerChips(), prLateKey, setPrayer(), wirdList(), naflDefs(), NAFL_IDS, AW_PICK, AW_X, AW_DAY, awDayOk, awList, nfFull, amPick(), naflLate(), awLate(), amPickOpen, amOpen, amPickBox(), NAFL_SLOT, naflRows(), mineForm, myDeeds, mineDue, mineDays, mineBlock(), mineClick()
 - **400-my-path.js** (9 KB): pathMan(), lastDays, pathData(), pathWhere(), pathPlan(), pathPct(), pathHomeCard(), viewPath()
 - **410-ask-sheikh.js** (4 KB): askData, tsMs, askLoad(), askUnseen(), viewAsk(), askSend(), adQ, adQLoad(), adQBlock()
@@ -84,6 +84,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **740-lesson-stories.js** (4 KB): ST_MOTIF, ST_ROT, storySlides(), stSpeakTok, stSay(), storyOpen()
 - **750-simple-tazkiya.js** (6 KB): TZ_K, tzStage0(), tzUnl(), tzLadder(), tzSCard(), tzMore(), tzLearn(), tzSimple(), qmSlip, QM_REASONS
 - **755-maraka.js** (14 KB): MK_AUTO, MK_GO, MK_PR, MK_LV, MK_WIN_N, MK_WIN_IN, mkAnim, mkSnd, mkS(), mkTasks, mkLog, mkDone(), mkWon, mkWins, mkDay(), mkCanJudge(), mkScene(), mkLaugh(), mkResult(), viewMaraka(), mkStrip()
+- **757-night.js** (2 KB): nightOn(), nightCard(), dnLast, dnDay, deedPulse()
 - **760-uyub.js** (4 KB): UY, UYN, UY_HEART, UY_LIS, UY_AF, UY_Q, UY_A, UY_W, UY_LV, UY_LC, UY_DO, UY_HAD, UY_RS, UY_WHO, UY_CV, UY_MV, UY_DAY, uyRun, uyOpen, uy(), uyDT, uyNum
 - **770-uyub-score.js** (2 KB): uyReason(), uyMuh(), uyCV(), uyScore(), uyLv, uyRank, uyValid(), uyLast, uyPrevValid, uyPend()
 - **780-uyub-screens.js** (21 KB): UY_LT, UY_IH, UY_IHC, UY_UJB, uyF, uyProg, uyUjb, uyQ, viewUyub(), uyRes(), uyCurCard(), uyMain(), uyHazm(), uyFault(), uyUjbBox(), uyIntro(), uyDoors(), uyPendCard(), uyTest(), uyResults(), uyChg(), uyBar(), uyRow(), uyCard()
@@ -91,7 +92,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **800-tasmi-engine.js** (4 KB): TS_MARKS, tsKey(), tsLev(), tsSame(), tsCat, TS_IGN, tsNew(), tsFeed(), tsPrompt()
 - **810-tasmi.js** (13 KB): RW_N, RWD, RWF, tsMsg, TSR, tsRes, TS_SR, tsSt(), tsLoad(), tsDig, tsAyat(), tsWords(), tsSay, tsSpeak(), tsRec(), tsHear(), tsStart(), tsStop(), tsTick(), tsErr(), tsFath(), tsFlash(), tsDone(), tsPaint(), viewTasmi(), tsClick(), VIEWS, TOPTABS
 - **820-audio.js** (15 KB): AU_REPO, AU_EXT, SIRA_K, QIY_K, AQ_K, auScr, auHome, auScrK, AU_T, AU, auCat, auBusy, auErr, auOpen, auLastSave, auSt, auInv, auClean, auFmt, auBuild(), auLoad(), auAll, auFind, MEDIA_BASE, auUrl, auNext(), auPlay(), auToggle(), auSkip(), auMeta(), auPos(), auStore(), AU_IC, auPct(), viewAudio(), auUi(), auClose(), auNowUi(), auClick()
-- **830-router.js** (7 KB): tabOf(), ptKind(), skyKind(), render(), go(), NAVH, navBack, navRoute, navUrl(), LAST_K, LAST_SKIP, lastSave(), goRaw()
+- **830-router.js** (7 KB): tabOf(), ptKind(), skyKind(), themeNow, render(), go(), NAVH, navBack, navRoute, navUrl(), LAST_K, LAST_SKIP, lastSave(), goRaw()
 - **840-events.js** (25 KB): adhAwake(), logOrgan(), applyWird()
 - **850-push.js** (12 KB): photoMsg, geoMsg, pushMsg, pushBusy, VAPID, isIOS, pushPrefs(), trPend(), pushDoc(), pushT, pushSync(), pushEnable(), pushDisable(), pushTest(), notifPerm, notifBlockedMsg(), hudurTest(), showHudur(), hudurHash(), pushState(), pushStateLine(), pushInvite(), pushSection(), setLoc(), geoLocate(), setPhoto()
 - **860-qa-search.js** (4 KB): qaNorm, qaUnmark(), qaMark(), qaTimer, qaSearch(), qaShare(), miniToast()
@@ -118,6 +119,8 @@ The app is built from these files, joined in the order of their names (`node scr
 - 150-simple-ui.css
 - 160-maraka.css
 - 170-yt-series.css
+- 180-light.css
+- 185-light-auto.css
 
 ## Other files
 

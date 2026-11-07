@@ -9,9 +9,11 @@ let LANG='ar';
 const deDigits=s=>s.replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d));
 const hasAr=s=>/[؀-ۿ]/.test(s);
 /* the translations live in i18n.json (built from I18N_D): Arabic readers never download them */
-let I18N_OK=false;
-function i18nLoad(){if(I18N_OK||Object.keys(I18N_D).length>200){I18N_OK=true;return Promise.resolve()}
-  return fetch('i18n.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(j=>{I18N_D=j;I18N_OK=true}).catch(e=>console.warn('i18n',e))}
+/* each language has its own small file (i18n/en.json …, about a third of the whole); the content editor loads the whole i18n.json */
+let I18N_OK=false,I18N_L=null,I18N_ALL=false;
+function i18nLoad(){if(LANG==='ar'||I18N_ALL||I18N_L===LANG){I18N_OK=true;return Promise.resolve()}I18N_OK=false;const lg=LANG,i=LIDX[lg];
+  return fetch('i18n/'+lg+'.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(j=>{if(I18N_ALL)return;const D={};for(const k in j){const a=[];a[i]=j[k];D[k]=a}I18N_D=D;I18N_L=lg;I18N_OK=lg===LANG}).catch(()=>i18nLoadAll())}
+function i18nLoadAll(){if(I18N_ALL)return Promise.resolve();return fetch('i18n.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(j=>{I18N_D=j;I18N_ALL=true;I18N_OK=true}).catch(e=>console.warn('i18n',e))}
 function Tx(s){if(LANG==='ar')return s;const i=LIDX[LANG];let k=deDigits(s.trim());if(!I18N_D[k]&&k.normalize){const n=k.normalize('NFC');if(I18N_D[n])k=n}
   if(!I18N_D[k]&&/[\u064B-\u0652\u0670]/.test(k)){const k2=k.replace(/[\u064B-\u0652\u0670]/g,'');if(I18N_D[k2])k=k2}
   if(I18N_D[k])return I18N_D[k][i]||k;if(I18N_W[k])return I18N_W[k][i]||k;
