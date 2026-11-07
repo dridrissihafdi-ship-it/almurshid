@@ -1,0 +1,87 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'dr.idrissi.hafdi@gmail.com'
+        && request.auth.token.email_verified == true;
+    }
+    match /users/{uid} {
+      allow read: if request.auth != null && (request.auth.uid == uid || isAdmin());
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['email','name','lang','createdAt','lastSeen','time','days','aName','scr']);
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['aName']);
+      allow delete: if request.auth != null && (request.auth.uid == uid || isAdmin());
+    }
+    match /progress/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+      allow delete: if isAdmin();
+    }
+    match /push/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+      allow delete: if isAdmin();
+    }
+    match /inbox/{id} {
+      allow create: if isAdmin()
+        && request.resource.data.keys().hasOnly(['uid','text','createdAt','read','pushed'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 4000;
+      allow read: if request.auth != null && (resource.data.uid == request.auth.uid || isAdmin());
+      allow update: if request.auth != null && resource.data.uid == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow delete: if isAdmin();
+    }
+    match /endorse/{uid} {
+      allow read: if request.auth != null && (request.auth.uid == uid || isAdmin());
+      allow write: if isAdmin();
+    }
+    match /deletions/{uid} {
+      allow read, write: if isAdmin();
+    }
+    match /messages/{id} {
+      allow create: if request.auth != null
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.keys().hasOnly(['uid','email','name','lang','text','createdAt'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 2000;
+      allow read, delete: if isAdmin();
+    }
+    match /questions/{id} {
+      allow create: if request.auth != null
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.keys().hasOnly(['uid','email','name','lang','text','createdAt'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 2000;
+      allow read: if request.auth != null && (resource.data.uid == request.auth.uid || isAdmin());
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['answer','answeredAt']);
+      allow delete: if request.auth != null && (resource.data.uid == request.auth.uid || isAdmin());
+    }
+    // anonymous usage counters (src/js/875-stats.js): anyone may add to them, only the admin reads them.
+    // No identifier is ever stored; each phone adds +1 at most once a day per counter.
+    function statKeys() {
+      return ["dev", "acct", "guest", "inst", "l_ar", "l_en", "l_fr", "l_es", "l_ru", "l_ur", "ui_s", "ui_c", "f_pray", "f_mh", "f_kh", "f_adh", "f_q", "m_seen", "m_new", "m_pray", "m_uy", "m_prep1", "m_prep7", "m_prep30", "m_org", "m_org7", "m_org30", "m_mh7", "m_acct", "m_push", "m_inst", "v_home", "v_search", "v_h_ibadat", "v_h_ruh", "v_h_ilm", "v_h_shurut", "v_tasmi", "v_me", "v_wudu", "v_salat", "v_khushu", "v_ikhub", "v_ikhlas", "v_sirr", "v_ikhl", "v_ahdaf", "v_tawba", "v_mujahada", "v_series", "v_fatur", "v_tools", "v_duas", "v_qibla", "v_hifz", "v_ask", "v_majalis", "v_path", "v_roadmap", "v_fiqh", "v_aqida", "v_audio", "v_sira", "v_qiyama", "v_method", "v_tazkiya", "v_uyub", "v_muraqabat", "v_sura", "v_aamal", "v_dhikr_run", "v_adh_sabah", "v_adh_masa", "v_notif", "v_profile", "v_muhasaba", "v_organ", "v_quran", "v_umrah", "v_khalwa", "v_subha", "v_mushaf", "v_qa", "v_week", "v_about", "v_tahlil", "v_ruhi", "v_mraqib", "v_munajat"];
+    }
+    function mileKeys() {
+      return ["m_seen", "m_new", "m_pray", "m_uy", "m_prep1", "m_prep7", "m_prep30", "m_org", "m_org7", "m_org30", "m_mh7", "m_acct", "m_push", "m_inst"];
+    }
+    function statWrite(keys) {
+      return keys.hasOnly(statKeys()) && keys.size() <= 40;
+    }
+    match /stats/{day} {
+      allow read: if isAdmin();
+      allow create: if day.matches('^d-[0-9]{4}-[0-9]{2}-[0-9]{2}$') && statWrite(request.resource.data.keys());
+      allow update: if day.matches('^d-[0-9]{4}-[0-9]{2}-[0-9]{2}$') && statWrite(request.resource.data.diff(resource.data).affectedKeys());
+      allow create: if day == 'all' && request.resource.data.keys().hasOnly(mileKeys());
+      allow update: if day == 'all' && request.resource.data.diff(resource.data).affectedKeys().hasOnly(mileKeys());
+    }
+    match /content/{doc} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+  }
+}

@@ -1,0 +1,25 @@
+/* ---------- quick self-review: five organs, three faces ---------- */
+const QM_ORG=[['ayn','العينان','<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.2"/>'],
+ ['lisan','اللسان','<path d="M4 9.5c2-3 5-4 8-4s6 1 8 4c-2 1.6-5 2.2-8 2.2S6 11.1 4 9.5z"/><path d="M8 11.5c0 4 1.8 7 4 7s4-3 4-7"/><path d="M12 12v4"/>'],
+ ['udhun','الأذنان','<path d="M7 9a5 5 0 0 1 10 0c0 3-2.5 4-3.5 6-.7 1.5-1 3.5-3 3.5A2.5 2.5 0 0 1 8 16"/><path d="M10 9.5a2 2 0 0 1 4 0c0 1.4-1.6 1.8-1.6 3"/>'],
+ ['yad','اليدان','<path d="M8 12V5.5a1.5 1.5 0 0 1 3 0V11V4a1.5 1.5 0 0 1 3 0v7V5.5a1.5 1.5 0 0 1 3 0V14c0 4-2.5 6.5-6 6.5-2.5 0-4-1.2-5.5-3.5L3.8 13a1.5 1.5 0 0 1 2.4-1.7L8 13.5"/>'],
+ ['qalb','القلب','<path d="M12 20s-8-4.8-8-10.5A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 8 2.5C20 15.2 12 20 12 20z"/>']];
+const QM_FACE=[['#c8553d','<path d="M8.5 16.2c2-1.8 5-1.8 7 0"/>'],['#c9a24a','<path d="M8.5 15h7"/>'],['#3f8f68','<path d="M8.5 14c2 2 5 2 7 0"/>']];
+const qmFace=(k,on)=>`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="${on?QM_FACE[k][0]:'none'}" stroke="${QM_FACE[k][0]}" stroke-width="1.6"/><circle cx="9" cy="10" r="1.1" fill="${on?'#fff':QM_FACE[k][0]}" stroke="none"/><circle cx="15" cy="10" r="1.1" fill="${on?'#fff':QM_FACE[k][0]}" stroke="none"/><g fill="none" stroke="${on?'#fff':QM_FACE[k][0]}" stroke-width="1.6" stroke-linecap="round">${QM_FACE[k][1]}</g></svg>`;
+const qmDay=d=>((S.qm||{})[d||TODAY])||{};
+/* what tonight's review lists: the three counsels while the seeker is in the preparatory stage, then the organs he is purifying; the general five only when nothing is under way */
+const QM_PI={samt:'<path d="M5 12c2-3 12-3 14 0-2 3-12 3-14 0z"/><path d="M8 12h8"/>',khuluq:'<path d="M12 20s-7-4.2-7-9.2A3.8 3.8 0 0 1 12 8.6a3.8 3.8 0 0 1 7 2.2c0 5-7 9.2-7 9.2z"/><path d="M9 13h6"/>',hudur:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/>'};
+const qmPrepOn=()=>prepState().status==='active';
+const qmVal=(id,d)=>{const v=qmDay(d)[id];if(id.startsWith('p_')){const L=(prepState().log||{})[d||TODAY]||{},x=L[id.slice(2)];if(x==='ok')return 2;if(x==='fail')return 0}return v};
+const qmDone=d=>qmRows().every(([id])=>qmVal(id,d)!==undefined);
+const QM_EXTRA={qadam:'<path d="M9 4c2 0 3 2 3 5s-1 6-3 6-3-3-3-6 1-5 3-5zM8 17h3v3H8z"/>',batn:'<circle cx="12" cy="13" r="7"/><path d="M12 13h.01"/>',farj:'<path d="M12 4v16M6 10h12"/>'};
+const qmRows=()=>{const act=activeOrgans().map(g=>g.id),pre=qmPrepOn()?PREP.map(x=>['p_'+x.id,x.t,QM_PI[x.id]||'','prep']):[];
+  const org=act.length?ORGANS.filter(g=>act.includes(g.id)).map(g=>{const q=QM_ORG.find(r=>r[0]===g.id);return [g.id,g.name,q?q[2]:(QM_EXTRA[g.id]||''),'org']}):pre.length?[]:QM_ORG.map(r=>[...r,'gen']);
+  return [...pre,...org]};
+function qmCard(compact,full){const R=qmRows(),D=Object.fromEntries(R.map(([id])=>[id,qmVal(id)])),done=qmDone(),bad=R.filter(([id])=>D[id]===0).map(o=>o[1]),ACT=activeOrgans().map(g=>g.id),pn=Math.min(prepDays(),30);let grp='';
+  const last7=[...Array(7)].map((_,i)=>{const d=ds(new Date(Date.now()-(6-i)*DAY)),x=qmDay(d),v=Object.values(x).filter(n=>typeof n==='number');const a=v.length?v.reduce((p,n)=>p+n,0)/v.length:-1;return `<i style="background:${a<0?'var(--chip)':a>=1.5?'#3f8f68':a>=.8?'#c9a24a':'#c8553d'}"></i>`}).join('');
+  return `<section class="box qm${compact?' qm-c':''}"><div class="qm-h"><b>حاسب نفسك في عشرين ثانية</b><span>${R.some(r=>r[3]==='prep')?'كيف كان يومك مع وصايا المرحلة التمهيدية وجوارحك؟':'كيف كانت جوارحك اليوم؟'}</span></div>
+   ${R.map(([id,n,ic,g])=>{const o=ACT.includes(id)?S.organs[id]:null,hd=g!==grp&&g!=='gen'?`<p class="qm-g">${g==='prep'?'<span>المرحلة التمهيدية</span> · <span>اليوم</span> '+tsDig(Math.min(pn+1,30))+' <span>من</span> 30':'<span>الجوارح التي تزكّيها</span>'}</p>`:'';grp=g;return `${hd}<div class="qm-r"><span class="qm-o"><svg viewBox="0 0 24 24" aria-hidden="true">${ic}</svg><span>${n}${o?`<small class="qm-ph"><span>${PHASE[o.phase]}</span> · ${o.today==='ok'?'<span>حُسبت اليوم ✓</span>':o.today==='slip'?'<span>سُجّلت زلّة</span>':'<span>يُحسب في رحلتك</span>'}</small>`:''}</span></span><span class="qm-f">${[2,1,0].map(k=>`<button data-qm="${id}" data-qv="${k}" aria-pressed="${D[id]===k}" aria-label="${esc(Tx(n)+' · '+Tx(['وقعت زلّة','بين بين','حفظتُها'][k]))}">${qmFace(k,D[id]===k)}</button>`).join('')}</span></div>${qmSlip===id?`<div class="qm-why"><b><span>ما الذي أوقعك في زلة</span> ${n}<span>؟</span></b><div class="qm-ch">${QM_REASONS.map(r=>`<button data-qmwhy="${esc(r)}">${r}</button>`).join('')}</div></div>`:''}`}).join('')}
+   ${done?`<p class="qm-ok">${bad.length?'<span>استغفر الله، وابدأ غدًا بنيّة جديدة.</span>':'<span>الحمد لله، ثبّتك الله.</span>'}</p>`:''}
+   <div class="qm-w"><span>هذا الأسبوع</span><span class="qm-dots" dir="ltr">${last7}</span>${full?'':`<button class="lnk qm-all" data-go="muhasaba">${ikS().base?'<span>أسئلة الإخلاص والكتابة</span>':'<span>اكتب محاسبتك</span>'} ←</button>`}</div></section>`}
+
