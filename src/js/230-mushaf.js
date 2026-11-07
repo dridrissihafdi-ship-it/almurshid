@@ -80,19 +80,20 @@ async function mushafDownload(){mshDl={on:true,n:0,msg:''};render();let ok=0,cut
   for(let h=1;h<=60;h++){if(!navigator.onLine){cut=true;break}try{await qBundle(h);ok++}catch(e){if(!navigator.onLine){cut=true;break}}mshDl.n=h;const b=document.querySelector('[data-mshdl]');if(b)b.textContent=Tx('جارٍ التنزيل…')+' '+h+' / 60';const br=document.querySelector('.msh-dlbar b');if(br)br.style.width=(h/60*100)+'%'}
   try{await checkOffline()}catch(e){}
   mshDl={on:false,n:ok,msg:ok===60?Tx('نُزّل المصحف كاملًا، ويمكنك قراءته دون إنترنت.'):Tx(cut?'انقطع الاتصال. ما نُزّل محفوظ، فاضغط «استأنف التنزيل» حين يعود.':'لم يكتمل التنزيل. أعد المحاولة عند الاتصال بالإنترنت.')};render()}
-/* swipe from left to right anywhere: go back to the previous page (like the back button) */
+/* swipe from the left edge of the screen to the right: go back to the previous page (like the back button).
+   Only from the edge: a swipe started anywhere else was taken for "back" while the seeker was just scrolling. */
 let swb=null;
 function swbScrollable(el){for(let e=el;e&&e!==document.body;e=e.parentElement){if(e.scrollWidth>e.clientWidth+4){const o=getComputedStyle(e).overflowX;if(o==='auto'||o==='scroll')return true}}return false}
 document.addEventListener('touchstart',e=>{swb=null;if(e.touches.length!==1||screen==='home'||screen==='mushaf')return;const t=e.target;
   if(t.closest('input,textarea,select,[contenteditable],.dr,#bsheet,#hudurOv,.msh-page,canvas,iframe,video,.st-ov,.am-row,.rm-full'))return;if(document.querySelector('#bsheet:not([hidden])'))return;if(swbScrollable(t))return;
-  if(!document.querySelector('[data-back]'))return;swb={x:e.touches[0].clientX,y:e.touches[0].clientY,t:Date.now(),h:null}},{passive:true});
+  if(!document.querySelector('[data-back]'))return;if(e.touches[0].clientX>28)return;swb={x:e.touches[0].clientX,y:e.touches[0].clientY,t:Date.now(),h:null}},{passive:true});
 document.addEventListener('touchmove',e=>{if(!swb||e.touches.length!==1){swb=null;return}const dx=e.touches[0].clientX-swb.x,dy=e.touches[0].clientY-swb.y;
-  if(swb.h===null&&(Math.abs(dx)>10||Math.abs(dy)>10))swb.h=dx>0&&Math.abs(dx)>Math.abs(dy)*1.4;
+  if(swb.h===null&&(Math.abs(dx)>10||Math.abs(dy)>10))swb.h=dx>0&&Math.abs(dx)>Math.abs(dy)*2;
   if(swb.h===false){swb=null;return}
   if(swb.h){const a=document.getElementById('app');if(a){a.style.transition='none';a.style.transform=`translateX(${Math.min(dx,140)*0.45}px)`;a.style.opacity=String(1-Math.min(dx,140)/700)}}},{passive:true});
 function swbReset(){const a=document.getElementById('app');if(!a)return;a.style.transition='transform .2s ease,opacity .2s ease';a.style.transform='';a.style.opacity='';setTimeout(()=>{a.style.transition=''},220)}
 document.addEventListener('touchend',e=>{if(!swb)return;const s=swb;swb=null;if(!s.h){return}const t=e.changedTouches[0],dx=t.clientX-s.x,dy=t.clientY-s.y;
-  swbReset();if(dx>70&&Math.abs(dy)<dx*0.6&&Date.now()-s.t<900){const b=document.querySelector('[data-back]');if(b)b.click()}},{passive:true});
+  swbReset();if(dx>90&&Math.abs(dy)<dx*0.5&&Date.now()-s.t<900){const b=document.querySelector('[data-back]');if(b)b.click()}},{passive:true});
 document.addEventListener('touchcancel',()=>{if(swb&&swb.h)swbReset();swb=null},{passive:true});
 /* swipe to turn pages */
 let mshX=null;document.addEventListener('touchstart',e=>{if(screen==='mushaf'&&e.target.closest('#mshPage')&&e.touches.length===1)mshX=[e.touches[0].clientX,e.touches[0].clientY,Date.now()];else mshX=null},{passive:true});

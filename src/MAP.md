@@ -83,7 +83,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **730-screen-wudu-salat.js** (1 KB): viewGuide()
 - **740-lesson-stories.js** (4 KB): ST_MOTIF, ST_ROT, storySlides(), stSpeakTok, stSay(), storyOpen()
 - **750-simple-tazkiya.js** (6 KB): TZ_K, tzStage0(), tzUnl(), tzLadder(), tzSCard(), tzMore(), tzLearn(), tzSimple(), qmSlip, QM_REASONS
-- **755-maraka.js** (13 KB): MK_AUTO, MK_GO, MK_PR, MK_LV, MK_WIN_N, MK_WIN_IN, mkAnim, mkSnd, mkS(), mkTasks, mkLog, mkDone(), mkWon, mkWins, mkDay(), mkCanJudge(), mkScene(), mkLaugh(), mkResult(), viewMaraka()
+- **755-maraka.js** (14 KB): MK_AUTO, MK_GO, MK_PR, MK_LV, MK_WIN_N, MK_WIN_IN, mkAnim, mkSnd, mkS(), mkTasks, mkLog, mkDone(), mkWon, mkWins, mkDay(), mkCanJudge(), mkScene(), mkLaugh(), mkResult(), viewMaraka(), mkStrip()
 - **760-uyub.js** (4 KB): UY, UYN, UY_HEART, UY_LIS, UY_AF, UY_Q, UY_A, UY_W, UY_LV, UY_LC, UY_DO, UY_HAD, UY_RS, UY_WHO, UY_CV, UY_MV, UY_DAY, uyRun, uyOpen, uy(), uyDT, uyNum
 - **770-uyub-score.js** (2 KB): uyReason(), uyMuh(), uyCV(), uyScore(), uyLv, uyRank, uyValid(), uyLast, uyPrevValid, uyPend()
 - **780-uyub-screens.js** (21 KB): UY_LT, UY_IH, UY_IHC, UY_UJB, uyF, uyProg, uyUjb, uyQ, viewUyub(), uyRes(), uyCurCard(), uyMain(), uyHazm(), uyFault(), uyUjbBox(), uyIntro(), uyDoors(), uyPendCard(), uyTest(), uyResults(), uyChg(), uyBar(), uyRow(), uyCard()
@@ -91,7 +91,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **800-tasmi-engine.js** (4 KB): TS_MARKS, tsKey(), tsLev(), tsSame(), tsCat, TS_IGN, tsNew(), tsFeed(), tsPrompt()
 - **810-tasmi.js** (13 KB): RW_N, RWD, RWF, tsMsg, TSR, tsRes, TS_SR, tsSt(), tsLoad(), tsDig, tsAyat(), tsWords(), tsSay, tsSpeak(), tsRec(), tsHear(), tsStart(), tsStop(), tsTick(), tsErr(), tsFath(), tsFlash(), tsDone(), tsPaint(), viewTasmi(), tsClick(), VIEWS, TOPTABS
 - **820-audio.js** (15 KB): AU_REPO, AU_EXT, SIRA_K, QIY_K, AQ_K, auScr, auHome, auScrK, AU_T, AU, auCat, auBusy, auErr, auOpen, auLastSave, auSt, auInv, auClean, auFmt, auBuild(), auLoad(), auAll, auFind, MEDIA_BASE, auUrl, auNext(), auPlay(), auToggle(), auSkip(), auMeta(), auPos(), auStore(), AU_IC, auPct(), viewAudio(), auUi(), auClose(), auNowUi(), auClick()
-- **830-router.js** (7 KB): tabOf(), ptKind(), skyKind(), render(), go(), NAVH, navBack, navRoute, navUrl(), goRaw()
+- **830-router.js** (7 KB): tabOf(), ptKind(), skyKind(), render(), go(), NAVH, navBack, navRoute, navUrl(), LAST_K, LAST_SKIP, lastSave(), goRaw()
 - **840-events.js** (25 KB): adhAwake(), logOrgan(), applyWird()
 - **850-push.js** (12 KB): photoMsg, geoMsg, pushMsg, pushBusy, VAPID, isIOS, pushPrefs(), trPend(), pushDoc(), pushT, pushSync(), pushEnable(), pushDisable(), pushTest(), notifPerm, notifBlockedMsg(), hudurTest(), showHudur(), hudurHash(), pushState(), pushStateLine(), pushInvite(), pushSection(), setLoc(), geoLocate(), setPhoto()
 - **860-qa-search.js** (4 KB): qaNorm, qaUnmark(), qaMark(), qaTimer, qaSearch(), qaShare(), miniToast()

@@ -41,6 +41,7 @@ function heroHome(){
    <section class="h2-pr" aria-label="مواقيت الصلاة"><div class="h2-prh"><span>مواقيت الصلاة</span><b><span>صلاة</span> ${nx.n} <span>بعد</span> ${mins>=60?Math.floor(mins/60)+' <span>س</span> ':''}${mins%60} <span>د</span></b></div>
     <svg class="h2-curve" viewBox="0 0 340 50" aria-hidden="true"><path d="M6 14 Q90 46 170 40 T334 12" fill="none" stroke="rgba(243,237,230,.32)" stroke-width="1.2"/>${(RTL()?X:X.slice().reverse()).map((x,i)=>i===ki?`<circle cx="${x}" cy="${Y[i]}" r="8" fill="none" stroke="#E6C891" stroke-width="1.6"/><circle cx="${x}" cy="${Y[i]}" r="3.6" fill="#E6C891"/>`:`<circle cx="${x}" cy="${Y[i]}" r="2.8" fill="#F3EDE6"/>`).join('')}</svg>
     <div class="h2-pl">${F.map(([k,n])=>`<div class="${k===nx.k?'on':''}"><span>${n}</span><small>${hm(pt[k])}</small></div>`).join('')}</div></section>
+   ${mkStrip('h2-mk')}
   </header>`;
 }
 /* the one thing to do now */

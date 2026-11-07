@@ -5,14 +5,14 @@ const NAV_SIMPLE=`<button data-nav="home" aria-label="اليوم"><svg viewBox="
  <button data-nav="tariq" aria-label="الطريق"><svg viewBox="0 0 24 24"><path class="f" d="M3 19l6-12 4 7 3-4 5 9z"/><path d="M3 19l6-12 4 7 3-4 5 9zM2 19h20"/></svg><span>الطريق</span></button>
  <button data-nav="me" aria-label="أنا"><svg viewBox="0 0 24 24"><circle class="f" cx="12" cy="8.5" r="3.8"/><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.5c.8-4 3.8-6.3 7.5-6.3s6.7 2.3 7.5 6.3"/></svg><span>أنا</span></button>`;
 function navSync(){const n=document.querySelector('nav.tabs .in');if(!n)return;const m=SIMPLE()?'s':'c';if(n.dataset.mode===m)return;n.dataset.mode=m;n.innerHTML=m==='s'?NAV_SIMPLE:NAV_CLASSIC}
-function tabS(s){if(s==='home'||s.startsWith('adh_')||['aamal','dhikr_run','quran','mushaf','hifz','tasmi','qa'].includes(s))return 'home';
+function tabS(s){if(s==='home'||s.startsWith('adh_')||['aamal','maraka','dhikr_run','quran','mushaf','hifz','tasmi','qa'].includes(s))return 'home';
   if(['me','profile','ruhi','notif','about','admin','week','install','muraqabat','sura','tahlil','mraqib','munajat'].includes(s))return 'me';return 'tariq'}
 
 /* picture tiles */
 const SMT={maraka:'معركة اليوم',h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'الروحانيات',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',ahdaf:'جبل الأهداف الأربعة',mraqib:'مراقبات',munajat:'مناجاة',qiyama:'يوم القيامة',aqida:'العقيدة',fiqh:'الفقه',tawba:'التوبة',mujahada:'المجاهدة',hifz:'حفظ القرآن وتسميعه',tasmi:'التسميع',aamal:'أعمال اليوم',quran:'القرآن',khushu:'الخشوع',amrad:'أمراض القلب',qa:'سؤال وجواب',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',khalwa:'الخلوة والاعتكاف',method:'المنهج المحمدي',taammulat:'تأملات',majalis:'المجالس والدروس',ask:'اسأل الشيخ',tools:'أدوات السالك',umrah:'العمرة',wudu:'الوضوء',salat:'الصلاة',sira:'السيرة النبوية'};
 
 /* the Path's sections ("tabs"): each opens a page of picture tiles */
-const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['maraka','uyub','khushu','mraqib','munajat','khalwa'],
+const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['uyub','khushu','mraqib','munajat','khalwa'],
  h_ilm:['method','majalis','sira','qiyama','qa','ask'],h_shurut:['aqida','fiqh','tawba','mujahada']};
 const IL_ALIAS={maraka:['mk_s1','m_climb'],h_quran:'quran',h_ibadat:'salat',h_ruh:'taammulat',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],khalwa:['khalwa','m_lamp'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
 const viewHub=k=>()=>`<section>${smTiles(HUBS[k],HUBS[k].length%2?'odd':'')}</section>`;

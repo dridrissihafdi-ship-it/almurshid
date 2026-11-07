@@ -1510,6 +1510,17 @@ body.msh-focus:not(.msh-show) .msh-page::after{content:'';display:block;height:6
 .tr-t .tr-m{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;font-size:13px;color:var(--muted)}.tr-t .tr-m b{font-size:14px;color:var(--ink)}
 .tr-t .tr-m+.tr-bar{margin-top:4px}.tr-bf b{background:var(--gold)}
 @media (prefers-reduced-motion:reduce){.tr-f{animation:none}}
+.mk-strip{display:flex;align-items:center;gap:12px;width:100%;text-align:start;font:inherit;color:var(--ink);cursor:pointer;border-radius:18px;padding:10px 12px;margin-top:10px;
+  background:linear-gradient(100deg,rgba(40,26,34,.78),rgba(28,20,18,.72));border:1px solid rgba(230,200,145,.22);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.mk-strip.am-mk{margin:0 0 14px}
+.mk-si{width:46px;height:46px;flex:none;border-radius:12px;object-fit:contain;background:radial-gradient(circle,#3a2a30,#140e10);--mf:1}
+.mk-strip.l .mk-si{animation:mkHa .5s ease-in-out 3}
+.mk-st{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}.mk-st small{color:#cdbfae;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mk-st b{font-size:15px;color:#F3EDE6}.mk-strip.w .mk-st b{color:#9fd8a8}.mk-strip.l .mk-st b{color:#f0a49a}.mk-strip.j .mk-st b{color:#E6C891}
+.mk-sd{display:flex;align-items:center;gap:5px}.mk-sd i{width:16px;height:6px;border-radius:3px;background:rgba(243,237,230,.2)}.mk-sd i.on{background:#E6C891}.mk-sd i.pr.on{background:#9fd8a8}
+.mk-sd em{font-style:normal;font-size:12px;color:#cdbfae;margin-inline-start:4px}
+.mk-sc{width:18px;height:18px;flex:none;fill:none;stroke:#E6C891;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+html[dir=ltr] .mk-sc{transform:scaleX(-1)}
 /* the Sira and the Day of Judgment, in every language */
 .ys-note{margin-top:10px}.ys-nl{display:block;font-weight:600;font-size:14px;margin:0 0 4px}.ys-note textarea{width:100%;box-sizing:border-box;border-radius:12px;border:1px solid var(--card-line);background:var(--page);color:var(--ink);padding:10px;font:inherit;font-size:14.5px;line-height:1.7;resize:vertical}
 .ys-ns{min-height:1.2em;margin:2px 0 0;font-size:12px}
@@ -2280,6 +2291,7 @@ function heroHome(){
    <section class="h2-pr" aria-label="مواقيت الصلاة"><div class="h2-prh"><span>مواقيت الصلاة</span><b><span>صلاة</span> ${nx.n} <span>بعد</span> ${mins>=60?Math.floor(mins/60)+' <span>س</span> ':''}${mins%60} <span>د</span></b></div>
     <svg class="h2-curve" viewBox="0 0 340 50" aria-hidden="true"><path d="M6 14 Q90 46 170 40 T334 12" fill="none" stroke="rgba(243,237,230,.32)" stroke-width="1.2"/>${(RTL()?X:X.slice().reverse()).map((x,i)=>i===ki?`<circle cx="${x}" cy="${Y[i]}" r="8" fill="none" stroke="#E6C891" stroke-width="1.6"/><circle cx="${x}" cy="${Y[i]}" r="3.6" fill="#E6C891"/>`:`<circle cx="${x}" cy="${Y[i]}" r="2.8" fill="#F3EDE6"/>`).join('')}</svg>
     <div class="h2-pl">${F.map(([k,n])=>`<div class="${k===nx.k?'on':''}"><span>${n}</span><small>${hm(pt[k])}</small></div>`).join('')}</div></section>
+   ${mkStrip('h2-mk')}
   </header>`;
 }
 /* the one thing to do now */
@@ -2684,19 +2696,20 @@ async function mushafDownload(){mshDl={on:true,n:0,msg:''};render();let ok=0,cut
   for(let h=1;h<=60;h++){if(!navigator.onLine){cut=true;break}try{await qBundle(h);ok++}catch(e){if(!navigator.onLine){cut=true;break}}mshDl.n=h;const b=document.querySelector('[data-mshdl]');if(b)b.textContent=Tx('جارٍ التنزيل…')+' '+h+' / 60';const br=document.querySelector('.msh-dlbar b');if(br)br.style.width=(h/60*100)+'%'}
   try{await checkOffline()}catch(e){}
   mshDl={on:false,n:ok,msg:ok===60?Tx('نُزّل المصحف كاملًا، ويمكنك قراءته دون إنترنت.'):Tx(cut?'انقطع الاتصال. ما نُزّل محفوظ، فاضغط «استأنف التنزيل» حين يعود.':'لم يكتمل التنزيل. أعد المحاولة عند الاتصال بالإنترنت.')};render()}
-/* swipe from left to right anywhere: go back to the previous page (like the back button) */
+/* swipe from the left edge of the screen to the right: go back to the previous page (like the back button).
+   Only from the edge: a swipe started anywhere else was taken for "back" while the seeker was just scrolling. */
 let swb=null;
 function swbScrollable(el){for(let e=el;e&&e!==document.body;e=e.parentElement){if(e.scrollWidth>e.clientWidth+4){const o=getComputedStyle(e).overflowX;if(o==='auto'||o==='scroll')return true}}return false}
 document.addEventListener('touchstart',e=>{swb=null;if(e.touches.length!==1||screen==='home'||screen==='mushaf')return;const t=e.target;
   if(t.closest('input,textarea,select,[contenteditable],.dr,#bsheet,#hudurOv,.msh-page,canvas,iframe,video,.st-ov,.am-row,.rm-full'))return;if(document.querySelector('#bsheet:not([hidden])'))return;if(swbScrollable(t))return;
-  if(!document.querySelector('[data-back]'))return;swb={x:e.touches[0].clientX,y:e.touches[0].clientY,t:Date.now(),h:null}},{passive:true});
+  if(!document.querySelector('[data-back]'))return;if(e.touches[0].clientX>28)return;swb={x:e.touches[0].clientX,y:e.touches[0].clientY,t:Date.now(),h:null}},{passive:true});
 document.addEventListener('touchmove',e=>{if(!swb||e.touches.length!==1){swb=null;return}const dx=e.touches[0].clientX-swb.x,dy=e.touches[0].clientY-swb.y;
-  if(swb.h===null&&(Math.abs(dx)>10||Math.abs(dy)>10))swb.h=dx>0&&Math.abs(dx)>Math.abs(dy)*1.4;
+  if(swb.h===null&&(Math.abs(dx)>10||Math.abs(dy)>10))swb.h=dx>0&&Math.abs(dx)>Math.abs(dy)*2;
   if(swb.h===false){swb=null;return}
   if(swb.h){const a=document.getElementById('app');if(a){a.style.transition='none';a.style.transform=`translateX(${Math.min(dx,140)*0.45}px)`;a.style.opacity=String(1-Math.min(dx,140)/700)}}},{passive:true});
 function swbReset(){const a=document.getElementById('app');if(!a)return;a.style.transition='transform .2s ease,opacity .2s ease';a.style.transform='';a.style.opacity='';setTimeout(()=>{a.style.transition=''},220)}
 document.addEventListener('touchend',e=>{if(!swb)return;const s=swb;swb=null;if(!s.h){return}const t=e.changedTouches[0],dx=t.clientX-s.x,dy=t.clientY-s.y;
-  swbReset();if(dx>70&&Math.abs(dy)<dx*0.6&&Date.now()-s.t<900){const b=document.querySelector('[data-back]');if(b)b.click()}},{passive:true});
+  swbReset();if(dx>90&&Math.abs(dy)<dx*0.5&&Date.now()-s.t<900){const b=document.querySelector('[data-back]');if(b)b.click()}},{passive:true});
 document.addEventListener('touchcancel',()=>{if(swb&&swb.h)swbReset();swb=null},{passive:true});
 /* swipe to turn pages */
 let mshX=null;document.addEventListener('touchstart',e=>{if(screen==='mushaf'&&e.target.closest('#mshPage')&&e.touches.length===1)mshX=[e.touches[0].clientX,e.touches[0].clientY,Date.now()];else mshX=null},{passive:true});
@@ -3426,7 +3439,8 @@ const inMsj=(L,k)=>(L.masjid||[]).includes(k);
 function prayerChips(L){const pr=L.prayers||[],pt=prayerTimes(new Date((aDate||TODAY)+'T12:00:00')),late=prLate(L,aDate);
   return `<span class="pr-row">${FIVE.map(([k,n])=>{const on=pr.includes(k),lt=late.includes(k),m=on&&inMsj(L,k);return `<span class="pr-cell"><button class="pr-chip${on?(m?' on':' home'):lt?' late':''}" data-pray="${k}" aria-pressed="${on}"${lt?' title="لم تُسجَّل بعد"':''}><i>${on?'✓':lt?'!':''}</i><b>${n}</b><small>${hm(pt[k])}</small></button><button class="pr-msj${m?' on':''}" data-masjid="${k}" aria-pressed="${m}" aria-label="في المسجد">${MSJ}<span>المسجد</span></button></span>`}).join('')}</span><span class="pr-key"><span><i class="g"></i><span>في المسجد</span></span><span><i class="b"></i><span>في غير المسجد</span></span><span><i class="r"></i><span>فاتت</span></span></span>`}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState!=='visible')return;if(dayKey()!==TODAY&&screen!=='dhikr_run'&&AU.paused){location.reload();return}});
-setInterval(()=>{if(dayKey()!==TODAY&&screen!=='dhikr_run'&&!(document.activeElement&&/INPUT|TEXTAREA/.test(document.activeElement.tagName))&&!mshAuto)location.reload()},60000);
+/* a new day (at Fajr) reloads the app; while the seeker is inside a section it waits until he leaves the app or returns home */
+setInterval(()=>{if(dayKey()!==TODAY&&screen==='home'&&!(document.activeElement&&/INPUT|TEXTAREA/.test(document.activeElement.tagName))&&!mshAuto)location.reload()},60000);
 let prLateKey='';setInterval(()=>{try{if(screen!=='aamal'||document.activeElement&&/INPUT|TEXTAREA/.test(document.activeElement.tagName)&&document.activeElement.type!=='checkbox')return;const k=prLate(S.log[TODAY]).join();if(prLateKey&&k!==prLateKey)render();prLateKey=k}catch(e){}},60000);
 function setPrayer(k){const L=aLog();L.prayers=L.prayers||[];if(L.prayers.includes(k)&&L.masjid)L.masjid=L.masjid.filter(x=>x!==k);L.prayers=L.prayers.includes(k)?L.prayers.filter(x=>x!==k):[...L.prayers,k];
   applyWird('salat',L.prayers.length===FIVE.length,aDate)}
@@ -5595,7 +5609,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   <p class="muted">التنبيهات هنا داخل الصفحة. التنبيهات الفعلية على الهاتف تحتاج نسخة التطبيق المثبّتة.</p></section>`;
 }
-const APP_VER='2026-11-07 19:53';
+const APP_VER='2026-11-07 21:15';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
@@ -6196,14 +6210,14 @@ const NAV_SIMPLE=`<button data-nav="home" aria-label="اليوم"><svg viewBox="
  <button data-nav="tariq" aria-label="الطريق"><svg viewBox="0 0 24 24"><path class="f" d="M3 19l6-12 4 7 3-4 5 9z"/><path d="M3 19l6-12 4 7 3-4 5 9zM2 19h20"/></svg><span>الطريق</span></button>
  <button data-nav="me" aria-label="أنا"><svg viewBox="0 0 24 24"><circle class="f" cx="12" cy="8.5" r="3.8"/><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.5c.8-4 3.8-6.3 7.5-6.3s6.7 2.3 7.5 6.3"/></svg><span>أنا</span></button>`;
 function navSync(){const n=document.querySelector('nav.tabs .in');if(!n)return;const m=SIMPLE()?'s':'c';if(n.dataset.mode===m)return;n.dataset.mode=m;n.innerHTML=m==='s'?NAV_SIMPLE:NAV_CLASSIC}
-function tabS(s){if(s==='home'||s.startsWith('adh_')||['aamal','dhikr_run','quran','mushaf','hifz','tasmi','qa'].includes(s))return 'home';
+function tabS(s){if(s==='home'||s.startsWith('adh_')||['aamal','maraka','dhikr_run','quran','mushaf','hifz','tasmi','qa'].includes(s))return 'home';
   if(['me','profile','ruhi','notif','about','admin','week','install','muraqabat','sura','tahlil','mraqib','munajat'].includes(s))return 'me';return 'tariq'}
 
 /* picture tiles */
 const SMT={maraka:'معركة اليوم',h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'الروحانيات',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',ahdaf:'جبل الأهداف الأربعة',mraqib:'مراقبات',munajat:'مناجاة',qiyama:'يوم القيامة',aqida:'العقيدة',fiqh:'الفقه',tawba:'التوبة',mujahada:'المجاهدة',hifz:'حفظ القرآن وتسميعه',tasmi:'التسميع',aamal:'أعمال اليوم',quran:'القرآن',khushu:'الخشوع',amrad:'أمراض القلب',qa:'سؤال وجواب',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',khalwa:'الخلوة والاعتكاف',method:'المنهج المحمدي',taammulat:'تأملات',majalis:'المجالس والدروس',ask:'اسأل الشيخ',tools:'أدوات السالك',umrah:'العمرة',wudu:'الوضوء',salat:'الصلاة',sira:'السيرة النبوية'};
 
 /* the Path's sections ("tabs"): each opens a page of picture tiles */
-const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['maraka','uyub','khushu','mraqib','munajat','khalwa'],
+const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['uyub','khushu','mraqib','munajat','khalwa'],
  h_ilm:['method','majalis','sira','qiyama','qa','ask'],h_shurut:['aqida','fiqh','tawba','mujahada']};
 const IL_ALIAS={maraka:['mk_s1','m_climb'],h_quran:'quran',h_ibadat:'salat',h_ruh:'taammulat',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],khalwa:['khalwa','m_lamp'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
 const viewHub=k=>()=>`<section>${smTiles(HUBS[k],HUBS[k].length%2?'odd':'')}</section>`;
@@ -6534,6 +6548,14 @@ document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)r
   if(d.mkist){const D=mkDay();D.ist=1;save();render();return}
   if(d.mksnd){S.mkSnd=!S.mkSnd;save();render();if(S.mkSnd)mkLaugh();return}
 });
+/* the battle of today as a strip: on the home page (under the prayer times) and at the top of «الأعمال» */
+function mkStrip(where){const M=mkS(),D=mkDay(),f=mkDone(TODAY),n=f.filter(Boolean).length,T=f.length,can=mkCanJudge();
+  const st=D.r==='w'?'w':D.r==='l'?(D.ist?'i':'l'):can?'j':'f';
+  const msg={w:'انتصرتَ على الشيطان اليوم',l:'خسرت معركة اليوم، وما خسرت الحرب',i:'استغفرت، وغدًا معركة جديدة',j:'انتهت المعركة: اعرف نتيجتها',f:f[0]?'المعركة جارية: أتمّ مهامك':'ابدأ بالصلوات الخمس في أوقاتها'}[st];
+  const dots=f.map((x,i)=>`<i class="${x?'on':''}${i===0?' pr':''}"></i>`).join('');
+  return `<button class="mk-strip ${st} ${where||''}" data-go="maraka"><img class="mk-si" src="il/mk_d${st==='l'?2:1}.webp" alt="" loading="lazy"${st==='w'?' style="opacity:.35"':''}>
+   <span class="mk-st"><small><span>معركة اليوم</span> · <span>المستوى</span> ${D.lv+1}: <span>${MK_LV[D.lv].t}</span></small><b>${msg}</b><span class="mk-sd" aria-label="${n} / ${T}">${dots}<em dir="ltr">${n}/${T}</em></span></span>
+   <svg class="mk-sc" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>`}
 /* ---------- اعرف عيوبك: al-Ghazali's ways of knowing one's own faults (Ihya, Riyadat al-nafs), without a sheikh or a friend ----------
    four doors: the self-test (36 items), critics (the tongues of enemies), the mirror (mixing with people), the night's muhasaba */
 const UY=[['kibr','الكبر'],['riya','الرياء'],['hasad','الحسد'],['hiqd','الحقد'],['ujb','العجب'],['ghadab','الغضب'],['dunya','حب الدنيا والشح'],
@@ -6927,7 +6949,7 @@ document.addEventListener('change',e=>{const el=e.target;if(!el||!el.dataset||!e
   else if(k==='a1'){t.a1=+el.value;if(t.a2<t.a1)t.a2=t.a1}else if(k==='a2'){t.a2=+el.value;if(t.a2<t.a1)t.a1=t.a2}
   tsRes=null;save();render()});
 
-const VIEWS={search:viewSearch,h_quran:viewHub('h_quran'),h_ibadat:viewHub('h_ibadat'),h_ruh:viewHub('h_ruh'),h_ilm:viewHub('h_ilm'),h_shurut:viewHub('h_shurut'),tasmi:viewTasmi,me:viewMe,amrad:viewAmrad,wudu:()=>viewGuide('wudu'),salat:()=>viewGuide('salat'),khushu:viewKhushu,khr:viewKhushuR,ikhub:viewIkhub,ikhlas:viewIkhlas,sirr:viewSirr,ikhl:()=>viewLesson('ikhlas'),ahdaf:viewAhdaf,tawba:()=>viewLesson('tawba'),mujahada:()=>viewLesson('mujahada'),series:viewSeries,fatur:viewFatur,tools:viewTools,duas:viewDuas,qibla:viewQibla,hifz:viewHifz,ask:viewAsk,majalis:viewMajalis,path:viewPath,roadmap:viewRoadmap,fiqh:viewFiqh,aqida:()=>viewAudio(AQ_K),audio:()=>viewAudio(SIRA_K),sira:()=>viewYS('sira'),qiyama:()=>viewYS('qiy'),method:viewMethod,tazkiya:viewTazkiya,uyub:viewUyub,muraqabat:viewMuraqabat,sura:viewSura,aamal:viewAamal,dhikr_run:viewDhikrRun,adh_sabah:()=>viewAdhkar('sabah'),adh_masa:()=>viewAdhkar('masa'),install:viewInstall,notif:viewNotif,profile:viewProfile,admin:viewAdmin,taammulat:viewTaammulat,muhasaba:viewMuhasaba,organ:viewOrgan,qalb:viewQalb,quran:viewQuran,umrah:viewUmrah,maraka:viewMaraka,khalwa:viewKhalwa,subha:viewSubha,mushaf:viewMushaf,qa:viewQA,week:viewWeek,about:viewAbout,tahlil:viewTahlil,ruhi:viewRuhi,mraqib:viewMraqib,munajat:viewMraqib};
+const VIEWS={search:viewSearch,h_quran:viewHub('h_quran'),h_ibadat:viewHub('h_ibadat'),h_ruh:viewHub('h_ruh'),h_ilm:viewHub('h_ilm'),h_shurut:viewHub('h_shurut'),tasmi:viewTasmi,me:viewMe,amrad:viewAmrad,wudu:()=>viewGuide('wudu'),salat:()=>viewGuide('salat'),khushu:viewKhushu,khr:viewKhushuR,ikhub:viewIkhub,ikhlas:viewIkhlas,sirr:viewSirr,ikhl:()=>viewLesson('ikhlas'),ahdaf:viewAhdaf,tawba:()=>viewLesson('tawba'),mujahada:()=>viewLesson('mujahada'),series:viewSeries,fatur:viewFatur,tools:viewTools,duas:viewDuas,qibla:viewQibla,hifz:viewHifz,ask:viewAsk,majalis:viewMajalis,path:viewPath,roadmap:viewRoadmap,fiqh:viewFiqh,aqida:()=>viewAudio(AQ_K),audio:()=>viewAudio(SIRA_K),sira:()=>viewYS('sira'),qiyama:()=>viewYS('qiy'),method:viewMethod,tazkiya:viewTazkiya,uyub:viewUyub,muraqabat:viewMuraqabat,sura:viewSura,aamal:()=>{const h=viewAamal();return aDate?h:mkStrip('am-mk')+h},dhikr_run:viewDhikrRun,adh_sabah:()=>viewAdhkar('sabah'),adh_masa:()=>viewAdhkar('masa'),install:viewInstall,notif:viewNotif,profile:viewProfile,admin:viewAdmin,taammulat:viewTaammulat,muhasaba:viewMuhasaba,organ:viewOrgan,qalb:viewQalb,quran:viewQuran,umrah:viewUmrah,maraka:viewMaraka,khalwa:viewKhalwa,subha:viewSubha,mushaf:viewMushaf,qa:viewQA,week:viewWeek,about:viewAbout,tahlil:viewTahlil,ruhi:viewRuhi,mraqib:viewMraqib,munajat:viewMraqib};
 const TOPTABS=['aamal','tazkiya','quran'];
 /* ---------- listening: lessons uploaded to the repo's audio/ folder ---------- */
 const AU_REPO='dridrissihafdi-ship-it/almurshid',AU_EXT=/\.(mp3|m4a|aac|ogg|oga|opus|wav)$/i;
@@ -7042,9 +7064,9 @@ document.addEventListener('input',e=>{if(e.target.id!=='auSeek')return;e.target.
 document.addEventListener('change',e=>{if(e.target.id!=='auSeek')return;delete e.target.dataset.drag;const v=+e.target.value,a=auSt();
   if(AU.src)AU.currentTime=v;else if(a.last){a.pos[a.last]=v;save()}});
 
-function tabOf(s){if(s.startsWith('adh_')||['dhikr_run','khalwa','aamal'].includes(s))return 'aamal';
+function tabOf(s){if(s.startsWith('adh_')||['dhikr_run','khalwa','aamal','maraka'].includes(s))return 'aamal';
   if(['tazkiya','organ','method','tawba','mujahada','ikhlas','ikhl','ikhub','sirr'].includes(s))return 'tazkiya';if(['quran','mushaf'].includes(s))return 'quran';
-  if(isMedia(s)||['qa','qalb','umrah','maraka','sira','qiyama','series','h_ruh','h_ilm','mraqib','munajat'].includes(s))return 'more';return 'home'}
+  if(isMedia(s)||['qa','qalb','umrah','sira','qiyama','series','h_ruh','h_ilm','mraqib','munajat'].includes(s))return 'more';return 'home'}
 /* the background follows the time of day: dawn, day, sunset, night */
 function ptKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayerTimes(n);return h<pt.fajr?'isha':h<pt.sunrise+.5?'fajr':h<pt.asr?'dhuhr':h<pt.maghrib-.4?'asr':h<pt.isha?'maghrib':'isha'}
 function skyKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayerTimes(n);
@@ -7079,10 +7101,16 @@ function render(){
 function go(s){if(s==='amrad')s='uyub';if(s==='qalb'){s='uyub';uyF=null;uyProg=true}else if(s==='uyub'){uyF=null;uyProg=false}if(s==='ijtihad'){ruhiTab='week';wkOff=0;goRaw('ruhi');return}if(s==='sura'||s==='muraqabat'||s==='tahlil'){ruhiTab=s;s='ruhi'}if(s==='taammulat')s='h_ruh';if(s==='h_quran')s='quran';if(s==='khr'){khTab='mine';s='khushu'}if(s==='aql'){tzTab='aql';s='tazkiya'}if(/^g[1-4]$/.test(s)){ahTab=s;s='ahdaf'}if(s==='majalis'&&screen!=='majalis')majTab=null;if(s==='jawarih'){tzTab='jawarih';s='tazkiya'}if(s==='qalbruh'){tzTab='qalb';s='tazkiya'}goRaw(s)}
 const NAVH=[];let navBack=false,navRoute=null;
 function navUrl(s){try{const u=s==='home'?location.pathname+location.search:'#/'+s;if(navBack||!history.state)history.replaceState({s},'',u);else history.pushState({s},'',u)}catch(e){}}
-(function(){const m=/^#\/([a-z_0-9]+)$/.exec(location.hash);if(m)navRoute=m[1];try{history.replaceState({s:'home'},'',m||!location.hash?location.pathname+location.search:location.href)}catch(e){}})();
+/* iPhone closes a backgrounded web app and reopens it on the home page: remember the last screen and return to it
+   when the app is reopened within 45 minutes (a deliberate return to the home page is remembered too) */
+const LAST_K='murshid-last',LAST_SKIP=['dhikr_run','tasmi','admin','profile'];
+function lastSave(){try{localStorage.setItem(LAST_K,JSON.stringify({s:screen,at:Date.now()}))}catch(e){}}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')lastSave()});window.addEventListener('pagehide',lastSave);
+(function(){const m=/^#\/([a-z_0-9]+)$/.exec(location.hash);if(m)navRoute=m[1];
+  else try{const L=JSON.parse(localStorage.getItem(LAST_K)||'null');if(L&&L.s&&L.s!=='home'&&Date.now()-L.at<45*60e3&&!LAST_SKIP.includes(L.s))navRoute=L.s}catch(e){}try{history.replaceState({s:'home'},'',m||!location.hash?location.pathname+location.search:location.href)}catch(e){}})();
 window.addEventListener('popstate',()=>{if(gated())return;const o=document.getElementById('bsheet');if(o&&!o.hidden){sheetClose();try{history.pushState({s:screen},'',screen==='home'?location.pathname:'#/'+screen)}catch(e){}return}
   let prev=null;while(NAVH.length){const x=NAVH.pop();if(x&&x!==screen){prev=x;break}}if(!prev&&screen==='home')return;navBack=true;try{go(prev||'home')}finally{navBack=false}});
-function goRaw(s){try{sheetClose()}catch(e){}if(s!=='tasmi'&&typeof tsStop==='function'){tsStop();tsRes=null}if((s==='adh_sabah'||s==='adh_masa'||s==='mushaf')&&s!==screen)try{niyaStart(s)}catch(e){}if(s!==screen&&!navBack){NAVH.push(screen);if(NAVH.length>40)NAVH.shift()}if(s!==screen&&tts.on)ttsStop();if(s!=='mushaf')mshAuto=false;if(s!=='qalb'){qbShowRes=false;qbRetest=null}if(s==='aamal'&&screen!=='aamal')aDate=null;if(s==='tazkiya'&&!['tazkiya','organ'].includes(screen))tzDate=null;if(s!==screen||!isMedia(s)){const v=document.getElementById('mqVideo');if(v&&!v.paused){v.pause();keepAwake(false)}}if(s!=='dhikr_run'&&run&&!run.done&&screen==='dhikr_run'){/* keep running in background */}const moved=s!==screen;screen=s;lightConfirm=null;confirmFor=null;confirmReset=false;redoFor=null;render();SCR().scrollTo(0,0);adhAwake();if(moved)navUrl(s)}
+function goRaw(s){try{sheetClose()}catch(e){}if(s!=='tasmi'&&typeof tsStop==='function'){tsStop();tsRes=null}if((s==='adh_sabah'||s==='adh_masa'||s==='mushaf')&&s!==screen)try{niyaStart(s)}catch(e){}if(s!==screen&&!navBack){NAVH.push(screen);if(NAVH.length>40)NAVH.shift()}if(s!==screen&&tts.on)ttsStop();if(s!=='mushaf')mshAuto=false;if(s!=='qalb'){qbShowRes=false;qbRetest=null}if(s==='aamal'&&screen!=='aamal')aDate=null;if(s==='tazkiya'&&!['tazkiya','organ'].includes(screen))tzDate=null;if(s!==screen||!isMedia(s)){const v=document.getElementById('mqVideo');if(v&&!v.paused){v.pause();keepAwake(false)}}if(s!=='dhikr_run'&&run&&!run.done&&screen==='dhikr_run'){/* keep running in background */}const moved=s!==screen;screen=s;lightConfirm=null;confirmFor=null;confirmReset=false;redoFor=null;render();SCR().scrollTo(0,0);adhAwake();if(moved){navUrl(s);lastSave()}}
 /* keep the screen on while reading the morning / evening adhkar */
 function adhAwake(){const adh=screen==='adh_sabah'||screen==='adh_masa'||screen==='mushaf'||screen==='subha',v=document.getElementById('mqVideo');
   if(adh)keepAwake(true);else if(!(v&&!v.paused)&&!(run&&!run.done&&!run.paused))keepAwake(false)}

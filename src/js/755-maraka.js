@@ -105,3 +105,11 @@ document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)r
   if(d.mkist){const D=mkDay();D.ist=1;save();render();return}
   if(d.mksnd){S.mkSnd=!S.mkSnd;save();render();if(S.mkSnd)mkLaugh();return}
 });
+/* the battle of today as a strip: on the home page (under the prayer times) and at the top of «الأعمال» */
+function mkStrip(where){const M=mkS(),D=mkDay(),f=mkDone(TODAY),n=f.filter(Boolean).length,T=f.length,can=mkCanJudge();
+  const st=D.r==='w'?'w':D.r==='l'?(D.ist?'i':'l'):can?'j':'f';
+  const msg={w:'انتصرتَ على الشيطان اليوم',l:'خسرت معركة اليوم، وما خسرت الحرب',i:'استغفرت، وغدًا معركة جديدة',j:'انتهت المعركة: اعرف نتيجتها',f:f[0]?'المعركة جارية: أتمّ مهامك':'ابدأ بالصلوات الخمس في أوقاتها'}[st];
+  const dots=f.map((x,i)=>`<i class="${x?'on':''}${i===0?' pr':''}"></i>`).join('');
+  return `<button class="mk-strip ${st} ${where||''}" data-go="maraka"><img class="mk-si" src="il/mk_d${st==='l'?2:1}.webp" alt="" loading="lazy"${st==='w'?' style="opacity:.35"':''}>
+   <span class="mk-st"><small><span>معركة اليوم</span> · <span>المستوى</span> ${D.lv+1}: <span>${MK_LV[D.lv].t}</span></small><b>${msg}</b><span class="mk-sd" aria-label="${n} / ${T}">${dots}<em dir="ltr">${n}/${T}</em></span></span>
+   <svg class="mk-sc" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>`}
