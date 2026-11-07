@@ -1,6 +1,6 @@
 function tabOf(s){if(s.startsWith('adh_')||['dhikr_run','khalwa','aamal'].includes(s))return 'aamal';
   if(['tazkiya','organ','method','tawba','mujahada','ikhlas','ikhl','ikhub','sirr'].includes(s))return 'tazkiya';if(['quran','mushaf'].includes(s))return 'quran';
-  if(isMedia(s)||['qa','qalb','umrah','sira','qiyama','series','h_ruh','h_ilm','mraqib','munajat'].includes(s))return 'more';return 'home'}
+  if(isMedia(s)||['qa','qalb','umrah','maraka','sira','qiyama','series','h_ruh','h_ilm','mraqib','munajat'].includes(s))return 'more';return 'home'}
 /* the background follows the time of day: dawn, day, sunset, night */
 function ptKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayerTimes(n);return h<pt.fajr?'isha':h<pt.sunrise+.5?'fajr':h<pt.asr?'dhuhr':h<pt.maghrib-.4?'asr':h<pt.isha?'maghrib':'isha'}
 function skyKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayerTimes(n);

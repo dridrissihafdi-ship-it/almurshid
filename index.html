@@ -1423,6 +1423,42 @@ mark.qa-m{background:color-mix(in srgb,var(--gold) 55%,transparent);color:inheri
 .umc-u{display:inline-block;margin-top:8px;font-size:13px}
 .umc-n{margin:6px 0 0}
 .umd{margin:0 0 12px;text-align:center;border:1px solid var(--green)}.umd-t{margin:0;font-size:20px;font-weight:700;color:var(--green)}.umd-v{font-family:var(--f-verse);font-size:20px;margin:6px 0}
+/* «معركة اليوم» */
+.mk-lvh{text-align:center;margin:4px 0 10px}.mk-lvh h3{margin:2px 0;font-size:22px}.mk-k{margin:0;color:var(--muted);font-size:13px}
+.mk-v{font-family:var(--f-verse);font-size:19px;line-height:1.9;color:var(--red);margin:6px 0 0}
+.mk-scene{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 6px 22px rgba(0,0,0,.18)}.mk-scene svg{display:block;width:100%;height:auto}
+.mk-sh{transform-box:fill-box;transform-origin:50% 100%;transform:scale(var(--mk));transition:transform .8s ease}
+.mk-shb{transform-box:fill-box;transform-origin:50% 100%}
+.mk-f .mk-shb{animation:mkSway 6s ease-in-out infinite}
+.mk-w .mk-shb{animation:mkVanish 2.6s ease-out forwards}
+.mk-w .mk-p{transform-box:fill-box;animation:mkUp 2.8s ease-out calc(var(--i)*.09s) forwards}
+.mk-w .mk-me{animation:mkGlow 3s ease-in-out infinite alternate}
+.mk-l .mk-sh{transform:scale(1.18)}.mk-l .mk-shb{animation:mkLaugh .32s ease-in-out 9,mkSway 6s ease-in-out 3s infinite}
+.mk-i .mk-sh{transform:scale(.4);opacity:.3;transition:transform 1.6s ease,opacity 1.6s ease}
+@keyframes mkSway{0%,100%{transform:translateX(0) scaleY(1)}50%{transform:translateX(-6px) scaleY(1.04)}}
+@keyframes mkLaugh{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-7px) scale(1.03,.97)}}
+@keyframes mkVanish{0%{opacity:1;transform:none;filter:none}100%{opacity:0;transform:translateY(-40px) scale(1.3)}}
+@keyframes mkUp{0%{opacity:.9;transform:none}100%{opacity:0;transform:translate(14px,-110px) scale(.3)}}
+@keyframes mkGlow{from{opacity:.92}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.mk-scene *{animation:none!important;transition:none!important}.mk-w .mk-sh{opacity:0}}
+.mk-snd{position:absolute;top:8px;inset-inline-end:8px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.35);color:#fff;font-size:18px}
+.mk-bar{display:flex;align-items:center;gap:10px;margin:10px 4px 12px;font-size:13px;color:var(--muted)}.mk-bar i{flex:1;height:8px;border-radius:8px;background:var(--chip);overflow:hidden}.mk-bar b{display:block;height:100%;background:#3a3344;border-radius:8px;transition:width .6s}
+.mk-res{text-align:center;margin-bottom:12px}.mk-rt{font-weight:700;font-size:18px;margin:0 0 4px}.mk-res.w{background:var(--green-soft)}.mk-res.l{background:var(--red-soft)}.mk-res.i{background:var(--amber-soft)}.mk-res .btn{margin-top:8px}
+.mk-up{text-align:center;background:var(--amber-soft);margin-bottom:12px}
+.mk-tasks{padding:12px}.mk-th{display:flex;justify-content:space-between;align-items:center;margin:0 0 8px;font-weight:600}
+.mk-tasks ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.mk-t{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:start;background:var(--card);border:1px solid var(--card-line);border-radius:14px;padding:10px 12px;color:var(--ink);font:inherit;min-height:48px}
+.mk-t>i{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--card-line);display:grid;place-items:center;font-style:normal;font-weight:700;color:#fff;margin-top:2px}
+.mk-t.on>i{background:var(--green);border-color:var(--green)}.mk-t span{display:flex;flex-direction:column;gap:2px}.mk-t small{color:var(--muted);font-size:12.5px}.mk-t .mk-au{color:var(--teal)}
+.mk-t em{font-style:normal;font-size:11.5px;color:var(--red)}.mk-t:disabled{opacity:1}
+.mk-j{width:100%;margin-top:12px}.mk-m{text-align:center;margin:6px 0 0}
+.mk-wk{margin-top:12px}.mk-days{display:flex;gap:6px;justify-content:center;margin:4px 0 8px}.mk-days i{width:34px;height:34px;border-radius:10px;background:var(--chip);display:grid;place-items:center;font-style:normal;font-weight:700}
+.mk-days i.w{background:var(--green);color:#fff}.mk-days i.l{background:var(--red-soft);color:var(--red)}.mk-days i.t{outline:2px solid var(--teal);outline-offset:1px}
+.mk-mh{margin:18px 0 8px}.mk-map{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mk-f{border-radius:14px;overflow:hidden;background:var(--card);border:1px solid var(--card-line);font-size:13.5px}.mk-f .il{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+.mk-f>span:last-child{display:block;padding:6px 10px;font-weight:600}.mk-f small{color:var(--muted)}.mk-f.cur{outline:2px solid var(--teal)}.mk-f.done .il{filter:saturate(.75)}
+.mk-fi{position:relative}.mk-f.lock .il{filter:grayscale(1) blur(1.5px) brightness(.7)}.mk-f.lock>span:last-child{opacity:.7}
+.mk-lk{position:absolute;inset:0;display:grid;place-items:center;font-size:26px}.mk-lk.ok{inset:auto 8px 8px auto;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font-size:15px;font-weight:700}
 </style>
 
 </head>
@@ -2157,8 +2193,8 @@ const MENU=[
 ,
  {id:'about',art:'<g transform="translate(13 3) scale(.22)"><path d="M50,3 C53,11 60,16 68,24 C79,35 86,47 86,61 C86,77 72,87 69,99 C68,105 72,109 76,113 C83,119 86,127 86,137 C86,151 70,157 50,157 C30,157 14,151 14,137 C14,127 17,119 24,113 C28,109 32,105 31,99 C28,87 14,77 14,61 C14,47 21,35 32,24 C40,16 47,11 50,3 Z" stroke-width="7.5"/></g>',t:'عن التطبيق',ic:'<circle cx="24" cy="24" r="16"/><path d="M24 22v10"/><circle cx="24" cy="16.5" r="1.2"/>'}
 ];
-const TITLES={search:'البحث',h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'الروحانيات',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',tasmi:'التسميع',me:'أنا',amrad:'أمراض القلب',wudu:'الوضوء',salat:'الصلاة',khushu:'الخشوع',khr:'الخشوع',ikhub:'الإخلاص',ikhlas:'ورقة الإخلاص',sirr:'أعمال السر',ikhl:'الإخلاص',ahdaf:'جبل الأهداف الأربعة',tawba:'التوبة',mujahada:'المجاهدة',series:'',fatur:'عند الفتور وضيق الصدر',tools:'أدوات السالك',duas:'سنن الرسول ﷺ',qibla:'اتجاه القبلة',hifz:'حفظ القرآن وتسميعه',ask:'اسأل الشيخ',majalis:'المجالس والدروس',path:'مساري إلى رضا الله',fiqh:'الفقه المالكي',roadmap:'خريطة الطريق إلى رضا الله',aqida:'العقيدة الأشعرية',audio:'الاستماع',sira:'السيرة النبوية العطرة',qiyama:'يوم القيامة',method:'المنهج المحمدي',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',muraqabat:'حالتك الروحية اليومية',sura:'حالة قلبك',aamal:'الأعمال',dhikr_run:'الذكر الشخصي',adh_sabah:'أذكار الصباح',adh_masa:'أذكار المساء',install:'تثبيت التطبيق',notif:'ما بقي من يومك',profile:'الإعدادات',admin:'لوحة الإدارة',taammulat:'تأملات',mraqib:'مراقبات',munajat:'مناجاة',muhasaba:'محاسبة الليلة',ruhi:'بياناتك الروحية',about:'عن التطبيق',tahlil:'تحليل الزلّات',qa:'سؤال وجواب',mushaf:'المصحف',subha:'السبحة',qalb:'أمراض القلب',quran:'القرآن',umrah:'العمرة',khalwa:'الخلوة والاعتكاف'};
-const VERSES={search:'﴿وَقُل رَّبِّ زِدْنِي عِلْمًا﴾',h_quran:'﴿إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ﴾',h_ibadat:'﴿وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ﴾',h_ruh:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',h_ilm:'﴿وَقُل رَّبِّ زِدْنِي عِلْمًا﴾',h_shurut:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',tasmi:'﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ﴾',me:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',amrad:'﴿إِلَّا مَنْ أَتَى اللَّهَ بِقَلْبٍ سَلِيمٍ﴾',wudu:'﴿إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ﴾',salat:'﴿وَأَقِمِ الصَّلَاةَ لِذِكْرِي﴾',khushu:'﴿الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ﴾',khr:'﴿الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ﴾',ikhub:'﴿أَلَا لِلَّهِ الدِّينُ الْخَالِصُ﴾',ikhlas:'﴿وَمَا أُمِرُوا إِلَّا لِيَعْبُدُوا اللَّهَ مُخْلِصِينَ لَهُ الدِّينَ﴾',sirr:'«صدقة السر تطفئ غضب الرب»',ikhl:'﴿أَلَا لِلَّهِ الدِّينُ الْخَالِصُ﴾',ahdaf:'﴿وَأَنَّ إِلَىٰ رَبِّكَ الْمُنتَهَىٰ﴾',tawba:'﴿إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ﴾',mujahada:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',series:'',fatur:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',tools:'﴿وَمَا جَعَلَ عَلَيْكُمْ فِي الدِّينِ مِنْ حَرَجٍ﴾',duas:'﴿ادْعُونِي أَسْتَجِبْ لَكُمْ﴾',qibla:'﴿فَوَلِّ وَجْهَكَ شَطْرَ الْمَسْجِدِ الْحَرَامِ﴾',hifz:'﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ﴾',ask:'﴿فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ﴾',majalis:'«ما جلس قوم يذكرون الله إلا حفّتهم الملائكة»',path:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',fiqh:'﴿فَلَوْلَا نَفَرَ مِن كُلِّ فِرْقَةٍ مِّنْهُمْ طَائِفَةٌ لِّيَتَفَقَّهُوا فِي الدِّينِ﴾',aqida:'﴿فَاعْلَمْ أَنَّهُ لَا إِلَٰهَ إِلَّا اللَّهُ﴾',roadmap:'﴿وَأَنَّ هَٰذَا صِرَاطِي مُسْتَقِيمًا فَاتَّبِعُوهُ﴾',qiyama:'﴿يَوْمَ يَقُومُ النَّاسُ لِرَبِّ الْعَالَمِينَ﴾',sira:'﴿لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ﴾',audio:'﴿فَبَشِّرْ عِبَادِ ۝ الَّذِينَ يَسْتَمِعُونَ الْقَوْلَ فَيَتَّبِعُونَ أَحْسَنَهُ﴾',qalb:'﴿إِلَّا مَنْ أَتَى اللَّهَ بِقَلْبٍ سَلِيمٍ﴾',quran:'﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾',umrah:'﴿وَأَتِمُّوا الْحَجَّ وَالْعُمْرَةَ لِلَّهِ﴾',khalwa:'﴿وَاذْكُرِ اسْمَ رَبِّكَ وَتَبَتَّلْ إِلَيْهِ تَبْتِيلًا﴾',subha:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',mushaf:'﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾',qa:'﴿فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ﴾',dhikr_run:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',adh_sabah:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',adh_masa:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',install:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',method:'«أن تعبد الله كأنك تراه»',tazkiya:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',uyub:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',muraqabat:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',sura:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',aamal:'«أحبّ الأعمال إلى الله أدومها وإن قلّ»',notif:'﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾',profile:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',admin:'﴿إِنْ أُرِيدُ إِلَّا الْإِصْلَاحَ مَا اسْتَطَعْتُ﴾',taammulat:'﴿الَّذِينَ يَذْكُرُونَ اللَّهَ قِيَامًا وَقُعُودًا وَعَلَىٰ جُنُوبِهِمْ وَيَتَفَكَّرُونَ﴾',mraqib:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',munajat:'﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ﴾',muhasaba:'﴿وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ﴾',ruhi:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',about:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',tahlil:'﴿إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ﴾'};
+const TITLES={maraka:'معركة اليوم',search:'البحث',h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'الروحانيات',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',tasmi:'التسميع',me:'أنا',amrad:'أمراض القلب',wudu:'الوضوء',salat:'الصلاة',khushu:'الخشوع',khr:'الخشوع',ikhub:'الإخلاص',ikhlas:'ورقة الإخلاص',sirr:'أعمال السر',ikhl:'الإخلاص',ahdaf:'جبل الأهداف الأربعة',tawba:'التوبة',mujahada:'المجاهدة',series:'',fatur:'عند الفتور وضيق الصدر',tools:'أدوات السالك',duas:'سنن الرسول ﷺ',qibla:'اتجاه القبلة',hifz:'حفظ القرآن وتسميعه',ask:'اسأل الشيخ',majalis:'المجالس والدروس',path:'مساري إلى رضا الله',fiqh:'الفقه المالكي',roadmap:'خريطة الطريق إلى رضا الله',aqida:'العقيدة الأشعرية',audio:'الاستماع',sira:'السيرة النبوية العطرة',qiyama:'يوم القيامة',method:'المنهج المحمدي',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',muraqabat:'حالتك الروحية اليومية',sura:'حالة قلبك',aamal:'الأعمال',dhikr_run:'الذكر الشخصي',adh_sabah:'أذكار الصباح',adh_masa:'أذكار المساء',install:'تثبيت التطبيق',notif:'ما بقي من يومك',profile:'الإعدادات',admin:'لوحة الإدارة',taammulat:'تأملات',mraqib:'مراقبات',munajat:'مناجاة',muhasaba:'محاسبة الليلة',ruhi:'بياناتك الروحية',about:'عن التطبيق',tahlil:'تحليل الزلّات',qa:'سؤال وجواب',mushaf:'المصحف',subha:'السبحة',qalb:'أمراض القلب',quran:'القرآن',umrah:'العمرة',khalwa:'الخلوة والاعتكاف'};
+const VERSES={maraka:'﴿إِنَّ الشَّيْطَانَ لَكُمْ عَدُوٌّ فَاتَّخِذُوهُ عَدُوًّا﴾',search:'﴿وَقُل رَّبِّ زِدْنِي عِلْمًا﴾',h_quran:'﴿إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ﴾',h_ibadat:'﴿وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ﴾',h_ruh:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',h_ilm:'﴿وَقُل رَّبِّ زِدْنِي عِلْمًا﴾',h_shurut:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',tasmi:'﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ﴾',me:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',amrad:'﴿إِلَّا مَنْ أَتَى اللَّهَ بِقَلْبٍ سَلِيمٍ﴾',wudu:'﴿إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ﴾',salat:'﴿وَأَقِمِ الصَّلَاةَ لِذِكْرِي﴾',khushu:'﴿الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ﴾',khr:'﴿الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ﴾',ikhub:'﴿أَلَا لِلَّهِ الدِّينُ الْخَالِصُ﴾',ikhlas:'﴿وَمَا أُمِرُوا إِلَّا لِيَعْبُدُوا اللَّهَ مُخْلِصِينَ لَهُ الدِّينَ﴾',sirr:'«صدقة السر تطفئ غضب الرب»',ikhl:'﴿أَلَا لِلَّهِ الدِّينُ الْخَالِصُ﴾',ahdaf:'﴿وَأَنَّ إِلَىٰ رَبِّكَ الْمُنتَهَىٰ﴾',tawba:'﴿إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ﴾',mujahada:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',series:'',fatur:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',tools:'﴿وَمَا جَعَلَ عَلَيْكُمْ فِي الدِّينِ مِنْ حَرَجٍ﴾',duas:'﴿ادْعُونِي أَسْتَجِبْ لَكُمْ﴾',qibla:'﴿فَوَلِّ وَجْهَكَ شَطْرَ الْمَسْجِدِ الْحَرَامِ﴾',hifz:'﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ﴾',ask:'﴿فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ﴾',majalis:'«ما جلس قوم يذكرون الله إلا حفّتهم الملائكة»',path:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',fiqh:'﴿فَلَوْلَا نَفَرَ مِن كُلِّ فِرْقَةٍ مِّنْهُمْ طَائِفَةٌ لِّيَتَفَقَّهُوا فِي الدِّينِ﴾',aqida:'﴿فَاعْلَمْ أَنَّهُ لَا إِلَٰهَ إِلَّا اللَّهُ﴾',roadmap:'﴿وَأَنَّ هَٰذَا صِرَاطِي مُسْتَقِيمًا فَاتَّبِعُوهُ﴾',qiyama:'﴿يَوْمَ يَقُومُ النَّاسُ لِرَبِّ الْعَالَمِينَ﴾',sira:'﴿لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ﴾',audio:'﴿فَبَشِّرْ عِبَادِ ۝ الَّذِينَ يَسْتَمِعُونَ الْقَوْلَ فَيَتَّبِعُونَ أَحْسَنَهُ﴾',qalb:'﴿إِلَّا مَنْ أَتَى اللَّهَ بِقَلْبٍ سَلِيمٍ﴾',quran:'﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾',umrah:'﴿وَأَتِمُّوا الْحَجَّ وَالْعُمْرَةَ لِلَّهِ﴾',khalwa:'﴿وَاذْكُرِ اسْمَ رَبِّكَ وَتَبَتَّلْ إِلَيْهِ تَبْتِيلًا﴾',subha:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',mushaf:'﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾',qa:'﴿فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ﴾',dhikr_run:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',adh_sabah:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',adh_masa:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',install:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',method:'«أن تعبد الله كأنك تراه»',tazkiya:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',uyub:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',muraqabat:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',sura:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',aamal:'«أحبّ الأعمال إلى الله أدومها وإن قلّ»',notif:'﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾',profile:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',admin:'﴿إِنْ أُرِيدُ إِلَّا الْإِصْلَاحَ مَا اسْتَطَعْتُ﴾',taammulat:'﴿الَّذِينَ يَذْكُرُونَ اللَّهَ قِيَامًا وَقُعُودًا وَعَلَىٰ جُنُوبِهِمْ وَيَتَفَكَّرُونَ﴾',mraqib:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',munajat:'﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ﴾',muhasaba:'﴿وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ﴾',ruhi:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',about:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',tahlil:'﴿إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ﴾'};
 
 const AVATAR='<svg viewBox="0 0 52 52"><rect width="52" height="52" fill="#eceae6"/><circle cx="26" cy="20" r="9" fill="#c9c4bc"/><path d="M8 52c2-11 9-16 18-16s16 5 18 16z" fill="#c9c4bc"/></svg>';
 function avatarImg(){const src=S.photo||(AUTH.user&&AUTH.user.photoURL)||'';
@@ -5431,7 +5467,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   <p class="muted">التنبيهات هنا داخل الصفحة. التنبيهات الفعلية على الهاتف تحتاج نسخة التطبيق المثبّتة.</p></section>`;
 }
-const APP_VER='2026-11-07 11:53';
+const APP_VER='2026-11-07 12:23';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
@@ -6034,16 +6070,16 @@ function tabS(s){if(s==='home'||s.startsWith('adh_')||['aamal','dhikr_run','qura
   if(['me','profile','ruhi','notif','about','admin','week','install','muraqabat','sura','tahlil','mraqib','munajat'].includes(s))return 'me';return 'tariq'}
 
 /* picture tiles */
-const SMT={h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'الروحانيات',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',ahdaf:'جبل الأهداف الأربعة',mraqib:'مراقبات',munajat:'مناجاة',qiyama:'يوم القيامة',aqida:'العقيدة',fiqh:'الفقه',tawba:'التوبة',mujahada:'المجاهدة',hifz:'حفظ القرآن وتسميعه',tasmi:'التسميع',aamal:'أعمال اليوم',quran:'القرآن',khushu:'الخشوع',amrad:'أمراض القلب',qa:'سؤال وجواب',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',khalwa:'الخلوة والاعتكاف',method:'المنهج المحمدي',taammulat:'تأملات',majalis:'المجالس والدروس',ask:'اسأل الشيخ',tools:'أدوات السالك',umrah:'العمرة',wudu:'الوضوء',salat:'الصلاة',sira:'السيرة النبوية'};
+const SMT={maraka:'معركة اليوم',h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'الروحانيات',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',ahdaf:'جبل الأهداف الأربعة',mraqib:'مراقبات',munajat:'مناجاة',qiyama:'يوم القيامة',aqida:'العقيدة',fiqh:'الفقه',tawba:'التوبة',mujahada:'المجاهدة',hifz:'حفظ القرآن وتسميعه',tasmi:'التسميع',aamal:'أعمال اليوم',quran:'القرآن',khushu:'الخشوع',amrad:'أمراض القلب',qa:'سؤال وجواب',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',khalwa:'الخلوة والاعتكاف',method:'المنهج المحمدي',taammulat:'تأملات',majalis:'المجالس والدروس',ask:'اسأل الشيخ',tools:'أدوات السالك',umrah:'العمرة',wudu:'الوضوء',salat:'الصلاة',sira:'السيرة النبوية'};
 
 /* the Path's sections ("tabs"): each opens a page of picture tiles */
-const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['uyub','khushu','mraqib','munajat','khalwa'],
+const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['maraka','uyub','khushu','mraqib','munajat','khalwa'],
  h_ilm:['method','majalis','sira','qiyama','qa','ask'],h_shurut:['aqida','fiqh','tawba','mujahada']};
-const IL_ALIAS={h_quran:'quran',h_ibadat:'salat',h_ruh:'taammulat',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],khalwa:['khalwa','m_lamp'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
+const IL_ALIAS={maraka:['m_climb'],h_quran:'quran',h_ibadat:'salat',h_ruh:'taammulat',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],khalwa:['khalwa','m_lamp'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
 const viewHub=k=>()=>`<section>${smTiles(HUBS[k],HUBS[k].length%2?'odd':'')}</section>`;
 
 /* Today's four tiles: the user can change or remove each one (long press), and fill an empty place with "+" */
-const HT_ALL=['aamal','quran','tazkiya','qa','hifz','khushu','wudu','salat','umrah','method','majalis','sira','qiyama','ask','tools','h_shurut','ahdaf','mraqib','munajat','h_ibadat','h_ruh','h_ilm','uyub','muhasaba'];
+const HT_ALL=['aamal','quran','tazkiya','qa','hifz','khushu','wudu','salat','umrah','method','majalis','sira','qiyama','ask','tools','h_shurut','ahdaf','mraqib','munajat','h_ibadat','h_ruh','h_ilm','uyub','muhasaba','maraka'];
 function htGet(){if(!Array.isArray(S.homeT)||S.homeT.length!==4)S.homeT=['aamal','quran','tazkiya','qa'];const T=S.homeT,a=T.indexOf('amrad');if(a>=0)T[a]=T.includes('uyub')?null:'uyub';return T}
 function homeTiles(){const T=htGet();return `<div class="sm-tiles ht">${T.map((id,i)=>id&&SMT[id]?`<button class="sm-tile" data-go="${id}" data-ht="${i}">${ilSvg(id)}<span>${SMT[id]}</span></button>`:`<button class="sm-tile ht-add" data-htadd="${i}" aria-label="${esc(Tx('أضف تبويبة'))}"><i>+</i><span>أضف تبويبة</span></button>`).join('')}</div><div class="ht-tip"><button class="ht-ed" data-htedit="1">تخصيص هذه البلاطات</button></div>`}
 function htPick(i){const T=htGet();sheetOpen(`<div class="bs-top"><h2>اختر التبويبة</h2><button class="qa-ed" data-bsx="1">إلغاء</button></div><div class="sm-tiles c3 ht-pick">${HT_ALL.filter(id=>SMT[id]).map(id=>`<button class="sm-tile${T.includes(id)?' on':''}" data-htset="${i}" data-id="${id}">${ilSvg(id)}<span>${SMT[id]}</span></button>`).join('')}</div>`);i18nApply(document.getElementById('bsheet'))}
@@ -6207,6 +6243,120 @@ function tzSimple(){const st=tzSt();if(!tzTab||!TZ_K.includes(tzTab)||!tzUnl(tzT
 let qmSlip=null;
 const QM_REASONS=['مجلس طال فيه الكلام','غضب','تعب وغفلة','صحبة معيّنة','أخرى'];
 
+/* ---------- «معركة اليوم»: a game against Satan, one battle a day ----------
+   Each level is one of Satan's ways into the heart, with five tasks. The five prayers are always the first task and are
+   required; the battle is won with the prayers and at least three of the four other tasks. The result is announced after
+   Isha (or once every task is done). Five wins within seven days open the next level.
+   A won battle: the shadow evaporates. A lost one: it laughs, then «خسارة معركة لا تعني خسارة الحرب» and the door of
+   istighfar, which silences it. The shadow has no face or shape, only smoke. */
+const MK_AUTO={
+  pr5:L=>FIVE.every(([k])=>(L.prayers||[]).includes(k)),
+  fajr:L=>(L.prayers||[]).includes('fajr'),
+  sabah:L=>L.awrad.includes('sabah'),masa:L=>L.awrad.includes('masa'),adh2:L=>L.awrad.includes('sabah')&&L.awrad.includes('masa'),
+  quran:L=>L.awrad.includes('quran'),qiyam:L=>L.awrad.includes('qiyam'),sadaqa:L=>L.awrad.includes('sadaqa'),help:L=>L.awrad.includes('help'),
+  mh:(L,d)=>{try{return mhOn(d)}catch(e){return false}}};
+const MK_GO={pr5:'aamal',fajr:'aamal',sabah:'adh_sabah',masa:'adh_masa',adh2:'aamal',quran:'quran',qiyam:'aamal',sadaqa:'aamal',help:'aamal',mh:'muhasaba'};
+const MK_PR={a:'pr5',t:'الصلوات الخمس في أوقاتها',s:'الفريضة أولًا: بها تبدأ كل معركة'};
+const MK_LV=[
+ {t:'الغفلة',s:'يبدأ بإنسائك ذكر الله',img:'ghafla',v:'﴿وَلَا تُطِعْ مَنْ أَغْفَلْنَا قَلْبَهُ عَن ذِكْرِنَا﴾',k:[
+  {a:'sabah',t:'أذكار الصباح',s:'حصنك قبل أن تخرج'},{a:'masa',t:'أذكار المساء',s:'حصنك حين يقبل الليل'},
+  {t:'مئة استغفار',s:'متفرقة في يومك'},{t:'آية الكرسي قبل النوم',s:'لا يقربك شيطان حتى تصبح'}]},
+ {t:'الكسل والتسويف',s:'«سوف أفعل غدًا»',img:'m_path',v:'﴿وَلَا تَتَّبِعُوا خُطُوَاتِ الشَّيْطَانِ﴾',k:[
+  {a:'fajr',t:'صلاة الصبح في وقتها',s:'أول انتصار في اليوم'},{a:'quran',t:'ورد القرآن',s:'ولو صفحة'},
+  {t:'إنجاز عمل أجّلته',s:'ابدأ به قبل غيره'},{t:'السنن الرواتب',s:'قبل الفريضة أو بعدها'}]},
+ {t:'آفات اللسان',s:'كلمة لا يلقي لها بالًا',img:'m_door',v:'﴿مَا يَلْفِظُ مِن قَوْلٍ إِلَّا لَدَيْهِ رَقِيبٌ عَتِيدٌ﴾',k:[
+  {t:'يوم بلا غيبة',s:'وإن سمعتها فغيّر الحديث'},{t:'ترك الجدال',s:'ولو كنت محقًّا'},
+  {t:'كلمة طيبة لثلاثة أشخاص',s:'والكلمة الطيبة صدقة'},{t:'الصمت عمّا لا يعنيك',s:'من حسن إسلام المرء'}]},
+ {t:'النظر والشاشة',s:'سهم من سهامه',img:'m_lamp',v:'﴿قُل لِّلْمُؤْمِنِينَ يَغُضُّوا مِنْ أَبْصَارِهِمْ﴾',k:[
+  {t:'غضّ البصر',s:'في الطريق وعلى الشاشة'},{t:'ساعة كاملة بلا هاتف',s:'اختر وقتها بنفسك'},
+  {t:'لا تصفّح بعد العشاء',s:'إلا لحاجة'},{t:'قراءة صفحة نافعة',s:'بدل التمرير'}]},
+ {t:'الغضب',s:'جمرة يوقدها في القلب',img:'ghadab',v:'﴿وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ﴾',k:[
+  {t:'الاستعاذة عند أول انفعال',s:'«أعوذ بالله من الشيطان الرجيم»'},{t:'العفو عن شخص',s:'في قلبك قبل لسانك'},
+  {t:'الابتسامة في وجه من أساء',s:'تطفئ النار'},{t:'الدعاء لمن ضايقك',s:'بظهر الغيب'}]},
+ {t:'البخل وحبّ الدنيا',s:'يعدك الفقر',img:'dunya',v:'﴿الشَّيْطَانُ يَعِدُكُمُ الْفَقْرَ وَيَأْمُرُكُم بِالْفَحْشَاءِ﴾',k:[
+  {a:'sadaqa',t:'صدقة اليوم',s:'ولو بشقّ تمرة'},{a:'help',t:'مساعدة شخص',s:'قضاء حاجة أو عون'},
+  {t:'صلة رحم',s:'ولو بمكالمة'},{t:'كتابة نعمة تشكر الله عليها',s:'بعينها لا بالجملة'}]},
+ {t:'الرياء والعُجب',s:'يفسد العمل بعد أن تعمله',img:'riya',v:'﴿وَلَا يُشْرِكْ بِعِبَادَةِ رَبِّهِ أَحَدًا﴾',k:[
+  {t:'عمل صالح خفيّ',s:'لا يعلمه أحد'},{t:'لا تذكر إنجازاتك اليوم',s:'لا قولًا ولا نشرًا'},
+  {t:'ركعتان في خلوة',s:'بينك وبين الله'},{t:'دعاء الإخلاص',s:'«اللهم إني أعوذ بك أن أشرك بك وأنا أعلم، وأستغفرك لما لا أعلم»'}]},
+ {t:'الوسوسة',s:'يوسوس ثم يخنس',img:'m_drop',v:'﴿مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ﴾',k:[
+  {t:'المعوّذتان صباحًا ومساءً',s:'ثلاث مرات'},{t:'الإعراض عن الوسواس',s:'لا تسترسل معه ولا تجادله'},
+  {t:'قراءة من سورة البقرة في البيت',s:'ينفر منه الشيطان'},{t:'البقاء على طهارة',s:'جدّد وضوءك'}]},
+ {t:'اليأس والقنوط',s:'«ذنوبك أكبر من أن تُغفر»',img:'m_heart',v:'﴿لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ﴾',k:[
+  {t:'تأمّل آية رجاء',s:'اقرأها ببطء مرتين'},{t:'الاستغفار بعد الذنب فورًا',s:'لا تؤجّل التوبة'},
+  {t:'«لا حول ولا قوة إلا بالله» مئة مرة',s:'كنز من كنوز الجنة'},{t:'الدعاء بإلحاح في السجود',s:'أقرب ما يكون العبد من ربه'}]},
+ {t:'الثبات',s:'الحرب لا تنتهي ما دامت الروح في الجسد',img:'m_climb',v:'﴿إِنَّ الَّذِينَ قَالُوا رَبُّنَا اللَّهُ ثُمَّ اسْتَقَامُوا﴾',k:[
+  {a:'qiyam',t:'قيام الليل',s:'ولو ركعتين'},{a:'quran',t:'ورد القرآن',s:'مع التدبر'},
+  {a:'mh',t:'محاسبة الليلة',s:'قبل أن تنام'},{a:'adh2',t:'أذكار الصباح والمساء',s:'كلاهما'}]}];
+const MK_WIN_N=5,MK_WIN_IN=7;
+let mkAnim=null,mkSnd=null;
+function mkS(){const M=S.mk=S.mk||{};M.lv=M.lv||0;M.d=M.d||{};return M}
+const mkTasks=lv=>[MK_PR,...MK_LV[lv].k];
+const mkLog=d=>S.log[d]||{awrad:[],prayers:[]};
+function mkDone(d){const M=mkS(),D=M.d[d]||{},lv=D.lv!=null?D.lv:M.lv,L=mkLog(d);
+  return mkTasks(lv).map((x,j)=>x.a?!!MK_AUTO[x.a]({awrad:L.awrad||[],prayers:L.prayers||[]},d):(D.m||[]).includes(j))}
+const mkWon=d=>{const f=mkDone(d);return f[0]&&f.filter(Boolean).length>=4};
+const mkWins=()=>{const M=mkS();let n=0;for(let i=0;i<MK_WIN_IN;i++){const D=M.d[addDays(TODAY,-i)];if(D&&D.r==='w'&&D.lv===M.lv)n++}return n};
+/* the day of the battle: created when the seeker opens the game; earlier unjudged days are judged on their own data */
+function mkDay(){const M=mkS();
+  Object.keys(M.d).filter(d=>d<TODAY&&!M.d[d].r).forEach(d=>{M.d[d].r=mkWon(d)?'w':'l';M.d[d].late=1});
+  if(!M.d[TODAY])M.d[TODAY]={lv:M.lv,m:[]};
+  const old=addDays(TODAY,-60);Object.keys(M.d).forEach(d=>{if(d<old)delete M.d[d]});
+  return M.d[TODAY]}
+function mkCanJudge(){const f=mkDone(TODAY);if(f.every(Boolean))return true;try{return dH()>=prayerTimes(new Date()).isha+0.5}catch(e){return dH()>=21}}
+/* the scene: the seeker, and the shadow whose strength is what remains of the day's tasks */
+function mkScene(st,left){const k=Math.max(.25,left/5),dawn=st==='w';
+  return `<div class="mk-scene mk-${st}" style="--mk:${k}" role="img" aria-label="${esc(Tx(st==='w'?'تبخّر الشيطان واختفى':st==='l'?'الشيطان يضحك':st==='i'?'خنس الشيطان بالاستغفار':'الشيطان أمامك'))}">
+  <svg viewBox="0 0 360 230" aria-hidden="true">
+   <defs><linearGradient id="mkSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${dawn?'#f4c98a':'#152536'}"/><stop offset=".65" stop-color="${dawn?'#fbe7c4':'#243c4f'}"/><stop offset="1" stop-color="${dawn?'#fff4df':'#35505f'}"/></linearGradient>
+    <radialGradient id="mkSm"><stop offset="0" stop-color="#0b0a10" stop-opacity=".95"/><stop offset=".55" stop-color="#17141f" stop-opacity=".75"/><stop offset="1" stop-color="#2a2433" stop-opacity="0"/></radialGradient>
+    <radialGradient id="mkLt"><stop offset="0" stop-color="#fff6d8" stop-opacity=".95"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></radialGradient>
+    <filter id="mkBlur" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4"><animate attributeName="baseFrequency" dur="9s" values=".035;.05;.035" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" scale="26"/><feGaussianBlur stdDeviation="2.5"/></filter></defs>
+   <rect width="360" height="230" fill="url(#mkSky)"/>
+   ${dawn?`<circle cx="250" cy="150" r="70" fill="url(#mkLt)"/>`:[[30,30],[70,55],[120,22],[300,40],[330,70],[200,18],[255,60]].map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="${i%3?1.2:1.8}" fill="#f6e7b0" opacity=".8"/>`).join('')+`<path d="M318 26a14 14 0 1 0 10 24a11 11 0 1 1 -10 -24z" fill="#f3dc9a"/>`}
+   <path d="M0 192 Q90 176 180 186 T360 182 V230 H0z" fill="${dawn?'#d9b98a':'#1d3140'}"/>
+   <path d="M282 188v-34l6-10 6 10v34z M276 188h24" fill="${dawn?'#b48d5e':'#122230'}" opacity=".8"/>
+   <g class="mk-me"><ellipse cx="96" cy="196" rx="24" ry="4" fill="#000" opacity=".18"/>${ilFig(96,196,1.25,st==='w'?'takbir':st==='i'?'dua':st==='l'?'bow':'stand')}
+    ${st==='w'?`<circle cx="96" cy="140" r="52" fill="url(#mkLt)" opacity=".6"/>`:''}</g>
+   <g class="mk-sh"><g class="mk-shb" filter="url(#mkBlur)">
+    <ellipse cx="236" cy="132" rx="58" ry="66" fill="url(#mkSm)"/><ellipse cx="214" cy="96" rx="34" ry="36" fill="url(#mkSm)"/><ellipse cx="262" cy="110" rx="30" ry="40" fill="url(#mkSm)"/><ellipse cx="236" cy="182" rx="66" ry="20" fill="url(#mkSm)"/></g>
+    ${st==='w'?Array.from({length:14},(_,i)=>`<circle class="mk-p" style="--i:${i}" cx="${190+i*7%96}" cy="${150-i*5%60}" r="${3+i%4}" fill="#3a3344"/>`).join(''):''}</g>
+  </svg>${st==='l'?`<button class="mk-snd" data-mksnd="1" aria-pressed="${!!S.mkSnd}" aria-label="${esc(Tx('صوت الضحكة'))}">${S.mkSnd?'🔊':'🔈'}</button>`:''}</div>`}
+/* a short, low laugh drawn with the Web Audio API; only when the seeker turned the sound on */
+function mkLaugh(){if(!S.mkSnd)return;try{const C=mkSnd=mkSnd||new (window.AudioContext||window.webkitAudioContext)(),t=C.currentTime+.05;
+  [0,.32,.62,.9].forEach((o,i)=>{const g=C.createGain(),f=C.createBiquadFilter(),s=C.createOscillator();s.type='sawtooth';s.frequency.setValueAtTime(150-i*12,t+o);s.frequency.exponentialRampToValueAtTime(90-i*8,t+o+.24);
+   f.type='lowpass';f.frequency.value=700;g.gain.setValueAtTime(0,t+o);g.gain.linearRampToValueAtTime(.22,t+o+.03);g.gain.exponentialRampToValueAtTime(.001,t+o+.26);s.connect(f);f.connect(g);g.connect(C.destination);s.start(t+o);s.stop(t+o+.3)})}catch(e){}}
+function mkResult(D){if(D.r==='w')return `<div class="box pad mk-res w"><p class="mk-rt">انتصرتَ في معركة اليوم</p><p class="mk-v notr" dir="rtl" lang="ar">﴿إِنَّ كَيْدَ الشَّيْطَانِ كَانَ ضَعِيفًا﴾</p><p class="meta">تبخّر الشيطان واختفى. احمد الله، فما كان النصر إلا من عنده.</p></div>`;
+  if(D.ist)return `<div class="box pad mk-res i"><p class="mk-rt">خنس الشيطان باستغفارك</p><p class="meta">قال إبليس: «وعزتك لا أبرح أغوي عبادك ما دامت أرواحهم في أجسادهم»، فقال الله تعالى: «وعزتي وجلالي لا أزال أغفر لهم ما استغفروني».</p><p class="meta">غدًا معركة جديدة، وأنت أقوى بما تعلّمته اليوم.</p></div>`;
+  return `<div class="box pad mk-res l"><p class="mk-rt">خسارة معركة لا تعني خسارة الحرب</p><p class="meta">«كل ابن آدم خطّاء، وخير الخطّائين التوابون». أغلق عليه الباب الآن.</p><button class="btn ok" data-mkist="1">أستغفر الله وأتوب إليه</button></div>`}
+function viewMaraka(){const M=mkS(),D=mkDay(),lv=D.lv,L=MK_LV[lv],T=mkTasks(lv),f=mkDone(TODAY),n=f.filter(Boolean).length,can=mkCanJudge();
+  const st=D.r==='w'?'w':D.r==='l'?(D.ist?'i':'l'):'f',wins=mkWins(),up=M.up===TODAY;
+  if(mkAnim===TODAY&&st==='l'){mkAnim=null;setTimeout(mkLaugh,350)}
+  return `<section class="mk">
+   ${up?`<div class="box pad mk-up"><p class="mk-rt">فُتح لك حصن جديد</p><p class="meta"><span>انتصرتَ</span> ${MK_WIN_N} <span>مرات في أسبوع، فانتقلتَ إلى المستوى</span> ${M.lv+1}: <span>${MK_LV[M.lv].t}</span></p></div>`:''}
+   <div class="mk-lvh"><p class="mk-k"><span>المستوى</span> ${lv+1} / ${MK_LV.length}</p><h3>${L.t}</h3><p class="meta">${L.s}</p><p class="mk-v notr" dir="rtl" lang="ar">${L.v}</p></div>
+   ${mkScene(st,5-n)}
+   <div class="mk-bar" aria-hidden="true"><span>قوة الشيطان</span><i><b style="width:${st==='w'?0:Math.round((5-n)/5*100)}%"></b></i></div>
+   ${D.r?mkResult(D):''}
+   <div class="box mk-tasks"><p class="mk-th"><span>مهام اليوم</span> <b dir="ltr">${n} / 5</b></p>
+    <ul>${T.map((x,j)=>{const on=f[j];return `<li><button class="mk-t${on?' on':''}${x.a?' au':''}" ${x.a?`data-go="${MK_GO[x.a]}"`:`data-mkt="${j}"`} aria-pressed="${on}"${D.r?' disabled':''}><i aria-hidden="true">${on?'✓':''}</i><span><b>${x.t}</b><small>${x.s}</small>${x.a?`<small class="mk-au">${on?'سُجّلت في أعمالك':'تُسجَّل من أعمالك، اضغط لتسجّلها'}</small>`:''}${j===0?' <em>لا بدّ منها</em>':''}</span></button></li>`}).join('')}</ul>
+    ${D.r?'':`<button class="btn ok mk-j" data-mkj="1"${can?'':' disabled'}>أعلن نتيجة المعركة</button><p class="meta mk-m">${can?'الانتصار: الصلوات الخمس، وثلاث مهام على الأقل من الأربع.':'تُعلن النتيجة بعد العشاء، أو حين تُنجز كل المهام.'}</p>`}
+   </div>
+   <div class="box pad mk-wk"><p class="mk-th"><span>انتصاراتك في هذا المستوى، آخر سبعة أيام</span> <b dir="ltr">${wins} / ${MK_WIN_N}</b></p>
+    <div class="mk-days">${Array.from({length:MK_WIN_IN},(_,i)=>{const d=addDays(TODAY,i-MK_WIN_IN+1),x=M.d[d];return `<i class="${x&&x.r?x.r:''}${d===TODAY?' t':''}" title="${d}">${x&&x.r==='w'?'✓':x&&x.r==='l'?'·':''}</i>`}).join('')}</div>
+    <p class="meta">${MK_WIN_N} <span>انتصارات في سبعة أيام تفتح المستوى التالي.</span></p></div>
+   <h3 class="mk-mh">حصون الطريق</h3>
+   <div class="mk-map">${MK_LV.map((x,i)=>`<div class="mk-f${i<M.lv?' done':i===M.lv?' cur':' lock'}"><div class="mk-fi">${ilSvg(x.img)}${i>M.lv?'<span class="mk-lk" aria-hidden="true">🔒</span>':i<M.lv?'<span class="mk-lk ok" aria-hidden="true">✓</span>':''}</div><span><small dir="ltr">${i+1}</small> ${x.t}</span></div>`).join('')}</div>
+   <p class="meta" style="margin-top:12px">ليست هذه لعبة للتسلية فقط: كل مهمة عمل حقيقي تتقرّب به إلى الله. والصدق مع نفسك هو شرط الانتصار.</p>
+  </section>`}
+document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;const d=t.dataset;
+  if(d.mkt!==undefined){const D=mkDay(),j=+d.mkt;if(D.r)return;D.m=D.m.includes(j)?D.m.filter(x=>x!==j):[...D.m,j];save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
+  if(d.mkj){const M=mkS(),D=mkDay();if(D.r||!mkCanJudge())return;D.r=mkWon(TODAY)?'w':'l';
+    if(D.r==='w'){try{navigator.vibrate&&navigator.vibrate([40,60,40])}catch(x){}if(mkWins()>=MK_WIN_N&&M.lv<MK_LV.length-1){M.lv++;M.up=TODAY}}else mkAnim=TODAY;
+    save();render();SCR().scrollTo({top:0,behavior:'smooth'});return}
+  if(d.mkist){const D=mkDay();D.ist=1;save();render();return}
+  if(d.mksnd){S.mkSnd=!S.mkSnd;save();render();if(S.mkSnd)mkLaugh();return}
+});
 /* ---------- اعرف عيوبك: al-Ghazali's ways of knowing one's own faults (Ihya, Riyadat al-nafs), without a sheikh or a friend ----------
    four doors: the self-test (36 items), critics (the tongues of enemies), the mirror (mixing with people), the night's muhasaba */
 const UY=[['kibr','الكبر'],['riya','الرياء'],['hasad','الحسد'],['hiqd','الحقد'],['ujb','العجب'],['ghadab','الغضب'],['dunya','حب الدنيا والشح'],
@@ -6598,7 +6748,7 @@ document.addEventListener('change',e=>{const el=e.target;if(!el||!el.dataset||!e
   else if(k==='a1'){t.a1=+el.value;if(t.a2<t.a1)t.a2=t.a1}else if(k==='a2'){t.a2=+el.value;if(t.a2<t.a1)t.a1=t.a2}
   tsRes=null;save();render()});
 
-const VIEWS={search:viewSearch,h_quran:viewHub('h_quran'),h_ibadat:viewHub('h_ibadat'),h_ruh:viewHub('h_ruh'),h_ilm:viewHub('h_ilm'),h_shurut:viewHub('h_shurut'),tasmi:viewTasmi,me:viewMe,amrad:viewAmrad,wudu:()=>viewGuide('wudu'),salat:()=>viewGuide('salat'),khushu:viewKhushu,khr:viewKhushuR,ikhub:viewIkhub,ikhlas:viewIkhlas,sirr:viewSirr,ikhl:()=>viewLesson('ikhlas'),ahdaf:viewAhdaf,tawba:()=>viewLesson('tawba'),mujahada:()=>viewLesson('mujahada'),series:viewSeries,fatur:viewFatur,tools:viewTools,duas:viewDuas,qibla:viewQibla,hifz:viewHifz,ask:viewAsk,majalis:viewMajalis,path:viewPath,roadmap:viewRoadmap,fiqh:viewFiqh,aqida:()=>viewAudio(AQ_K),audio:()=>viewAudio(SIRA_K),sira:()=>viewAudio(SIRA_K),qiyama:()=>viewAudio(QIY_K),method:viewMethod,tazkiya:viewTazkiya,uyub:viewUyub,muraqabat:viewMuraqabat,sura:viewSura,aamal:viewAamal,dhikr_run:viewDhikrRun,adh_sabah:()=>viewAdhkar('sabah'),adh_masa:()=>viewAdhkar('masa'),install:viewInstall,notif:viewNotif,profile:viewProfile,admin:viewAdmin,taammulat:viewTaammulat,muhasaba:viewMuhasaba,organ:viewOrgan,qalb:viewQalb,quran:viewQuran,umrah:viewUmrah,khalwa:viewKhalwa,subha:viewSubha,mushaf:viewMushaf,qa:viewQA,week:viewWeek,about:viewAbout,tahlil:viewTahlil,ruhi:viewRuhi,mraqib:viewMraqib,munajat:viewMraqib};
+const VIEWS={search:viewSearch,h_quran:viewHub('h_quran'),h_ibadat:viewHub('h_ibadat'),h_ruh:viewHub('h_ruh'),h_ilm:viewHub('h_ilm'),h_shurut:viewHub('h_shurut'),tasmi:viewTasmi,me:viewMe,amrad:viewAmrad,wudu:()=>viewGuide('wudu'),salat:()=>viewGuide('salat'),khushu:viewKhushu,khr:viewKhushuR,ikhub:viewIkhub,ikhlas:viewIkhlas,sirr:viewSirr,ikhl:()=>viewLesson('ikhlas'),ahdaf:viewAhdaf,tawba:()=>viewLesson('tawba'),mujahada:()=>viewLesson('mujahada'),series:viewSeries,fatur:viewFatur,tools:viewTools,duas:viewDuas,qibla:viewQibla,hifz:viewHifz,ask:viewAsk,majalis:viewMajalis,path:viewPath,roadmap:viewRoadmap,fiqh:viewFiqh,aqida:()=>viewAudio(AQ_K),audio:()=>viewAudio(SIRA_K),sira:()=>viewAudio(SIRA_K),qiyama:()=>viewAudio(QIY_K),method:viewMethod,tazkiya:viewTazkiya,uyub:viewUyub,muraqabat:viewMuraqabat,sura:viewSura,aamal:viewAamal,dhikr_run:viewDhikrRun,adh_sabah:()=>viewAdhkar('sabah'),adh_masa:()=>viewAdhkar('masa'),install:viewInstall,notif:viewNotif,profile:viewProfile,admin:viewAdmin,taammulat:viewTaammulat,muhasaba:viewMuhasaba,organ:viewOrgan,qalb:viewQalb,quran:viewQuran,umrah:viewUmrah,maraka:viewMaraka,khalwa:viewKhalwa,subha:viewSubha,mushaf:viewMushaf,qa:viewQA,week:viewWeek,about:viewAbout,tahlil:viewTahlil,ruhi:viewRuhi,mraqib:viewMraqib,munajat:viewMraqib};
 const TOPTABS=['aamal','tazkiya','quran'];
 /* ---------- listening: lessons uploaded to the repo's audio/ folder ---------- */
 const AU_REPO='dridrissihafdi-ship-it/almurshid',AU_EXT=/\.(mp3|m4a|aac|ogg|oga|opus|wav)$/i;
@@ -6715,7 +6865,7 @@ document.addEventListener('change',e=>{if(e.target.id!=='auSeek')return;delete e
 
 function tabOf(s){if(s.startsWith('adh_')||['dhikr_run','khalwa','aamal'].includes(s))return 'aamal';
   if(['tazkiya','organ','method','tawba','mujahada','ikhlas','ikhl','ikhub','sirr'].includes(s))return 'tazkiya';if(['quran','mushaf'].includes(s))return 'quran';
-  if(isMedia(s)||['qa','qalb','umrah','sira','qiyama','series','h_ruh','h_ilm','mraqib','munajat'].includes(s))return 'more';return 'home'}
+  if(isMedia(s)||['qa','qalb','umrah','maraka','sira','qiyama','series','h_ruh','h_ilm','mraqib','munajat'].includes(s))return 'more';return 'home'}
 /* the background follows the time of day: dawn, day, sunset, night */
 function ptKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayerTimes(n);return h<pt.fajr?'isha':h<pt.sunrise+.5?'fajr':h<pt.asr?'dhuhr':h<pt.maghrib-.4?'asr':h<pt.isha?'maghrib':'isha'}
 function skyKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayerTimes(n);

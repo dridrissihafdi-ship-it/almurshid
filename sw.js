@@ -1,4 +1,4 @@
-const CACHE='murshid-1794048837',LIB='murshid-lib-v1',MEDIA='murshid-media-v1',QURAN='murshid-quran-v2',IMG='murshid-img-v2';
+const CACHE='murshid-1794050599',LIB='murshid-lib-v1',MEDIA='murshid-media-v1',QURAN='murshid-quran-v2',IMG='murshid-img-v2';
 const SHELL=['./','index.html','i18n.json','manifest.webmanifest','icon-192.png','icon-512.png','maskable-512.png','apple-touch-icon.png','maiya.jpg','maiya-wide.jpg','madina.jpg','bg-tazkiya.jpg','bg-aamal.jpg','bg-taammulat.jpg','bg-ruhi.jpg','bg-quran.jpg','bg-method.jpg','bg-about.jpg','heart.webp','rays.webp','roadmap2.webp','roadmap2-s.webp','data/tq.json','data/qa.json','manifest.json','madina_fajr.webp','madina_dhuhr.webp','madina_asr.webp','madina_maghrib.webp','madina_isha.webp','munajat.jpg','muraqaba.jpg','umrah.jpg'];
 const SDK='https://www.gstatic.com/firebasejs/10.12.2/';
 const LIBS=[SDK+'firebase-app.js',SDK+'firebase-auth.js',SDK+'firebase-firestore.js',SDK+'firebase-messaging.js',

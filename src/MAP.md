@@ -15,7 +15,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **080-state.js** (2 KB): demoState(), blankOrgan(), freshState(), S
 - **090-accounts.js** (30 KB): ADMIN_EMAIL, AUTH, CONTENT, adminData, isAdmin, gated, AUTH_ERR, authErr, viewAuth(), LOGO, GLOGO, authSubmit(), TEST_ACCT, testSignIn(), googleSignIn(), pendingName, OWNER, lsGet, lsSet, onAuthUser(), onFbFail(), cloudTimer, cloudSaveNow(), cloudSave(), adminTry(), TT, ttTick(), ttFlush(), INBOX, inboxLoad(), inboxCard(), fmtDur, adminLoad(), adminMsgsLoad(), adminMsgDel(), adminPush(), adU, uName, SCR_N, scrName …
 - **100-content-editor.js** (24 KB): ED, edMode, UI, edNorm, edHash, ED_NO, ED_CARD, ED_LANGS, edApply(), edCardOf, edSaveUi(), edToast(), edBar(), edOpen(), ED_THEMES, ED_CSS0, ED_ST, edTheme(), edAdminBlock(), edClick(), adminSave(), announcementBanner(), onAuthRedirectError(), delAsk, acctMsg, accountSection(), authClick(), SCR, pz, pzD, pzEl(), PZ_OK, pzEnd(), navFix(), navT, save, YDAY, normOrgans(), orgMigrate(), orgSetStart() …
-- **110-views.js** (14 KB): screen, confirmFor, confirmReset, redoFor, esc, ARROW, MENU, TITLES, VERSES, AVATAR, avatarImg(), MENUICON, BACK, nextPrayer(), heroHome(), homeNow(), amProgress(), heroSub(), NEW_HOST
+- **110-views.js** (15 KB): screen, confirmFor, confirmReset, redoFor, esc, ARROW, MENU, TITLES, VERSES, AVATAR, avatarImg(), MENUICON, BACK, nextPrayer(), heroHome(), homeNow(), amProgress(), heroSub(), NEW_HOST
 - **120-quick-access-data.js** (8 KB): QI
 - **130-quick-access.js** (5 KB): QA_ALL, QA_DEF, qaSel, qaDot, qaBtn, qaGrid(), qaGo(), homeProg(), sheetOpen(), sheetClose(), moreOpen(), qaEditOpen(), qaToggle()
 - **140-first-steps.js** (3 KB): fsSteps(), fsCard(), iosGuide()
@@ -31,9 +31,9 @@ The app is built from these files, joined in the order of their names (`node scr
 - **240-subha.js** (6 KB): SUBHA_DEF, sbAdd, sbReset, sbEdit, sbZero, sb(), sbCount, sbTotal, subhaCard(), viewSubha(), sbMore(), sbTick()
 - **250-khalwa.js** (8 KB): khEdit, khMsg, khDel, khList, pad2, localStr, khMs, khName, khEvents(), khState, fmtDT, hmMs, KH_SHORT, KH_DAY, khTemplate(), khNew(), khReadForm(), khForm(), khCard(), viewKhalwa(), khAlerted, khToast()
 - **260-qalb-data.js** (7 KB): QALB
-- **270-qalb.js** (10 KB): QLEV, qbI, qbStop, qbRetest, qb(), qbScore, qbLevel, qbRank, qbDay, qbD, viewQalb(), qbQuestion(), qbResults(), qbToday(), qbShowRes, UMRAH
+- **270-qalb.js** (12 KB): QLEV, qbI, qbStop, qbRetest, qb(), qbScore, qbLevel, qbRank, qbDay, qbD, viewQalb(), qbQuestion(), qbResults(), qbToday(), qbShowRes, UMRAH
 - **280-umrah-data.js** (5 KB): UMART
-- **290-umrah.js** (12 KB): umRed, UMRAH_UR, viewUmrah(), viewTaammulat(), MEDIA, isMedia, viewMraqib(), fmtS, mqBind(), mqToggle()
+- **290-umrah.js** (14 KB): umRed, UMRAH_UR, viewUmrah(), viewTaammulat(), MEDIA, isMedia, viewMraqib(), fmtS, mqBind(), mqToggle()
 - **295-umrah-check.js** (5 KB): UM_CHK, UM_CNT, UM_LAST, umS(), umNeed, umCounter(), umCheck(), umDoneCard(), umNewArm
 - **300-tazkiya.js** (15 KB): tzTab, orgSel, tzMsg, tzDate, tzConf, tzEdit, tzDateBar(), tzPast(), MAX_ACTIVE, ORG_VERSE, TZ_TABS, tzSt(), tzTabs(), TZ_INFO, tzRow, TZI, tzHead(), tzStage(), viewTazkiya(), tzPrepOpen, tzRing(), tzToday(), tzPath(), viewOrgan()
 - **310-muhasaba.js** (3 KB): mhState(), mhOn, ikMh(), mhMsg, viewMuhasaba()
@@ -81,6 +81,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **730-screen-wudu-salat.js** (1 KB): viewGuide()
 - **740-lesson-stories.js** (4 KB): ST_MOTIF, ST_ROT, storySlides(), stSpeakTok, stSay(), storyOpen()
 - **750-simple-tazkiya.js** (6 KB): TZ_K, tzStage0(), tzUnl(), tzLadder(), tzSCard(), tzMore(), tzLearn(), tzSimple(), qmSlip, QM_REASONS
+- **755-maraka.js** (13 KB): MK_AUTO, MK_GO, MK_PR, MK_LV, MK_WIN_N, MK_WIN_IN, mkAnim, mkSnd, mkS(), mkTasks, mkLog, mkDone(), mkWon, mkWins, mkDay(), mkCanJudge(), mkScene(), mkLaugh(), mkResult(), viewMaraka()
 - **760-uyub.js** (4 KB): UY, UYN, UY_HEART, UY_LIS, UY_AF, UY_Q, UY_A, UY_W, UY_LV, UY_LC, UY_DO, UY_HAD, UY_RS, UY_WHO, UY_CV, UY_MV, UY_DAY, uyRun, uyOpen, uy(), uyDT, uyNum
 - **770-uyub-score.js** (2 KB): uyReason(), uyMuh(), uyCV(), uyScore(), uyLv, uyRank, uyValid(), uyLast, uyPrevValid, uyPend()
 - **780-uyub-screens.js** (21 KB): UY_LT, UY_IH, UY_IHC, UY_UJB, uyF, uyProg, uyUjb, uyQ, viewUyub(), uyRes(), uyCurCard(), uyMain(), uyHazm(), uyFault(), uyUjbBox(), uyIntro(), uyDoors(), uyPendCard(), uyTest(), uyResults(), uyChg(), uyBar(), uyRow(), uyCard()
@@ -113,6 +114,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - 130-adhan.css
 - 140-misc.css
 - 150-simple-ui.css
+- 160-maraka.css
 
 ## Other files
 
