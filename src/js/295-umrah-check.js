@@ -26,11 +26,11 @@ function umCheck(i){const R=umS(),L=UM_CHK[i]||[],done=R.ok.includes(i),can=umNe
   const before=Array.from({length:Math.min(i,UM_LAST+1)},(_,k)=>k).filter(k=>!R.ok.includes(k)&&UM_CHK[k].some(([,r])=>r));
   const U=LANG==='ur'?UMRAH_UR:UMRAH;
   return `<div class="umv${done?' ok':''}">${umCounter(i)}
-   <p class="umv-h">${done?'✓ <span>أتممتَ هذه المرحلة</span>':'<span>قبل أن تنتقل، تأكّد:</span>'}</p>
-   <ul class="umv-l">${L.map(([t,r],j)=>{const on=!!R.chk[i+'-'+j];return `<li><button class="umv-i${on?' on':''}" data-umchk="${i}-${j}" aria-pressed="${on}"><i aria-hidden="true">${on?'✓':''}</i><span><span>${t}</span>${r?'':' <small>سنة</small>'}</span></button></li>`}).join('')}</ul>
+   ${done?'<p class="umv-h">✓ <span>أتممتَ هذه المرحلة</span></p>':L.some(([,r])=>r)?'<p class="umv-h"><span>قبل أن تنتقل، تأكّد:</span></p>':''}
+   ${L.some(([,r])=>r)?`<ul class="umv-l">${L.map(([t,r],j)=>{if(!r)return '';const on=!!R.chk[i+'-'+j];return `<li><button class="umv-i${on?' on':''}" data-umchk="${i}-${j}" aria-pressed="${on}"><i aria-hidden="true">${on?'✓':''}</i><span>${t}</span></button></li>`}).join('')}</ul>`:''}
    ${before.length&&!done?`<p class="umv-w"><span>لم تؤكّد بعدُ:</span> ${before.map(k=>`<button class="lnk" data-umstep="${k}">${U.st[k].t}</button>`).join('، ')}</p>`:''}
    ${done?`<button class="btn small" data-umok="${i}" data-v="0">ألغِ التأكيد</button>`
-     :`<button class="btn ok umv-b" data-umok="${i}" data-v="1"${can?'':' disabled'}>${i===UM_LAST?'أتممتُ عمرتي':'أتممتُ هذه المرحلة'}</button>${can?'':`<p class="meta umv-m">${UM_CNT[i]&&R[UM_CNT[i]]<7?'أكمل الأشواط السبعة، وأكّد ما فوقه.':'أكّد ما فوقه أولًا.'}</p>`}`}
+     :`<button class="btn ok umv-b" data-umok="${i}" data-v="1"${can?'':' disabled'}>${i===UM_LAST?'أتممتُ عمرتي':'أتممتُ هذه المرحلة'}</button>${can?'':`<p class="meta umv-m">${UM_CNT[i]&&R[UM_CNT[i]]<7?'أكمل الأشواط السبعة أولًا.':'أكّد ما فوقه أولًا.'}</p>`}`}
   </div>`}
 /* the umrah is complete: thanks, and a new one can begin */
 function umDoneCard(){const R=umS();if(!R.doneAt)return '';

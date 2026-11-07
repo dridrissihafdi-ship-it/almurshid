@@ -176,3 +176,9 @@ mark.qa-m{background:color-mix(in srgb,var(--gold) 55%,transparent);color:inheri
 .umc-u{display:inline-block;margin-top:8px;font-size:13px}
 .umc-n{margin:6px 0 0}
 .umd{margin:0 0 12px;text-align:center;border:1px solid var(--green)}.umd-t{margin:0;font-size:20px;font-weight:700;color:var(--green)}.umd-v{font-family:var(--f-verse);font-size:20px;margin:6px 0}
+
+/* umrah, simplified */
+.um-steps{margin:8px 0 4px;padding-inline-start:22px;display:grid;gap:6px}.um-steps li{line-height:1.7}.um-steps li::marker{color:var(--teal);font-weight:700}
+.um-more{margin:10px 0;border:1px solid var(--card-line);border-radius:12px;padding:8px 12px}.um-more>summary{cursor:pointer;font-weight:700;color:var(--ink);min-height:32px;display:flex;align-items:center}
+.um-more ul{margin:6px 0;padding-inline-start:18px;display:grid;gap:4px}#umVideo{display:block;width:100%;max-width:300px;max-height:60vh;aspect-ratio:720/1232;margin:0 auto;border-radius:12px;object-fit:cover;background:#000}
+.um-note b{color:var(--ink)}
