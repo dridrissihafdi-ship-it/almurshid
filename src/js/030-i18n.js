@@ -12,12 +12,12 @@ const hasAr=s=>/[؀-ۿ]/.test(s);
 let I18N_OK=false;
 function i18nLoad(){if(I18N_OK||Object.keys(I18N_D).length>200){I18N_OK=true;return Promise.resolve()}
   return fetch('i18n.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(j=>{I18N_D=j;I18N_OK=true}).catch(e=>console.warn('i18n',e))}
-function Tx(s){if(LANG==='ar')return s;const i=LIDX[LANG];let k=deDigits(s.trim());
+function Tx(s){if(LANG==='ar')return s;const i=LIDX[LANG];let k=deDigits(s.trim());if(!I18N_D[k]&&k.normalize){const n=k.normalize('NFC');if(I18N_D[n])k=n}
   if(!I18N_D[k]&&/[\u064B-\u0652\u0670]/.test(k)){const k2=k.replace(/[\u064B-\u0652\u0670]/g,'');if(I18N_D[k2])k=k2}
   if(I18N_D[k])return I18N_D[k][i]||k;if(I18N_W[k])return I18N_W[k][i]||k;
   for(const [re,tr] of I18N_P){const m=k.match(re);if(m&&tr[i])return tr[i].replace(/\{(\d)(t|w)?\}/g,(_,n,f)=>{const g=m[n]||'';
     if(f==='t')return Tx(g);
-    if(f==='w')return g.split('، ').map(p=>{const t=Tx(p);return hasAr(t)?p.split(' ').map(Tx).join(' '):t}).join(', ');
+    if(f==='w')return g.split('، ').map(p=>{const t=Tx(p);return t!==p.trim()||!hasAr(t)?t:p.split(' ').map(Tx).join(' ')}).join(LANG==='ur'?'، ':', ');
     return g})}
   return k}
 const I18N_SKIP='.tq,.adh-t,.bas,.verse,.dr-text,.notr,input,textarea,script,style';

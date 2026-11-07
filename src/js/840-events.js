@@ -223,7 +223,7 @@ document.addEventListener('click',e=>{
   if(d.export){const code=JSON.stringify(S);
     navigator.clipboard.writeText(code).then(()=>{transferMsg='نُسخ رمز بياناتك. الصقه الآن في التطبيق المثبّت.';render()})
       .catch(()=>{const t=document.getElementById('importCode');t.value=code;t.select();transferMsg='!لم يُسمح بالنسخ التلقائي. الرمز محدّد في الخانة: انسخه يدويًا.';
-        const m=document.createElement('p');m.className='logged bad';m.textContent=transferMsg.slice(1);t.after(m)});return}
+        const m=document.createElement('p');m.className='logged bad';m.textContent=Tx(transferMsg.slice(1));t.after(m)});return}
   if(d.import){const t=document.getElementById('importCode');
     try{const v=JSON.parse(t.value.trim());if(!v||!v.organs||!v.log)throw 0;S=v;
       ORGANS.forEach(g=>{if(!S.organs[g.id])S.organs[g.id]=blankOrgan()});if(!S.marks)S.marks=emptyMarks();

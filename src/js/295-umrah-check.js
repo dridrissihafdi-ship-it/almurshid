@@ -24,7 +24,7 @@ function umCounter(i){const R=umS(),c=UM_CNT[i],n=R[c];if(!c)return '';
    <p class="meta umc-n">إن شككتَ في العدد فخذ بالأقل.</p></div>`}
 function umCheck(i){const R=umS(),L=UM_CHK[i]||[],done=R.ok.includes(i),can=umNeed(i);
   const before=Array.from({length:Math.min(i,UM_LAST+1)},(_,k)=>k).filter(k=>!R.ok.includes(k)&&UM_CHK[k].some(([,r])=>r));
-  const U=LANG==='ur'?UMRAH_UR:UMRAH;
+  const U=umU();
   return `<div class="umv${done?' ok':''}">${umCounter(i)}
    ${done?'<p class="umv-h">✓ <span>أتممتَ هذه المرحلة</span></p>':L.some(([,r])=>r)?'<p class="umv-h"><span>قبل أن تنتقل، تأكّد:</span></p>':''}
    ${L.some(([,r])=>r)?`<ul class="umv-l">${L.map(([t,r],j)=>{if(!r)return '';const on=!!R.chk[i+'-'+j];return `<li><button class="umv-i${on?' on':''}" data-umchk="${i}-${j}" aria-pressed="${on}"><i aria-hidden="true">${on?'✓':''}</i><span>${t}</span></button></li>`}).join('')}</ul>`:''}
@@ -45,7 +45,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)r
   if(d.umok!==undefined){const R=umS(),i=+d.umok;
     if(+d.v){if(!umNeed(i))return;if(!R.ok.includes(i))R.ok.push(i);if(!R.start)R.start=TODAY;
       if(i===UM_LAST&&!R.doneAt){R.doneAt=TODAY;(S.umH=S.umH||[]).push(TODAY)}
-      const U=LANG==='ur'?UMRAH_UR:UMRAH;if(i<U.st.length-1)S.umStep=i+1}
+      const U=umU();if(i<U.st.length-1)S.umStep=i+1}
     else{R.ok=R.ok.filter(k=>k!==i);if(i===UM_LAST)R.doneAt=null}
     save();render();const c=document.querySelector('.um-dots');SCR().scrollTo({top:c?c.getBoundingClientRect().top+SCR().scrollTop-20:0});return}
   if(d.umnew){if(!umNewArm){umNewArm=1;render();setTimeout(()=>{umNewArm=0;if(screen==='umrah')render()},4000);return}

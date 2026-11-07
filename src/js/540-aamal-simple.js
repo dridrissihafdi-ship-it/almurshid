@@ -59,7 +59,7 @@ function viewAamal(){
   const LIGHT={sabah:['الهالة',l.halo&&l.p.kind==='sabah'],masa:['الهالة',l.halo&&l.p.kind==='masa'],quran:['الرأس',l.head],dhikr:['القلب',l.heart]};
   const IT={};AWRAD.forEach(a=>{const x=LIGHT[a.id];const it={...a};
     if(a.id==='dhikr'){const dl=M.dhikrList||[];it.s=dl.length?`${ar2(dl.length)} ${dl.length>2&&dl.length<11?'أذكار':'ذكر'} · ${ar2(dlTotal())} دقيقة`:'أضف أذكارك من «مجموعة الذكر الشخصي» أسفله'}
-    if(a.id==='quran'&&S.mushaf&&!past){const m=msh();it.s=Math.min(m.day.read.length,m.wird)+' / '+m.wird+' · '+(WIRD_OPTS.find(o=>o[0]===m.wird)||[0,''])[1]}
+    if(a.id==='quran'&&S.mushaf&&!past){const m=msh();it.s=Math.min(m.day.read.length,m.wird)+' / '+m.wird+' · '+Tx((WIRD_OPTS.find(o=>o[0]===m.wird)||[0,''])[1])}
     if(x&&!past){it.tag=(x[1]?'✦ ':'')+x[0];it.tagOn=x[1]}IT[a.id]=it});
   const pt0=prayerTimes(new Date(D+'T12:00:00')),P=amPick(L),awL=awList(P,D),awOn=i=>awL.includes(i),nfOn=P.nf.filter(i=>NAFL_IDS.includes(i));
   const lateAw=[...AW_PICK,...AW_X].filter(i=>awOn(i)&&awLate(i,L,pt0));

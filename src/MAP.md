@@ -7,7 +7,7 @@ The app is built from these files, joined in the order of their names (`node scr
 
 - **010-adhkar-data.js** (20 KB): ADHKAR
 - **020-i18n-data.js** (20 KB): I18N_D, I18N_P
-- **030-i18n.js** (5 KB): I18N_W, LIDX, RTL, LOC, LANGS, LANG, deDigits, hasAr, I18N_OK, i18nLoad(), Tx(), I18N_SKIP, i18nApply(), computeHijri(), KEY, LAT, LNG, CITIES, cityName, applyLoc(), nearestCity()
+- **030-i18n.js** (6 KB): I18N_W, LIDX, RTL, LOC, LANGS, LANG, deDigits, hasAr, I18N_OK, i18nLoad(), Tx(), I18N_SKIP, i18nApply(), computeHijri(), KEY, LAT, LNG, CITIES, cityName, applyLoc(), nearestCity()
 - **040-organs-data.js** (6 KB): ORGANS
 - **050-organs.js** (1 KB): fmtD, AWRAD, HEARTS, PHASE
 - **060-dates.js** (1 KB): pad, ds, addDays, TODAY, hijriDay, hijriLabel, DOW, seasonal()
@@ -34,6 +34,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **270-qalb.js** (12 KB): QLEV, qbI, qbStop, qbRetest, qb(), qbScore, qbLevel, qbRank, qbDay, qbD, viewQalb(), qbQuestion(), qbResults(), qbToday(), qbShowRes, UMRAH
 - **280-umrah-data.js** (5 KB): UMART
 - **290-umrah.js** (13 KB): umRed, UMRAH_UR, viewUmrah(), viewTaammulat(), MEDIA, isMedia, viewMraqib(), fmtS, mqBind(), mqToggle()
+- **291-umrah-i18n.js** (26 KB): UMRAH_X, umU
 - **295-umrah-check.js** (5 KB): UM_CHK, UM_CNT, UM_LAST, umS(), umNeed, umCounter(), umCheck(), umDoneCard(), umNewArm
 - **300-tazkiya.js** (15 KB): tzTab, orgSel, tzMsg, tzDate, tzConf, tzEdit, tzDateBar(), tzPast(), MAX_ACTIVE, ORG_VERSE, TZ_TABS, tzSt(), tzTabs(), TZ_INFO, tzRow, TZI, tzHead(), tzStage(), viewTazkiya(), tzPrepOpen, tzRing(), tzToday(), tzPath(), viewOrgan()
 - **310-muhasaba.js** (3 KB): mhState(), mhOn, ikMh(), mhMsg, viewMuhasaba()
