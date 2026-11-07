@@ -29,7 +29,7 @@ function viewTaammulat(){if(!auCat||!auBusy)setTimeout(()=>{const had=JSON.strin
   const T=(go,ic,t,s)=>`<button class="tm-tile" data-go="${go}"><svg viewBox="0 0 48 48" aria-hidden="true">${ic}</svg><span>${t}<small>${s}</small></span></button>`;
   const serCard=(k,go,t,v)=>{const sg=(auCat||[]).find(g=>g.k===k),sd=sg?sg.items.filter(x=>(S.au&&S.au.done||{})[x.p]).length:0;
     return `<button class="tm-feat tm-sira" data-go="${go}"><small><span>سلسلة صوتية</span> · ${sg?`<span>استمعت إلى</span> ${sd} <span>من</span> ${sg.items.length}`:'<span>حلقات مسموعة</span>'}</small><b>${t}</b><span class="tm-v" dir="rtl" lang="ar">${v}</span>${sg?`<i><b style="width:${sd/sg.items.length*100}%"></b></i>`:''}</button>`};
-  const sira=serCard(SIRA_K,'sira','السيرة النبوية العطرة','﴿لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ﴾')+serCard(QIY_K,'qiyama','يوم القيامة','﴿يَوْمَ يَقُومُ النَّاسُ لِرَبِّ الْعَالَمِينَ﴾');
+  const sira=ysSerCard('sira','﴿لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ﴾')+ysSerCard('qiy','﴿يَوْمَ يَقُومُ النَّاسُ لِرَبِّ الْعَالَمِينَ﴾');
   return `<section>${feat}${sira}${serCards()}
    <button class="tm-qa" data-go="qa"><small>سؤال اليوم</small><b class="notr" dir="auto">${esc(q)}</b><span>اضغط لترى الجواب</span></button>
    <div class="tm-grid">

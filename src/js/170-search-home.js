@@ -10,8 +10,9 @@ function usIndex(){const R=[],tr=t=>LANG==='ar'?t:Tx(t);
   DUAS.forEach(([sec,L])=>L.forEach(([t,x])=>R.push(['dua',tr(t)+' · '+x,tr(sec),'data-go="duas"',1])));
   (QA.qa||[]).forEach((x,i)=>{const [q,a]=qaT(i);R.push(['qa',q,'',`data-qaopen="${i}"`,1,a])});
   (auCat||[]).forEach(g=>{const sc=g.k===AQ_K?'aqida':g.k===SIRA_K?'sira':g.k===QIY_K?'qiyama':'audio';(g.items||[]).forEach(it=>R.push(['au',it.t,g.n||'',`data-auplay="${esc(it.p)}" data-ausc="${sc}"`,1]))});
+  Object.keys(YS).forEach(k=>{const rid=ysRid(k);ysEps(rid).forEach((x,j)=>R.push(['au',x[1],Tx(YS[k].t),`data-ysgo="${YS[k].scr}" data-ysep="${j}" data-ysrid="${rid}"`,1]))});
   return R}
-const US_G=[['sec','الأقسام'],['path','مراحل الطريق'],['uy','العيوب'],['adh','الأذكار'],['dua','سنن الرسول ﷺ'],['qa','سؤال وجواب'],['au','الدروس الصوتية']];
+const US_G=[['sec','الأقسام'],['path','مراحل الطريق'],['uy','العيوب'],['adh','الأذكار'],['dua','سنن الرسول ﷺ'],['qa','سؤال وجواب'],['au','الدروس والسلاسل']];
 function usResults(v){const words=qaNorm(v.trim()).split(/\s+/).filter(Boolean);if(!words.length)return `<p class="meta us-tip">${Tx('اكتب كلمة: الغضب، الصبح، التوبة، الكبر…')}</p>`;
   if(!auCat&&typeof auLoad==='function'){try{auLoad().then(()=>{if(screen==='search'){const r=document.getElementById('usRes');if(r)r.innerHTML=usResults((document.getElementById('usQ')||{}).value||'');i18nApply(r)}})}catch(e){}}
   const hits={};let n=0;
@@ -24,6 +25,7 @@ document.addEventListener('input',e=>{if(e.target.id!=='usQ')return;usQ=e.target
 document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;const d=t.dataset;
   if(d.hint){hintOpen(d.hint);return}
   if(d.khnever){S.khAsk=false;save();sheetClose();miniToast(Tx('لن يُسأل بعد الصلاة. تعيده من صفحة الخشوع.'));return}
+  if(d.ysgo&&screen==='search'){e.stopImmediatePropagation();const P=recP(d.ysrid);P.i=+d.ysep;P.t=0;save();recOpen=d.ysrid;go(d.ysgo);return}
   if(d.auplay&&screen==='search'){const p=d.auplay;e.stopImmediatePropagation();go(d.ausc||'audio');setTimeout(()=>{try{auPlay(p)}catch(x){}},150);return}},true);
 (function(){try{let ch=0;['quick','homeT'].forEach(k=>{if(Array.isArray(S[k])&&S[k].some(x=>x==='taammulat'||x==='h_quran')){S[k]=S[k].map(x=>x==='taammulat'?(S[k].includes('h_ruh')?null:'h_ruh'):x==='h_quran'?(S[k].includes('quran')?null:'quran'):x);if(k==='quick')S[k]=S[k].filter(Boolean);ch=1}});if(ch)save()}catch(e){}})();
 function viewHome(){

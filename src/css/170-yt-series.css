@@ -1,0 +1,5 @@
+/* the Sira and the Day of Judgment, in every language */
+.ys-lang{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}.ys-lang .chip{border:1px solid var(--card-line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-size:13.5px;min-height:36px}
+.ys-lang .chip.on{background:var(--teal);border-color:var(--teal);color:var(--on-teal)}
+.ys-note{margin-top:10px}.ys-nl{display:block;font-weight:600;font-size:14px;margin:0 0 4px}.ys-note textarea{width:100%;box-sizing:border-box;border-radius:12px;border:1px solid var(--card-line);background:var(--page);color:var(--ink);padding:10px;font:inherit;font-size:14.5px;line-height:1.7;resize:vertical}
+.ys-ns{min-height:1.2em;margin:2px 0 0;font-size:12px}

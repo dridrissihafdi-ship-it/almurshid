@@ -1476,6 +1476,11 @@ mark.qa-m{background:color-mix(in srgb,var(--gold) 55%,transparent);color:inheri
 @keyframes mkHa{0%,100%{transform:scale(var(--mf)) translateY(0) rotate(0)}50%{transform:scale(var(--mf)) translateY(-7px) rotate(-1.5deg)}}
 @keyframes mkGone{0%{opacity:1;filter:blur(0);transform:scale(var(--mf))}55%{opacity:.6;filter:blur(3px)}100%{opacity:0;filter:blur(12px);transform:scale(calc(var(--mf)*1.15)) translateY(-34px)}}
 @media (prefers-reduced-motion:reduce){.mk-w .mk-dv{opacity:0}}
+/* the Sira and the Day of Judgment, in every language */
+.ys-lang{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}.ys-lang .chip{border:1px solid var(--card-line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-size:13.5px;min-height:36px}
+.ys-lang .chip.on{background:var(--teal);border-color:var(--teal);color:var(--on-teal)}
+.ys-note{margin-top:10px}.ys-nl{display:block;font-weight:600;font-size:14px;margin:0 0 4px}.ys-note textarea{width:100%;box-sizing:border-box;border-radius:12px;border:1px solid var(--card-line);background:var(--page);color:var(--ink);padding:10px;font:inherit;font-size:14.5px;line-height:1.7;resize:vertical}
+.ys-ns{min-height:1.2em;margin:2px 0 0;font-size:12px}
 </style>
 
 </head>
@@ -2363,8 +2368,9 @@ function usIndex(){const R=[],tr=t=>LANG==='ar'?t:Tx(t);
   DUAS.forEach(([sec,L])=>L.forEach(([t,x])=>R.push(['dua',tr(t)+' · '+x,tr(sec),'data-go="duas"',1])));
   (QA.qa||[]).forEach((x,i)=>{const [q,a]=qaT(i);R.push(['qa',q,'',`data-qaopen="${i}"`,1,a])});
   (auCat||[]).forEach(g=>{const sc=g.k===AQ_K?'aqida':g.k===SIRA_K?'sira':g.k===QIY_K?'qiyama':'audio';(g.items||[]).forEach(it=>R.push(['au',it.t,g.n||'',`data-auplay="${esc(it.p)}" data-ausc="${sc}"`,1]))});
+  Object.keys(YS).forEach(k=>{const rid=ysRid(k);ysEps(rid).forEach((x,j)=>R.push(['au',x[1],Tx(YS[k].t),`data-ysgo="${YS[k].scr}" data-ysep="${j}" data-ysrid="${rid}"`,1]))});
   return R}
-const US_G=[['sec','الأقسام'],['path','مراحل الطريق'],['uy','العيوب'],['adh','الأذكار'],['dua','سنن الرسول ﷺ'],['qa','سؤال وجواب'],['au','الدروس الصوتية']];
+const US_G=[['sec','الأقسام'],['path','مراحل الطريق'],['uy','العيوب'],['adh','الأذكار'],['dua','سنن الرسول ﷺ'],['qa','سؤال وجواب'],['au','الدروس والسلاسل']];
 function usResults(v){const words=qaNorm(v.trim()).split(/\s+/).filter(Boolean);if(!words.length)return `<p class="meta us-tip">${Tx('اكتب كلمة: الغضب، الصبح، التوبة، الكبر…')}</p>`;
   if(!auCat&&typeof auLoad==='function'){try{auLoad().then(()=>{if(screen==='search'){const r=document.getElementById('usRes');if(r)r.innerHTML=usResults((document.getElementById('usQ')||{}).value||'');i18nApply(r)}})}catch(e){}}
   const hits={};let n=0;
@@ -2377,6 +2383,7 @@ document.addEventListener('input',e=>{if(e.target.id!=='usQ')return;usQ=e.target
 document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;const d=t.dataset;
   if(d.hint){hintOpen(d.hint);return}
   if(d.khnever){S.khAsk=false;save();sheetClose();miniToast(Tx('لن يُسأل بعد الصلاة. تعيده من صفحة الخشوع.'));return}
+  if(d.ysgo&&screen==='search'){e.stopImmediatePropagation();const P=recP(d.ysrid);P.i=+d.ysep;P.t=0;save();recOpen=d.ysrid;go(d.ysgo);return}
   if(d.auplay&&screen==='search'){const p=d.auplay;e.stopImmediatePropagation();go(d.ausc||'audio');setTimeout(()=>{try{auPlay(p)}catch(x){}},150);return}},true);
 (function(){try{let ch=0;['quick','homeT'].forEach(k=>{if(Array.isArray(S[k])&&S[k].some(x=>x==='taammulat'||x==='h_quran')){S[k]=S[k].map(x=>x==='taammulat'?(S[k].includes('h_ruh')?null:'h_ruh'):x==='h_quran'?(S[k].includes('quran')?null:'quran'):x);if(k==='quick')S[k]=S[k].filter(Boolean);ch=1}});if(ch)save()}catch(e){}})();
 function viewHome(){
@@ -2826,7 +2833,7 @@ function viewTaammulat(){if(!auCat||!auBusy)setTimeout(()=>{const had=JSON.strin
   const T=(go,ic,t,s)=>`<button class="tm-tile" data-go="${go}"><svg viewBox="0 0 48 48" aria-hidden="true">${ic}</svg><span>${t}<small>${s}</small></span></button>`;
   const serCard=(k,go,t,v)=>{const sg=(auCat||[]).find(g=>g.k===k),sd=sg?sg.items.filter(x=>(S.au&&S.au.done||{})[x.p]).length:0;
     return `<button class="tm-feat tm-sira" data-go="${go}"><small><span>سلسلة صوتية</span> · ${sg?`<span>استمعت إلى</span> ${sd} <span>من</span> ${sg.items.length}`:'<span>حلقات مسموعة</span>'}</small><b>${t}</b><span class="tm-v" dir="rtl" lang="ar">${v}</span>${sg?`<i><b style="width:${sd/sg.items.length*100}%"></b></i>`:''}</button>`};
-  const sira=serCard(SIRA_K,'sira','السيرة النبوية العطرة','﴿لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ﴾')+serCard(QIY_K,'qiyama','يوم القيامة','﴿يَوْمَ يَقُومُ النَّاسُ لِرَبِّ الْعَالَمِينَ﴾');
+  const sira=ysSerCard('sira','﴿لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ﴾')+ysSerCard('qiy','﴿يَوْمَ يَقُومُ النَّاسُ لِرَبِّ الْعَالَمِينَ﴾');
   return `<section>${feat}${sira}${serCards()}
    <button class="tm-qa" data-go="qa"><small>سؤال اليوم</small><b class="notr" dir="auto">${esc(q)}</b><span>اضغط لترى الجواب</span></button>
    <div class="tm-grid">
@@ -3570,7 +3577,7 @@ const recEps=r=>r&&((r.eps&&r.eps.length?r.eps:null)||REC_EPS[r.id]||(recLC[r.id
 function recAutoFetch(r){if(!r||recBusy[r.id]||recEps(r)||!ytList(r.url)||ytId(r.url))return;const L=recLC[r.id];if(L&&L.fail&&Date.now()-L.fail<6*3600e3)return;recBusy[r.id]=1;
   recBuild(r,r.rev!==false,null).then(eps=>{if(eps&&eps.length){recLC[r.id]={eps,ts:Date.now()};try{localStorage.setItem('murshid-rec-eps',JSON.stringify(recLC))}catch(e){}}}).catch(()=>{recLC[r.id]={fail:Date.now()}}).finally(()=>{delete recBusy[r.id];if(screen==='majalis'&&majTab==='rec'&&!recOpen)render()})}
 const recHid=rid=>((CONTENT.recHide||{})[rid]||[]);
-const epsOf=rid=>{const h=recHid(rid);return (recEps(recList().find(x=>x.id===rid))||[]).filter(e=>!h.includes(e[2]))};
+const epsOf=rid=>{const y=ysEps(rid);if(y)return y;const h=recHid(rid);return (recEps(recList().find(x=>x.id===rid))||[]).filter(e=>!h.includes(e[2]))};
 function recP(rid){if(!S.recPos)S.recPos={};if(!S.recPos[rid])S.recPos[rid]={i:0,t:0,w:{}};return S.recPos[rid]}
 const recAuto=()=>S.recAuto!==false;
 const hms=x=>{x=Math.max(0,Math.round(x||0));const h=Math.floor(x/3600),m=Math.floor(x%3600/60),s2=x%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(s2).padStart(2,'0')};
@@ -3590,11 +3597,11 @@ function sndUi(){let m=document.getElementById('sndMini');const ad=ADP.on&&scree
 const DOCK={on:false,key:'',title:'',tab:'rec'};
 function dockEl(){let d=document.getElementById('ytDock');if(!d){d=document.createElement('div');d.id='ytDock';d.hidden=true;
     d.innerHTML='<div class="yd-v"><div id="ytDockIn"></div></div><div class="yd-bar"><button class="yd-t" data-ydgo="1"></button><button class="yd-x" data-ydx="1" aria-label="close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
-    document.body.appendChild(d);d.addEventListener('click',e=>{const x=e.target.closest('[data-ydx],[data-ydgo]');if(!x)return;e.stopPropagation();if(x.dataset.ydx)dockClose();else{go('majalis');majTab=DOCK.tab;render();SCR().scrollTo(0,0)}})}return d}
+    document.body.appendChild(d);d.addEventListener('click',e=>{const x=e.target.closest('[data-ydx],[data-ydgo]');if(!x)return;e.stopPropagation();if(x.dataset.ydx)dockClose();else if(DOCK.scr){go(DOCK.scr);SCR().scrollTo(0,0)}else{go('majalis');majTab=DOCK.tab;render();SCR().scrollTo(0,0)}})}return d}
 function dockOpen(key,title,src){const d=dockEl();if(DOCK.on&&DOCK.key===key)return false;
   if(ytP){try{recSave()}catch(e){}try{ytP.destroy()}catch(e){}ytP=null;ytRid=null;clearInterval(ytIv)}
   d.querySelector('.yd-v').innerHTML=src?`<iframe src="${src}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`:'<div id="ytDockIn"></div>';
-  Object.assign(DOCK,{on:true,key,title,tab:majTab||'rec'});d.querySelector('.yd-t').textContent=title||'';d.hidden=false;requestAnimationFrame(dockLoop);return true}
+  Object.assign(DOCK,{on:true,key,title,tab:majTab||'rec',scr:''});d.querySelector('.yd-t').textContent=title||'';d.hidden=false;requestAnimationFrame(dockLoop);return true}
 function dockClose(){if(ytP){try{recSave()}catch(e){}try{ytP.destroy()}catch(e){}ytP=null;ytRid=null;clearInterval(ytIv)}const d=dockEl();d.querySelector('.yd-v').innerHTML='';d.hidden=true;DOCK.on=false;DOCK.key='';recOpen=null;ytLiveOpen=false;document.body.classList.remove('yd-mini');if(screen==='majalis')render()}
 function dockLoop(){if(!DOCK.on)return;const d=dockEl(),slot=document.getElementById('ytSlot');
   if(gated()){d.hidden=true}else if(slot&&slot.dataset.k===DOCK.key){d.hidden=false;const r=slot.getBoundingClientRect();d.className='full';d.style.cssText=`top:${r.top}px;left:${r.left}px;width:${r.width}px;height:${r.height}px`;document.body.classList.remove('yd-mini')}
@@ -3607,11 +3614,11 @@ const epDur=(rid,k)=>{const e=epsOf(rid)[k],P=recP(rid);return (e&&e[3])||(P.d&&
 function recInfo(rid,k){const e=epsOf(rid)[k],P=recP(rid);if(!e)return '';const du=epDur(rid,k);return `<b class="rec-et"><span>الحلقة</span> ${e[0]}${e[1]?`: <span class="notr" dir="auto">${esc(e[1])}</span>`:''}</b><span class="rec-em">${[du?`<span dir="ltr">${hms(du)}</span>`:'',e[4]?`<span class="notr" dir="auto">${esc(e[4])}</span>`:'',P.w[k]?'<span class="rec-ok">✓ <span>شاهدتها</span></span>':''].filter(Boolean).join(' · ')}</span>`}
 function recUi(rid){const E=epsOf(rid)||[],P=recP(rid),e=E[P.i];if(!e)return;const n=document.getElementById('recNow');if(n)n.innerHTML=recInfo(rid,P.i);const sb=document.getElementById('recSum');if(sb)sb.innerHTML=sumBox('v:'+e[2],Tx('خلاصة الحلقة'));
   document.querySelectorAll('[data-epli]').forEach(b=>{const k=+b.dataset.epli;b.classList.toggle('cur',k===P.i);b.classList.toggle('seen',!!P.w[k])});
-  const c=document.getElementById('recCnt');if(c)c.textContent=Object.keys(P.w).length;const a=document.getElementById('recAutoB');if(a){a.classList.toggle('on',recAuto());a.innerHTML=`<span>${Tx(recAuto()?'التشغيل المتتالي: مفعّل':'التشغيل المتتالي: متوقف')}</span>`}}
+  const c=document.getElementById('recCnt');if(c)c.textContent=Object.keys(P.w).length;const a=document.getElementById('recAutoB');if(a){a.classList.toggle('on',recAuto());a.innerHTML=`<span>${Tx(recAuto()?'التشغيل المتتالي: مفعّل':'التشغيل المتتالي: متوقف')}</span>`}ysUi(rid)}
 function recGo(rid,i){const E=epsOf(rid)||[];if(i<0||i>=E.length)return;recSave();const P=recP(rid);P.i=i;P.t=0;save();if(ytP&&ytRid===rid&&ytP.loadVideoById)ytP.loadVideoById({videoId:E[i][2],startSeconds:0});recUi(rid)}
-function recInit(rid){const E=epsOf(rid),P=recP(rid),rr=recList().find(x=>x.id===rid)||{};if(!E.length)return;dockOpen('r:'+rid,rr.t||'');
+function recInit(rid){const E=epsOf(rid),P=recP(rid),rr=recList().find(x=>x.id===rid)||{},yo=ysOf(rid);if(!E.length)return;dockOpen('r:'+rid,rr.t||(yo?Tx(YS[yo.k].t):''));if(yo)DOCK.scr=YS[yo.k].scr;
   ytApi().then(()=>{if(DOCK.key!=='r:'+rid||!document.getElementById('ytDockIn'))return;try{if(ytP&&ytP.destroy)ytP.destroy()}catch(e){}ytRid=rid;
-    ytP=new YT.Player('ytDockIn',{host:'https://www.youtube-nocookie.com',videoId:E[P.i][2],playerVars:{start:Math.floor(P.t>E[P.i][3]-30?0:P.t),autoplay:1,playsinline:1,rel:0,modestbranding:1},
+    ytP=new YT.Player('ytDockIn',{host:'https://www.youtube-nocookie.com',videoId:E[P.i][2],playerVars:{start:Math.floor(E[P.i][3]&&P.t>E[P.i][3]-30?0:P.t),autoplay:1,playsinline:1,rel:0,modestbranding:1,iv_load_policy:3},
       events:{onStateChange:ev=>{if(ev.data===1){clearInterval(ytIv);ytIv=setInterval(recSave,5000)}else if(ev.data===2){recSave()}else if(ev.data===0){clearInterval(ytIv);const Q=recP(rid);Q.w[Q.i]=1;Q.t=0;save();if(recAuto()&&Q.i<E.length-1)recGo(rid,Q.i+1);else recUi(rid)}}}})}).catch(()=>{})}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')recSave()});window.addEventListener('pagehide',recSave);
 /* summaries the administration writes for a live gathering or a lesson, read by every seeker */
@@ -3744,6 +3751,52 @@ function askClick(d){
   if(d.adsalsave){const u=(document.getElementById('sl-u').value||'').trim();adminSave({salat:{url:u}},'حُفظ المقطع.');if(SAL.on){salStop();SAL.a=null;SAL.dur=0}return true}
   if(d.admajdel!==undefined){const L=(CONTENT.majalis||[]).slice();L.splice(+d.admajdel,1);adminSave({majalis:L},'حُذف المجلس.');return true}
   return false}
+/* ---------- the Sira and the Day of Judgment: one video series per language, in the app's own player ----------
+   The episodes are listed here in order, first to last, for each language (Urdu has its own).
+   The player is the one of the recorded lessons (420-majalis.js): continuous play, the place where the seeker stopped,
+   and the small player that keeps going while he moves around the app. Each seeker writes his own notes on every
+   episode (S.epN, kept with his progress). */
+const YS_DATA={"sira":{"ar":[["b93KArM0OCI","ولادته ونشأته ﷺ"],["fjKS8wf3pjQ","مكة تنقلب على النبي ﷺ"],["r-i7DjKT8eQ","حمزة وعمر يُسلمان"],["h6yacv9hECw","المعجزة التي صدمت قريشًا"],["7DZzDWucYCY","الهجرة: مغادرة مكة"],["u-A5KoZgs1c","غزوة بدر: الكلمات الأخيرة لأبي جهل"],["CPU-8TI0-f0","غزوة أحد: استشهاد حمزة رضي الله عنه"],["lxahtim3fUk","غزوة الخندق: العاصفة التي غيّرت كل شيء"],["LCQdXClcp8Y","غزوة خيبر"],["RNqM6N0yZ88","فتح مكة"],["COuHfBRFAKA","الخطبة الأخيرة للنبي ﷺ"]],"en":[["DW-00ckCAPI","The Life of Prophet Muhammad ﷺ"],["Qnzam5KcopM","The Hardest Days of Islam"],["dAZPkwAo0lE","Hamza and Umar Become Muslims"],["jx9syOUU1Ms","The Boycott: No Food, No Mercy"],["eOYW4vKaKpc","A Spider’s Web Saved the Prophet ﷺ"],["zNpV3UqwyDU","Battle of Badr: The Last Words of Abu Jahl"],["CPWL76pGaBI","Uhud: The Cry That Shook the Battle"],["QbV9WR28GCg","The Battle of the Trench"],["ebeAyx_E7pc","The Conquest of Khaybar"],["uSUxDtp-U0Q","The Conquest of Mecca"],["pR65Sfhp-AY","The Prophet’s Farewell ﷺ"]],"fr":[["c01ys_5EKSI","La vie du Prophète Muhammad ﷺ"],["vT-GmNItVJo","La persécution des premiers musulmans"],["EeFh25K24x8","Hamza et Omar deviennent musulmans"],["LmLo4CO0LNw","Le miracle qui choqua Quraysh"],["52C7ExmyPTw","Le Prophète ﷺ quitte La Mecque"],["SFXsnEfVC1s","Badr : deux miracles d’Allah"],["D9RaH5IoMCU","Uhud : le martyre de Hamza"],["bUsQT_fDBdw","La tempête qui a tout changé"],["yfF7IXb1q9Q","La chute de Khaybar"],["vnLKa4RkpAA","La conquête de La Mecque"],["YwOFj8edxaU","Le dernier sermon du Prophète ﷺ"]],"es":[["WwLs85byIag","La vida del Profeta Muhammad ﷺ"],["xf3JIXAg0GU","La Meca se vuelve contra el Profeta ﷺ"],["YTSYrlHpUSw","Umar sale para matar al Profeta"],["LO0A_iqN3HY","Taif: el Profeta apedreado"],["BcH0xpjyt9I","El Profeta deja La Meca"],["Y0OgfggsoD0","Badr: dos milagros de Allah"],["zkWrdGdrByo","Uhud: un error que cambió la batalla"],["Op1QFDfIrCE","La Batalla de la Trinchera"],["-CfE6shxWXY","La conquista de Jáibar"],["fIZz33qOBPU","La conquista de La Meca"],["47DV871-pa4","La despedida del Profeta ﷺ"]],"ru":[["LdCyEM2da4M","Жизнь Пророка Мухаммада ﷺ"],["JnriIuqvKGk","Самые тяжёлые дни Ислама"],["7Kj2Qn_L-Ws","Умар идёт убить Пророка"],["CV8LtNmASrs","Таиф: Пророка побивают камнями"],["rrPPP0NH02I","Пророк покидает Мекку"],["3yF7gwMsFN8","Битва при Бадре"],["c1FoyNIhMNQ","Ухуд: крик, потрясший битву"],["13NkmmUUkYw","Битва у Рва"],["5kEEmade59E","Завоевание Хайбара"],["9rc3vfJ_1MI","Покорение Мекки"],["m5vvHGBqHg4","Прощание Пророка ﷺ"]],"ur":[["MVdBuvdrtmo","سیرتِ طیبہ ﷺ کا آغاز"],["JvCaM1l_XFM","مکہ کے ابتدائی مسلمانوں پر ظلم و ستم"],["VvzFlB1qoFY","حضرت عمرؓ نبی ﷺ کو قتل کرنے نکلے"],["LWJEZgVVdZw","معراج کا معجزاتی سفر"],["igCGBtpkd7Q","ایک مکڑی کے جالے نے جان بچائی"],["eAPXYiT_Imo","غزوۂ بدر: ابوجہل کے آخری الفاظ"],["gmvfH-xZFbw","غزوۂ احد: حضرت حمزہؓ کی شہادت"],["QNC0xmlovY0","غزوۂ خندق"],["CYcymuqyE-0","خیبر کا معرکہ"],["nxjY_CeMJSs","فتحِ مکہ"],["oCb9zqizM20","خطبہ حجۃ الوداع"]]},"qiy":{"ar":[["7Nr5SqwQ6Qg","الليلة الأولى في القبر"],["D55J4-fBBV8","نهاية العالم"],["RS13ucPfsnI","يوم القيامة: جسر الصراط"],["3LynfYwYd_U","الجنة والنار: كيف هما في الحقيقة؟"]],"en":[["8-66-UqnqQI","The First 24 Hours in the Grave"],["r9noqhvFNak","The End of the World"],["ym02HFyrodg","Resurrection Day: The Sirat Bridge"],["QOMr52InQ9g","The First 24 Hours in Jannah and Jahannam"]],"fr":[["c6Mo4ekMuKo","Première nuit dans la tombe"],["kU_nuzGpcJM","La fin du monde"],["2V_2l-qYGzY","Le Jour de la Résurrection : le pont Sirat"],["t3WkjaxyLt0","Les premières 24 heures au Paradis et en Enfer"]],"es":[["YhgRbrbgHls","La primera noche en la tumba"],["kQ30avKMxBA","¡El Día del Juicio!"],["YNFo5XeGIUY","Día de la Resurrección: el puente Sirat"],["cttvl13N_s0","Paraíso e Infierno: ¿cómo son realmente?"]],"ru":[["tTXDwUsFZvc","Первые 24 часа в могиле"],["KyETD1KMRDk","Конец света"],["24Tc-8Z1SLI","Судный день"],["Ag7Knn8InlU","Первые 24 часа в Раю и Аду"]],"ur":[["p8uLvuBLf4s","قبر کی پہلی رات"],["-8oTxnxwXjw","دنیا کا خاتمہ"],["A22pwlGyEWM","وہ پل جس سے ہر انسان کو گزرنا ہوگا"],["ZSzePaXRsgA","جنت اور جہنم میں پہلے 24 گھنٹے"]]}};
+const YS={sira:{t:'السيرة النبوية العطرة',scr:'sira'},qiy:{t:'يوم القيامة',scr:'qiyama'}};
+const YS_LN=[['ar','العربية'],['en','English'],['fr','Français'],['es','Español'],['ru','Русский'],['ur','اردو']];
+const ysLang=k=>{const l=(S.ysL||{})[k]||LANG;return YS_DATA[k][l]?l:'ar'};
+const ysRid=k=>'ys_'+k+'_'+ysLang(k);
+const ysOf=rid=>{const m=/^ys_([a-z]+)_([a-z]+)$/.exec(rid||'');return m&&YS_DATA[m[1]]&&YS_DATA[m[1]][m[2]]?{k:m[1],l:m[2]}:null};
+const ysEps=rid=>{const o=ysOf(rid);return o?YS_DATA[o.k][o.l].map(([id,t],i)=>[i+1,t,id,0,'']):null};
+const ysNotes=()=>S.epN=S.epN||{};
+const ysProg=k=>{const E=ysEps(ysRid(k)),P=recP(ysRid(k));return [E.filter((x,i)=>P.w[i]).length,E.length]};
+function ysNoteBox(k,i){const v=ysNotes()[k+':'+(i+1)]||'';
+  return `<label class="ys-nl" for="ysNote"><span>ملاحظاتي على الحلقة</span> ${i+1}</label>
+   <textarea id="ysNote" data-ysk="${k}:${i+1}" rows="3" dir="auto" placeholder="${esc(Tx('اكتب ما استفدته من هذه الحلقة…'))}">${esc(v)}</textarea><p class="meta ys-ns" id="ysNs" aria-live="polite"></p>`}
+/* called by recUi() when the episode changes */
+function ysUi(rid){const o=ysOf(rid),b=document.getElementById('ysNoteBox');if(!o||!b)return;const i=recP(rid).i;
+  if(+b.dataset.i!==i){b.dataset.i=i;b.innerHTML=ysNoteBox(o.k,i);i18nApply(b)}}
+function ysCard(k){const rid=ysRid(k),E=ysEps(rid),P=recP(rid);if(P.i>=E.length)P.i=0;const e=E[P.i],seen=E.filter((x,i)=>P.w[i]).length,open=recOpen===rid,N=ysNotes(),L=ysLang(k);
+  if(open&&DOCK.key!=='r:'+rid)setTimeout(()=>recInit(rid),0);
+  const head=open?`<div class="rec-v" id="ytSlot" data-k="r:${rid}"></div>`
+   :`<button class="rec-th" data-recplay="${rid}" aria-label="${esc(Tx('تشغيل'))}"><img src="https://i.ytimg.com/vi/${e[2]}/hqdefault.jpg" alt="" loading="lazy"><span class="rec-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>${P.t>5||seen?`<span class="rec-cont"><span>${Tx(P.t>5?'تابع من':'ابدأ')}</span> <span>الحلقة</span> ${e[0]}${P.t>5?' · '+hms(P.t):''}</span>`:''}</button>`;
+  return `<div class="ys-lang" role="group" aria-label="${esc(Tx('لغة السلسلة'))}">${YS_LN.map(([l,n])=>`<button class="chip${l===L?' on':''}" data-yslang="${k}:${l}" aria-pressed="${l===L}"><span class="notr" lang="${l}">${n}</span></button>`).join('')}</div>
+   <div class="box rec rec-ser">${head}<div class="pad">
+    <p class="meta rec-now" id="recNow" style="margin:0">${recInfo(rid,P.i)}</p>
+    <p class="meta" style="margin:2px 0 0">${E.length} <span>حلقة</span> · <span>شاهدت</span> <span id="recCnt">${seen}</span></p>
+    <div class="btns rec-ctl"><button class="btn small" data-recprev="${rid}">→ <span>السابقة</span></button><button class="btn small" data-recnext="${rid}"><span>التالية</span> ←</button><button class="btn small rec-auto${recAuto()?' on':''}" id="recAutoB" data-recauto="${rid}"><span>${recAuto()?'التشغيل المتتالي: مفعّل':'التشغيل المتتالي: متوقف'}</span></button></div>
+    <div id="ysNoteBox" class="ys-note" data-i="${P.i}">${ysNoteBox(k,P.i)}</div>
+    <details class="rec-eps" open><summary><span>الحلقات من الأولى إلى الأخيرة</span> (${E.length})</summary><ol>${E.map((x,j)=>`<li class="${j===P.i?'cur':''}${P.w[j]?' seen':''}" data-epli="${j}"><button class="rec-epb" data-recep="${j}" data-rid="${rid}"><span class="rec-n">${x[0]}</span><span class="notr" dir="auto" lang="${L}">${esc(x[1])}</span><small>${N[k+':'+x[0]]?'📝':''}</small></button><button class="rec-wb" data-recw="${j}" data-rid="${rid}" aria-label="${esc(Tx('علّمها كمُشاهَدة'))}">✓</button></li>`).join('')}</ol></details>
+   </div></div>`}
+const viewYS=k=>`<section>${ysCard(k)}</section>`;
+/* the card in «تأملات» */
+function ysSerCard(k,v){const [d,n]=ysProg(k);
+  return `<button class="tm-feat tm-sira" data-go="${YS[k].scr}"><small><span>سلسلة مرئية</span> · <span>شاهدت</span> ${d} <span>من</span> ${n}</small><b>${YS[k].t}</b><span class="tm-v" dir="rtl" lang="ar">${v}</span><i><b style="width:${d/n*100}%"></b></i></button>`}
+let ysNt=0;
+document.addEventListener('input',e=>{const t=e.target;if(t.id!=='ysNote')return;clearTimeout(ysNt);
+  ysNt=setTimeout(()=>{const N=ysNotes(),k=t.dataset.ysk,v=t.value.trim();if(v)N[k]=t.value;else delete N[k];save();
+    const s=document.getElementById('ysNs');if(s)s.textContent=Tx('حُفظت ملاحظتك');
+    const [sk,n]=k.split(':'),li=document.querySelector(`[data-epli="${+n-1}"] .rec-epb small`);if(li)li.textContent=v?'📝':''},600)});
+document.addEventListener('click',e=>{const t=e.target.closest('button[data-yslang]');if(!t)return;const [k,l]=t.dataset.yslang.split(':');if(ysLang(k)===l)return;
+  const old=ysRid(k),Po=recP(old);S.ysL=S.ysL||{};S.ysL[k]=l;const nr=ysRid(k),Pn=recP(nr);Object.assign(Pn.w,Po.w);if(!Pn.t)Pn.i=Math.min(Po.i,ysEps(nr).length-1);
+  if(DOCK.key==='r:'+old)dockClose();if(recOpen===old)recOpen=null;save();render()});
+/* the old Arabic audio of these two series was removed: forget a «last played» that points to it */
+try{if(S.au&&S.au.last&&/^audio\/(السيرة_النبوية_العطرة|يوم_القيامة)\//.test(String(S.au.last).replace(/[\u200b-\u200f\u202a-\u202e\u2066-\u2069\ufeff]/g,''))){delete S.au.last;delete S.au.lastT;delete S.au.lastS}}catch(e){}
 /* ---------- tools of the seeker: qibla, duas, hifz, ramadan ---------- */
 const DUAS=[["اليوم والليلة", [["عند الاستيقاظ", "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا، وَإِلَيْهِ النُّشُورُ", "البخاري"], ["عند النوم", "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا", "البخاري"], ["كفّارة المجلس", "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا أَنْتَ، أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ", "أبو داود والترمذي"]]], ["البيت والمسجد", [["الخروج من البيت", "بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ", "أبو داود والترمذي"], ["دخول البيت", "بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى اللَّهِ رَبِّنَا تَوَكَّلْنَا", "أبو داود"], ["دخول المسجد", "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ", "مسلم"], ["الخروج من المسجد", "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ", "مسلم"], ["دخول الخلاء", "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ", "البخاري ومسلم"], ["الخروج من الخلاء", "غُفْرَانَكَ", "أبو داود والترمذي"]]], ["الطعام واللباس", [["قبل الطعام", "بِسْمِ اللَّهِ. فإن نسي في أوله قال: بِسْمِ اللَّهِ أَوَّلَهُ وَآخِرَهُ", "أبو داود والترمذي"], ["بعد الطعام", "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا، وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ", "أبو داود والترمذي"], ["لبس الثوب", "الْحَمْدُ لِلَّهِ الَّذِي كَسَانِي هَذَا الثَّوْبَ، وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ", "أبو داود والترمذي"], ["عند الإفطار من الصيام", "ذَهَبَ الظَّمَأُ، وَابْتَلَّتِ الْعُرُوقُ، وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ", "أبو داود"]]], ["السفر", [["الركوب والسفر", "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ، وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ", "مسلم"]]], ["الشدائد والهموم", [["دعاء الكرب", "لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ السَّمَاوَاتِ وَرَبُّ الْأَرْضِ وَرَبُّ الْعَرْشِ الْكَرِيمِ", "البخاري ومسلم"], ["الهمّ والحزن", "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ", "البخاري"], ["دعوة ذي النون", "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ", "الترمذي"], ["عند الغضب", "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ", "البخاري ومسلم"], ["دعاء الاستخارة (بعد ركعتين من غير الفريضة)", "اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ، وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ، وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ، فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ، وَتَعْلَمُ وَلَا أَعْلَمُ، وَأَنْتَ عَلَّامُ الْغُيُوبِ. اللَّهُمَّ إِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ (ويسمّي حاجته) خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاقْدُرْهُ لِي، وَيَسِّرْهُ لِي، ثُمَّ بَارِكْ لِي فِيهِ، وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ شَرٌّ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاصْرِفْهُ عَنِّي وَاصْرِفْنِي عَنْهُ، وَاقْدُرْ لِيَ الْخَيْرَ حَيْثُ كَانَ، ثُمَّ أَرْضِنِي بِهِ", "البخاري"]]], ["المرض", [["عيادة المريض", "لَا بَأْسَ، طَهُورٌ إِنْ شَاءَ اللَّهُ", "البخاري"], ["الدعاء للمريض (سبع مرات)", "أَسْأَلُ اللَّهَ الْعَظِيمَ، رَبَّ الْعَرْشِ الْعَظِيمِ، أَنْ يَشْفِيَكَ", "أبو داود والترمذي"]]], ["مناسبات", [["نزول المطر", "اللَّهُمَّ صَيِّبًا نَافِعًا", "البخاري"], ["رؤية الهلال", "اللَّهُمَّ أَهِلَّهُ عَلَيْنَا بِالْيُمْنِ وَالْإِيمَانِ، وَالسَّلَامَةِ وَالْإِسْلَامِ، رَبِّي وَرَبُّكَ اللَّهُ", "الترمذي"]]]];
 let duaOpen=null;
@@ -5485,7 +5538,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   <p class="muted">التنبيهات هنا داخل الصفحة. التنبيهات الفعلية على الهاتف تحتاج نسخة التطبيق المثبّتة.</p></section>`;
 }
-const APP_VER='2026-11-07 13:58';
+const APP_VER='2026-11-07 14:43';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
@@ -6759,7 +6812,7 @@ document.addEventListener('change',e=>{const el=e.target;if(!el||!el.dataset||!e
   else if(k==='a1'){t.a1=+el.value;if(t.a2<t.a1)t.a2=t.a1}else if(k==='a2'){t.a2=+el.value;if(t.a2<t.a1)t.a1=t.a2}
   tsRes=null;save();render()});
 
-const VIEWS={search:viewSearch,h_quran:viewHub('h_quran'),h_ibadat:viewHub('h_ibadat'),h_ruh:viewHub('h_ruh'),h_ilm:viewHub('h_ilm'),h_shurut:viewHub('h_shurut'),tasmi:viewTasmi,me:viewMe,amrad:viewAmrad,wudu:()=>viewGuide('wudu'),salat:()=>viewGuide('salat'),khushu:viewKhushu,khr:viewKhushuR,ikhub:viewIkhub,ikhlas:viewIkhlas,sirr:viewSirr,ikhl:()=>viewLesson('ikhlas'),ahdaf:viewAhdaf,tawba:()=>viewLesson('tawba'),mujahada:()=>viewLesson('mujahada'),series:viewSeries,fatur:viewFatur,tools:viewTools,duas:viewDuas,qibla:viewQibla,hifz:viewHifz,ask:viewAsk,majalis:viewMajalis,path:viewPath,roadmap:viewRoadmap,fiqh:viewFiqh,aqida:()=>viewAudio(AQ_K),audio:()=>viewAudio(SIRA_K),sira:()=>viewAudio(SIRA_K),qiyama:()=>viewAudio(QIY_K),method:viewMethod,tazkiya:viewTazkiya,uyub:viewUyub,muraqabat:viewMuraqabat,sura:viewSura,aamal:viewAamal,dhikr_run:viewDhikrRun,adh_sabah:()=>viewAdhkar('sabah'),adh_masa:()=>viewAdhkar('masa'),install:viewInstall,notif:viewNotif,profile:viewProfile,admin:viewAdmin,taammulat:viewTaammulat,muhasaba:viewMuhasaba,organ:viewOrgan,qalb:viewQalb,quran:viewQuran,umrah:viewUmrah,maraka:viewMaraka,khalwa:viewKhalwa,subha:viewSubha,mushaf:viewMushaf,qa:viewQA,week:viewWeek,about:viewAbout,tahlil:viewTahlil,ruhi:viewRuhi,mraqib:viewMraqib,munajat:viewMraqib};
+const VIEWS={search:viewSearch,h_quran:viewHub('h_quran'),h_ibadat:viewHub('h_ibadat'),h_ruh:viewHub('h_ruh'),h_ilm:viewHub('h_ilm'),h_shurut:viewHub('h_shurut'),tasmi:viewTasmi,me:viewMe,amrad:viewAmrad,wudu:()=>viewGuide('wudu'),salat:()=>viewGuide('salat'),khushu:viewKhushu,khr:viewKhushuR,ikhub:viewIkhub,ikhlas:viewIkhlas,sirr:viewSirr,ikhl:()=>viewLesson('ikhlas'),ahdaf:viewAhdaf,tawba:()=>viewLesson('tawba'),mujahada:()=>viewLesson('mujahada'),series:viewSeries,fatur:viewFatur,tools:viewTools,duas:viewDuas,qibla:viewQibla,hifz:viewHifz,ask:viewAsk,majalis:viewMajalis,path:viewPath,roadmap:viewRoadmap,fiqh:viewFiqh,aqida:()=>viewAudio(AQ_K),audio:()=>viewAudio(SIRA_K),sira:()=>viewYS('sira'),qiyama:()=>viewYS('qiy'),method:viewMethod,tazkiya:viewTazkiya,uyub:viewUyub,muraqabat:viewMuraqabat,sura:viewSura,aamal:viewAamal,dhikr_run:viewDhikrRun,adh_sabah:()=>viewAdhkar('sabah'),adh_masa:()=>viewAdhkar('masa'),install:viewInstall,notif:viewNotif,profile:viewProfile,admin:viewAdmin,taammulat:viewTaammulat,muhasaba:viewMuhasaba,organ:viewOrgan,qalb:viewQalb,quran:viewQuran,umrah:viewUmrah,maraka:viewMaraka,khalwa:viewKhalwa,subha:viewSubha,mushaf:viewMushaf,qa:viewQA,week:viewWeek,about:viewAbout,tahlil:viewTahlil,ruhi:viewRuhi,mraqib:viewMraqib,munajat:viewMraqib};
 const TOPTABS=['aamal','tazkiya','quran'];
 /* ---------- listening: lessons uploaded to the repo's audio/ folder ---------- */
 const AU_REPO='dridrissihafdi-ship-it/almurshid',AU_EXT=/\.(mp3|m4a|aac|ogg|oga|opus|wav)$/i;
