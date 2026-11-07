@@ -155,6 +155,8 @@ document.addEventListener('click',e=>{
   if(d.mshplay){mshRun=!mshRun;mshLast=0;const b=document.getElementById('mshPlay');if(b)b.innerHTML=mshRun?IC_PAUSE:IC_PLAY;return}
   if(d.mshgo){mshMsg='';return mushafGo(mshCP()+(+d.mshgo),+d.mshgo>0)}
   if(d.mshback){mshBr=null;mshMsg='';render();SCR().scrollTo(0,0);return}
+  if(d.mshlast){const M=msh();mshMsg='';mshBr=S.mshLast!==M.p?S.mshLast:null;render();SCR().scrollTo(0,0);return}
+  if(d.mshfocus){S.mshFocus=!S.mshFocus;document.body.classList.remove('msh-show');save();render();return}
   if(d.mshset){const M=msh();if(mshBr!=null)M.p=mshBr;mshBr=null;mshMsg='سيبدأ وردك اليومي من هذه الصفحة.';save();render();return}
   if(d.mshsur){mshSur=!mshSur;render();if(mshSur){const c=document.querySelector('.msh-sr[data-mshsura="'+suraAt(mshCP())+'"]');if(c){c.classList.add('cur');c.parentNode.scrollTop=c.offsetTop-c.parentNode.offsetTop-60}}return}
   if(d.qrcont){mshMsg='';mshBr=null;return go('mushaf')}
@@ -173,7 +175,7 @@ document.addEventListener('click',e=>{
   if(d.nafl){e.preventDefault();const L=aLog(),k=+d.nfn;L.nafl=L.nafl||{};if(L.nafl[d.nafl]===k)delete L.nafl[d.nafl];else L.nafl[d.nafl]=k;save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(d.masjid){e.preventDefault();const L=aLog(),k=d.masjid;L.masjid=L.masjid||[];if(L.masjid.includes(k))L.masjid=L.masjid.filter(x=>x!==k);else{L.masjid.push(k);if(!(L.prayers||[]).includes(k))setPrayer(k)}save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(d.pray){e.preventDefault();setPrayer(d.pray);khAfterPray(d.pray);const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
-  if(d.go){if(d.cityfocus)aboutOpen.add('city');go(d.go);if(d.cityfocus){const el=document.querySelector('details[data-acc=city]');if(el)el.scrollIntoView({block:'start'})}return}
+  if(d.go){if(d.cityfocus)aboutOpen.add('city');if(d.openacc)aboutOpen.add(d.openacc);go(d.go);const fx=d.openacc||(d.cityfocus?'city':'');if(fx){const el=document.querySelector('details[data-acc='+fx+']');if(el)setTimeout(()=>el.scrollIntoView({block:'start',behavior:'smooth'}),60)}return}
   if(d.prepstart){const P=prepState();P.status='active';P.start=TODAY;P.log={};save();return render()}
   if(d.prepok)return prepSet(d.prepok,'ok');
   if(d.prepfail){prepFail=d.prepfail;return render()}

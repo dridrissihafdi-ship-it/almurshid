@@ -147,14 +147,25 @@ function viewProfile(){
   return `<section class="ab-hero pf-hero"><label class="pf-av" for="photoIn" aria-label="تغيير الصورة"><span class="avatar big">${avatarImg()}</span><span class="pf-edit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></span></label>
     <h2 class="ab-name">${esc(S.name||'')}</h2><p class="ab-tag"><span class="notr">${esc(cityName(S.loc))}</span></p>
     <div class="ab-chips"><span>${started} من ${ORGANS.length} جوارح بدأت تزكيتها</span>${prepState().status==='active'?`<span>المرحلة التمهيدية ${Math.min(prepDays(),30)} من 30</span>`:''}</div>
-    ${offlineLine()}</section>
-   <p class="ab-g">ملفك</p>
+    </section>
+   <p class="ab-g">حسابي</p>
    <div class="acc-card">${acc('pname','user','الاسم والصورة',`<label for="pname" class="muted">الاسم الظاهر في الرئيسية</label><input type="text" id="pname" value="${esc(S.name)}">
    <label class="muted" style="display:block;margin-top:10px">صورة الملف الشخصي</label>
    <p class="meta" style="margin:0">${S.photo?'صورة اخترتها بنفسك.':AUTH.user&&AUTH.user.photoURL?'صورة حسابك في Google.':'لا توجد صورة بعد. عند الدخول بحساب Google تظهر صورة حسابك تلقائيًا.'}</p>
    <div class="ph-btns"><label class="btn small" for="photoIn">تغيير الصورة</label><input type="file" id="photoIn" accept="image/*" hidden>${S.photo?'<button class="btn small" data-photodel="1">'+(AUTH.user&&AUTH.user.photoURL?'العودة إلى صورة Google':'إزالة الصورة')+'</button>':''}</div>
    ${photoMsg?`<p class="logged bad">${esc(photoMsg)}</p>`:''}`)}
-    ${acc('city','pin','المدينة ومواقيت الصلاة',`<p class="muted">تُحسب مواقيت الصلاة، ووقت أذكار الصباح والمساء، وإضاءة الهالة، حسب مدينتك.</p>
+</div>
+   <div class="acc-card">${account?acc('account','key','الحساب',account,u&&u.email?`<span class="notr" dir="ltr">${esc(u.email.split('@')[0])}</span>`:''):''}
+    ${acc('backup','backup','النسخة الاحتياطية',`<p class="muted">احفظ كل بياناتك (الجوارح، الأوراد، الصلوات، المحاسبة، الواردات) في ملف على هاتفك، واسترجعها متى شئت، حتى بلا حساب أو عند تغيير الهاتف.</p>
+   <div class="btns"><button class="btn ok" data-bkexp="1">حفظ نسخة احتياطية</button><label class="btn" for="bkIn">استرجاع من ملف</label><input type="file" id="bkIn" accept=".json,application/json" hidden></div>
+   ${bkPending?`<div class="confirm"><span><span>ستُستبدل بياناتك الحالية بنسخة بتاريخ:</span> <b>${esc(bkWhen)}</b>. <span>متابعة؟</span></span><div class="btns"><button class="btn slip" data-bkyes="1">نعم، استرجعها</button><button class="btn" data-bkno="1">تراجع</button></div></div>`:''}
+   ${bkMsg?`<p class="meta">${esc(bkMsg)}</p>`:''}
+   ${S.lastBackup?`<p class="meta" style="margin:0"><span>آخر نسخة:</span> <span>${fmtD(S.lastBackup)}</span></p>`:''}`,S.lastBackup?fmtD(S.lastBackup):'')}
+    ${acc('data','reset','البيانات',`<p class="muted">${S.demo?'تعرض الأقسام حاليًا بيانات تجريبية للتوضيح.':AUTH.state==='in'?'تُحفظ بياناتك في حسابك وفي هذا الهاتف.':'تُحفظ بياناتك في هذا المتصفح فقط.'}</p>
+   ${confirmReset?`<div class="confirm"><span>سيُمسح كل السجل والتقدم. متابعة؟</span><button class="btn slip" data-resetyes="1">نعم، ابدأ من الصفر</button><button class="btn" data-resetno="1">تراجع</button></div>`:`<div class="btns"><button class="btn slip" data-reset="1">ابدأ رحلتي من الصفر</button></div>`}`)}</div>
+   <p class="ab-g">إعدادات التطبيق</p>
+   <div class="acc-card">${acc('lang','info','اللغة',`<div class="langs pf-langs" role="group" aria-label="اللغة">${LANGS.map(([c,l,n])=>`<button class="lang notr${c===LANG?' on':''}" data-lang="${c}" aria-pressed="${c===LANG}" lang="${c}"><b>${l}</b> <small>${n}</small></button>`).join('')}</div>`,`<span class="notr">${(LANGS.find(x=>x[0]===LANG)||[0,0,''])[2]}</span>`)}</div>
+   <div class="acc-card">${acc('city','pin','المدينة ومواقيت الصلاة',`<p class="muted">تُحسب مواقيت الصلاة، ووقت أذكار الصباح والمساء، وإضاءة الهالة، حسب مدينتك.</p>
    <div class="box pad" style="display:flex;flex-direction:column;gap:10px">
     <div>المدينة الحالية: <b class="notr">${esc(cityName(S.loc))}</b>${S.loc?(S.loc.auto?' <span class="meta">(حُدّدت تلقائيًا)</span>':''):' <span class="meta">(افتراضية)</span>'}</div>
     <div class="btns"><button class="btn ok" data-geoloc="1">حدّد موقعي تلقائيًا</button></div>
@@ -164,19 +175,10 @@ function viewProfile(){
     ${geoMsg?`<p class="meta">${esc(geoMsg)}</p>`:''}
     <p class="meta" style="margin:0">الفجر ${hm(prayerTimes(new Date()).fajr)} · المغرب ${hm(prayerTimes(new Date()).maghrib)}</p>
    </div>${ptAdjBox()}${adzBox()}`,`<span class="notr">${esc(cityName(S.loc))}</span>`)}</div>
+   <div class="acc-card">${acc('push','bell','التذكيرات على الهاتف',strip(pushSection()),P.enabled?'مفعّلة':'غير مفعّلة')}</div>
    <div class="acc-card">${TTS_OK?acc('voice','speaker','صوت القراءة',voiceBox()):''}</div>
    <div class="acc-card">${acc('font','font','حجم الخط',`<p class="muted">كبّر الخط إن كانت القراءة متعبة، خاصة في الأذكار.</p><p class="meta">ويمكنك أيضًا تكبير النص أو تصغيره بإصبعين في صفحات القراءة والقرآن.</p><div class="fz-row">${[[1,'عادي'],[1.12,'كبير'],[1.25,'أكبر']].map(([v,l])=>`<button class="btn${(S.fz||1)===v?' ok':''}" data-fz="${v}" style="font-size:${14*v}px">${l}</button>`).join('')}</div>`,(S.fz||1)===1?'عادي':S.fz===1.12?'كبير':S.fz===1.25?'أكبر':Math.round(S.fz*100)+'%')}</div>
-   <p class="ab-g">التذكيرات</p>
-   <div class="acc-card">${acc('push','bell','التذكيرات على الهاتف',strip(pushSection()),P.enabled?'مفعّلة':'غير مفعّلة')}</div>
-   <p class="ab-g">الحساب والبيانات</p>
-   <div class="acc-card">${account?acc('account','key','الحساب',account,u&&u.email?`<span class="notr" dir="ltr">${esc(u.email.split('@')[0])}</span>`:''):''}
-    ${acc('backup','backup','النسخة الاحتياطية',`<p class="muted">احفظ كل بياناتك (الجوارح، الأوراد، الصلوات، المحاسبة، الواردات) في ملف على هاتفك، واسترجعها متى شئت، حتى بلا حساب أو عند تغيير الهاتف.</p>
-   <div class="btns"><button class="btn ok" data-bkexp="1">حفظ نسخة احتياطية</button><label class="btn" for="bkIn">استرجاع من ملف</label><input type="file" id="bkIn" accept=".json,application/json" hidden></div>
-   ${bkPending?`<div class="confirm"><span><span>ستُستبدل بياناتك الحالية بنسخة بتاريخ:</span> <b>${esc(bkWhen)}</b>. <span>متابعة؟</span></span><div class="btns"><button class="btn slip" data-bkyes="1">نعم، استرجعها</button><button class="btn" data-bkno="1">تراجع</button></div></div>`:''}
-   ${bkMsg?`<p class="meta">${esc(bkMsg)}</p>`:''}
-   ${S.lastBackup?`<p class="meta" style="margin:0"><span>آخر نسخة:</span> <span>${fmtD(S.lastBackup)}</span></p>`:''}`,S.lastBackup?fmtD(S.lastBackup):'')}
-    ${acc('data','reset','البيانات',`<p class="muted">${S.demo?'تعرض الأقسام حاليًا بيانات تجريبية للتوضيح.':AUTH.state==='in'?'تُحفظ بياناتك في حسابك وفي هذا الهاتف.':'تُحفظ بياناتك في هذا المتصفح فقط.'}</p>
-   ${confirmReset?`<div class="confirm"><span>سيُمسح كل السجل والتقدم. متابعة؟</span><button class="btn slip" data-resetyes="1">نعم، ابدأ من الصفر</button><button class="btn" data-resetno="1">تراجع</button></div>`:`<div class="btns"><button class="btn slip" data-reset="1">ابدأ رحلتي من الصفر</button></div>`}`)}</div>
+   <div class="acc-card">${acc('offl','offline','العمل دون إنترنت',offlineLine())}</div>
    ${isAdmin()?'<div class="btns" style="justify-content:center;margin-top:16px"><button class="btn ok" data-go="admin">لوحة الإدارة</button></div>':''}`;
 }
 

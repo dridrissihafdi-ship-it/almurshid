@@ -23,7 +23,9 @@ function tsRec(){const SR=TS_SR();if(!SR||!TSR)return;const r=new SR();r.lang='a
       let s=0;while(s<tk.length-1&&tk[s]===st.prev[s])s++;if(s>st.c){nw.push(...tk.slice(st.c,s));st.c=s}st.prev=tk}
     if(live.trim())TSR.last=Date.now();tsHear(live);
     if(nw.length){tsFeed(TSR.T,nw,{err:tsErr,fath:tsFath,done:tsDone});tsPaint()}};
-  r.onerror=e=>{if(!TSR)return;if(e.error==='not-allowed'||e.error==='service-not-allowed'){tsStop();tsMsg='لم يُسمح باستعمال الميكروفون. اسمح للتطبيق باستعماله من إعدادات المتصفح ثم أعد المحاولة.';render()}};
+  r.onerror=e=>{if(!TSR)return;if(e.error==='not-allowed'||e.error==='service-not-allowed'){tsStop();tsMsg='لم يُسمح باستعمال الميكروفون. اسمح للتطبيق باستعماله من إعدادات المتصفح ثم أعد المحاولة.';render()}
+    else if(e.error==='audio-capture'){tsStop();tsMsg='لم يُعثر على ميكروفون يعمل. تأكد أن الميكروفون غير مستعمل في تطبيق آخر، ثم أعد المحاولة.';render()}
+    else if(e.error==='network'){tsStop();tsMsg='التعرف على الكلام يحتاج اتصالًا بالإنترنت. تحقق من الاتصال ثم أعد المحاولة.';render()}};
   /* the recogniser stops by itself after a pause: count what it heard last, then listen again at once */
   r.onend=()=>{if(!TSR||TSR.rec!==r)return;if(!TSR.speaking){const nw=[];(TSR.seg||[]).forEach(st=>{if(st.prev.length>st.c){nw.push(...st.prev.slice(st.c));st.c=st.prev.length}});
       if(nw.length){tsFeed(TSR.T,nw,{err:tsErr,fath:tsFath,done:tsDone});tsPaint()}}

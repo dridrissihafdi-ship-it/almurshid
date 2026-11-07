@@ -1476,6 +1476,18 @@ mark.qa-m{background:color-mix(in srgb,var(--gold) 55%,transparent);color:inheri
 @keyframes mkHa{0%,100%{transform:scale(var(--mf)) translateY(0) rotate(0)}50%{transform:scale(var(--mf)) translateY(-7px) rotate(-1.5deg)}}
 @keyframes mkGone{0%{opacity:1;filter:blur(0);transform:scale(var(--mf))}55%{opacity:.6;filter:blur(3px)}100%{opacity:0;filter:blur(12px);transform:scale(calc(var(--mf)*1.15)) translateY(-34px)}}
 @media (prefers-reduced-motion:reduce){.mk-w .mk-dv{opacity:0}}
+
+/* ---- Mushaf: reading mode and continue-reading ---- */
+.msh-bb{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.msh-cont{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;margin:8px 0}.msh-cont small{flex:1 1 180px}
+body.msh-focus .hero,body.msh-focus nav.tabs,body.msh-focus .msh-nav,body.msh-focus .msh-autob,body.msh-focus .msh>p.meta,body.msh-focus .msh-set,body.msh-focus .msh-cont,body.msh-focus .msh-bar{display:none}
+body.msh-focus.msh-show .msh-bar,body.msh-focus.msh-show .msh-nav,body.msh-focus.msh-show nav.tabs{display:revert}
+body.msh-focus .sheet{padding-top:8px}body.msh-focus .msh-page{margin-top:0}
+body.msh-focus:not(.msh-show) .msh-page::after{content:'';display:block;height:6px}
+/* ---- the tree of constancy ---- */
+.tr-k{display:block;color:var(--muted);font-size:12px;letter-spacing:.2px}.tr-n{margin:6px 0 0}.tr-dn{margin:6px 0 0;color:var(--ink)}.tr-nb{margin:6px 0 0;font-size:12px}
+/* ---- languages in the settings ---- */
+.pf-langs{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:static}.pf-langs .lang{display:flex;gap:8px;align-items:center;justify-content:flex-start;padding:10px 12px;border-radius:12px;min-height:44px;width:auto;height:auto}.pf-langs .lang small{opacity:.8}
 /* the Sira and the Day of Judgment, in every language */
 .ys-note{margin-top:10px}.ys-nl{display:block;font-weight:600;font-size:14px;margin:0 0 4px}.ys-note textarea{width:100%;box-sizing:border-box;border-radius:12px;border:1px solid var(--card-line);background:var(--page);color:var(--ink);padding:10px;font:inherit;font-size:14.5px;line-height:1.7;resize:vertical}
 .ys-ns{min-height:1.2em;margin:2px 0 0;font-size:12px}
@@ -2234,7 +2246,6 @@ function heroHome(){
   const mins=Math.round(nx.in*60),F=PRAYERS.filter(p=>p[0]!=='sunrise'),X=[306,238,170,102,34],Y=[16,33,40,36,20];
   const ki=F.findIndex(p=>p[0]===nx.k);
   return `<header class="hero home2">
-   <div class="langs" role="group" aria-label="اللغة">${LANGS.map(([c,l,n])=>`<button class="lang notr${c===LANG?' on':''}" data-lang="${c}" aria-pressed="${c===LANG}" title="${n}" lang="${c}">${l}</button>`).join('')}</div>
    <div class="h2-top"><div class="h2-brand"><h1>المرشد</h1><button class="h2-city notr" data-go="profile" data-cityfocus="1">${esc(cityName(S.loc))} · ${dateL} · ${hijriLabel}</button></div>
     <div class="h2-btns"><button class="h2-ib" data-go="search" aria-label="${esc(Tx('بحث'))}"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg></button><button class="h2-ib" data-go="notif" aria-label="ما بقي من يومك"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></svg><i class="badge" id="badge" hidden></i></button><button class="avatar h2-av" data-go="profile" aria-label="الإعدادات">${avatarImg()}</button></div></div>
    <section class="h2-pr" aria-label="مواقيت الصلاة"><div class="h2-prh"><span>مواقيت الصلاة</span><b><span>صلاة</span> ${nx.n} <span>بعد</span> ${mins>=60?Math.floor(mins/60)+' <span>س</span> ':''}${mins%60} <span>د</span></b></div>
@@ -2328,7 +2339,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)r
 /* ---------- what each progress number means, and how they fit together ---------- */
 const HINTS={
  day:['أعمال اليوم','عدد ما أتممته من أعمال يومك التي اخترتها: الصلوات والأذكار والنوافل وأعمالك الخاصة. يبدأ من الصفر كل يوم، وتختار ما يظهر فيه من «⋯».'],
- tree:['الشجرة','تنمو بالمداومة: يُحسب كل يوم من آخر ثلاثين يومًا صلّيت فيه ثلاث صلوات على الأقل أو أتممت وردًا. كل سبعة أيام ترتقي درجة: بذرة، نبتة، غرسة، شجرة، شجرة مثمرة. وإن انقطعت نقصت، لأن الأيام القديمة تخرج من الثلاثين.'],
+ tree:['شجرة المداومة','صورة لانتظامك في الأعمال، لا لمنزلتك عند الله. يُحسب كل يوم من آخر ثلاثين يومًا صلّيت فيه ثلاث صلوات على الأقل أو أتممت وردًا. كل سبعة أيام تكبر خطوة: بذرة، نبتة، غرسة، شجرة، شجرة مثمرة. وإذا قلّت أيام انتظامك رجعت خطوة، لأن الأيام القديمة تخرج من الثلاثين، ثم تعود بعودتك.'],
  organ:['أيام الجارحة','لكل جارحة ثلاثون يومًا للتطهير: تحفظها فيها من المعصية، ثم ثلاثون للتنوير: تستعملها في الطاعة. الزلّة تعيد العدّ من الأول، لأن المقصود الثبات لا الكثرة.'],
  road:['تقدّمك في الطريق','موقعك في الطريق كله: جبل الشروط الأربعة، ثم جسر التزكية، ثم جبل الأهداف الأربعة. يُحسب من دروسك ومحاسبتك وصلواتك وجوارحك، وتسجّل بنفسك ما لا يُقاس.']};
 const HINT_LINK='أعمال اليوم هي الزاد، والشجرة تقيس مداومتك عليه، وأيام الجارحة تقيس تزكيتك لها، وتقدّمك في الطريق يجمع ذلك كله مع العلم والمحاسبة.';
@@ -2570,7 +2581,7 @@ const qHQ=()=>QIDXM.length===QIDX.length&&!(S.mushaf&&S.mushaf.orig);
 function qBundle(hz,hq){hq=hq===undefined?qHQ():hq;const key=(hq?'m':'q')+hz;if(QBUF.has(key))return QBUF.get(key);const p=fetch(key.slice(0,1)+String(hz).padStart(2,'0')+'.bin').then(r=>{if(!r.ok)throw new Error(r.status);return r.arrayBuffer()});QBUF.set(key,p);p.catch(()=>QBUF.delete(key));return p}
 async function qPage(i){const hq=qHQ(),key=(hq?'m':'q')+i;if(QURL.has(key))return QURL.get(key);const hz=QIDX[i][0],[off,len]=hq?QIDXM[i]:QIDX[i].slice(1,3),buf=await qBundle(hz,hq);const u=URL.createObjectURL(new Blob([buf.slice(off,off+len)],{type:hq?'image/webp':'image/jpeg'}));QURL.set(key,u);return u}
 let mshBr=null;const mshCP=()=>mshBr!=null?mshBr:msh().p;
-async function mushafPaint(){const img=document.getElementById('mshImg');if(!img)return;const i=mshCP();
+async function mushafPaint(){const img=document.getElementById('mshImg');if(!img)return;const i=mshCP();if(mshBr!=null&&S.mshLast!==i){S.mshLast=i;save()}document.body.classList.toggle('msh-focus',!!S.mshFocus);
   try{const u=await qPage(i);if(mshCP()===i&&img.isConnected){img.src=u;img.classList.add('on');document.getElementById('mshWait').hidden=true;if(mshY!=null){const y=mshY;mshY=null;const go=()=>{const bar=document.querySelector('.msh-bar'),t=img.getBoundingClientRect().top+SCR().scrollTop+img.offsetHeight*y-(bar?bar.offsetHeight:0)-8;SCR().scrollTo({top:Math.max(0,t),behavior:'smooth'})};img.complete?go():img.addEventListener('load',go,{once:true})}}
     const nx=QIDX[i+1];if(nx)qBundle(nx[0]).catch(()=>{});}
   catch(e){const w=document.getElementById('mshWait');if(w){w.hidden=false;w.innerHTML=`<span>${Tx('تعذّر تحميل الصفحة. تحقق من الاتصال بالإنترنت، أو نزّل المصحف كاملًا للقراءة دون اتصال.')}</span><br><button class="btn small" data-mshretry="1" style="margin-top:10px">${Tx('أعد المحاولة')}</button>`}}}
@@ -2618,10 +2629,11 @@ function viewQuran(){const M=msh(),k=suraAt(M.p),[hz,,,th]=QIDX[M.p],n=Math.min(
 function viewMushaf(){const M=msh(),P=mshCP(),[hz,,,th]=QIDX[P],n=Math.min(M.day.read.length,M.wird),pct=n/M.wird*100;
   setTimeout(mushafPaint,0);
   return `<section class="msh">
-   <div class="msh-bar"><div><b>${(()=>{const on=suraOnPage(P),k=suraAt(P),ns=[...new Set([k,...on])].sort((a,b)=>a-b);return '<span class="notr">'+Tx('سورة')+' '+ns.map(j=>SURAS[j][0]).join(' · ')+'</span>'})()}</b><button class="btn small msh-sbtn" data-mshsur="1">${mshSur?'إغلاق':'السور'}</button></div>
+   <div class="msh-bar"><div><b>${(()=>{const on=suraOnPage(P),k=suraAt(P),ns=[...new Set([k,...on])].sort((a,b)=>a-b);return '<span class="notr">'+Tx('سورة')+' '+ns.map(j=>SURAS[j][0]).join(' · ')+'</span>'})()}</b><span class="msh-bb"><button class="btn small msh-fb" data-mshfocus="1" aria-pressed="${!!S.mshFocus}">${S.mshFocus?'إنهاء وضع القراءة':'وضع القراءة'}</button><button class="btn small msh-sbtn" data-mshsur="1">${mshSur?'إغلاق':'السور'}</button></span></div>
    <div><small>${th===0?'<span>الفاتحة</span>':'<span>'+Tx('الحزب')+' '+hz+'</span> · <span>'+Tx('الثمن')+' '+th+'</span>'}</small><small><span>ورد اليوم:</span> ${n} / ${M.wird}</small></div><i><b style="width:${pct}%"></b></i></div>
    ${mshSur?`<div class="msh-sur"><input id="mshQ" type="search" placeholder="${Tx('ابحث عن سورة بالاسم أو الرقم')}" autocomplete="off"><div class="msh-sl" id="mshSL">${mshSurList()}</div><p class="meta" id="mshNone" hidden>لا توجد سورة بهذا الاسم.</p></div>`:''}
-   ${mshBr!=null?(()=>{const [wh,,,wt]=QIDX[M.p];return `<div class="box pad msh-br"><b>أنت تتصفح خارج وردك</b><small><span>لا تُحسب هذه الصفحات في الورد اليومي. وصلت في وردك إلى</span> <span class="notr">${Tx('سورة')} ${SURAS[suraAt(M.p)][0]}</span>، ${wt===0?'<span>الفاتحة</span>':'<span>'+Tx('الحزب')+' '+wh+'</span> · <span>'+Tx('الثمن')+' '+wt+'</span>'}</small><div class="btns"><button class="btn small" data-mshback="1">ارجع إلى وردي</button><button class="btn small ok" data-mshset="1">من هنا سيبدأ الورد اليومي</button></div></div>`})():''}
+   ${mshBr!=null?(()=>{const [wh,,,wt]=QIDX[M.p];return `<div class="box pad msh-br"><b>هذه الصفحة خارج ورد اليوم</b><small><span>قراءتك هنا لا تُحسب في الورد. وردك عند</span> <span class="notr">${Tx('سورة')} ${SURAS[suraAt(M.p)][0]}</span>، ${wt===0?'<span>الفاتحة</span>':'<span>'+Tx('الحزب')+' '+wh+'</span> · <span>'+Tx('الثمن')+' '+wt+'</span>'}</small><div class="btns"><button class="btn small" data-mshback="1">العودة إلى وردي</button><button class="btn small ok" data-mshset="1">اجعل وردي يبدأ من هنا</button></div></div>`})()
+     :S.mshLast!=null&&S.mshLast!==M.p&&QIDX[S.mshLast]?(()=>{const L=S.mshLast,[lh,,,lt]=QIDX[L];return `<div class="box pad msh-cont"><small><span>آخر صفحة قرأتها خارج الورد:</span> <span class="notr">${Tx('سورة')} ${SURAS[suraAt(L)][0]}</span>، ${lt===0?'<span>الفاتحة</span>':'<span>'+Tx('الحزب')+' '+lh+'</span> · <span>'+Tx('الثمن')+' '+lt+'</span>'}</small><button class="btn small" data-mshlast="1">متابعة القراءة من هناك</button></div>`})():''}
    ${mshMsg?`<p class="logged" style="margin:8px 0">${esc(mshMsg)}</p>`:''}
    <div class="msh-page" id="mshPage"><img id="mshImg" alt="" draggable="false"><p class="meta" id="mshWait"><span class="msh-spin" aria-hidden="true"></span><span>جارٍ تحميل الصفحة…</span></p></div>
    <div class="msh-nav"><button class="btn" data-mshgo="-1"${P?'':' disabled'}>→ السابق</button><span dir="ltr">${P+1} / ${QIDX.length}</span><button class="btn ok" data-mshgo="1">التالي ←</button></div>
@@ -2636,13 +2648,13 @@ function viewMushaf(){const M=msh(),P=mshCP(),[hz,,,th]=QIDX[P],n=Math.min(M.day
     <div class="msh-wird">${WIRD_OPTS.map(([v,l])=>`<button class="btn small${M.wird===v?' ok':''}" data-mshwird="${v}">${l}</button>`).join('')}</div>
     ${QIDXM.length?`<label class="muted" style="display:block;margin-top:12px">جودة الصفحات</label><div class="msh-wird"><button class="btn small${M.orig?'':' ok'}" data-mshq="hq">عالية الدقة</button><button class="btn small${M.orig?' ok':''}" data-mshq="orig">الصورة الأصلية</button></div>`:''}
     <p class="meta" style="margin:12px 0 4px">${M.khatm?'<span>الختمات:</span> '+M.khatm:''}</p>
-    ${(()=>{const n=OFFST?OFFST.quran:0,mb=Math.round((qHQ()?QIDXM:QIDX).reduce((a,x)=>a+(qHQ()?x[1]:x[2]),0)/1048576);return n>=60&&!(mshDl&&mshDl.on)?'<p class="logged">المصحف منزَّل كاملًا على هاتفك ✓</p>':`<button class="btn" data-mshdl="1"${mshDl&&mshDl.on?' disabled':''}>${mshDl&&mshDl.on?Tx('جارٍ التنزيل…')+' '+mshDl.n+' / 60':'تنزيل المصحف كاملًا للقراءة دون إنترنت'}</button>${mshDl&&mshDl.on?`<i class="msh-dlbar"><b style="width:${mshDl.n/60*100}%"></b></i>`:`<p class="meta"><span>الحجم نحو</span> <span dir="ltr">${mb} MB</span>${n?` · <span>منزَّل الآن:</span> <span dir="ltr">${n} / 60</span>`:''}. <span>يُستحسن التنزيل على شبكة Wi-Fi، وأبقِ التطبيق مفتوحًا حتى يكتمل.</span></p>`}`})()}
+    ${(()=>{const n=OFFST?OFFST.quran:0,mb=Math.round((qHQ()?QIDXM:QIDX).reduce((a,x)=>a+(qHQ()?x[1]:x[2]),0)/1048576);return n>=60&&!(mshDl&&mshDl.on)?'<p class="logged">المصحف منزَّل كاملًا على هاتفك ✓</p>':`<button class="btn" data-mshdl="1"${mshDl&&mshDl.on?' disabled':''}>${mshDl&&mshDl.on?Tx('جارٍ التنزيل…')+' '+mshDl.n+' / 60':n?Tx('استأنف التنزيل')+' · '+n+' / 60':'تنزيل المصحف كاملًا للقراءة دون إنترنت'}</button>${mshDl&&mshDl.on?`<i class="msh-dlbar"><b style="width:${mshDl.n/60*100}%"></b></i>`:`<p class="meta"><span>الحجم نحو</span> <span dir="ltr">${mb} MB</span>${n?` · <span>منزَّل الآن:</span> <span dir="ltr">${n} / 60</span>`:''}. <span>يُستحسن التنزيل على شبكة Wi-Fi، وأبقِ التطبيق مفتوحًا حتى يكتمل.</span></p>`}`})()}
     ${mshDl&&mshDl.msg?`<p class="meta">${esc(mshDl.msg)}</p>`:''}
     <p class="meta">مصحف التجويد الملوّن برواية ورش، مجزّأ أثمانًا: كل صفحة ثمن.</p>`)}</div></section>`}
-async function mushafDownload(){mshDl={on:true,n:0,msg:''};render();let ok=0;
-  for(let h=1;h<=60;h++){try{await qBundle(h);ok++}catch(e){}mshDl.n=h;const b=document.querySelector('[data-mshdl]');if(b)b.textContent=Tx('جارٍ التنزيل…')+' '+h+' / 60';const br=document.querySelector('.msh-dlbar b');if(br)br.style.width=(h/60*100)+'%'}
+async function mushafDownload(){mshDl={on:true,n:0,msg:''};render();let ok=0,cut=false;
+  for(let h=1;h<=60;h++){if(!navigator.onLine){cut=true;break}try{await qBundle(h);ok++}catch(e){if(!navigator.onLine){cut=true;break}}mshDl.n=h;const b=document.querySelector('[data-mshdl]');if(b)b.textContent=Tx('جارٍ التنزيل…')+' '+h+' / 60';const br=document.querySelector('.msh-dlbar b');if(br)br.style.width=(h/60*100)+'%'}
   try{await checkOffline()}catch(e){}
-  mshDl={on:false,n:60,msg:ok===60?Tx('نُزّل المصحف كاملًا، ويمكنك قراءته دون إنترنت.'):Tx('لم يكتمل التنزيل. أعد المحاولة عند الاتصال بالإنترنت.')};render()}
+  mshDl={on:false,n:ok,msg:ok===60?Tx('نُزّل المصحف كاملًا، ويمكنك قراءته دون إنترنت.'):Tx(cut?'انقطع الاتصال. ما نُزّل محفوظ، فاضغط «استأنف التنزيل» حين يعود.':'لم يكتمل التنزيل. أعد المحاولة عند الاتصال بالإنترنت.')};render()}
 /* swipe from left to right anywhere: go back to the previous page (like the back button) */
 let swb=null;
 function swbScrollable(el){for(let e=el;e&&e!==document.body;e=e.parentElement){if(e.scrollWidth>e.clientWidth+4){const o=getComputedStyle(e).overflowX;if(o==='auto'||o==='scroll')return true}}return false}
@@ -2661,6 +2673,9 @@ document.addEventListener('touchcancel',()=>{if(swb&&swb.h)swbReset();swb=null},
 let mshX=null;document.addEventListener('touchstart',e=>{if(screen==='mushaf'&&e.target.closest('#mshPage')&&e.touches.length===1)mshX=[e.touches[0].clientX,e.touches[0].clientY,Date.now()];else mshX=null},{passive:true});
 document.addEventListener('touchend',e=>{if(!mshX||screen!=='mushaf')return;const t=e.changedTouches[0],dx=t.clientX-mshX[0],dy=t.clientY-mshX[1];
   if(Date.now()-mshX[2]<700&&Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5&&(!window.visualViewport||visualViewport.scale<=1.05)){const P=mshCP();if(dx>0)mushafGo(P+1,true);else mushafGo(P-1,false)}mshX=null},{passive:true});
+
+/* reading mode: only the page stays; one tap on it shows or hides the tools */
+document.addEventListener('click',e=>{if(screen!=='mushaf'||!S.mshFocus||!e.target.closest('#mshPage'))return;document.body.classList.toggle('msh-show')});
 /* ---------- the prayer beads (subha): your own dhikr list, a counter you tap ---------- */
 const SUBHA_DEF=[['سبحان الله',33],['الحمد لله',33],['الله أكبر',34],['أستغفر الله',100],['اللهم صلِّ على سيدنا محمد',100],['لا إله إلا الله',100]];
 let sbAdd=false,sbReset=false,sbEdit=false,sbZero=false;
@@ -5551,7 +5566,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   <p class="muted">التنبيهات هنا داخل الصفحة. التنبيهات الفعلية على الهاتف تحتاج نسخة التطبيق المثبّتة.</p></section>`;
 }
-const APP_VER='2026-11-07 16:53';
+const APP_VER='2026-11-07 17:40';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
@@ -5598,14 +5613,25 @@ function viewProfile(){
   return `<section class="ab-hero pf-hero"><label class="pf-av" for="photoIn" aria-label="تغيير الصورة"><span class="avatar big">${avatarImg()}</span><span class="pf-edit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></span></label>
     <h2 class="ab-name">${esc(S.name||'')}</h2><p class="ab-tag"><span class="notr">${esc(cityName(S.loc))}</span></p>
     <div class="ab-chips"><span>${started} من ${ORGANS.length} جوارح بدأت تزكيتها</span>${prepState().status==='active'?`<span>المرحلة التمهيدية ${Math.min(prepDays(),30)} من 30</span>`:''}</div>
-    ${offlineLine()}</section>
-   <p class="ab-g">ملفك</p>
+    </section>
+   <p class="ab-g">حسابي</p>
    <div class="acc-card">${acc('pname','user','الاسم والصورة',`<label for="pname" class="muted">الاسم الظاهر في الرئيسية</label><input type="text" id="pname" value="${esc(S.name)}">
    <label class="muted" style="display:block;margin-top:10px">صورة الملف الشخصي</label>
    <p class="meta" style="margin:0">${S.photo?'صورة اخترتها بنفسك.':AUTH.user&&AUTH.user.photoURL?'صورة حسابك في Google.':'لا توجد صورة بعد. عند الدخول بحساب Google تظهر صورة حسابك تلقائيًا.'}</p>
    <div class="ph-btns"><label class="btn small" for="photoIn">تغيير الصورة</label><input type="file" id="photoIn" accept="image/*" hidden>${S.photo?'<button class="btn small" data-photodel="1">'+(AUTH.user&&AUTH.user.photoURL?'العودة إلى صورة Google':'إزالة الصورة')+'</button>':''}</div>
    ${photoMsg?`<p class="logged bad">${esc(photoMsg)}</p>`:''}`)}
-    ${acc('city','pin','المدينة ومواقيت الصلاة',`<p class="muted">تُحسب مواقيت الصلاة، ووقت أذكار الصباح والمساء، وإضاءة الهالة، حسب مدينتك.</p>
+</div>
+   <div class="acc-card">${account?acc('account','key','الحساب',account,u&&u.email?`<span class="notr" dir="ltr">${esc(u.email.split('@')[0])}</span>`:''):''}
+    ${acc('backup','backup','النسخة الاحتياطية',`<p class="muted">احفظ كل بياناتك (الجوارح، الأوراد، الصلوات، المحاسبة، الواردات) في ملف على هاتفك، واسترجعها متى شئت، حتى بلا حساب أو عند تغيير الهاتف.</p>
+   <div class="btns"><button class="btn ok" data-bkexp="1">حفظ نسخة احتياطية</button><label class="btn" for="bkIn">استرجاع من ملف</label><input type="file" id="bkIn" accept=".json,application/json" hidden></div>
+   ${bkPending?`<div class="confirm"><span><span>ستُستبدل بياناتك الحالية بنسخة بتاريخ:</span> <b>${esc(bkWhen)}</b>. <span>متابعة؟</span></span><div class="btns"><button class="btn slip" data-bkyes="1">نعم، استرجعها</button><button class="btn" data-bkno="1">تراجع</button></div></div>`:''}
+   ${bkMsg?`<p class="meta">${esc(bkMsg)}</p>`:''}
+   ${S.lastBackup?`<p class="meta" style="margin:0"><span>آخر نسخة:</span> <span>${fmtD(S.lastBackup)}</span></p>`:''}`,S.lastBackup?fmtD(S.lastBackup):'')}
+    ${acc('data','reset','البيانات',`<p class="muted">${S.demo?'تعرض الأقسام حاليًا بيانات تجريبية للتوضيح.':AUTH.state==='in'?'تُحفظ بياناتك في حسابك وفي هذا الهاتف.':'تُحفظ بياناتك في هذا المتصفح فقط.'}</p>
+   ${confirmReset?`<div class="confirm"><span>سيُمسح كل السجل والتقدم. متابعة؟</span><button class="btn slip" data-resetyes="1">نعم، ابدأ من الصفر</button><button class="btn" data-resetno="1">تراجع</button></div>`:`<div class="btns"><button class="btn slip" data-reset="1">ابدأ رحلتي من الصفر</button></div>`}`)}</div>
+   <p class="ab-g">إعدادات التطبيق</p>
+   <div class="acc-card">${acc('lang','info','اللغة',`<div class="langs pf-langs" role="group" aria-label="اللغة">${LANGS.map(([c,l,n])=>`<button class="lang notr${c===LANG?' on':''}" data-lang="${c}" aria-pressed="${c===LANG}" lang="${c}"><b>${l}</b> <small>${n}</small></button>`).join('')}</div>`,`<span class="notr">${(LANGS.find(x=>x[0]===LANG)||[0,0,''])[2]}</span>`)}</div>
+   <div class="acc-card">${acc('city','pin','المدينة ومواقيت الصلاة',`<p class="muted">تُحسب مواقيت الصلاة، ووقت أذكار الصباح والمساء، وإضاءة الهالة، حسب مدينتك.</p>
    <div class="box pad" style="display:flex;flex-direction:column;gap:10px">
     <div>المدينة الحالية: <b class="notr">${esc(cityName(S.loc))}</b>${S.loc?(S.loc.auto?' <span class="meta">(حُدّدت تلقائيًا)</span>':''):' <span class="meta">(افتراضية)</span>'}</div>
     <div class="btns"><button class="btn ok" data-geoloc="1">حدّد موقعي تلقائيًا</button></div>
@@ -5615,19 +5641,10 @@ function viewProfile(){
     ${geoMsg?`<p class="meta">${esc(geoMsg)}</p>`:''}
     <p class="meta" style="margin:0">الفجر ${hm(prayerTimes(new Date()).fajr)} · المغرب ${hm(prayerTimes(new Date()).maghrib)}</p>
    </div>${ptAdjBox()}${adzBox()}`,`<span class="notr">${esc(cityName(S.loc))}</span>`)}</div>
+   <div class="acc-card">${acc('push','bell','التذكيرات على الهاتف',strip(pushSection()),P.enabled?'مفعّلة':'غير مفعّلة')}</div>
    <div class="acc-card">${TTS_OK?acc('voice','speaker','صوت القراءة',voiceBox()):''}</div>
    <div class="acc-card">${acc('font','font','حجم الخط',`<p class="muted">كبّر الخط إن كانت القراءة متعبة، خاصة في الأذكار.</p><p class="meta">ويمكنك أيضًا تكبير النص أو تصغيره بإصبعين في صفحات القراءة والقرآن.</p><div class="fz-row">${[[1,'عادي'],[1.12,'كبير'],[1.25,'أكبر']].map(([v,l])=>`<button class="btn${(S.fz||1)===v?' ok':''}" data-fz="${v}" style="font-size:${14*v}px">${l}</button>`).join('')}</div>`,(S.fz||1)===1?'عادي':S.fz===1.12?'كبير':S.fz===1.25?'أكبر':Math.round(S.fz*100)+'%')}</div>
-   <p class="ab-g">التذكيرات</p>
-   <div class="acc-card">${acc('push','bell','التذكيرات على الهاتف',strip(pushSection()),P.enabled?'مفعّلة':'غير مفعّلة')}</div>
-   <p class="ab-g">الحساب والبيانات</p>
-   <div class="acc-card">${account?acc('account','key','الحساب',account,u&&u.email?`<span class="notr" dir="ltr">${esc(u.email.split('@')[0])}</span>`:''):''}
-    ${acc('backup','backup','النسخة الاحتياطية',`<p class="muted">احفظ كل بياناتك (الجوارح، الأوراد، الصلوات، المحاسبة، الواردات) في ملف على هاتفك، واسترجعها متى شئت، حتى بلا حساب أو عند تغيير الهاتف.</p>
-   <div class="btns"><button class="btn ok" data-bkexp="1">حفظ نسخة احتياطية</button><label class="btn" for="bkIn">استرجاع من ملف</label><input type="file" id="bkIn" accept=".json,application/json" hidden></div>
-   ${bkPending?`<div class="confirm"><span><span>ستُستبدل بياناتك الحالية بنسخة بتاريخ:</span> <b>${esc(bkWhen)}</b>. <span>متابعة؟</span></span><div class="btns"><button class="btn slip" data-bkyes="1">نعم، استرجعها</button><button class="btn" data-bkno="1">تراجع</button></div></div>`:''}
-   ${bkMsg?`<p class="meta">${esc(bkMsg)}</p>`:''}
-   ${S.lastBackup?`<p class="meta" style="margin:0"><span>آخر نسخة:</span> <span>${fmtD(S.lastBackup)}</span></p>`:''}`,S.lastBackup?fmtD(S.lastBackup):'')}
-    ${acc('data','reset','البيانات',`<p class="muted">${S.demo?'تعرض الأقسام حاليًا بيانات تجريبية للتوضيح.':AUTH.state==='in'?'تُحفظ بياناتك في حسابك وفي هذا الهاتف.':'تُحفظ بياناتك في هذا المتصفح فقط.'}</p>
-   ${confirmReset?`<div class="confirm"><span>سيُمسح كل السجل والتقدم. متابعة؟</span><button class="btn slip" data-resetyes="1">نعم، ابدأ من الصفر</button><button class="btn" data-resetno="1">تراجع</button></div>`:`<div class="btns"><button class="btn slip" data-reset="1">ابدأ رحلتي من الصفر</button></div>`}`)}</div>
+   <div class="acc-card">${acc('offl','offline','العمل دون إنترنت',offlineLine())}</div>
    ${isAdmin()?'<div class="btns" style="justify-content:center;margin-top:16px"><button class="btn ok" data-go="admin">لوحة الإدارة</button></div>':''}`;
 }
 
@@ -6204,30 +6221,58 @@ function qmCard(compact,full){const R=qmRows(),D=Object.fromEntries(R.map(([id])
    ${done?`<p class="qm-ok">${bad.length?'<span>استغفر الله، وابدأ غدًا بنيّة جديدة.</span>':'<span>الحمد لله، ثبّتك الله.</span>'}</p>`:''}
    <div class="qm-w"><span>هذا الأسبوع</span><span class="qm-dots" dir="ltr">${last7}</span>${full?'':`<button class="lnk qm-all" data-go="muhasaba">${ikS().base?'<span>أسئلة الإخلاص والكتابة</span>':'<span>اكتب محاسبتك</span>'} ←</button>`}</div></section>`}
 
-/* ---------- the growing tree ---------- */
+/* ---------- the tree of constancy ----------
+   It pictures regularity only, never a spiritual rank: it grows with the days kept in the last thirty, and if it
+   goes back a step, the seeker is told plainly that this measures regularity, not his standing with Allah. */
 function treeDays(){let n=0;for(let i=0;i<30;i++){const d=ds(new Date(Date.now()-i*DAY)),l=(S.log||{})[d];if(l&&((l.prayers||[]).length>=3||(l.awrad||[]).length))n++}return n}
 const TREE_ST=['بذرة','نبتة','غرسة','شجرة','شجرة مثمرة'];
 function treeCard(){const n=treeDays(),st=Math.min(4,Math.floor(n/7)),C=ILC;
   const svg=IL_IMG.has('tree'+st)?ilSvg('tree'+st):`<svg class="il" viewBox="0 0 320 200" aria-hidden="true">${ilBg('tr',skyKind()==='night'?'night':'dawn')}${ilGround('#cfe0b6',168)}${st===0?`<ellipse cx="160" cy="168" rx="16" ry="6" fill="#8a5a3a"/><path d="M160 166c0-8 4-12 10-14-2 6-6 10-10 14z" fill="${C.green}"/>`:ilTree(160,168,.7+st*.22,st,C.green)}${st===4?[[132,92],[188,84],[160,70],[146,112],[176,108]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="5" fill="${C.rose}"/>`).join(''):''}</svg>`;
-  return `<section class="box tr-c">${svg}<div class="tr-t"><b>${TREE_ST[st]}</b><span><span>شجرتك تكبر مع كل يوم تحافظ فيه على صلواتك وأورادك.</span> <span dir="ltr">${n}/30</span> ${hintBtn('tree')}</span><i class="tr-bar"><b style="width:${n/30*100}%"></b></i></div></section>`}
+  const prev=S.treeSt,down=prev!=null&&st<prev;if(prev!==st){S.treeSt=st;if(!down)S.treeDown=null;else S.treeDown=TODAY;save()}
+  const next=st<4?7*(st+1)-n:0,dn=S.treeDown&&S.treeDown>=addDays(TODAY,-2);
+  return `<section class="box tr-c">${svg}<div class="tr-t"><small class="tr-k">شجرة المداومة</small><b>${TREE_ST[st]}</b>
+   <span><span>تنمو بانتظامك: كل يوم صلّيت فيه ثلاث صلوات على الأقل أو أتممت وردًا، من آخر ثلاثين يومًا.</span> <span dir="ltr">${n}/30</span> ${hintBtn('tree')}</span>
+   <i class="tr-bar"><b style="width:${n/30*100}%"></b></i>
+   ${next?`<p class="meta tr-n">${next} <span>${next===1?'يوم آخر':'أيام أخرى'} وتصير</span> «<span>${TREE_ST[st+1]}</span>»</p>`:''}
+   ${dn?`<p class="meta tr-dn">قلّت أيام انتظامك في الثلاثين الأخيرة، فرجعت الشجرة خطوة. هي مقياس للمداومة لا لمنزلتك عند الله، وكل يوم تحافظ فيه يعيدها.</p>`:''}
+   <p class="meta tr-nb">الشجرة صورة لانتظامك في الأعمال، لا حكم على حالك عند الله.</p></div></section>`}
 
 /* ---------- screen: me ---------- */
 function viewMe(){const u=AUTH.user,ex=S.amEx&&AMRAD.ar[S.amEx.id]?S.amEx:null,A=AMRAD[LANG]||AMRAD.ar;
   const row=(go,t,ic,extra)=>`<button class="h2-row me-row" ${go}><span class="h2-ri"><svg viewBox="0 0 24 24" aria-hidden="true">${ic}</svg></span><span class="h2-rt"><b>${t}</b></span>${extra||''}<svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>`;
   const exc=ex?`<section class="box am-my"><div>${ilSvg(ex.id,'am-th')}</div><div><small>تمرينك هذا الأسبوع</small><b class="notr" ${LANG==='ar'||LANG==='ur'?'dir="rtl"':'dir="ltr"'}>${A[ex.id][4]}</b>${(ex.done||{})[TODAY]?'<span class="logged">فعلته اليوم ✓</span>':'<button class="btn ok small" data-amdone="1">فعلته اليوم</button>'}</div></section>`:'';
   return `<section class="me-hd"><button class="avatar big" data-go="profile" aria-label="الإعدادات">${avatarImg()}</button><div><h2>${esc(S.name||'')}</h2><p class="muted notr">${esc(cityName(S.loc))}</p></div></section>
+   <div class="sh me-sh"><h2>مساحتي الروحية</h2></div>
    ${treeCard()}${qmCard()}
-   <div class="sh me-sh"><h2>رحلتي</h2></div><div class="box h2-more me-list">
+   <div class="box h2-more me-list">
     ${row('data-go="path"','مساري: أين أنا في الطريق؟','<path d="M5 19c3-1 4-5 7-6s5 1 7-2 2-5 2-5"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="6" r="2"/>',`<small class="me-x" dir="ltr">${pathPct(pathData())}%</small>`)}
+    ${row('data-go="muhasaba"','محاسبة الليلة','<path d="M12 3a7 7 0 1 0 7 9 5.5 5.5 0 0 1-7-9z"/>')}
+    ${row('data-go="tahlil"','تحليل زلّاتي','<path d="M4 19h16M7 15l3-4 3 2 4-6"/>')}
     ${row('data-go="uyub"','اعرف عيوبك وعالجها','<ellipse cx="12" cy="10" rx="6" ry="7"/><path d="M12 17v4M9 21h6"/>')}
-    ${row('data-go="ruhi"','بياناتك الروحية','<path d="M12 20s-8-4.8-8-10.5A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 8 2.5C20 15.2 12 20 12 20z"/>')}
-    ${row('data-go="ijtihad"','مرآة أعمالك','<path d="M5 19V13M10 19V9M15 19V11M20 19V5"/>')}
-   </div>
-   <div class="sh me-sh"><h2>التطبيق</h2></div><div class="box h2-more me-list">
-    ${row('data-go="search"','البحث في التطبيق','<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>')}
     ${row('data-go="notif"','ما بقي من يومك','<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/>')}
-    ${row('data-go="profile"','الإعدادات','<circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>')}
-    ${row('data-go="about"','عن التطبيق','<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>')}
+   </div>
+   <div class="sh me-sh"><h2>تقاريري</h2></div><div class="box h2-more me-list">
+    ${row('data-go="ijtihad"','مرآة أعمالك','<path d="M5 19V13M10 19V9M15 19V11M20 19V5"/>')}
+    ${row('data-go="ruhi"','بياناتك الروحية','<path d="M12 20s-8-4.8-8-10.5A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 8 2.5C20 15.2 12 20 12 20z"/>')}
+    ${row('data-go="week"','التقرير الأسبوعي','<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>')}
+   </div>
+   <div class="sh me-sh"><h2>حسابي</h2></div><div class="box h2-more me-list">
+    ${row('data-go="profile" data-openacc="pname"','الاسم والصورة','<circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/>')}
+    ${row('data-go="profile" data-openacc="account"',u&&u.email?'الحساب والبريد':'إنشاء حساب','<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 8l9 6 9-6"/>',u&&u.email?`<small class="me-x notr" dir="ltr">${esc(u.email.split('@')[0])}</small>`:'')}
+    ${row('data-go="profile" data-openacc="backup"','النسخة الاحتياطية','<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>')}
+   </div>
+   <div class="sh me-sh"><h2>إعدادات التطبيق</h2></div><div class="box h2-more me-list">
+    ${row('data-go="profile" data-openacc="lang"','اللغة','<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>',`<small class="me-x notr">${(LANGS.find(x=>x[0]===LANG)||[0,0,''])[2]}</small>`)}
+    ${row('data-go="profile" data-openacc="city"','المدينة ومواقيت الصلاة','<path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/>',`<small class="me-x notr">${esc(cityName(S.loc))}</small>`)}
+    ${row('data-go="profile" data-openacc="push"','التذكيرات','<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/>')}
+    ${row('data-go="profile" data-openacc="voice"','الصوت وحجم الخط','<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 8.5a5 5 0 0 1 0 7"/>')}
+    ${row('data-go="profile" data-openacc="offl"','العمل دون إنترنت','<path d="M3 9a14 14 0 0 1 18 0M6.5 12.5a9 9 0 0 1 11 0M10 16a4 4 0 0 1 4 0"/><circle cx="12" cy="19" r="1"/>')}
+   </div>
+   <div class="sh me-sh"><h2>المساعدة</h2></div><div class="box h2-more me-list">
+    ${row('data-go="search"','البحث في التطبيق','<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>')}
+    ${row('data-go="about"','عن التطبيق ودليل الاستعمال','<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>')}
+    ${row('data-go="about" data-openacc="privacy"','الخصوصية','<path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"/>')}
+    ${row('data-go="about" data-openacc="contact"','التواصل والدعم','<path d="M4 5h16v11H8l-4 4z"/>')}
     ${isAdmin()?row('data-go="admin"','لوحة الإدارة','<path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"/>'):''}
    </div>
    <button class="me-ui" data-uimode="classic"><span>الواجهة الكلاسيكية</span><small>كل الأقسام كما كانت من قبل</small></button>`}
@@ -6768,7 +6813,9 @@ function tsRec(){const SR=TS_SR();if(!SR||!TSR)return;const r=new SR();r.lang='a
       let s=0;while(s<tk.length-1&&tk[s]===st.prev[s])s++;if(s>st.c){nw.push(...tk.slice(st.c,s));st.c=s}st.prev=tk}
     if(live.trim())TSR.last=Date.now();tsHear(live);
     if(nw.length){tsFeed(TSR.T,nw,{err:tsErr,fath:tsFath,done:tsDone});tsPaint()}};
-  r.onerror=e=>{if(!TSR)return;if(e.error==='not-allowed'||e.error==='service-not-allowed'){tsStop();tsMsg='لم يُسمح باستعمال الميكروفون. اسمح للتطبيق باستعماله من إعدادات المتصفح ثم أعد المحاولة.';render()}};
+  r.onerror=e=>{if(!TSR)return;if(e.error==='not-allowed'||e.error==='service-not-allowed'){tsStop();tsMsg='لم يُسمح باستعمال الميكروفون. اسمح للتطبيق باستعماله من إعدادات المتصفح ثم أعد المحاولة.';render()}
+    else if(e.error==='audio-capture'){tsStop();tsMsg='لم يُعثر على ميكروفون يعمل. تأكد أن الميكروفون غير مستعمل في تطبيق آخر، ثم أعد المحاولة.';render()}
+    else if(e.error==='network'){tsStop();tsMsg='التعرف على الكلام يحتاج اتصالًا بالإنترنت. تحقق من الاتصال ثم أعد المحاولة.';render()}};
   /* the recogniser stops by itself after a pause: count what it heard last, then listen again at once */
   r.onend=()=>{if(!TSR||TSR.rec!==r)return;if(!TSR.speaking){const nw=[];(TSR.seg||[]).forEach(st=>{if(st.prev.length>st.c){nw.push(...st.prev.slice(st.c));st.c=st.prev.length}});
       if(nw.length){tsFeed(TSR.T,nw,{err:tsErr,fath:tsFath,done:tsDone});tsPaint()}}
@@ -6948,6 +6995,7 @@ function ptKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayerT
 function skyKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayerTimes(n);
   return h>=pt.fajr&&h<pt.sunrise+.5?'fajr':h>=pt.sunrise+.5&&h<pt.maghrib-.6?'day':h>=pt.maghrib-.6&&h<pt.isha?'maghrib':'night'}
 function render(){
+  if(screen!=='mushaf'||!S.mshFocus)document.body.classList.remove('msh-focus','msh-show');
   if(navRoute&&!gated()&&typeof VIEWS!=='undefined'){const r=navRoute;navRoute=null;if(VIEWS[r]&&r!==screen){setTimeout(()=>go(r),0)}}
   navSync();const app=document.getElementById('app'),nav0=document.querySelector('nav.tabs');
   if(gated()){document.documentElement.dataset.scr='home';document.documentElement.dataset.sky=skyKind();document.documentElement.dataset.pt=ptKind();app.innerHTML=viewAuth();nav0.hidden=true;const rtl=RTL();app.dir=rtl?'rtl':'ltr';app.lang=LANG;document.documentElement.lang=LANG;document.documentElement.dir=rtl?'rtl':'ltr';i18nApply(app);return}
@@ -7138,6 +7186,8 @@ document.addEventListener('click',e=>{
   if(d.mshplay){mshRun=!mshRun;mshLast=0;const b=document.getElementById('mshPlay');if(b)b.innerHTML=mshRun?IC_PAUSE:IC_PLAY;return}
   if(d.mshgo){mshMsg='';return mushafGo(mshCP()+(+d.mshgo),+d.mshgo>0)}
   if(d.mshback){mshBr=null;mshMsg='';render();SCR().scrollTo(0,0);return}
+  if(d.mshlast){const M=msh();mshMsg='';mshBr=S.mshLast!==M.p?S.mshLast:null;render();SCR().scrollTo(0,0);return}
+  if(d.mshfocus){S.mshFocus=!S.mshFocus;document.body.classList.remove('msh-show');save();render();return}
   if(d.mshset){const M=msh();if(mshBr!=null)M.p=mshBr;mshBr=null;mshMsg='سيبدأ وردك اليومي من هذه الصفحة.';save();render();return}
   if(d.mshsur){mshSur=!mshSur;render();if(mshSur){const c=document.querySelector('.msh-sr[data-mshsura="'+suraAt(mshCP())+'"]');if(c){c.classList.add('cur');c.parentNode.scrollTop=c.offsetTop-c.parentNode.offsetTop-60}}return}
   if(d.qrcont){mshMsg='';mshBr=null;return go('mushaf')}
@@ -7156,7 +7206,7 @@ document.addEventListener('click',e=>{
   if(d.nafl){e.preventDefault();const L=aLog(),k=+d.nfn;L.nafl=L.nafl||{};if(L.nafl[d.nafl]===k)delete L.nafl[d.nafl];else L.nafl[d.nafl]=k;save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(d.masjid){e.preventDefault();const L=aLog(),k=d.masjid;L.masjid=L.masjid||[];if(L.masjid.includes(k))L.masjid=L.masjid.filter(x=>x!==k);else{L.masjid.push(k);if(!(L.prayers||[]).includes(k))setPrayer(k)}save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(d.pray){e.preventDefault();setPrayer(d.pray);khAfterPray(d.pray);const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
-  if(d.go){if(d.cityfocus)aboutOpen.add('city');go(d.go);if(d.cityfocus){const el=document.querySelector('details[data-acc=city]');if(el)el.scrollIntoView({block:'start'})}return}
+  if(d.go){if(d.cityfocus)aboutOpen.add('city');if(d.openacc)aboutOpen.add(d.openacc);go(d.go);const fx=d.openacc||(d.cityfocus?'city':'');if(fx){const el=document.querySelector('details[data-acc='+fx+']');if(el)setTimeout(()=>el.scrollIntoView({block:'start',behavior:'smooth'}),60)}return}
   if(d.prepstart){const P=prepState();P.status='active';P.start=TODAY;P.log={};save();return render()}
   if(d.prepok)return prepSet(d.prepok,'ok');
   if(d.prepfail){prepFail=d.prepfail;return render()}

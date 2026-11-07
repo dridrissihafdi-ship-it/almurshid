@@ -15,7 +15,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **080-state.js** (2 KB): demoState(), blankOrgan(), freshState(), S
 - **090-accounts.js** (30 KB): ADMIN_EMAIL, AUTH, CONTENT, adminData, isAdmin, gated, AUTH_ERR, authErr, viewAuth(), LOGO, GLOGO, authSubmit(), TEST_ACCT, testSignIn(), googleSignIn(), pendingName, OWNER, lsGet, lsSet, onAuthUser(), onFbFail(), cloudTimer, cloudSaveNow(), cloudSave(), adminTry(), TT, ttTick(), ttFlush(), INBOX, inboxLoad(), inboxCard(), fmtDur, adminLoad(), adminMsgsLoad(), adminMsgDel(), adminPush(), adU, uName, SCR_N, scrName …
 - **100-content-editor.js** (24 KB): ED, edMode, UI, edNorm, edHash, ED_NO, ED_CARD, ED_LANGS, edApply(), edCardOf, edSaveUi(), edToast(), edBar(), edOpen(), ED_THEMES, ED_CSS0, ED_ST, edTheme(), edAdminBlock(), edClick(), adminSave(), announcementBanner(), onAuthRedirectError(), delAsk, acctMsg, accountSection(), authClick(), SCR, pz, pzD, pzEl(), PZ_OK, pzEnd(), navFix(), navT, save, YDAY, normOrgans(), orgMigrate(), orgSetStart() …
-- **110-views.js** (15 KB): screen, confirmFor, confirmReset, redoFor, esc, ARROW, MENU, TITLES, VERSES, AVATAR, avatarImg(), MENUICON, BACK, nextPrayer(), heroHome(), homeNow(), amProgress(), heroSub(), NEW_HOST
+- **110-views.js** (14 KB): screen, confirmFor, confirmReset, redoFor, esc, ARROW, MENU, TITLES, VERSES, AVATAR, avatarImg(), MENUICON, BACK, nextPrayer(), heroHome(), homeNow(), amProgress(), heroSub(), NEW_HOST
 - **120-quick-access-data.js** (8 KB): QI
 - **130-quick-access.js** (5 KB): QA_ALL, QA_DEF, qaSel, qaDot, qaBtn, qaGrid(), qaGo(), homeProg(), sheetOpen(), sheetClose(), moreOpen(), qaEditOpen(), qaToggle()
 - **140-first-steps.js** (3 KB): fsSteps(), fsCard(), iosGuide()
@@ -27,7 +27,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **200-qa-cards.js** (4 KB): waredMsg, QA, qaDayIdx, DATA_OK, dataLoad(), qaSec, qaFocus, qaT, qaSecT, qaDir, qaCard(), viewQA(), openQA()
 - **210-mushaf-index-data.js** (9 KB): QIDX
 - **220-mushaf-index-m-data.js** (8 KB): QIDXM
-- **230-mushaf.js** (17 KB): WIRD_OPTS, QBUF, QURL, mshMsg, mshDl, msh(), qKey, qHQ, qBundle(), qPage(), mshBr, mshCP, mushafPaint(), mushafGo(), SURAS, suraAt(), suraOnPage(), mshSur, mshY, mshAuto, mshRun, mshRaf, mshLast, mshEndAt, mshAcc, mshHold, MSEC, mshSpd, IC_PAUSE, IC_PLAY, mshPos, mshSet, mshUserTs, mshBase(), mshToTop(), mshTick(), mshAutoBar(), mshSurList(), viewQuran(), viewMushaf() …
+- **230-mushaf.js** (18 KB): WIRD_OPTS, QBUF, QURL, mshMsg, mshDl, msh(), qKey, qHQ, qBundle(), qPage(), mshBr, mshCP, mushafPaint(), mushafGo(), SURAS, suraAt(), suraOnPage(), mshSur, mshY, mshAuto, mshRun, mshRaf, mshLast, mshEndAt, mshAcc, mshHold, MSEC, mshSpd, IC_PAUSE, IC_PLAY, mshPos, mshSet, mshUserTs, mshBase(), mshToTop(), mshTick(), mshAutoBar(), mshSurList(), viewQuran(), viewMushaf() …
 - **240-subha.js** (6 KB): SUBHA_DEF, sbAdd, sbReset, sbEdit, sbZero, sb(), sbCount, sbTotal, subhaCard(), viewSubha(), sbMore(), sbTick()
 - **250-khalwa.js** (8 KB): khEdit, khMsg, khDel, khList, pad2, localStr, khMs, khName, khEvents(), khState, fmtDT, hmMs, KH_SHORT, KH_DAY, khTemplate(), khNew(), khReadForm(), khForm(), khCard(), viewKhalwa(), khAlerted, khToast()
 - **260-qalb-data.js** (7 KB): QALB
@@ -63,7 +63,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **530-adhan.js** (3 KB): ADZ, adzUnlocked, adzShown, adzP(), adzPlay(), adzStop(), adzUi(), adzTick(), adzBox(), adzClick()
 - **540-aamal-simple.js** (19 KB): amDoneOpen, amDlOpen, amMineOpen, amSimple(), amMore(), viewAamal()
 - **550-heart-drawing.js** (12 KB): HC, organShade(), HEART_BODY, HEART_PORTS, heartSection(), viewSura(), TQ, tqQuery, tqAskMsg, tqAskBusy, tqAskDraft, TQUI, tqU, tqNorm, tqBlock()
-- **560-read-aloud.js** (24 KB): TTS_OK, TTS_LANG, TTS_PBUH, tts, TTS_PREF, TTS_JUNK, ttsVoices, ttsScore(), ttsVoice, ttsRateFor, ttsSecs, ttsUnits, ttsText(), ttsChunks(), ttsMark(), ttsSpeak(), ttsStart(), ttsStop(), ttsToggle(), ttsJump(), ttsRate(), ttsBar(), ttsClick(), viewMethod(), tqSearch(), tqMark(), tqAskSend(), viewNotif(), APP_VER, errLog(), OFFREADY, OFFST, checkOffline(), offlineLine(), prefetchImgs(), bkPending, bkMsg, bkWhen, applyFz(), fzApply() …
+- **560-read-aloud.js** (25 KB): TTS_OK, TTS_LANG, TTS_PBUH, tts, TTS_PREF, TTS_JUNK, ttsVoices, ttsScore(), ttsVoice, ttsRateFor, ttsSecs, ttsUnits, ttsText(), ttsChunks(), ttsMark(), ttsSpeak(), ttsStart(), ttsStop(), ttsToggle(), ttsJump(), ttsRate(), ttsBar(), ttsClick(), viewMethod(), tqSearch(), tqMark(), tqAskSend(), viewNotif(), APP_VER, errLog(), OFFREADY, OFFST, checkOffline(), offlineLine(), prefetchImgs(), bkPending, bkMsg, bkWhen, applyFz(), fzApply() …
 - **570-install.js** (6 KB): installEvt, transferMsg, isStandalone(), inPreview(), installParts(), viewInstall(), RM, RM_GO, RM_HOT, rmHot
 - **580-map-position.js** (13 KB): RM_PTS, RM_MS, RM_BADGE, RM_ME, rmSeq(), rmParam(), rmShown(), rmAt(), rmCard(), rmLayer(), rmAnim(), rmClick(), endLoaded, endLoad(), viewRoadmap(), rmZoom(), FQ_K, FQ_BY, vdCat, vdCur, vdSt(), vdList, vdTitle, vdPoster, viewFiqh(), viewVideo(), vdBind()
 - **590-adhkar-reader.js** (10 KB): adhSize, adhList(), adhState(), ADH_SAME, adhAu(), adTts, MS_SRC, ADA, ADP, AD_RATES, adRate, adMute, AD_IC, adRateTx, adTitle(), adBar(), adMeta(), adPlay(), adStop(), adToggle(), adStep(), adUi(), adClick(), viewAdhkar(), ar2
@@ -77,8 +77,8 @@ The app is built from these files, joined in the order of their names (`node scr
 - **670-illustrations-2.js** (7 KB): ilHeadBig, ilArm, IL_BAD, ilBan, SCR_BAN, scrBan, ilFail(), IL_IMG, ilSvg()
 - **680-simple-ui.js** (6 KB): SIMPLE, NAV_CLASSIC, NAV_SIMPLE, navSync(), tabS(), SMT, HUBS, IL_ALIAS, viewHub, HT_ALL, htGet(), homeTiles(), htPick(), htEdit(), htMenu(), htLP, htSkip, smGroup, smTiles
 - **690-quick-muhasaba.js** (5 KB): QM_ORG, QM_FACE, qmFace, qmDay, QM_PI, qmPrepOn, qmVal, qmDone, QM_EXTRA, qmRows, qmCard()
-- **700-tree.js** (1 KB): treeDays(), TREE_ST, treeCard()
-- **710-screen-me.js** (3 KB): viewMe()
+- **700-tree.js** (2 KB): treeDays(), TREE_ST, treeCard()
+- **710-screen-me.js** (5 KB): viewMe()
 - **720-screen-heart-cards.js** (2 KB): amI, viewAmrad(), amBind()
 - **730-screen-wudu-salat.js** (1 KB): viewGuide()
 - **740-lesson-stories.js** (4 KB): ST_MOTIF, ST_ROT, storySlides(), stSpeakTok, stSay(), storyOpen()
@@ -91,7 +91,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **800-tasmi-engine.js** (4 KB): TS_MARKS, tsKey(), tsLev(), tsSame(), tsCat, TS_IGN, tsNew(), tsFeed(), tsPrompt()
 - **810-tasmi.js** (13 KB): RW_N, RWD, RWF, tsMsg, TSR, tsRes, TS_SR, tsSt(), tsLoad(), tsDig, tsAyat(), tsWords(), tsSay, tsSpeak(), tsRec(), tsHear(), tsStart(), tsStop(), tsTick(), tsErr(), tsFath(), tsFlash(), tsDone(), tsPaint(), viewTasmi(), tsClick(), VIEWS, TOPTABS
 - **820-audio.js** (15 KB): AU_REPO, AU_EXT, SIRA_K, QIY_K, AQ_K, auScr, auHome, auScrK, AU_T, AU, auCat, auBusy, auErr, auOpen, auLastSave, auSt, auInv, auClean, auFmt, auBuild(), auLoad(), auAll, auFind, MEDIA_BASE, auUrl, auNext(), auPlay(), auToggle(), auSkip(), auMeta(), auPos(), auStore(), AU_IC, auPct(), viewAudio(), auUi(), auClose(), auNowUi(), auClick()
-- **830-router.js** (6 KB): tabOf(), ptKind(), skyKind(), render(), go(), NAVH, navBack, navRoute, navUrl(), goRaw()
+- **830-router.js** (7 KB): tabOf(), ptKind(), skyKind(), render(), go(), NAVH, navBack, navRoute, navUrl(), goRaw()
 - **840-events.js** (25 KB): adhAwake(), logOrgan(), applyWird()
 - **850-push.js** (12 KB): photoMsg, geoMsg, pushMsg, pushBusy, VAPID, isIOS, pushPrefs(), trPend(), pushDoc(), pushT, pushSync(), pushEnable(), pushDisable(), pushTest(), notifPerm, notifBlockedMsg(), hudurTest(), showHudur(), hudurHash(), pushState(), pushStateLine(), pushInvite(), pushSection(), setLoc(), geoLocate(), setPhoto()
 - **860-qa-search.js** (4 KB): qaNorm, qaUnmark(), qaMark(), qaTimer, qaSearch(), qaShare(), miniToast()

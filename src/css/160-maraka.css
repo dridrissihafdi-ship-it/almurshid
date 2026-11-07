@@ -45,3 +45,15 @@
 @keyframes mkHa{0%,100%{transform:scale(var(--mf)) translateY(0) rotate(0)}50%{transform:scale(var(--mf)) translateY(-7px) rotate(-1.5deg)}}
 @keyframes mkGone{0%{opacity:1;filter:blur(0);transform:scale(var(--mf))}55%{opacity:.6;filter:blur(3px)}100%{opacity:0;filter:blur(12px);transform:scale(calc(var(--mf)*1.15)) translateY(-34px)}}
 @media (prefers-reduced-motion:reduce){.mk-w .mk-dv{opacity:0}}
+
+/* ---- Mushaf: reading mode and continue-reading ---- */
+.msh-bb{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.msh-cont{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;margin:8px 0}.msh-cont small{flex:1 1 180px}
+body.msh-focus .hero,body.msh-focus nav.tabs,body.msh-focus .msh-nav,body.msh-focus .msh-autob,body.msh-focus .msh>p.meta,body.msh-focus .msh-set,body.msh-focus .msh-cont,body.msh-focus .msh-bar{display:none}
+body.msh-focus.msh-show .msh-bar,body.msh-focus.msh-show .msh-nav,body.msh-focus.msh-show nav.tabs{display:revert}
+body.msh-focus .sheet{padding-top:8px}body.msh-focus .msh-page{margin-top:0}
+body.msh-focus:not(.msh-show) .msh-page::after{content:'';display:block;height:6px}
+/* ---- the tree of constancy ---- */
+.tr-k{display:block;color:var(--muted);font-size:12px;letter-spacing:.2px}.tr-n{margin:6px 0 0}.tr-dn{margin:6px 0 0;color:var(--ink)}.tr-nb{margin:6px 0 0;font-size:12px}
+/* ---- languages in the settings ---- */
+.pf-langs{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:static}.pf-langs .lang{display:flex;gap:8px;align-items:center;justify-content:flex-start;padding:10px 12px;border-radius:12px;min-height:44px;width:auto;height:auto}.pf-langs .lang small{opacity:.8}

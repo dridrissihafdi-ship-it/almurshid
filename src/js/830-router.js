@@ -6,6 +6,7 @@ function ptKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayerT
 function skyKind(){const n=new Date(),h=n.getHours()+n.getMinutes()/60,pt=prayerTimes(n);
   return h>=pt.fajr&&h<pt.sunrise+.5?'fajr':h>=pt.sunrise+.5&&h<pt.maghrib-.6?'day':h>=pt.maghrib-.6&&h<pt.isha?'maghrib':'night'}
 function render(){
+  if(screen!=='mushaf'||!S.mshFocus)document.body.classList.remove('msh-focus','msh-show');
   if(navRoute&&!gated()&&typeof VIEWS!=='undefined'){const r=navRoute;navRoute=null;if(VIEWS[r]&&r!==screen){setTimeout(()=>go(r),0)}}
   navSync();const app=document.getElementById('app'),nav0=document.querySelector('nav.tabs');
   if(gated()){document.documentElement.dataset.scr='home';document.documentElement.dataset.sky=skyKind();document.documentElement.dataset.pt=ptKind();app.innerHTML=viewAuth();nav0.hidden=true;const rtl=RTL();app.dir=rtl?'rtl':'ltr';app.lang=LANG;document.documentElement.lang=LANG;document.documentElement.dir=rtl?'rtl':'ltr';i18nApply(app);return}

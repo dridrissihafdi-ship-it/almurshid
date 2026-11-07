@@ -36,7 +36,6 @@ function heroHome(){
   const mins=Math.round(nx.in*60),F=PRAYERS.filter(p=>p[0]!=='sunrise'),X=[306,238,170,102,34],Y=[16,33,40,36,20];
   const ki=F.findIndex(p=>p[0]===nx.k);
   return `<header class="hero home2">
-   <div class="langs" role="group" aria-label="اللغة">${LANGS.map(([c,l,n])=>`<button class="lang notr${c===LANG?' on':''}" data-lang="${c}" aria-pressed="${c===LANG}" title="${n}" lang="${c}">${l}</button>`).join('')}</div>
    <div class="h2-top"><div class="h2-brand"><h1>المرشد</h1><button class="h2-city notr" data-go="profile" data-cityfocus="1">${esc(cityName(S.loc))} · ${dateL} · ${hijriLabel}</button></div>
     <div class="h2-btns"><button class="h2-ib" data-go="search" aria-label="${esc(Tx('بحث'))}"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg></button><button class="h2-ib" data-go="notif" aria-label="ما بقي من يومك"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></svg><i class="badge" id="badge" hidden></i></button><button class="avatar h2-av" data-go="profile" aria-label="الإعدادات">${avatarImg()}</button></div></div>
    <section class="h2-pr" aria-label="مواقيت الصلاة"><div class="h2-prh"><span>مواقيت الصلاة</span><b><span>صلاة</span> ${nx.n} <span>بعد</span> ${mins>=60?Math.floor(mins/60)+' <span>س</span> ':''}${mins%60} <span>د</span></b></div>
