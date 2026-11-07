@@ -18,10 +18,8 @@ function ysNoteBox(k,i){const v=ysNotes()[k+':'+(i+1)]||'';
 function ysUi(rid){const o=ysOf(rid),b=document.getElementById('ysNoteBox');if(!o||!b)return;const i=recP(rid).i;
   if(+b.dataset.i!==i){b.dataset.i=i;b.innerHTML=ysNoteBox(o.k,i);i18nApply(b)}}
 function ysCard(k){const rid=ysRid(k),E=ysEps(rid),P=recP(rid);ysCarry(k,rid,E,P);if(P.i>=E.length)P.i=0;const e=E[P.i],seen=E.filter((x,i)=>P.w[i]).length,open0=recOpen===rid,N=ysNotes(),L=ysLang(k);
-  /* the player is prepared on the page, at the place where the seeker stopped, so a single tap starts it,
-     unless another video is playing in the small player */
-  const busy=DOCK.on&&DOCK.key!=='r:'+rid&&!DOCK.idle,open=open0||!busy;if(open)recOpen=rid;
-  if(open&&DOCK.key!=='r:'+rid)setTimeout(()=>{if(DOCK.on&&DOCK.key!=='r:'+rid&&!DOCK.idle)return;recInit(rid,open0);if(!open0)DOCK.idle=true},0);
+  /* the episode's own picture comes first; the player opens on a tap, at the place where the seeker stopped */
+  const open=open0;if(open&&DOCK.key!=='r:'+rid)setTimeout(()=>recInit(rid),0);
   const head=open?`<div class="rec-v" id="ytSlot" data-k="r:${rid}"></div>`
    :`<button class="rec-th" data-recplay="${rid}" aria-label="${esc(Tx('تشغيل'))}"><img src="https://i.ytimg.com/vi/${e[2]}/hqdefault.jpg" alt="" loading="lazy"><span class="rec-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>${P.t>5||seen?`<span class="rec-cont"><span>${Tx(P.t>5?'تابع من':'ابدأ')}</span> <span>الحلقة</span> ${e[0]}${P.t>5?' · '+hms(P.t):''}</span>`:''}</button>`;
   return `   <div class="box rec rec-ser">${head}<div class="pad">

@@ -3710,7 +3710,7 @@ function askClick(d){
   if(d.majtab!==undefined){if(d.majtab==='salat'){if(SAL.on)salStop();else salStart();majTab=null}else majTab=d.majtab||null;render();SCR().scrollTo(0,0);return true}
   if(d.salt){if(SAL.on)salStop();else salStart();render();return true}
   if(d.ytlive){ytLiveOpen=true;dockOpen('live',ytInfo().n||Tx('البث المباشر'),`https://www.youtube-nocookie.com/embed/live_stream?channel=${ytCh()}&autoplay=1&playsinline=1`);render();return true}
-  if(d.recep!==undefined){const rid=d.rid;if(recOpen!==rid){const P=recP(rid);P.i=+d.recep;P.t=recAt(rid,P.i);save();recOpen=rid;render();return true}recGo(rid,+d.recep);if(ysOf(rid)){const sl=document.getElementById('ytSlot');if(sl)sl.scrollIntoView({behavior:'smooth',block:'center'})}return true}
+  if(d.recep!==undefined){const rid=d.rid;if(recOpen!==rid){const P=recP(rid),i=+d.recep;P.t=recAt(rid,i);P.i=i;save();recOpen=rid;render();if(ysOf(rid)){const sl=document.getElementById('ytSlot');if(sl)sl.scrollIntoView({behavior:'smooth',block:'center'})}return true}recGo(rid,+d.recep);if(ysOf(rid)){const sl=document.getElementById('ytSlot');if(sl)sl.scrollIntoView({behavior:'smooth',block:'center'})}return true}
   if(d.recw!==undefined){const P=recP(d.rid),k=+d.recw;if(P.w[k])delete P.w[k];else P.w[k]=1;save();recUi(d.rid);if(recOpen!==d.rid){const c=document.getElementById('recCnt');if(c)c.textContent=Object.keys(P.w).length}return true}
   if(d.recprev){recGo(d.recprev,recP(d.recprev).i-1);return true}
   if(d.recnext){recGo(d.recnext,recP(d.recnext).i+1);return true}
@@ -3774,10 +3774,8 @@ function ysNoteBox(k,i){const v=ysNotes()[k+':'+(i+1)]||'';
 function ysUi(rid){const o=ysOf(rid),b=document.getElementById('ysNoteBox');if(!o||!b)return;const i=recP(rid).i;
   if(+b.dataset.i!==i){b.dataset.i=i;b.innerHTML=ysNoteBox(o.k,i);i18nApply(b)}}
 function ysCard(k){const rid=ysRid(k),E=ysEps(rid),P=recP(rid);ysCarry(k,rid,E,P);if(P.i>=E.length)P.i=0;const e=E[P.i],seen=E.filter((x,i)=>P.w[i]).length,open0=recOpen===rid,N=ysNotes(),L=ysLang(k);
-  /* the player is prepared on the page, at the place where the seeker stopped, so a single tap starts it,
-     unless another video is playing in the small player */
-  const busy=DOCK.on&&DOCK.key!=='r:'+rid&&!DOCK.idle,open=open0||!busy;if(open)recOpen=rid;
-  if(open&&DOCK.key!=='r:'+rid)setTimeout(()=>{if(DOCK.on&&DOCK.key!=='r:'+rid&&!DOCK.idle)return;recInit(rid,open0);if(!open0)DOCK.idle=true},0);
+  /* the episode's own picture comes first; the player opens on a tap, at the place where the seeker stopped */
+  const open=open0;if(open&&DOCK.key!=='r:'+rid)setTimeout(()=>recInit(rid),0);
   const head=open?`<div class="rec-v" id="ytSlot" data-k="r:${rid}"></div>`
    :`<button class="rec-th" data-recplay="${rid}" aria-label="${esc(Tx('تشغيل'))}"><img src="https://i.ytimg.com/vi/${e[2]}/hqdefault.jpg" alt="" loading="lazy"><span class="rec-pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>${P.t>5||seen?`<span class="rec-cont"><span>${Tx(P.t>5?'تابع من':'ابدأ')}</span> <span>الحلقة</span> ${e[0]}${P.t>5?' · '+hms(P.t):''}</span>`:''}</button>`;
   return `   <div class="box rec rec-ser">${head}<div class="pad">
@@ -5542,7 +5540,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   <p class="muted">التنبيهات هنا داخل الصفحة. التنبيهات الفعلية على الهاتف تحتاج نسخة التطبيق المثبّتة.</p></section>`;
 }
-const APP_VER='2026-11-07 15:39';
+const APP_VER='2026-11-07 15:49';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));

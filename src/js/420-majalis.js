@@ -173,7 +173,7 @@ function askClick(d){
   if(d.majtab!==undefined){if(d.majtab==='salat'){if(SAL.on)salStop();else salStart();majTab=null}else majTab=d.majtab||null;render();SCR().scrollTo(0,0);return true}
   if(d.salt){if(SAL.on)salStop();else salStart();render();return true}
   if(d.ytlive){ytLiveOpen=true;dockOpen('live',ytInfo().n||Tx('البث المباشر'),`https://www.youtube-nocookie.com/embed/live_stream?channel=${ytCh()}&autoplay=1&playsinline=1`);render();return true}
-  if(d.recep!==undefined){const rid=d.rid;if(recOpen!==rid){const P=recP(rid);P.i=+d.recep;P.t=recAt(rid,P.i);save();recOpen=rid;render();return true}recGo(rid,+d.recep);if(ysOf(rid)){const sl=document.getElementById('ytSlot');if(sl)sl.scrollIntoView({behavior:'smooth',block:'center'})}return true}
+  if(d.recep!==undefined){const rid=d.rid;if(recOpen!==rid){const P=recP(rid),i=+d.recep;P.t=recAt(rid,i);P.i=i;save();recOpen=rid;render();if(ysOf(rid)){const sl=document.getElementById('ytSlot');if(sl)sl.scrollIntoView({behavior:'smooth',block:'center'})}return true}recGo(rid,+d.recep);if(ysOf(rid)){const sl=document.getElementById('ytSlot');if(sl)sl.scrollIntoView({behavior:'smooth',block:'center'})}return true}
   if(d.recw!==undefined){const P=recP(d.rid),k=+d.recw;if(P.w[k])delete P.w[k];else P.w[k]=1;save();recUi(d.rid);if(recOpen!==d.rid){const c=document.getElementById('recCnt');if(c)c.textContent=Object.keys(P.w).length}return true}
   if(d.recprev){recGo(d.recprev,recP(d.recprev).i-1);return true}
   if(d.recnext){recGo(d.recnext,recP(d.recnext).i+1);return true}
