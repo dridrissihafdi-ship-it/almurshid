@@ -154,3 +154,25 @@ mark.qa-m{background:color-mix(in srgb,var(--gold) 55%,transparent);color:inheri
 .err-log{max-height:180px;overflow:auto;font-size:11px;background:rgba(0,0,0,.25);padding:8px;border-radius:10px;white-space:pre-wrap}
 .uy-sh{padding:4px 2px 8px}.uy-sq{margin:4px 0 10px;font-size:17px}.uy-chips{display:flex;flex-wrap:wrap;gap:8px}.uy-chips button{font:inherit;font-size:14px;padding:8px 12px;border-radius:99px;border:1px solid var(--card-line);background:var(--chip);color:var(--chip-ink);cursor:pointer}
 .uy-in{width:100%;box-sizing:border-box;font:inherit;padding:10px 12px;border-radius:12px;border:1px solid var(--card-line);background:var(--card);color:var(--ink);margin-bottom:8px}
+/* umrah: confirming each stage */
+.um-dots button.ok{background:var(--green);color:#fff;border-color:var(--green)}
+.umv{margin:14px 0 0;padding:12px 12px 14px;border-radius:14px;background:var(--chip);border:1px solid var(--card-line)}
+.umv.ok{border-color:var(--green);background:color-mix(in srgb,var(--green) 12%,var(--card))}
+.umv-h{margin:4px 2px 8px;font-weight:600}
+.umv-l{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-direction:column;gap:6px}
+.umv-i{display:flex;align-items:center;gap:10px;width:100%;padding:10px 10px;border:1px solid var(--card-line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;text-align:start;cursor:pointer}
+.umv-i i{width:24px;height:24px;flex:none;border-radius:7px;border:2px solid var(--muted);display:grid;place-content:center;font-style:normal;font-size:14px}
+.umv-i.on i{background:var(--green);border-color:var(--green);color:#fff}
+.umv-i small{color:var(--muted);font-size:12px}
+.umv-w{font-size:13px;margin:0 2px 10px;color:var(--muted)}
+.umv-b{width:100%}.umv-b[disabled]{opacity:.5}
+.umv-m{margin:6px 2px 0;text-align:center}
+.umc{margin:0 0 12px;padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--card-line);text-align:center}
+.umc-h{margin:0 0 8px;display:flex;justify-content:space-between;align-items:baseline;font-weight:600}.umc-h b{font-size:20px;color:var(--gold)}
+.umc-dots{display:flex;justify-content:center;gap:8px;margin:0 0 10px}.umc-dots i{width:18px;height:18px;border-radius:50%;border:2px solid var(--muted)}.umc-dots i.on{background:var(--gold);border-color:var(--gold)}
+.umc-next{margin:0 0 8px;font-size:14px}
+.umc-b{width:100%;min-height:64px;border:0;border-radius:14px;background:var(--gold);color:#221A15;font:600 17px/1.4 var(--f, inherit);cursor:pointer}
+.umc-done{margin:4px 0;color:var(--green);font-weight:600}
+.umc-u{display:inline-block;margin-top:8px;font-size:13px}
+.umc-n{margin:6px 0 0}
+.umd{margin:0 0 12px;text-align:center;border:1px solid var(--green)}.umd-t{margin:0;font-size:20px;font-weight:700;color:var(--green)}.umd-v{font-family:var(--f-verse);font-size:20px;margin:6px 0}

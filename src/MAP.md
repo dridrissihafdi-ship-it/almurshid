@@ -34,6 +34,7 @@ The app is built from these files, joined in the order of their names (`node scr
 - **270-qalb.js** (10 KB): QLEV, qbI, qbStop, qbRetest, qb(), qbScore, qbLevel, qbRank, qbDay, qbD, viewQalb(), qbQuestion(), qbResults(), qbToday(), qbShowRes, UMRAH
 - **280-umrah-data.js** (5 KB): UMART
 - **290-umrah.js** (12 KB): umRed, UMRAH_UR, viewUmrah(), viewTaammulat(), MEDIA, isMedia, viewMraqib(), fmtS, mqBind(), mqToggle()
+- **295-umrah-check.js** (5 KB): UM_CHK, UM_CNT, UM_LAST, umS(), umNeed, umCounter(), umCheck(), umDoneCard(), umNewArm
 - **300-tazkiya.js** (15 KB): tzTab, orgSel, tzMsg, tzDate, tzConf, tzEdit, tzDateBar(), tzPast(), MAX_ACTIVE, ORG_VERSE, TZ_TABS, tzSt(), tzTabs(), TZ_INFO, tzRow, TZI, tzHead(), tzStage(), viewTazkiya(), tzPrepOpen, tzRing(), tzToday(), tzPath(), viewOrgan()
 - **310-muhasaba.js** (3 KB): mhState(), mhOn, ikMh(), mhMsg, viewMuhasaba()
 - **320-ruhi-state.js** (2 KB): ruhiTab, RUHI_TABS, wkOff, wkData(), wkShare()
