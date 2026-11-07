@@ -1,10 +1,20 @@
-# Copies the app to the hosting over SFTP after every upload to GitHub.
+# Builds the app and copies it to the hosting over SFTP after every upload to GitHub.
 # Needs repository secrets: SFTP_HOST, SFTP_USER, SFTP_PASS, SFTP_DIR (and optionally SFTP_PORT).
+#
+# How an update arrives: upload ONE file, update.zip, to the top of the repository.
+#  1. its files are copied into the repository (src/…, data/…, privacy.html …);
+#     the paths listed in its _delete.txt are removed, from the repository and from the hosting;
+#  2. the app is built from src/ (scripts/build.mjs checks the code first: a syntax error stops everything
+#     and names the file and line, and the site keeps the previous version);
+#  3. the result is committed (index.html, sw.js, i18n.json stay in the repository, in step with the site);
+#  4. the site is updated; index.html and sw.js are swapped in last, so no one ever loads a half-uploaded page.
 name: deploy-sftp
 on:
   push:
     branches: [main]
   workflow_dispatch:
+permissions:
+  contents: write
 concurrency: deploy-sftp
 jobs:
   deploy:
@@ -17,8 +27,50 @@ jobs:
       PORT: ${{ secrets.SFTP_PORT }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main   # the latest state, which may include a commit made by an earlier run
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Apply update.zip
+        run: |
+          : > /tmp/deleted.txt
+          if [ ! -f update.zip ]; then echo "no update.zip"; exit 0; fi
+          rm -rf /tmp/u && mkdir /tmp/u
+          unzip -q -o update.zip -d /tmp/u
+          if find /tmp/u -path '*/.github*' | grep -q .; then
+            echo "::error::update.zip may not contain .github files: upload workflow files by hand"; exit 1
+          fi
+          if [ -f /tmp/u/_delete.txt ]; then
+            tr -d '\r' < /tmp/u/_delete.txt | sed '/^[[:space:]]*$/d' > /tmp/deleted.txt
+            rm /tmp/u/_delete.txt
+            echo "removing:"; cat /tmp/deleted.txt
+            while IFS= read -r f; do git rm -r -q --ignore-unmatch -- "$f"; rm -rf -- "$f"; done < /tmp/deleted.txt
+          fi
+          cp -a /tmp/u/. ./
+          git rm -q --cached --ignore-unmatch update.zip; rm -f update.zip
+          echo "applied:"; (cd /tmp/u && find . -type f | sed 's#^\./##' | sort)
+
+      - name: Build
+        run: |
+          if [ -d src ]; then
+            node scripts/build.mjs
+            cp dist/index.html dist/sw.js dist/i18n.json ./
+          else
+            echo "no src/ folder: the committed index.html is uploaded as it is"
+          fi
+
+      - name: Save to the repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A .   # dist/ and node_modules/ are left out by .gitignore
+          if git diff --cached --quiet; then echo "nothing to save"; else git commit -q -m "تحديث المرشد $(date -u +%Y-%m-%d\ %H:%M)" && git push; fi
+
       - name: Install lftp
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
       - name: Check secrets
         run: |
           # tidy values pasted with spaces or line breaks
@@ -27,50 +79,39 @@ jobs:
           PORT=$(printf '%s' "$PORT" | sed 'y/٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹/01234567890123456789/' | tr -cd '0-9'); [ -n "$PORT" ] || PORT=22
           PW=$(printf '%s' "$LFTP_PASSWORD" | tr -d '\r\n'); echo "::add-mask::$PW"
           { echo "HOST=$HOST"; echo "USER=$USER"; echo "DIR=$DIR"; echo "PORT=$PORT"; echo "LFTP_PASSWORD=$PW"; } >> "$GITHUB_ENV"
-          echo "password length: ${#PW}"
           for v in HOST USER LFTP_PASSWORD DIR; do
             if [ -z "${!v}" ]; then echo "::error::Missing secret for $v"; exit 1; fi
           done
-          echo "port digits: ${#PORT}, dir starts with: ${DIR:0:1}"
-      - name: Test connection
-        run: |
-          cat > /tmp/test.lftp <<LFTP
-          set sftp:auto-confirm yes
-          open --env-password -u "$USER" -p "${PORT:-22}" "sftp://$HOST"
-          set cmd:fail-exit yes
-          set net:max-retries 2
-          set net:timeout 20
-          set net:reconnect-interval-base 5
-          pwd
-          cd "$DIR"
-          cls -1
-          bye
-          LFTP
-          lftp -f /tmp/test.lftp
+
       - name: Upload over SFTP
         run: |
-          # index.html and sw.js are uploaded last, under a temporary name, then renamed:
-          # the site never serves a half-uploaded page (that left the app on a blank screen while the upload ran)
-          cat > /tmp/up.lftp <<LFTP
-          set sftp:auto-confirm yes
-          open --env-password -u "$USER" -p "${PORT:-22}" "sftp://$HOST"
-          set cmd:fail-exit yes
-          set net:max-retries 4
-          set net:timeout 60
-          set net:reconnect-interval-base 5
-          cd "$DIR"
-          mirror -R --ignore-time --parallel=3 --verbose=1 --exclude-glob .git/ --exclude-glob .github/ --exclude-glob scripts/ --exclude-glob node_modules/ --exclude-glob *.md --exclude-glob *.zip --exclude "^index\.html$" --exclude "^sw\.js$" ./ ./
-          put index.html -o index.html.new
-          put sw.js -o sw.js.new
-          set cmd:fail-exit no
-          rm -f index.html.old sw.js.old
-          mv index.html index.html.old
-          mv index.html.new index.html
-          mv sw.js sw.js.old
-          mv sw.js.new sw.js
-          rm -f index.html.old sw.js.old
-          set cmd:fail-exit yes
-          cls -l index.html sw.js
-          bye
-          LFTP
+          {
+            echo 'set sftp:auto-confirm yes'
+            echo "open --env-password -u \"$USER\" -p \"${PORT:-22}\" \"sftp://$HOST\""
+            echo 'set cmd:fail-exit yes'
+            echo 'set net:max-retries 4'
+            echo 'set net:timeout 60'
+            echo 'set net:reconnect-interval-base 5'
+            echo "cd \"$DIR\""
+            # files removed by _delete.txt leave the hosting too
+            if [ -s /tmp/deleted.txt ]; then
+              echo 'set cmd:fail-exit no'
+              while IFS= read -r f; do printf 'rm -rf "%s"\n' "$f"; done < /tmp/deleted.txt
+              echo 'set cmd:fail-exit yes'
+            fi
+            echo 'mirror -R --ignore-time --parallel=3 --verbose=1 --exclude-glob .git/ --exclude-glob .github/ --exclude-glob src/ --exclude-glob dist/ --exclude-glob scripts/ --exclude-glob node_modules/ --exclude-glob *.md --exclude-glob *.zip --exclude-glob .gitignore --exclude-glob *.rules --exclude "^index\.html$" --exclude "^sw\.js$" ./ ./'
+            # index.html and sw.js last, under a temporary name, then renamed
+            echo 'put index.html -o index.html.new'
+            echo 'put sw.js -o sw.js.new'
+            echo 'set cmd:fail-exit no'
+            echo 'rm -f index.html.old sw.js.old'
+            echo 'mv index.html index.html.old'
+            echo 'mv index.html.new index.html'
+            echo 'mv sw.js sw.js.old'
+            echo 'mv sw.js.new sw.js'
+            echo 'rm -f index.html.old sw.js.old'
+            echo 'set cmd:fail-exit yes'
+            echo 'cls -l index.html sw.js'
+            echo 'bye'
+          } > /tmp/up.lftp
           lftp -f /tmp/up.lftp
