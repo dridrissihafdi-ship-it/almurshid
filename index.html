@@ -1570,6 +1570,10 @@ html[data-theme=light] .nt-c{background:linear-gradient(160deg,#EEE6F3,var(--car
 .up-th,.up-tips{margin-top:14px}.up-th b,.up-tips b{color:var(--gold)}.up-th p{margin:6px 0 0;line-height:1.85}.up-tips ul{margin:6px 0 0;padding-inline-start:20px;line-height:1.8}
 .up-reset{display:block;margin:18px auto 0;color:var(--muted)}
 .um-seg{margin-bottom:14px}.um-seg button{flex:1}
+.up-i{position:relative}.up-okb{position:absolute;top:10px;inset-inline-end:12px;width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:14px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.up-i:has(.up-okb) .up-ar{padding-inline-end:34px}
+.up-sh.dn h2{color:var(--green)}.up-gok{font-style:normal;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;margin-inline-end:8px;vertical-align:middle}
+.up-tabs button.dn:not(.on){background:var(--green-soft)}
 /* the Sira and the Day of Judgment, in every language */
 .ys-note{margin-top:10px}.ys-nl{display:block;font-weight:600;font-size:14px;margin:0 0 4px}.ys-note textarea{width:100%;box-sizing:border-box;border-radius:12px;border:1px solid var(--card-line);background:var(--page);color:var(--ink);padding:10px;font:inherit;font-size:14.5px;line-height:1.7;resize:vertical}
 .ys-ns{min-height:1.2em;margin:2px 0 0;font-size:12px}
@@ -3204,38 +3208,45 @@ const upMM=s=>{s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+String(s%6
 function upTabProg(T){let d=0,n=0;T.g.forEach((G,gi)=>G.it.forEach((it,ii)=>{if(it[0]==='r')return;n++;if(upDone(T.k+':'+gi+':'+ii,it))d++}));return [d,n]}
 function upItem(T,gi,ii,it){const key=T.k+':'+gi+':'+ii,ok=upDone(key,it),D=UPD[it[1]];
   if(it[0]==='r')return `<li class="up-r"><span>${it[1]}</span>${it[2]?`<b dir="ltr">×${it[2]}</b>`:''}</li>`;
-  if(it[0]==='a')return `<li class="up-i up-a${ok?' ok':''}"><button class="up-ck" data-upa="${key}" aria-pressed="${ok}"><i>${ok?'✓':''}</i><span>${it[1]}${it[2]?` <small>· ${it[2]} <span>دقيقة</span></small>`:''}</span></button>${it[2]?upTimer(key,it[2],ok):''}</li>`;
+  const okb=ok?`<span class="up-okb" aria-label="${esc(Tx('تمّ'))}">✓</span>`:'';
+  if(it[0]==='a')return `<li class="up-i up-a${ok?' ok':''}"><button class="up-ck" data-upa="${key}" aria-pressed="${ok}"><i>${ok?'✓':''}</i><span>${it[1]}${it[2]?` <small>· ${it[2]} <span>دقيقة</span></small>`:''}</span></button>${it[2]?`<div class="up-row">${upTimer(key,it[2],ok)}${upZt(key)}</div>`:''}</li>`;
   const txt=`<p class="up-ar notr" dir="rtl" lang="ar">${D[0]}</p>${LANG!=='ar'?`<small class="up-mn">${D[1]}</small>`:''}`;
   if(it[0]==='n'){const c=Math.min(upStore(key).c[key]||0,it[2]);
-    return `<li class="up-i${ok?' ok':''}">${txt}<div class="up-row"><button class="up-cnt" data-upc="${key}" data-upn="${it[2]}" aria-label="${esc(Tx('اضغط مع كل مرة'))}"><b dir="ltr" id="upc-${key.replace(/:/g,'-')}">${c} / ${it[2]}</b><small>${ok?'✓':'<span>اضغط مع كل مرة</span>'}</small></button>${c?`<button class="up-z" data-upz="${key}" aria-label="${esc(Tx('من جديد'))}">↺</button>`:''}</div></li>`}
-  return `<li class="up-i${ok?' ok':''}">${txt}<div class="up-row">${upTimer(key,it[2],ok)}</div></li>`}
+    return `<li class="up-i${ok?' ok':''}">${okb}${txt}<div class="up-row"><button class="up-cnt" data-upc="${key}" data-upn="${it[2]}" aria-label="${esc(Tx('اضغط مع كل مرة'))}"><b dir="ltr" id="upc-${key.replace(/:/g,'-')}">${c} / ${it[2]}</b><small>${ok?'✓':'<span>اضغط مع كل مرة</span>'}</small></button>${c?`<button class="up-z" data-upz="${key}" aria-label="${esc(Tx('من جديد'))}">↺</button>`:''}</div></li>`}
+  return `<li class="up-i${ok?' ok':''}">${okb}${txt}<div class="up-row">${upTimer(key,it[2],ok)}${upZt(key)}</div></li>`}
+/* «من جديد» for a timed dhikr: shown once it has started (running, paused or finished) */
+function upZt(key){return upRun[key]||upSecs(key)>0||upStore(key).a[key]?`<button class="up-z" data-upzt="${key}" aria-label="${esc(Tx('من جديد'))}">↺</button>`:''}
+/* sounds: a soft chime when a timed dhikr starts, a fuller one when its time is over (and when a counted dhikr is complete).
+   While a timer runs, a silent loop keeps the page awake so the end chime can still sound with the screen locked. */
+function upSnd(k){try{if(k==='start'){sndUnlock();soundStep()}else{sndPlay('end',()=>bell([523,659,784,1047],.32,2.4,.4));try{navigator.vibrate&&navigator.vibrate([200,100,200,100,400])}catch(e){}if(!Object.keys(upRun).length&&!(typeof run!=='undefined'&&run&&!run.done))sndStop()}}catch(e){}}
 function upTimer(key,min,ok){const run=!!upRun[key],left=min*60-upSecs(key);
   return `<button class="up-tm${run?' run':''}${ok?' ok':''}" data-upt="${key}" data-upm="${min}"><span class="up-tg" aria-hidden="true">${ok?'✓':run?'❚❚':'▶'}</span><b dir="ltr" id="upt-${key.replace(/:/g,'-')}">${ok?min+':00':upMM(left)}</b><small>${ok?'<span>تمّ</span>':run?'<span>إيقاف مؤقت</span>':`${min} <span>دقيقة</span>`}</small></button>`}
 function viewUmProg(){upS();if(Object.keys(upRun).length)upTickOn();const T=UP.find(x=>x.k===upTab)||UP[0];upTab=T.k;
   return `<section class="up">
    <p class="meta up-src">من كتيّب «أعمال الحج والعمرة» للطريقة المحمدية. افعل منه ما تستطيع؛ والأعداد والمدد المذكورة هي الأصل.</p>
-   <div class="up-tabs" role="tablist">${UP.map(x=>{const[d,n]=upTabProg(x);return `<button role="tab" aria-selected="${x.k===T.k}" class="${x.k===T.k?'on':''}${n&&d>=n?' dn':''}" data-uptab="${x.k}"><span>${x.t}</span>${d?`<small dir="ltr">${d}/${n}</small>`:''}</button>`}).join('')}</div>
+   <div class="up-tabs" role="tablist">${UP.map(x=>{const[d,n]=upTabProg(x);return `<button role="tab" aria-selected="${x.k===T.k}" class="${x.k===T.k?'on':''}${n&&d>=n?' dn':''}" data-uptab="${x.k}"><span>${n&&d>=n?'✓ ':''}${x.t}</span>${d?`<small dir="ltr">${d}/${n}</small>`:''}</button>`}).join('')}</div>
    <article class="box up-card">${IL_IMG.has(T.ic)?`<div class="up-art">${ilSvg(T.ic)}</div>`:''}<div class="pad"><h3>${T.t}</h3><p class="up-in">${T.intro}</p></div></article>
    ${T.g.map((G,gi)=>{const P=G.it.filter(it=>it[0]!=='r'),dn=P.filter((it,ii)=>upDone(T.k+':'+gi+':'+G.it.indexOf(it),it)).length;
-     return `<div class="sh up-sh"><h2>${G.t}</h2>${P.length?`<span dir="ltr">${dn} / ${P.length}</span>`:''}</div>${G.once?'<p class="meta up-once">مرة واحدة في الرحلة</p>':''}
+     return `<div class="sh up-sh${P.length&&dn>=P.length?' dn':''}"><h2>${P.length&&dn>=P.length?'<i class="up-gok" aria-hidden="true">✓</i>':''}${G.t}</h2>${P.length?`<span dir="ltr">${dn} / ${P.length}</span>`:''}</div>${G.once?'<p class="meta up-once">مرة واحدة في الرحلة</p>':''}
      <ol class="box up-list${G.it[0][0]==='r'?' up-rl':''}">${G.it.map((it,ii)=>upItem(T,gi,ii,it)).join('')}</ol>`}).join('')}
    <div class="box pad up-th"><b>ما تستحضره</b><p>${T.think}</p></div>
    ${T.tips?`<div class="box pad up-tips"><b>نصائح</b><ul>${T.tips.map(t=>`<li>${t}</li>`).join('')}</ul></div>`:''}
    ${T.k==='makkah'||T.k==='madinah'?'<p class="meta">اليوم يبدأ من جديد كل يوم، وما يُفعل مرة واحدة يبقى محفوظًا طوال الرحلة.</p>':''}
    <button class="btn link-btn up-reset" data-upreset="1">مسح علامات الرحلة والبدء من جديد</button></section>`}
-function upTickOn(){if(upTick)return;upTick=setInterval(()=>{const ks=Object.keys(upRun);if(!ks.length||screen!=='umrah'){if(!ks.length){clearInterval(upTick);upTick=null}return}
+function upTickOn(){if(upTick)return;upTick=setInterval(()=>{const ks=Object.keys(upRun);if(!ks.length){clearInterval(upTick);upTick=null;keepAwake(false);return}
   ks.forEach(key=>{const[k,g,i]=key.split(':'),it=UP.find(x=>x.k===k).g[+g].it[+i],min=it[2],left=min*60-upSecs(key),el=document.getElementById('upt-'+key.replace(/:/g,'-'));
-    if(left<=0){const P=upStore(key);P.t[key]=min*60;delete upRun[key];save();try{navigator.vibrate&&navigator.vibrate([60,80,60])}catch(e){}try{beep&&beep()}catch(e){}const y=SCR().scrollTop;render();SCR().scrollTo(0,y)}
-    else if(el)el.textContent=upMM(left)})},1000)}
+    if(left<=0){const P=upStore(key);P.t[key]=min*60;delete upRun[key];save();upSnd('end');if(screen==='umrah'){const y=SCR().scrollTop;render();SCR().scrollTo(0,y)}}
+    else if(el&&screen==='umrah')el.textContent=upMM(left)})},1000)}
 function upEvent(d){if(d.umseg){umSeg=d.umseg;S.umSeg=umSeg;save();return 1}
   if(d.uptab){upTab=d.uptab;return 1}
   if(d.upa){const P=upStore(d.upa);P.a[d.upa]=P.a[d.upa]?0:1;if(!P.a[d.upa]&&upRun[d.upa])delete upRun[d.upa];save();return 1}
   if(d.upz){const P=upStore(d.upz);P.c[d.upz]=0;save();return 1}
-  if(d.upt){const key=d.upt,P=upStore(key);if(upDone(key,['m',0,+d.upm]))return 0;if(upRun[key]){P.t[key]=upSecs(key);delete upRun[key]}else{upRun[key]=Date.now();upTickOn()}save();return 1}
-  if(d.upreset){if(!confirm(Tx('مسح علامات الرحلة كلها؟')))return 0;S.umP=null;S.umOnce=null;for(const k in upRun)delete upRun[k];save();return 1}
+  if(d.upzt){const k=d.upzt,P=upStore(k);delete upRun[k];P.t[k]=0;P.a[k]=0;save();return 1}
+  if(d.upt){const key=d.upt,P=upStore(key);if(upDone(key,['m',0,+d.upm]))return 0;if(upRun[key]){P.t[key]=upSecs(key);delete upRun[key]}else{upRun[key]=Date.now();upTickOn();upSnd('start');keepAwake(true)}save();return 1}
+  if(d.upreset){if(!confirm(Tx('مسح علامات الرحلة كلها؟')))return 0;S.umP=null;S.umOnce=null;for(const k in upRun)delete upRun[k];try{sndStop()}catch(e){}save();return 1}
   return 0}
 /* the counter: one tap = one time, updated in place (no re-render, so the page does not jump) */
-function upCount(btn){const key=btn.dataset.upc,n=+btn.dataset.upn,P=upStore(key),c=Math.min(n,(P.c[key]||0)+1);P.c[key]=c;save();
+function upCount(btn){const key=btn.dataset.upc,n=+btn.dataset.upn,P=upStore(key);if((P.c[key]||0)>=n)return;const c=Math.min(n,(P.c[key]||0)+1);if(c===1)try{sndUnlock()}catch(e){}if(c>=n)upSnd('end');P.c[key]=c;save();
   const b=btn.querySelector('b');if(b)b.textContent=c+' / '+n;try{navigator.vibrate&&navigator.vibrate(c>=n?[40,60,40]:8)}catch(e){}
   if(c>=n){const y=SCR().scrollTop;render();SCR().scrollTo(0,y)}else if(c===1){const y=SCR().scrollTop;render();SCR().scrollTo(0,y)}}
 /* ---------- purification: today · the organs' journey · self-review ---------- */
@@ -5877,7 +5888,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   ${isStandalone()?`<button class="btn notif-cta" data-go="profile" data-openacc="push">فعّل التذكيرات على هاتفك</button>`:`<button class="btn ok notif-cta" data-go="install">ثبّت التطبيق لتصلك التذكيرات على هاتفك</button>`}</section>`;
 }
-const APP_VER='2026-11-08 22:05';
+const APP_VER='2026-11-08 22:19';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
@@ -7585,7 +7596,7 @@ document.addEventListener('click',e=>{
   if(d.mshq){msh().orig=d.mshq==='orig';save();return render()}
   if(d.mshdl){if(!(mshDl&&mshDl.on))mushafDownload();return}
   if(d.upc){upCount(t);return}
-  if(d.umseg||d.uptab||d.upa||d.upz||d.upt||d.upreset){if(upEvent(d)){const y=SCR().scrollTop;render();if(d.umseg||d.uptab){const c=document.querySelector('.um-seg');SCR().scrollTo({top:d.uptab&&c?c.getBoundingClientRect().top+SCR().scrollTop-20:0})}else SCR().scrollTo(0,y)}return}
+  if(d.umseg||d.uptab||d.upa||d.upz||d.upzt||d.upt||d.upreset){if(upEvent(d)){const y=SCR().scrollTop;render();if(d.umseg||d.uptab){const c=document.querySelector('.um-seg');SCR().scrollTo({top:d.uptab&&c?c.getBoundingClientRect().top+SCR().scrollTop-20:0})}else SCR().scrollTo(0,y)}return}
   if(d.umstep!==undefined){S.umStep=+d.umstep;save();render();const c=document.querySelector('.um-dots');SCR().scrollTo({top:c?c.getBoundingClientRect().top+SCR().scrollTop-20:0});return}
   if(d.amslot){amOpen.has(d.amslot)?amOpen.delete(d.amslot):amOpen.add(d.amslot);const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(d.ampickopen){amPickOpen=!amPickOpen;render();return}

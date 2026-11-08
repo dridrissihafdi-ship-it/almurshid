@@ -127,3 +127,7 @@ html[data-theme=light] .nt-c{background:linear-gradient(160deg,#EEE6F3,var(--car
 .up-th,.up-tips{margin-top:14px}.up-th b,.up-tips b{color:var(--gold)}.up-th p{margin:6px 0 0;line-height:1.85}.up-tips ul{margin:6px 0 0;padding-inline-start:20px;line-height:1.8}
 .up-reset{display:block;margin:18px auto 0;color:var(--muted)}
 .um-seg{margin-bottom:14px}.um-seg button{flex:1}
+.up-i{position:relative}.up-okb{position:absolute;top:10px;inset-inline-end:12px;width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:14px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.up-i:has(.up-okb) .up-ar{padding-inline-end:34px}
+.up-sh.dn h2{color:var(--green)}.up-gok{font-style:normal;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;margin-inline-end:8px;vertical-align:middle}
+.up-tabs button.dn:not(.on){background:var(--green-soft)}
