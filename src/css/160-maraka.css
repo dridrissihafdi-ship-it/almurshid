@@ -104,3 +104,26 @@ html[data-theme=light] .nt-c{background:linear-gradient(160deg,#EEE6F3,var(--car
 @keyframes dpIn{from{opacity:0;transform:translate(-50%,16px) scale(.8)}}
 @media (prefers-reduced-motion:reduce){.dp-t{animation:none}}
 .rv-by{display:flex;align-items:center;gap:8px;margin:10px 0 0;padding:9px 12px;border-radius:12px;background:var(--green-soft);font-size:13.5px}.rv-by svg{width:20px;height:20px;flex:none;fill:none;stroke:var(--green);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* umrah journey programme */
+.up-src{margin:0 0 10px}
+.up-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 12px}.up-tabs::-webkit-scrollbar{display:none}
+.up-tabs button{display:flex;flex-direction:column;align-items:center;gap:1px;padding:8px 14px;border-radius:14px;border:1px solid var(--card-line);background:var(--card);color:var(--ink);font:inherit;font-size:14px;cursor:pointer;min-height:44px;justify-content:center}
+.up-tabs button.on{background:var(--teal);border-color:var(--teal);color:#fff}.up-tabs button small{font-size:11px;opacity:.8}.up-tabs button.dn:not(.on){border-color:var(--green);color:var(--green)}
+.up-card{overflow:hidden;padding:0}.up-art .il{display:block;width:100%;height:auto;max-height:190px;object-fit:cover}.up-card h3{margin:0 0 6px}.up-in{margin:0;line-height:1.8}
+.up-sh{margin-top:18px}.up-sh span{font-size:13px;color:var(--muted)}.up-once{margin:-6px 0 8px}
+.up-list{list-style:none;margin:0;padding:6px 0}.up-list>li{padding:12px 14px;border-top:1px solid var(--card-line)}.up-list>li:first-child{border-top:0}
+.up-r{display:flex;justify-content:space-between;gap:10px;align-items:baseline}.up-r b{color:var(--gold);font-size:13px;flex:none}.up-rl{background:var(--chip)}
+.up-ar{margin:0 0 4px;font-size:19px;line-height:1.9;font-family:var(--fq,inherit)}.up-mn{display:block;color:var(--muted);font-size:12.5px;margin-bottom:6px}
+.up-i.ok .up-ar{color:var(--muted)}
+.up-row{display:flex;gap:8px;align-items:stretch;margin-top:6px}
+.up-cnt,.up-tm{flex:1;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px;padding:8px 16px;border-radius:14px;border:1px solid var(--card-line);background:var(--chip);color:var(--ink);font:inherit;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.up-cnt b,.up-tm b{font-size:20px;font-variant-numeric:tabular-nums}.up-cnt small,.up-tm small{color:var(--muted);font-size:12.5px}
+.up-cnt:active{transform:scale(.98)}.up-i.ok .up-cnt,.up-tm.ok{border-color:var(--green);background:var(--green-soft)}.up-i.ok .up-cnt b,.up-tm.ok b{color:var(--green)}
+.up-tm.run{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}.up-tg{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#2A1F19;font-size:12px;flex:none}.up-tm.ok .up-tg{background:var(--green);color:#fff}
+.up-z{width:44px;border-radius:14px;border:1px solid var(--card-line);background:transparent;color:var(--muted);font-size:18px;cursor:pointer}
+.up-a{display:flex;flex-direction:column;gap:6px}.up-ck{display:flex;align-items:center;gap:12px;background:none;border:0;padding:0;color:var(--ink);font:inherit;text-align:start;cursor:pointer;min-height:40px}
+.up-ck i{width:26px;height:26px;flex:none;border-radius:8px;border:2px solid var(--gold);display:grid;place-items:center;font-style:normal;color:#fff;font-size:14px}.up-a.ok .up-ck i{background:var(--green);border-color:var(--green)}.up-a.ok .up-ck>span{color:var(--muted);text-decoration:line-through}
+.up-ck small{color:var(--muted)}
+.up-th,.up-tips{margin-top:14px}.up-th b,.up-tips b{color:var(--gold)}.up-th p{margin:6px 0 0;line-height:1.85}.up-tips ul{margin:6px 0 0;padding-inline-start:20px;line-height:1.8}
+.up-reset{display:block;margin:18px auto 0;color:var(--muted)}
+.um-seg{margin-bottom:14px}.um-seg button{flex:1}

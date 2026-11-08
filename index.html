@@ -1547,6 +1547,29 @@ html[data-theme=light] .nt-c{background:linear-gradient(160deg,#EEE6F3,var(--car
 @keyframes dpIn{from{opacity:0;transform:translate(-50%,16px) scale(.8)}}
 @media (prefers-reduced-motion:reduce){.dp-t{animation:none}}
 .rv-by{display:flex;align-items:center;gap:8px;margin:10px 0 0;padding:9px 12px;border-radius:12px;background:var(--green-soft);font-size:13.5px}.rv-by svg{width:20px;height:20px;flex:none;fill:none;stroke:var(--green);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* umrah journey programme */
+.up-src{margin:0 0 10px}
+.up-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 12px}.up-tabs::-webkit-scrollbar{display:none}
+.up-tabs button{display:flex;flex-direction:column;align-items:center;gap:1px;padding:8px 14px;border-radius:14px;border:1px solid var(--card-line);background:var(--card);color:var(--ink);font:inherit;font-size:14px;cursor:pointer;min-height:44px;justify-content:center}
+.up-tabs button.on{background:var(--teal);border-color:var(--teal);color:#fff}.up-tabs button small{font-size:11px;opacity:.8}.up-tabs button.dn:not(.on){border-color:var(--green);color:var(--green)}
+.up-card{overflow:hidden;padding:0}.up-art .il{display:block;width:100%;height:auto;max-height:190px;object-fit:cover}.up-card h3{margin:0 0 6px}.up-in{margin:0;line-height:1.8}
+.up-sh{margin-top:18px}.up-sh span{font-size:13px;color:var(--muted)}.up-once{margin:-6px 0 8px}
+.up-list{list-style:none;margin:0;padding:6px 0}.up-list>li{padding:12px 14px;border-top:1px solid var(--card-line)}.up-list>li:first-child{border-top:0}
+.up-r{display:flex;justify-content:space-between;gap:10px;align-items:baseline}.up-r b{color:var(--gold);font-size:13px;flex:none}.up-rl{background:var(--chip)}
+.up-ar{margin:0 0 4px;font-size:19px;line-height:1.9;font-family:var(--fq,inherit)}.up-mn{display:block;color:var(--muted);font-size:12.5px;margin-bottom:6px}
+.up-i.ok .up-ar{color:var(--muted)}
+.up-row{display:flex;gap:8px;align-items:stretch;margin-top:6px}
+.up-cnt,.up-tm{flex:1;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px;padding:8px 16px;border-radius:14px;border:1px solid var(--card-line);background:var(--chip);color:var(--ink);font:inherit;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.up-cnt b,.up-tm b{font-size:20px;font-variant-numeric:tabular-nums}.up-cnt small,.up-tm small{color:var(--muted);font-size:12.5px}
+.up-cnt:active{transform:scale(.98)}.up-i.ok .up-cnt,.up-tm.ok{border-color:var(--green);background:var(--green-soft)}.up-i.ok .up-cnt b,.up-tm.ok b{color:var(--green)}
+.up-tm.run{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}.up-tg{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#2A1F19;font-size:12px;flex:none}.up-tm.ok .up-tg{background:var(--green);color:#fff}
+.up-z{width:44px;border-radius:14px;border:1px solid var(--card-line);background:transparent;color:var(--muted);font-size:18px;cursor:pointer}
+.up-a{display:flex;flex-direction:column;gap:6px}.up-ck{display:flex;align-items:center;gap:12px;background:none;border:0;padding:0;color:var(--ink);font:inherit;text-align:start;cursor:pointer;min-height:40px}
+.up-ck i{width:26px;height:26px;flex:none;border-radius:8px;border:2px solid var(--gold);display:grid;place-items:center;font-style:normal;color:#fff;font-size:14px}.up-a.ok .up-ck i{background:var(--green);border-color:var(--green)}.up-a.ok .up-ck>span{color:var(--muted);text-decoration:line-through}
+.up-ck small{color:var(--muted)}
+.up-th,.up-tips{margin-top:14px}.up-th b,.up-tips b{color:var(--gold)}.up-th p{margin:6px 0 0;line-height:1.85}.up-tips ul{margin:6px 0 0;padding-inline-start:20px;line-height:1.8}
+.up-reset{display:block;margin:18px auto 0;color:var(--muted)}
+.um-seg{margin-bottom:14px}.um-seg button{flex:1}
 /* the Sira and the Day of Judgment, in every language */
 .ys-note{margin-top:10px}.ys-nl{display:block;font-weight:600;font-size:14px;margin:0 0 4px}.ys-note textarea{width:100%;box-sizing:border-box;border-radius:12px;border:1px solid var(--card-line);background:var(--page);color:var(--ink);padding:10px;font:inherit;font-size:14.5px;line-height:1.7;resize:vertical}
 .ys-ns{min-height:1.2em;margin:2px 0 0;font-size:12px}
@@ -2993,7 +3016,9 @@ const umRed=t=>String(t).replace(/(﴿[^﴾]*﴾|«[^»]*»)/g,'<span class="um-
 const UMRAH_UR={"st":[{"t":"تیاری اور میقات","img":"miqat","do":["اللہ سے توبہ کیجیے، معافی مانگیے، اور قرض ادا کیجیے۔","غسل کیجیے اور ناخن تراشیے۔","مرد: دو سفید چادریں اور چپل۔ عورت: اپنا ساتر لباس۔","ہوائی جہاز میں: اعلان ہونے پر میقات سے پہلے احرام باندھیے۔"],"note":"مالکیہ کے نزدیک احرام کے وقت خوشبو نہ لگائیں، اور میقات سے بغیر احرام کے آگے نہ بڑھیں۔","more":["سفر سے پہلے گھر میں دو رکعت پڑھیے اور گھر والوں کو الوداع کہیے۔","مونچھیں کتروائیے، اور جن بالوں کا صاف کرنا مستحب ہے انہیں صاف کیجیے۔","جو پہلے مدینہ جائے وہ ابیارِ علی سے احرام باندھے۔"]},{"t":"احرام اور تلبیہ","img":"ihram","do":["دو رکعت نماز پڑھیے۔","دل سے عمرے کی نیت کیجیے۔","تلبیہ پڑھیے، اور راستے میں کثرت سے پڑھتے رہیے۔"],"dua":[["تلبیہ","لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ، لَبَّيْكَ لَا شَرِيكَ لَكَ لَبَّيْكَ، إِنَّ الْحَمْدَ وَالنِّعْمَةَ لَكَ وَالْمُلْكَ، لَا شَرِيكَ لَكَ"],["نیت","اللَّهُمَّ إِنِّي أُرِيدُ الْعُمْرَةَ فَيَسِّرْهَا لِي وَتَقَبَّلْهَا مِنِّي"]],"note":"مالکیہ کے نزدیک تلبیہ واجب ہے، اور حرم میں داخل ہونے پر اسے روک دیں۔","more":["نیت اور تلبیہ کے ساتھ آپ احرام میں داخل ہو جاتے ہیں۔","مرد قدرے بلند آواز سے تلبیہ پڑھے، اور عورت آہستہ۔"]},{"t":"مسجدِ حرام میں داخلہ","img":"masjid","do":["دایاں پاؤں پہلے رکھ کر داخل ہوں۔","کعبہ پر نظر پڑے تو جو چاہیں دعا مانگیں۔","فوراً طواف شروع کریں۔"],"dua":[["داخل ہوتے وقت","بِسْمِ اللَّهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللَّهِ، اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ"],["کعبہ دیکھتے وقت","اللَّهُمَّ زِدْ هَذَا الْبَيْتَ تَشْرِيفًا وَتَعْظِيمًا وَتَكْرِيمًا وَمَهَابَةً، وَزِدْ مَنْ شَرَّفَهُ وَكَرَّمَهُ مِمَّنْ حَجَّهُ أَوِ اعْتَمَرَهُ تَشْرِيفًا وَتَكْرِيمًا وَتَعْظِيمًا وَبِرًّا"],["پھر کہیے","اللَّهُمَّ إِنِّي عَبْدُكَ وَزَائِرُكَ، وَعَلَى كُلِّ مَزُورٍ حَقٌّ، وَأَنْتَ خَيْرُ مَزُورٍ، فَأَسْأَلُكَ أَنْ تَغْفِرَ لِي وَتَرْحَمَنِي وَتَفُكَّ رَقَبَتِي مِنَ النَّارِ"]],"more":["ممکن ہو تو باب السلام سے داخل ہوں۔","کعبہ دیکھتے وقت: تین بار سبحان اللہ، تین بار اللہ اکبر، اور نبی ﷺ پر درود، یہ قبولیت کی امید کا وقت ہے۔"]},{"t":"طواف","img":"tawaf","do":["باوضو رہیے۔","حجرِ اسود سے شروع کیجیے، کعبہ بائیں جانب رہے۔","حطیم کے باہر سے سات چکر لگائیے۔","جو چاہیں دعا مانگیے۔"],"dua":[["ہر چکر کے شروع میں حجرِ اسود کے پاس","بِسْمِ اللَّهِ، اللَّهُ أَكْبَرُ"],["رکنِ یمانی اور حجرِ اسود کے درمیان","رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ"]],"more":["حجرِ اسود کے پاس: ممکن ہو تو بوسہ دیں، یا ہاتھ سے چھوئیں، ورنہ تکبیر کہہ کر آگے بڑھیں۔ کسی کو دھکا نہ دیں۔","ممکن ہو تو ہر چکر میں رکنِ یمانی کو چھوئیں۔","مرد پہلے تین چکروں میں قدرے تیز چلے، اور عورت سب چکروں میں عام رفتار سے۔","ہر چکر کی کوئی مخصوص دعا نہیں۔"]},{"t":"طواف کی دو رکعتیں اور زمزم","img":"maqam","do":["مقامِ ابراہیم کے پیچھے، یا مسجد میں کہیں بھی دو رکعت پڑھیے۔","زمزم پیجیے اور دعا مانگیے۔"],"note":"مالکیہ کے نزدیک طواف کی دو رکعتیں واجب ہیں، انہیں نہ چھوڑیں۔","dua":[["زمزم پیتے وقت","اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا وَاسِعًا، وَعَمَلًا مُتَقَبَّلًا، وَشِفَاءً مِنْ كُلِّ دَاءٍ"]],"more":["ان میں «قل یا ایہا الکافرون» اور «قل ہو اللہ احد» پڑھیں۔","کعبہ کی طرف رخ کر کے «بسم اللہ» کہہ کر تین سانسوں میں خوب سیر ہو کر پیجیے۔","پیتے وقت خیر کی نیت کیجیے، کیونکہ «زمزم جس نیت سے پیا جائے اسی کے لیے ہے»۔"]},{"t":"سعی","img":"sai","do":["صفا سے شروع کیجیے، کعبہ کی طرف رخ کر کے اللہ کا ذکر کیجیے۔","مروہ تک جائیے پھر واپس آئیے: سات چکر جو مروہ پر ختم ہوں۔"],"dua":[["صفا اور مروہ پر، کعبہ کی طرف رخ کر کے","اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، يُحْيِي وَيُمِيتُ وَهُوَ حَيٌّ لَا يَمُوتُ، بِيَدِهِ الْخَيْرُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ. لَا إِلَهَ إِلَّا اللَّهُ وَلَا نَعْبُدُ إِلَّا إِيَّاهُ، مُخْلِصِينَ لَهُ الدِّينَ وَلَوْ كَرِهَ الْكَافِرُونَ. لَا إِلَهَ إِلَّا اللَّهُ أَهْلَ التَّكْبِيرِ وَالتَّحْمِيدِ وَالتَّهْلِيلِ. لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ، أَنْجَزَ وَعْدَهُ، وَنَصَرَ عَبْدَهُ، وَهَزَمَ الْأَحْزَابَ وَحْدَهُ، فَلَهُ الْمُلْكُ وَلَهُ الْحَمْدُ"]],"more":["صفا پر ہاتھ اٹھا کر ذکر پڑھیے، پھر دعا مانگیے۔","دونوں سبز روشنیوں کے درمیان مرد قدرے تیز چلے، اور عورت عام رفتار سے۔","مروہ پر بھی وہی کیجیے جو صفا پر کیا تھا۔"]},{"t":"حلق یا قصر","img":"halq","do":["مرد سر منڈوائے، یا پورے سر کے بال کتروائے۔","عورت انگلی کے پور کے برابر بال کاٹے۔","اس کے ساتھ عمرہ مکمل، اور احرام کی ہر پابندی ختم۔"],"note":"صرف چند بال کاٹنا کافی نہیں۔"},{"t":"عمرے کے بعد","img":"kaaba","do":["اللہ کا شکر ادا کیجیے، اور اپنے، والدین اور مسلمانوں کے لیے دعا کیجیے۔","مکہ سے روانگی سے پہلے: طوافِ وداع۔"],"more":["مسجدِ حرام میں کثرت سے نماز اور طواف کیجیے۔","واپسی کے بعد دل کی پاکیزگی کی حفاظت کیجیے۔"]}],"do":[["مالکیہ کے نزدیک عمرے کے ارکان","احرام، پھر طواف، پھر سعی۔ ان کے بغیر عمرہ درست نہیں ہوتا۔"],["واجبات","میقات سے احرام، تلبیہ، طواف کی دو رکعتیں، اور حلق یا قصر۔ اور مرد سلا ہوا لباس نہ پہنے۔"],["سنتیں","غسل، حجرِ اسود کو بوسہ دینا یا چھونا، طواف میں اور دونوں سبز روشنیوں کے درمیان مرد کا تیز چلنا، اور صفا و مروہ پر دعا۔"]],"av":[["احرام کی حالت میں ممنوع",["مرد کے لیے سلا ہوا لباس پہننا (قمیص، شلوار، موزے)۔","مرد کا سر ڈھانپنا، اور عورت کا نقاب اور دستانے پہننا۔","خوشبو۔","بال یا ناخن کاٹنا۔","جانوروں کا شکار۔","نکاح یا منگنی۔","ازدواجی تعلق۔"]],["عام غلطیاں",["حجرِ اسود کو بوسہ دینے کے لیے دھکم پیل۔","حطیم کے اندر سے طواف کرنا۔","حجرِ اسود کے علاوہ کہیں اور سے طواف شروع کرنا۔","بلند آواز سے اجتماعی دعائیں پڑھنا۔","تصویریں لینے میں مشغول رہنا۔","طواف کی دو رکعتیں بھول جانا۔","صرف چند بال کاٹنا۔"]],["اگر غلطی ہو جائے","اگر آپ سے کوئی ممنوع کام ہو جائے تو کسی عالم سے پوچھیے کہ آپ پر کیا لازم ہے۔"]],"wo":["اپنا عام ساتر لباس پہنے۔","نقاب اور دستانے نہ پہنے۔","طواف اور سعی میں تیز نہ چلے۔","حیض والی عورت طواف کے سوا سب کچھ کرے، یہاں تک کہ پاک ہو جائے۔","اپنے بالوں سے انگلی کے پور کے برابر کاٹے۔"]};
 function viewUmrah(){const U=umU(),n=U.st.length,i=Math.max(0,Math.min(n-1,S.umStep||0)),x=U.st[i],D=x.dua||[],more=x.more||[];
   const duaB=([l,t])=>`<div class="um-dua"><small>${l}</small><p class="notr" dir="rtl" lang="ar">${t}</p></div>`;
-  return `<section class="um">
+  const seg=`<div class="rtabs rt2 um-seg" role="tablist">${[['st','مراحل العمرة'],['prog','برنامج الرحلة']].map(([k,l])=>`<button role="tab" aria-selected="${(umSeg||S.umSeg||'st')===k}" class="${(umSeg||S.umSeg||'st')===k?'on':''}" data-umseg="${k}">${l}</button>`).join('')}</div>`;
+  if((umSeg||S.umSeg||'st')==='prog')return seg+viewUmProg();
+  return seg+`<section class="um">
    ${umDoneCard()}<div class="um-dots" role="tablist">${U.st.map((s,k)=>{const ok=umS().ok.includes(k);return `<button class="${k===i?'on':k<i?'past':''}${ok?' ok':''}" role="tab" aria-selected="${k===i}" data-umstep="${k}" aria-label="${k+1}${ok?' ✓':''}">${ok?'✓':k+1}</button>`}).join('')}</div>
    <article class="um-card">
     <div class="um-art">${IL_IMG.has('um_'+x.img)&&!IL_BAD.has('um_'+x.img)?ilSvg('um_'+x.img):`<svg viewBox="0 0 320 170" role="img" aria-label="${esc(x.t)}">${UMART[x.img]}</svg>`}</div>
@@ -3110,6 +3135,109 @@ document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)r
   if(d.umnew){if(!umNewArm){umNewArm=1;render();setTimeout(()=>{umNewArm=0;if(screen==='umrah')render()},4000);return}
     umNewArm=0;S.umr={chk:{},ok:[],tw:0,sa:0};S.umStep=0;save();render();return}
 });
+/* ---------- برنامج الرحلة: the daily works of the journey, from the Hajj & Umrah booklet of the Muhammadan path ----------
+   Tabs: before travel, Makkah, Madinah, al-Baqi', the cave of Hira', after returning.
+   Item kinds: r = recited inside the prayer (no tracking) · a = an act to tick · n = a dhikr counted to a number · m = a dhikr timed in minutes.
+   Progress is kept per day (S.umP, reset each day); a group marked once:1 is kept for the whole journey (S.umOnce). */
+const UPD={
+ sal:['اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ. اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ','الصلاة الإبراهيمية'],
+ dur:['اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى آلِهِ وَصَحْبِهِ وَسَلِّمْ','الصلاة على النبي ﷺ'],
+ ist:['أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ','الاستغفار'],
+ haw:['لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ','الحوقلة'],
+ haw2:['لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ','الحوقلة'],
+ yAllah:['يَا اللَّهُ','يا الله'],yRahman:['يَا رَحْمَٰنُ','يا رحمن'],yRahim:['يَا رَحِيمُ','يا رحيم'],yGhafur:['يَا غَفُورُ','يا غفور'],yJabbar:['يَا جَبَّارُ','يا جبّار'],
+ yMalik:['يَا مَلِكُ يَا قُدُّوسُ','يا ملك يا قدوس'],yHamid:['يَا حَمِيدُ','يا حميد'],ySamad:['يَا صَمَدُ','يا صمد'],yMuhaymin:['يَا مُهَيْمِنُ','يا مهيمن'],
+ allah2:['اللَّهُ اللَّهُ','ذكر الاسم المفرد'],allahu:['اللَّهُ هُوَ','ذكر «الله هو»'],
+ salam:['السَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ','السلام على النبي ﷺ'],
+ ummi:['اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ النَّبِيِّ الْأُمِّيِّ وَعَلَى آلِهِ وَصَحْبِهِ وَسَلِّمْ تَسْلِيمًا','الصلاة على النبي الأمي ﷺ'],
+ jah:['اللَّهُمَّ يَا رَبِّ بِجَاهِ سَيِّدِنَا مُحَمَّدِ ابْنِ عَبْدِ اللَّهِ ﷺ اجْمَعْ بَيْنِي وَبَيْنَ سَيِّدِنَا مُحَمَّدِ ابْنِ عَبْدِ اللَّهِ فِي الدُّنْيَا قَبْلَ الْآخِرَةِ','دعاء الاجتماع بالنبي ﷺ'],
+ subbuh:['سُبُّوحٌ قُدُّوسٌ رَبُّنَا وَرَبُّ الْمَلَائِكَةِ وَالرُّوحِ','التسبيح والتقديس'],
+ rabbi:['رَبِّ اغْفِرْ وَارْحَمْ وَأَنْتَ خَيْرُ الرَّاحِمِينَ','طلب المغفرة والرحمة'],
+ wahdah:['لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ','التوحيد'],
+ jalal:['يَا ذَا الْجَلَالِ وَالْإِكْرَامِ','يا ذا الجلال والإكرام'],
+ mubin:['لَا إِلَٰهَ إِلَّا اللَّهُ الْمَلِكُ الْحَقُّ الْمُبِينُ','التوحيد'],
+};
+const UP_AFTER_TAWBA=[['n','sal',10],['n','ist',10],['n','haw',10],['n','yAllah',100],['n','yRahim',100],['n','yGhafur',100]];
+const UP_KAABA=[['n','dur',100],['m','allah2',60],['m','allahu',60],['n','dur',100],['a','مراقبة ومناجاة',20]];
+const UP_MAD=[['a','أربع ركعات صلاة التوبة'],['m','salam',45],['m','jah',30],['m','allah2',60],['m','dur',45],['a','صلاة الشكر']];
+const UP=[
+ {k:'pre',t:'قبل السفر',ic:'m_door',
+  intro:'مفتاح الانتفاع بالرحلة التوبة: على قدر تطهّرك قبلها يكون فتحك فيها. كن في حال توبة خمسة أيام على الأقل قبل سفرك، وأكثر من صلاة التوبة نافلةً، ركعتين ركعتين أو أربعًا أربعًا، وكلما أكثرت كان أفضل.',
+  g:[{t:'في كل ركعة من صلاة التوبة',it:[['r','الفاتحة'],['r','آية الكرسي',3],['r','آخر سورة الحشر (الآيات 22–24)',3],['r','سورة الإخلاص',3]]},
+     {t:'صلاة التوبة وما بعدها',it:[['a','صلِّ صلاة التوبة'],...UP_AFTER_TAWBA,['n','sal',10]]}],
+  think:'استحضر أنك بين يدي ربك تطلب مغفرته من كل ذنب صغير وكبير، وأنه يراك ويسمعك. وتخيّل مطر الرحمة ينزل عليك فيغسلك حتى تتلألأ. من سأل بصدق غُفر له.',
+  tips:['تعلّم أحكام العمرة قبل السفر: أركانها وواجباتها وسننها وما يفسدها (تجدها في «مراحل العمرة»).']},
+ {k:'makkah',t:'مكة',ic:'um_kaaba',
+  intro:'ادخل مكة في غاية التواضع، ونيّتك لقاء ربك، في حال توبة وتوكّل وشكر. كن دائمًا في عبادة: صلاة أو ذكر أو قرآن، ولا تترك شيئًا من سنن النبي ﷺ. هنا تُجاب الدعوات، فانتبه لما تسأل.',
+  g:[{t:'صباحًا بعد الفجر، جالسًا أمام الكعبة',it:UP_KAABA},
+     {t:'عند أول زيارة للحرم، بعد الظهر',once:1,it:[['a','أربع ركعات صلاة التسبيح'],['n','dur',10],['n','yAllah',100],['n','yRahman',100],['n','yRahim',100],['n','yJabbar',100],['n','dur',10]]},
+     {t:'بعد الظهر كل يوم',it:[['a','أربع ركعات صلاة التوبة (بقراءتها في «قبل السفر»)'],...UP_AFTER_TAWBA,['n','yMalik',100],['n','sal',10]]},
+     {t:'مساءً بعد العشاء، جالسًا أمام الكعبة',it:UP_KAABA}],
+  think:'تخيّل نور الكعبة يقع على قلبك، ثم يتّسع فيضيء جسدك كله، وما فيك من سوء يتفتّت حتى يطهر باطنك لتكون بين يدي ربك. واسأله أن ينظّف قلبك حتى يشرق كالشمس في الظهيرة. وفي المراقبة: استحضر أنك ساجد لربك بجسدك وعقلك وروحك، لا ملجأ لك إلا إليه؛ فاحمده واستغفره واشكره.',
+  tips:['يرفع الرجال صوتهم بالذكر أكثر من النساء، وتجلس النساء بعيدًا عن الرجال؛ فذلك أجمع للقلب.','يجوز ذكر «الله الله» و«الله هو» أثناء الطواف.','صلاة التسبيح تُصلّى عند أول زيارة للحرم، ثم إن شئت داومت عليها.']},
+ {k:'madinah',t:'المدينة المنورة',ic:'m_mosque',
+  intro:'زر الحبيب ﷺ في غاية التواضع والشكر، فهو الذي دلّك على طريق الرحمة. اجلس كأنه جالس معك، واستغفر من تقصيرك في اتباع سنّته، وأكثر من السلام والصلاة عليه.',
+  g:[{t:'عند الوصول إلى المسجد النبوي',once:1,it:[['n','dur',100],['n','salam',100],['n','ummi',100],['n','dur',100]]},
+     {t:'صباحًا',it:UP_MAD},{t:'مساءً',it:UP_MAD}],
+  think:'تخيّل القبر الشريف يضيء ونوره يقع على جسدك، ثم تخيّل نور البيت الحرام يسري إلى القبة الخضراء فيجتمع النوران ويقعان عليك، فتدور حياتك حول ربك وحبيبه ﷺ. وكلما اجتهدت في اتباع سنّته كنت أقرب إليه. وإن لم تره فاعلم أنه ﷺ يُعرض عليه سلامك.',
+  tips:['اسأل نفسك: كم تحب الحبيب ﷺ؟ وكم اتبعت سنّته؟ فعلى قدر الاتباع يكون القرب.']},
+ {k:'baqi',t:'البقيع',ic:'m_drop',
+  intro:'كن على وضوء في البقيع وفي كل مكان مبارك تزوره، فهو مثوى كثير من الصحابة رضي الله عنهم.',
+  g:[{t:'عند زيارة البقيع',it:[['n','dur',3],['n','haw2',33],['n','subbuh',33],['n','rabbi',33],['n','dur',3]]}],
+  think:'تخيّل اسم الله يتلألأ فوق البقيع، ونوره ينزل على عباده الصالحين من الصحابة فيضيء ما حولهم، ثم يدخل قلبك، فتنال ما قسم الله لك من فتح.'},
+ {k:'hira',t:'غار حراء',ic:'mk_s4',
+  intro:'هنا نزل أول الوحي، وهنا تعبّد النبي ﷺ ونزل عليه جبريل عليه السلام. زره بقلب شاكر وتواضع شديد.',
+  g:[{t:'عند زيارة غار حراء',it:[['n','dur',3],['n','wahdah',10],['n','rabbi',10],['n','jalal',10],['n','mubin',10],['n','dur',3]]}],
+  think:'اشكر ربك الذي أنزل القرآن، وحبيبه ﷺ الذي بلّغه إليك. تخيّل نور الغار يشتدّ ثم يقع على قلبك، فيخضع قلبك لكلام ربك ويشتاق إلى لقائه. لولا رسالته ما وصلك هذا الكتاب.'},
+ {k:'after',t:'بعد الرجوع',ic:'tree4',
+  intro:'إذا رجعت فصلِّ أربع ركعات شكرًا لله أن اختارك لزيارة بيته وحبيبه ﷺ، واحفظ رحلتك في مكان خاص من قلبك.',
+  g:[{t:'عند الرجوع',once:1,it:[['a','أربع ركعات صلاة الشكر'],['n','dur',10],['n','yHamid',100],['n','ySamad',100],['n','yMuhaymin',100],['n','yJabbar',100],['n','dur',10]]},
+     {t:'كل جمعة',it:[['a','مراقبة تحفظ بها بركة الرحلة',10]]}],
+  think:'في مراقبة الجمعة: أغمض عينيك واستعد رحلتك إلى بيت الله وإلى حبيبه ﷺ، وتخيّل روحك ما زالت هناك تؤدّي أعمالها، ونورها يدخل جسدك ثم يحيط به كالدرع يحفظ ما نلت من بركة. ومن حفظ بركته زاده الله منها.',
+  tips:['مقاصد الرحلة ثلاثة: تجديد العهد مع الله، فالطواف وعدٌ أن تدور حياتك حول الله ورسوله ﷺ لا حول الدنيا؛ واتباع خطى النبي ﷺ؛ وأن يكون ذلك كله لوجه الله وحده.','بعد الرجوع قم بحقوق الله ورسوله ﷺ وحقوق الناس، واتبع السنة كلها لا ما يوافق هواك، ودلّ غيرك عليها.','ليس المقصود أن ترى منامات أو أحوالًا، فطلبها مدخل للشيطان؛ المقصود الاتباع والتعلّم على يد عالم.']}];
+let upTab=null,umSeg=null;const upRun={};let upTick=null;
+function upS(){if(!S.umP||S.umP.d!==TODAY)S.umP={d:TODAY,c:{},t:{},a:{}};if(!S.umOnce)S.umOnce={c:{},t:{},a:{}};return S.umP}
+const upStore=key=>{const[k,g]=key.split(':'),G=UP.find(x=>x.k===k).g[+g];return G.once?(upS(),S.umOnce):upS()};
+function upSecs(key){const P=upStore(key);return (P.t[key]||0)+(upRun[key]?(Date.now()-upRun[key])/1000:0)}
+function upDone(key,it){const P=upStore(key);if(it[0]==='a')return !!P.a[key]||(!!it[2]&&upSecs(key)>=it[2]*60);if(it[0]==='n')return (P.c[key]||0)>=it[2];if(it[0]==='m')return upSecs(key)>=it[2]*60||!!P.a[key];return false}
+const upMM=s=>{s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+function upTabProg(T){let d=0,n=0;T.g.forEach((G,gi)=>G.it.forEach((it,ii)=>{if(it[0]==='r')return;n++;if(upDone(T.k+':'+gi+':'+ii,it))d++}));return [d,n]}
+function upItem(T,gi,ii,it){const key=T.k+':'+gi+':'+ii,ok=upDone(key,it),D=UPD[it[1]];
+  if(it[0]==='r')return `<li class="up-r"><span>${it[1]}</span>${it[2]?`<b dir="ltr">×${it[2]}</b>`:''}</li>`;
+  if(it[0]==='a')return `<li class="up-i up-a${ok?' ok':''}"><button class="up-ck" data-upa="${key}" aria-pressed="${ok}"><i>${ok?'✓':''}</i><span>${it[1]}${it[2]?` <small>· ${it[2]} <span>دقيقة</span></small>`:''}</span></button>${it[2]?upTimer(key,it[2],ok):''}</li>`;
+  const txt=`<p class="up-ar notr" dir="rtl" lang="ar">${D[0]}</p>${LANG!=='ar'?`<small class="up-mn">${D[1]}</small>`:''}`;
+  if(it[0]==='n'){const c=Math.min(upStore(key).c[key]||0,it[2]);
+    return `<li class="up-i${ok?' ok':''}">${txt}<div class="up-row"><button class="up-cnt" data-upc="${key}" data-upn="${it[2]}" aria-label="${esc(Tx('اضغط مع كل مرة'))}"><b dir="ltr" id="upc-${key.replace(/:/g,'-')}">${c} / ${it[2]}</b><small>${ok?'✓':'<span>اضغط مع كل مرة</span>'}</small></button>${c?`<button class="up-z" data-upz="${key}" aria-label="${esc(Tx('من جديد'))}">↺</button>`:''}</div></li>`}
+  return `<li class="up-i${ok?' ok':''}">${txt}<div class="up-row">${upTimer(key,it[2],ok)}</div></li>`}
+function upTimer(key,min,ok){const run=!!upRun[key],left=min*60-upSecs(key);
+  return `<button class="up-tm${run?' run':''}${ok?' ok':''}" data-upt="${key}" data-upm="${min}"><span class="up-tg" aria-hidden="true">${ok?'✓':run?'❚❚':'▶'}</span><b dir="ltr" id="upt-${key.replace(/:/g,'-')}">${ok?min+':00':upMM(left)}</b><small>${ok?'<span>تمّ</span>':run?'<span>إيقاف مؤقت</span>':`${min} <span>دقيقة</span>`}</small></button>`}
+function viewUmProg(){upS();if(Object.keys(upRun).length)upTickOn();const T=UP.find(x=>x.k===upTab)||UP[0];upTab=T.k;
+  return `<section class="up">
+   <p class="meta up-src">من كتيّب «أعمال الحج والعمرة» للطريقة المحمدية. افعل منه ما تستطيع؛ والأعداد والمدد المذكورة هي الأصل.</p>
+   <div class="up-tabs" role="tablist">${UP.map(x=>{const[d,n]=upTabProg(x);return `<button role="tab" aria-selected="${x.k===T.k}" class="${x.k===T.k?'on':''}${n&&d>=n?' dn':''}" data-uptab="${x.k}"><span>${x.t}</span>${d?`<small dir="ltr">${d}/${n}</small>`:''}</button>`}).join('')}</div>
+   <article class="box up-card">${IL_IMG.has(T.ic)?`<div class="up-art">${ilSvg(T.ic)}</div>`:''}<div class="pad"><h3>${T.t}</h3><p class="up-in">${T.intro}</p></div></article>
+   ${T.g.map((G,gi)=>{const P=G.it.filter(it=>it[0]!=='r'),dn=P.filter((it,ii)=>upDone(T.k+':'+gi+':'+G.it.indexOf(it),it)).length;
+     return `<div class="sh up-sh"><h2>${G.t}</h2>${P.length?`<span dir="ltr">${dn} / ${P.length}</span>`:''}</div>${G.once?'<p class="meta up-once">مرة واحدة في الرحلة</p>':''}
+     <ol class="box up-list${G.it[0][0]==='r'?' up-rl':''}">${G.it.map((it,ii)=>upItem(T,gi,ii,it)).join('')}</ol>`}).join('')}
+   <div class="box pad up-th"><b>ما تستحضره</b><p>${T.think}</p></div>
+   ${T.tips?`<div class="box pad up-tips"><b>نصائح</b><ul>${T.tips.map(t=>`<li>${t}</li>`).join('')}</ul></div>`:''}
+   ${T.k==='makkah'||T.k==='madinah'?'<p class="meta">اليوم يبدأ من جديد كل يوم، وما يُفعل مرة واحدة يبقى محفوظًا طوال الرحلة.</p>':''}
+   <button class="btn link-btn up-reset" data-upreset="1">مسح علامات الرحلة والبدء من جديد</button></section>`}
+function upTickOn(){if(upTick)return;upTick=setInterval(()=>{const ks=Object.keys(upRun);if(!ks.length||screen!=='umrah'){if(!ks.length){clearInterval(upTick);upTick=null}return}
+  ks.forEach(key=>{const[k,g,i]=key.split(':'),it=UP.find(x=>x.k===k).g[+g].it[+i],min=it[2],left=min*60-upSecs(key),el=document.getElementById('upt-'+key.replace(/:/g,'-'));
+    if(left<=0){const P=upStore(key);P.t[key]=min*60;delete upRun[key];save();try{navigator.vibrate&&navigator.vibrate([60,80,60])}catch(e){}try{beep&&beep()}catch(e){}const y=SCR().scrollTop;render();SCR().scrollTo(0,y)}
+    else if(el)el.textContent=upMM(left)})},1000)}
+function upEvent(d){if(d.umseg){umSeg=d.umseg;S.umSeg=umSeg;save();return 1}
+  if(d.uptab){upTab=d.uptab;return 1}
+  if(d.upa){const P=upStore(d.upa);P.a[d.upa]=P.a[d.upa]?0:1;if(!P.a[d.upa]&&upRun[d.upa])delete upRun[d.upa];save();return 1}
+  if(d.upz){const P=upStore(d.upz);P.c[d.upz]=0;save();return 1}
+  if(d.upt){const key=d.upt,P=upStore(key);if(upDone(key,['m',0,+d.upm]))return 0;if(upRun[key]){P.t[key]=upSecs(key);delete upRun[key]}else{upRun[key]=Date.now();upTickOn()}save();return 1}
+  if(d.upreset){if(!confirm(Tx('مسح علامات الرحلة كلها؟')))return 0;S.umP=null;S.umOnce=null;for(const k in upRun)delete upRun[k];save();return 1}
+  return 0}
+/* the counter: one tap = one time, updated in place (no re-render, so the page does not jump) */
+function upCount(btn){const key=btn.dataset.upc,n=+btn.dataset.upn,P=upStore(key),c=Math.min(n,(P.c[key]||0)+1);P.c[key]=c;save();
+  const b=btn.querySelector('b');if(b)b.textContent=c+' / '+n;try{navigator.vibrate&&navigator.vibrate(c>=n?[40,60,40]:8)}catch(e){}
+  if(c>=n){const y=SCR().scrollTop;render();SCR().scrollTo(0,y)}else if(c===1){const y=SCR().scrollTop;render();SCR().scrollTo(0,y)}}
 /* ---------- purification: today · the organs' journey · self-review ---------- */
 let tzTab=null,orgSel=null,tzMsg='',tzDate=null,tzConf=null,tzEdit=null;
 function tzDateBar(){const D=tzDate||TODAY,min=addDays(TODAY,-365);
@@ -5749,7 +5877,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   ${isStandalone()?`<button class="btn notif-cta" data-go="profile" data-openacc="push">فعّل التذكيرات على هاتفك</button>`:`<button class="btn ok notif-cta" data-go="install">ثبّت التطبيق لتصلك التذكيرات على هاتفك</button>`}</section>`;
 }
-const APP_VER='2026-11-08 21:41';
+const APP_VER='2026-11-08 22:05';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
@@ -7456,6 +7584,8 @@ document.addEventListener('click',e=>{
   if(d.mshwird){const M=msh();M.wird=+d.mshwird;if(!M.day.done&&M.day.read.length>=M.wird){M.day.done=true;applyWird('quran',true)}save();return render()}
   if(d.mshq){msh().orig=d.mshq==='orig';save();return render()}
   if(d.mshdl){if(!(mshDl&&mshDl.on))mushafDownload();return}
+  if(d.upc){upCount(t);return}
+  if(d.umseg||d.uptab||d.upa||d.upz||d.upt||d.upreset){if(upEvent(d)){const y=SCR().scrollTop;render();if(d.umseg||d.uptab){const c=document.querySelector('.um-seg');SCR().scrollTo({top:d.uptab&&c?c.getBoundingClientRect().top+SCR().scrollTop-20:0})}else SCR().scrollTo(0,y)}return}
   if(d.umstep!==undefined){S.umStep=+d.umstep;save();render();const c=document.querySelector('.um-dots');SCR().scrollTo({top:c?c.getBoundingClientRect().top+SCR().scrollTop-20:0});return}
   if(d.amslot){amOpen.has(d.amslot)?amOpen.delete(d.amslot):amOpen.add(d.amslot);const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(d.ampickopen){amPickOpen=!amPickOpen;render();return}

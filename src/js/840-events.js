@@ -172,6 +172,8 @@ document.addEventListener('click',e=>{
   if(d.mshwird){const M=msh();M.wird=+d.mshwird;if(!M.day.done&&M.day.read.length>=M.wird){M.day.done=true;applyWird('quran',true)}save();return render()}
   if(d.mshq){msh().orig=d.mshq==='orig';save();return render()}
   if(d.mshdl){if(!(mshDl&&mshDl.on))mushafDownload();return}
+  if(d.upc){upCount(t);return}
+  if(d.umseg||d.uptab||d.upa||d.upz||d.upt||d.upreset){if(upEvent(d)){const y=SCR().scrollTop;render();if(d.umseg||d.uptab){const c=document.querySelector('.um-seg');SCR().scrollTo({top:d.uptab&&c?c.getBoundingClientRect().top+SCR().scrollTop-20:0})}else SCR().scrollTo(0,y)}return}
   if(d.umstep!==undefined){S.umStep=+d.umstep;save();render();const c=document.querySelector('.um-dots');SCR().scrollTo({top:c?c.getBoundingClientRect().top+SCR().scrollTop-20:0});return}
   if(d.amslot){amOpen.has(d.amslot)?amOpen.delete(d.amslot):amOpen.add(d.amslot);const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(d.ampickopen){amPickOpen=!amPickOpen;render();return}
