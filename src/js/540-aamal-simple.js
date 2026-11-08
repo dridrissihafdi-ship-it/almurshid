@@ -1,36 +1,6 @@
 /* ---------- «الأعمال» in the simple UI: one line on top, the five prayers, then one list of the day in the order of its hours ---------- */
 let amDoneOpen=false,amDlOpen=false,amMineOpen=false;
-function amSimple(o){const {L,past,D,P,awL,nfOn,lateAw,IT,pt,pr,late,sum2}=o,PN=Object.fromEntries(FIVE),h0=dH(),hh=h0<pt.fajr?h0+24:h0;
-  const head=sum2.replace(/<label class="am-ib"[\s\S]*?<\/label>/,'').replace(/<button class="am-ib[^"]*" data-ampickopen="1"[\s\S]*?<\/button>/,`<button class="am-ib am-dots" data-ammore="1" aria-label="${esc(Tx('المزيد'))}">⋯</button>`);
-  /* the five prayers; "in the mosque?" is asked once, for the last prayer recorded */
-  const lastK=FIVE.map(f=>f[0]).filter(k=>pr.includes(k)).pop(),askK=!past&&lastK&&!inMsj(L,lastK)&&!(L.msjNo||[]).includes(lastK)?lastK:null;
-  const five=`<div class="sh am-h"><h2>الفرائض</h2><span dir="ltr">${pr.length} / 5</span></div><div class="box pad am-five am-s5"><span class="pr-row">${FIVE.map(([k,n])=>{const on=pr.includes(k),lt=late.includes(k),m=on&&inMsj(L,k);
-    return `<span class="pr-cell"><button class="pr-chip${on?(m?' on':' home'):lt?' late':''}" data-pray="${k}" aria-pressed="${on}"><i>${on?'✓':lt?'!':''}</i><b>${n}</b><small>${hm(pt[k])}</small></button>${m?`<button class="am-mt" data-masjid="${k}">في المسجد</button>`:''}</span>`}).join('')}</span>
-    ${askK?`<div class="am-ask"><b><span>صلّيت</span> ${PN[askK]}<span>: في المسجد؟</span></b><button class="btn small ok" data-masjid="${askK}">نعم</button><button class="btn small" data-msjno="${askK}">لا</button></div>`:''}</div>`;
-  /* the day's deeds, sorted by the hour they belong to */
-  const ND=Object.fromEntries(naflDefs(pt).map(x=>[x.id,x]));
-  const AT={sawm_mon:-1,sawm_thu:-1,sabah:pt.fajr,quran:pt.fajr+.05,sadaqa:pt.dhuhr+.01,help:pt.dhuhr+.02,masa:pt.maghrib,dhikr:pt.maghrib+.05,qiyam:24+pt.fajr-1};
-  const ST={sabah:pt.fajr,masa:pt.maghrib,qiyam:pt.isha};
-  const it=[];
-  seasonal().filter(x=>x.id!=='khalwa').forEach(x=>it.push({k:'x',id:x.id,t:-2,a:{id:x.id,t:x.t,s:x.s}}));
-  awL.forEach(i=>it.push({k:'a',id:i,t:AT[i]!==undefined?AT[i]:pt.dhuhr,st:ST[i]}));
-  nfOn.forEach(i=>{const x=ND[i];if(x)it.push({k:'n',id:i,t:x.w[0],st:x.w[0]})});
-  (CONTENT.extra||[]).forEach(x=>it.push({k:'x',id:x.id,t:98,a:{id:x.id,t:'<span class="notr" dir="auto">'+esc(x.t)+'</span>',s:x.s?'<span class="notr" dir="auto">'+esc(x.s)+'</span>':''}}));
-  myDeeds().filter(m=>mineDue(m,D)).forEach(m=>it.push({k:'x',id:m.id,t:99,a:{id:m.id,t:'<span class="notr" dir="auto">'+esc(m.t)+'</span>',s:(m.s?'<span class="notr" dir="auto">'+esc(m.s)+'</span> · ':'')+'<span>من أعمالي الخاصة</span>'}}));
-  it.sort((a,b)=>a.t-b.t);
-  const isDone=x=>x.k==='n'?(()=>{const n=(L.nafl||{})[x.id];return !!n&&nfFull(ND[x.id],n)})():L.awrad.includes(x.id);
-  const strip=s=>s.replace(/^<div class="box">/,'').replace(/<\/div>$/,'');
-  const row=x=>{const dim=!past&&!isDone(x)&&x.st!==undefined&&hh<x.st&&!lateAw.includes(x.id);
-    let r=x.k==='n'?naflRows([x.id],L,pt):strip(wirdList([x.k==='a'?Object.assign({},IT[x.id],{tag:null}):x.a],L,x.k==='a'?lateAw:[]));
-    if(x.id==='dhikr'&&!past)r+=`<button class="am-dl" data-amdl="1">${amDlOpen?'إخفاء أذكارك':'تعديل أذكارك'}</button>`;
-    return `<div class="am-it${dim?' dim':''}">${r}</div>`};
-  const done=it.filter(isDone),todo=it.filter(x=>!isDone(x));
-  const list=`<div class="sh am-h"><h2>أعمال اليوم ${hintBtn('day')}</h2><span dir="ltr">${done.length} / ${it.length}</span></div>
-   <div class="box am-list">${done.length?`<button class="am-done" data-amdone="1"><span>✓ <span>أتممت</span> ${done.length}</span><small>${amDoneOpen?'<span>إخفاء</span>':done.slice(0,3).map(x=>x.k==='n'?ND[x.id].t:x.k==='a'?IT[x.id].t:x.a.t).join(RTL()?'، ':', ')}</small></button>`:''}
-    ${amDoneOpen?done.map(row).join(''):''}${todo.map(row).join('')}
-    ${past?'':`<div class="am-add"><button class="am-addb" data-mineadd="1">+ <span>أضف عملًا</span></button>${myDeeds().length?`<button class="am-addb s" data-ammine="1">${amMineOpen?'إخفاء':'أعمالي الخاصة'}</button>`:''}</div>`}</div>
-   ${amDlOpen&&!past?dhikrEditor():''}${(mineForm||amMineOpen)&&!past?mineBlock(L,D,past):''}`;
-  return `${past?aDateBar():''}${head}${past?'':pushInvite()}${five}${list}`}
+/* amSimple (the day's page in the simple UI) lives in 545-aamal-v3.js */
 function amMore(){const D=aDate||TODAY;
   const r=(attr,ic,t,s)=>`<button class="h2-row" ${attr} data-bsx="1"><span class="h2-ri"><svg viewBox="0 0 24 24" aria-hidden="true">${ic}</svg></span><span class="tx">${t}${s?`<small>${s}</small>`:''}</span></button>`;
   sheetOpen(`<div class="bs-top"><h2>أعمالك</h2><button class="qa-ed" data-bsx="1">إغلاق</button></div><div class="box h2-more am-mm">
