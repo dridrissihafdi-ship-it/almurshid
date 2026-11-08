@@ -52,7 +52,7 @@ function viewKhalwa(){if(khEdit)return khForm();const L=khList().slice().sort((a
    ${past.length?`<section><div class="sh"><h2>السابقة</h2><span>${past.length}</span></div>${past.slice(0,10).map(khCard).join('')}</section>`:''}
    ${!L.length?khIntro():''}`}
 /* shown while nothing is programmed yet: what a khalwa and an i'tikaf are, and how the programme works */
-function khIntro(){return `<section class="box kh-intro">${ilSvg('taammulat')}<div class="pad">
+function khIntro(){return `<section class="box kh-intro"><div class="pad">
    <div class="kh-two"><div><b>الخلوة</b><span>وقت تنقطع فيه عن الناس والشواغل، في بيتك أو في مكان هادئ، للذكر والقرآن والتفكّر، ساعةً أو أكثر.</span></div>
    <div><b>الاعتكاف</b><span>لزوم المسجد بنية التقرّب إلى الله. وعند المالكية: يُشترط فيه الصوم، وأقلّه يوم وليلة.</span></div></div>
    <ol class="kh-steps"><li><b>حدّد البداية والنهاية</b><span>اختر خلوة أو اعتكافًا، ويومه وساعته.</span></li><li><b>رتّب برنامجك</b><span>ذكر، قرآن، صلاة، تفكّر… كل فقرة بساعتها ودقيقتها.</span></li><li><b>يذكّرك التطبيق</b><span>بنغمة هادئة عند كل فقرة، فلا تنشغل بالوقت.</span></li></ol></div></section>`}
