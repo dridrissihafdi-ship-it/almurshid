@@ -5748,7 +5748,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   ${isStandalone()?`<button class="btn notif-cta" data-go="profile" data-openacc="push">فعّل التذكيرات على هاتفك</button>`:`<button class="btn ok notif-cta" data-go="install">ثبّت التطبيق لتصلك التذكيرات على هاتفك</button>`}</section>`;
 }
-const APP_VER='2026-11-08 00:00';
+const APP_VER='2026-11-08 21:29';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
@@ -7263,13 +7263,14 @@ function render(){
 function go(s){if(s==='amrad')s='uyub';if(s==='qalb'){s='uyub';uyF=null;uyProg=true}else if(s==='uyub'){uyF=null;uyProg=false}if(s==='ijtihad'){ruhiTab='week';wkOff=0;goRaw('ruhi');return}if(s==='sura'||s==='muraqabat'||s==='tahlil'){ruhiTab=s;s='ruhi'}if(s==='taammulat')s='h_ruh';if(s==='h_quran')s='quran';if(s==='khr'){khTab='mine';s='khushu'}if(s==='aql'){tzTab='aql';s='tazkiya'}if(/^g[1-4]$/.test(s)){ahTab=s;s='ahdaf'}if(s==='majalis'&&screen!=='majalis')majTab=null;if(s==='jawarih'){tzTab='jawarih';s='tazkiya'}if(s==='qalbruh'){tzTab='qalb';s='tazkiya'}goRaw(s)}
 const NAVH=[];let navBack=false,navRoute=null;
 function navUrl(s){try{const u=s==='home'?location.pathname+location.search:'#/'+s;if(navBack||!history.state)history.replaceState({s},'',u);else history.pushState({s},'',u)}catch(e){}}
-/* iPhone closes a backgrounded web app and reopens it on the home page: remember the last screen and return to it
-   when the app is reopened within 45 minutes (a deliberate return to the home page is remembered too) */
-const LAST_K='murshid-last',LAST_SKIP=['dhikr_run','tasmi','admin','profile'];
-function lastSave(){try{localStorage.setItem(LAST_K,JSON.stringify({s:screen,at:Date.now()}))}catch(e){}}
+/* The app reopens on the screen it was left on, even after it was closed completely (swiped away) or reloaded:
+   the screen is remembered on every move and when the app goes to the background (a return to the home page is remembered too).
+   While the app is still starting (login check, a pending return), the pending screen is kept, not the home page shown meanwhile. */
+const LAST_K='murshid-last',LAST_SKIP=['dhikr_run','tasmi','admin'];
+function lastSave(){try{const s=navRoute||screen;if(!navRoute&&gated())return;localStorage.setItem(LAST_K,JSON.stringify({s,at:Date.now()}))}catch(e){}}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')lastSave()});window.addEventListener('pagehide',lastSave);
 (function(){const m=/^#\/([a-z_0-9]+)$/.exec(location.hash);if(m)navRoute=m[1];
-  else try{const L=JSON.parse(localStorage.getItem(LAST_K)||'null');if(L&&L.s&&L.s!=='home'&&Date.now()-L.at<45*60e3&&!LAST_SKIP.includes(L.s))navRoute=L.s}catch(e){}try{history.replaceState({s:'home'},'',m||!location.hash?location.pathname+location.search:location.href)}catch(e){}})();
+  else try{const L=JSON.parse(localStorage.getItem(LAST_K)||'null');if(L&&L.s&&L.s!=='home'&&!LAST_SKIP.includes(L.s))navRoute=L.s}catch(e){}try{history.replaceState({s:'home'},'',m||!location.hash?location.pathname+location.search:location.href)}catch(e){}})();
 window.addEventListener('popstate',()=>{if(gated())return;const o=document.getElementById('bsheet');if(o&&!o.hidden){sheetClose();try{history.pushState({s:screen},'',screen==='home'?location.pathname:'#/'+screen)}catch(e){}return}
   let prev=null;while(NAVH.length){const x=NAVH.pop();if(x&&x!==screen){prev=x;break}}if(!prev&&screen==='home')return;navBack=true;try{go(prev||'home')}finally{navBack=false}});
 function goRaw(s){try{sheetClose()}catch(e){}if(s!=='tasmi'&&typeof tsStop==='function'){tsStop();tsRes=null}if((s==='adh_sabah'||s==='adh_masa'||s==='mushaf')&&s!==screen)try{niyaStart(s)}catch(e){}if(s!==screen&&!navBack){NAVH.push(screen);if(NAVH.length>40)NAVH.shift()}if(s!==screen&&tts.on)ttsStop();if(s!=='mushaf')mshAuto=false;if(s!=='qalb'){qbShowRes=false;qbRetest=null}if(s==='aamal'&&screen!=='aamal')aDate=null;if(s==='tazkiya'&&!['tazkiya','organ'].includes(screen))tzDate=null;if(s!==screen||!isMedia(s)){const v=document.getElementById('mqVideo');if(v&&!v.paused){v.pause();keepAwake(false)}}if(s!=='dhikr_run'&&run&&!run.done&&screen==='dhikr_run'){/* keep running in background */}const moved=s!==screen;screen=s;lightConfirm=null;confirmFor=null;confirmReset=false;redoFor=null;render();SCR().scrollTo(0,0);adhAwake();if(moved){navUrl(s);lastSave()}}
