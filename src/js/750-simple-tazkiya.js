@@ -1,10 +1,16 @@
 /* ---------- simplified التزكية: where am I, today's step, two buttons — everything else on request ---------- */
 const TZ_K=['prep','jawarih','aql','qalb'];
 function tzStage0(st){return TZ_K.find(k=>!st[k].done)||'qalb'}
-function tzUnl(k,st){const i=TZ_K.indexOf(k),ci=TZ_K.indexOf(tzStage0(st));return i<=ci||st[k].done||(st[k].n||0)>0}
+function tzUnl(k,st){const i=TZ_K.indexOf(k),ci=TZ_K.indexOf(tzStage0(st));return i<=ci||st[k].done||(st[k].n||0)>0||(S.tzOpen||[]).includes(k)}
+/* a later stage can be opened before its turn, after a gentle reminder that the method is gradual */
+function tzOpenAsk(k){const st=tzSt(),L=Object.fromEntries(TZ_TABS),cur=tzStage0(st);
+  sheetOpen(`<div class="bs-top"><h2>${L[k]}</h2><button class="qa-ed" data-bsx="1">إغلاق</button></div>
+   <p class="tzo-p"><span>المنهج متدرّج: كل مرحلة تُبنى على التي قبلها، والأفضل أن تُتمّ</span> «<b>${L[cur]}</b>» <span>أولًا.</span></p>
+   <p class="meta tzo-p">ويمكنك فتح هذه المرحلة الآن لتطّلع عليها أو تبدأها مع ما أنت فيه، ويبقى تقدّمك في «${L[cur]}» محفوظًا.</p>
+   <div class="tzo-b"><button class="btn ok" data-tzopen="${k}" data-tzopenok="1">افتحها الآن</button><button class="btn" data-bsx="1">أكمل ما أنا فيه</button></div>`);i18nApply(document.getElementById('bsheet'))}
 function tzLadder(st){const cur=tzStage0(st),L=Object.fromEntries(TZ_TABS);
   return `<div class="box tzl-w"><p class="tzl-h">طريقك في التزكية</p><div class="tzl">${TZ_K.map((k,i)=>{const u=tzUnl(k,st),d=st[k].done;
-    return `<button class="tzl-s${d?' d':''}${k===tzTab?' on':''}${u?'':' l'}" ${u?`data-tztab="${k}"`:'disabled'} style="height:${46+i*18}%">${k===cur?'<span class="tzl-me" aria-hidden="true"></span>':''}<i>${d?'✓':u?(LANG==='ar'?tsDig(i+1):i+1):'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>'}</i><span>${L[k]}</span></button>`}).join('')}</div></div>`}
+    return `<button class="tzl-s${d?' d':''}${k===tzTab?' on':''}${u?'':' l'}" ${u?`data-tztab="${k}"`:`data-tzopen="${k}" aria-label="${esc(Tx(L[k]))} · ${esc(Tx('مقفلة'))}"`} style="height:${46+i*18}%">${k===cur?'<span class="tzl-me" aria-hidden="true"></span>':''}<i>${d?'✓':u?(LANG==='ar'?tsDig(i+1):i+1):'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>'}</i><span>${L[k]}</span></button>`}).join('')}</div></div>`}
 function tzSCard(g){const o=S.organs[g.id];
   if(tzEdit&&tzEdit.id===g.id)return `<section class="tz-card">${tzEditBox(g)}</section>`;
   if(confirmFor===g.id||o.ready)return organCard(g,false);
@@ -27,7 +33,7 @@ function tzLearn(k){return lessonGet(k)?`<button class="st-btn" data-story="${k}
 function tzSimple(){const st=tzSt();if(!tzTab||!TZ_K.includes(tzTab)||!tzUnl(tzTab,st))tzTab=tzStage0(st);const k=tzTab,act=activeOrgans();
   let body='';
   if(tzDate&&['jawarih','aql','qalb'].includes(k))body=tzDateBar()+tzStage(k,st);
-  else if(k==='prep')body=`<div class="sh tz-sh2"><h2>خطوة اليوم</h2><span><span>اليوم</span> ${Math.min(prepDays()+1,30)} <span>من</span> 30</span></div>${ilBan('tazkiya','tzc-img')}${prepCard()}${st.prep.done?'':`<div class="tz-lock">بعد التمهيدية تنفتح <b>تزكية الجوارح</b>: سبع جوارح، تطهير ثلاثين يومًا ثم تنوير ثلاثين يومًا.</div>`}`;
+  else if(k==='prep')body=`<div class="sh tz-sh2"><h2>خطوة اليوم</h2><span><span>اليوم</span> ${Math.min(prepDays()+1,30)} <span>من</span> 30</span></div>${ilBan('tazkiya','tzc-img')}${prepCard()}${st.prep.done?'':`<div class="tz-lock">بعد التمهيدية تنفتح <b>تزكية الجوارح</b>: سبع جوارح، تطهير ثلاثين يومًا ثم تنوير ثلاثين يومًا.${tzUnl('jawarih',st)?'':' <button class="link-btn" data-tzopen="jawarih">افتحها الآن</button>'}</div>`}`;
   else if(k==='jawarih')body=`<div class="sh tz-sh2"><h2>خطوة اليوم ${hintBtn('organ')}</h2><span>${WDAYS[new Date(TODAY+'T12:00:00').getDay()]} ${fmtD(TODAY)}</span></div>
      ${act.length?act.map(tzSCard).join(''):'<p class="muted">اختر جارحة تبدأ بها رحلتك:</p>'}
      ${act.length?`<details class="box pad tz-pathd"><summary>رحلة الجوارح السبع</summary>${tzPath()}</details>`:tzPath()}

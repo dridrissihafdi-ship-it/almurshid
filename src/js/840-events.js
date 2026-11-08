@@ -81,6 +81,7 @@ document.addEventListener('click',e=>{
     (S.wared=S.wared||[]).push({ts:Date.now(),text:t,k:screen});(S.waredDrafts=S.waredDrafts||{})[screen]='';if(screen==='mraqib')S.waredDraft='';save();waredMsg='حُفظ الوارد ✓';render();setTimeout(()=>{waredMsg=''},3000);return}
   if(d.wdel){S.wared=(S.wared||[]).filter(w=>String(w.ts)!==d.wdel);save();return render()}
   if(d.theme!==undefined&&t.closest('.th-opts')){S.theme=d.theme;save();return render()}
+  if(d.tzopen){if(d.tzopenok){S.tzOpen=[...new Set([...(S.tzOpen||[]),d.tzopen])];save();sheetClose();tzTab=d.tzopen;SCR().scrollTo(0,0);return render()}return tzOpenAsk(d.tzopen)}
   if(d.nightx){S.nightX=TODAY;save();return render()}
   if(d.locban){S.locBan=TODAY;save();return render()}
   if(d.authlang){authLangOpen=true;return render()}

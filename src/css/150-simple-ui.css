@@ -193,3 +193,4 @@ mark.qa-m{background:color-mix(in srgb,var(--gold) 55%,transparent);color:inheri
 .lp-first{display:flex;flex-direction:column;align-items:center;gap:8px}.lp-first small{color:var(--muted);font-size:13px}
 .lang-mini{display:inline-flex;align-items:center;gap:6px;align-self:flex-end;background:transparent;border:1px solid var(--card-line);color:var(--muted);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}.lang-mini svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6}
 @media (prefers-reduced-motion:reduce){.me-g[open] .me-list{animation:none}}
+.tzl-s.l{cursor:pointer}.tzo-p{line-height:1.8;margin:4px 0 10px}.tzo-b{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.tzo-b .btn{flex:1;min-width:130px}
