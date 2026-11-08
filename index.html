@@ -1574,6 +1574,16 @@ html[data-theme=light] .nt-c{background:linear-gradient(160deg,#EEE6F3,var(--car
 .up-i:has(.up-okb) .up-ar{padding-inline-end:34px}
 .up-sh.dn h2{color:var(--green)}.up-gok{font-style:normal;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;margin-inline-end:8px;vertical-align:middle}
 .up-tabs button.dn:not(.on){background:var(--green-soft)}
+.up-th{padding:0;overflow:hidden}.up-th .pad{padding:14px 16px}
+.up-vis{position:relative;margin:0;overflow:hidden;aspect-ratio:3/2;background:#0b1530}
+.up-vis img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:var(--fx) var(--fy);animation:upKb 22s ease-in-out infinite alternate;will-change:transform}
+.up-glow{position:absolute;inset:0;background:radial-gradient(circle at var(--fx) var(--fy),rgba(255,214,130,.55),rgba(255,190,90,.18) 12%,transparent 30%);mix-blend-mode:screen;animation:upGl 4.5s ease-in-out infinite}
+.up-sp i{position:absolute;bottom:calc(100% - var(--fy) - 8%);width:var(--s);height:var(--s);border-radius:50%;background:#ffd98a;box-shadow:0 0 6px 2px rgba(255,200,100,.8);opacity:0;animation:upSp var(--d) linear var(--w) infinite}
+.up-vis figcaption{position:absolute;bottom:8px;inset-inline-start:10px;padding:3px 10px;border-radius:999px;background:rgba(10,14,30,.6);color:#F3EDE6;font-size:12.5px}
+@keyframes upKb{from{transform:scale(1)}to{transform:scale(1.1)}}
+@keyframes upGl{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes upSp{0%{opacity:0;transform:translateY(0)}15%{opacity:1}100%{opacity:0;transform:translateY(-120px)}}
+@media (prefers-reduced-motion:reduce){.up-vis img,.up-glow,.up-sp i{animation:none}.up-sp{display:none}}
 /* the Sira and the Day of Judgment, in every language */
 .ys-note{margin-top:10px}.ys-nl{display:block;font-weight:600;font-size:14px;margin:0 0 4px}.ys-note textarea{width:100%;box-sizing:border-box;border-radius:12px;border:1px solid var(--card-line);background:var(--page);color:var(--ink);padding:10px;font:inherit;font-size:14.5px;line-height:1.7;resize:vertical}
 .ys-ns{min-height:1.2em;margin:2px 0 0;font-size:12px}
@@ -3165,13 +3175,13 @@ const UP_AFTER_TAWBA=[['n','sal',10],['n','ist',10],['n','haw',10],['n','yAllah'
 const UP_KAABA=[['n','dur',100],['m','allah2',60],['m','allahu',60],['n','dur',100],['a','مراقبة ومناجاة',20]];
 const UP_MAD=[['a','أربع ركعات صلاة التوبة'],['m','salam',45],['m','jah',30],['m','allah2',60],['m','dur',45],['a','صلاة الشكر']];
 const UP=[
- {k:'pre',t:'قبل السفر',ic:'m_door',
+ {k:'pre',vis:[['upt_pre',47,48]],t:'قبل السفر',ic:'m_door',
   intro:'مفتاح الانتفاع بالرحلة التوبة: على قدر تطهّرك قبلها يكون فتحك فيها. كن في حال توبة خمسة أيام على الأقل قبل سفرك، وأكثر من صلاة التوبة نافلةً، ركعتين ركعتين أو أربعًا أربعًا، وكلما أكثرت كان أفضل.',
   g:[{t:'في كل ركعة من صلاة التوبة',it:[['r','الفاتحة'],['r','آية الكرسي',3],['r','آخر سورة الحشر (الآيات 22–24)',3],['r','سورة الإخلاص',3]]},
      {t:'صلاة التوبة وما بعدها',it:[['a','صلِّ صلاة التوبة'],...UP_AFTER_TAWBA,['n','sal',10]]}],
   think:'استحضر أنك بين يدي ربك تطلب مغفرته من كل ذنب صغير وكبير، وأنه يراك ويسمعك. وتخيّل مطر الرحمة ينزل عليك فيغسلك حتى تتلألأ. من سأل بصدق غُفر له.',
   tips:['تعلّم أحكام العمرة قبل السفر: أركانها وواجباتها وسننها وما يفسدها (تجدها في «مراحل العمرة»).']},
- {k:'makkah',t:'مكة',ic:'um_kaaba',
+ {k:'makkah',vis:[['upt_makkah',31,50],['upt_sujood',40,58,'في المراقبة']],t:'مكة',ic:'um_kaaba',
   intro:'ادخل مكة في غاية التواضع، ونيّتك لقاء ربك، في حال توبة وتوكّل وشكر. كن دائمًا في عبادة: صلاة أو ذكر أو قرآن، ولا تترك شيئًا من سنن النبي ﷺ. هنا تُجاب الدعوات، فانتبه لما تسأل.',
   g:[{t:'صباحًا بعد الفجر، جالسًا أمام الكعبة',it:UP_KAABA},
      {t:'عند أول زيارة للحرم، بعد الظهر',once:1,it:[['a','أربع ركعات صلاة التسبيح'],['n','dur',10],['n','yAllah',100],['n','yRahman',100],['n','yRahim',100],['n','yJabbar',100],['n','dur',10]]},
@@ -3179,21 +3189,21 @@ const UP=[
      {t:'مساءً بعد العشاء، جالسًا أمام الكعبة',it:UP_KAABA}],
   think:'تخيّل نور الكعبة يقع على قلبك، ثم يتّسع فيضيء جسدك كله، وما فيك من سوء يتفتّت حتى يطهر باطنك لتكون بين يدي ربك. واسأله أن ينظّف قلبك حتى يشرق كالشمس في الظهيرة. وفي المراقبة: استحضر أنك ساجد لربك بجسدك وعقلك وروحك، لا ملجأ لك إلا إليه؛ فاحمده واستغفره واشكره.',
   tips:['يرفع الرجال صوتهم بالذكر أكثر من النساء، وتجلس النساء بعيدًا عن الرجال؛ فذلك أجمع للقلب.','يجوز ذكر «الله الله» و«الله هو» أثناء الطواف.','صلاة التسبيح تُصلّى عند أول زيارة للحرم، ثم إن شئت داومت عليها.']},
- {k:'madinah',t:'المدينة المنورة',ic:'m_mosque',
+ {k:'madinah',vis:[['upt_madinah',50,55]],t:'المدينة المنورة',ic:'m_mosque',
   intro:'زر الحبيب ﷺ في غاية التواضع والشكر، فهو الذي دلّك على طريق الرحمة. اجلس كأنه جالس معك، واستغفر من تقصيرك في اتباع سنّته، وأكثر من السلام والصلاة عليه.',
   g:[{t:'عند الوصول إلى المسجد النبوي',once:1,it:[['n','dur',100],['n','salam',100],['n','ummi',100],['n','dur',100]]},
      {t:'صباحًا',it:UP_MAD},{t:'مساءً',it:UP_MAD}],
   think:'تخيّل القبر الشريف يضيء ونوره يقع على جسدك، ثم تخيّل نور البيت الحرام يسري إلى القبة الخضراء فيجتمع النوران ويقعان عليك، فتدور حياتك حول ربك وحبيبه ﷺ. وكلما اجتهدت في اتباع سنّته كنت أقرب إليه. وإن لم تره فاعلم أنه ﷺ يُعرض عليه سلامك.',
   tips:['اسأل نفسك: كم تحب الحبيب ﷺ؟ وكم اتبعت سنّته؟ فعلى قدر الاتباع يكون القرب.']},
- {k:'baqi',t:'البقيع',ic:'m_drop',
+ {k:'baqi',vis:[['upt_baqi',18,52]],t:'البقيع',ic:'m_drop',
   intro:'كن على وضوء في البقيع وفي كل مكان مبارك تزوره، فهو مثوى كثير من الصحابة رضي الله عنهم.',
   g:[{t:'عند زيارة البقيع',it:[['n','dur',3],['n','haw2',33],['n','subbuh',33],['n','rabbi',33],['n','dur',3]]}],
   think:'تخيّل اسم الله يتلألأ فوق البقيع، ونوره ينزل على عباده الصالحين من الصحابة فيضيء ما حولهم، ثم يدخل قلبك، فتنال ما قسم الله لك من فتح.'},
- {k:'hira',t:'غار حراء',ic:'mk_s4',
+ {k:'hira',vis:[['upt_hira',38,66],],t:'غار حراء',ic:'mk_s4',
   intro:'هنا نزل أول الوحي، وهنا تعبّد النبي ﷺ ونزل عليه جبريل عليه السلام. زره بقلب شاكر وتواضع شديد.',
   g:[{t:'عند زيارة غار حراء',it:[['n','dur',3],['n','wahdah',10],['n','rabbi',10],['n','jalal',10],['n','mubin',10],['n','dur',3]]}],
   think:'اشكر ربك الذي أنزل القرآن، وحبيبه ﷺ الذي بلّغه إليك. تخيّل نور الغار يشتدّ ثم يقع على قلبك، فيخضع قلبك لكلام ربك ويشتاق إلى لقائه. لولا رسالته ما وصلك هذا الكتاب.'},
- {k:'after',t:'بعد الرجوع',ic:'tree4',
+ {k:'after',vis:[['upt_after',50,60]],t:'بعد الرجوع',ic:'tree4',
   intro:'إذا رجعت فصلِّ أربع ركعات شكرًا لله أن اختارك لزيارة بيته وحبيبه ﷺ، واحفظ رحلتك في مكان خاص من قلبك.',
   g:[{t:'عند الرجوع',once:1,it:[['a','أربع ركعات صلاة الشكر'],['n','dur',10],['n','yHamid',100],['n','ySamad',100],['n','yMuhaymin',100],['n','yJabbar',100],['n','dur',10]]},
      {t:'كل جمعة',it:[['a','مراقبة تحفظ بها بركة الرحلة',10]]}],
@@ -3229,7 +3239,7 @@ function viewUmProg(){upS();if(Object.keys(upRun).length)upTickOn();const T=UP.f
    ${T.g.map((G,gi)=>{const P=G.it.filter(it=>it[0]!=='r'),dn=P.filter((it,ii)=>upDone(T.k+':'+gi+':'+G.it.indexOf(it),it)).length;
      return `<div class="sh up-sh${P.length&&dn>=P.length?' dn':''}"><h2>${P.length&&dn>=P.length?'<i class="up-gok" aria-hidden="true">✓</i>':''}${G.t}</h2>${P.length?`<span dir="ltr">${dn} / ${P.length}</span>`:''}</div>${G.once?'<p class="meta up-once">مرة واحدة في الرحلة</p>':''}
      <ol class="box up-list${G.it[0][0]==='r'?' up-rl':''}">${G.it.map((it,ii)=>upItem(T,gi,ii,it)).join('')}</ol>`}).join('')}
-   <div class="box pad up-th"><b>ما تستحضره</b><p>${T.think}</p></div>
+   <div class="box up-th">${T.vis?upVis(T.vis[0]):''}<div class="pad"><b>ما تستحضره</b><p>${T.think}</p></div>${T.vis&&T.vis[1]?`${upVis(T.vis[1])}`:''}</div>
    ${T.tips?`<div class="box pad up-tips"><b>نصائح</b><ul>${T.tips.map(t=>`<li>${t}</li>`).join('')}</ul></div>`:''}
    ${T.k==='makkah'||T.k==='madinah'?'<p class="meta">اليوم يبدأ من جديد كل يوم، وما يُفعل مرة واحدة يبقى محفوظًا طوال الرحلة.</p>':''}
    <button class="btn link-btn up-reset" data-upreset="1">مسح علامات الرحلة والبدء من جديد</button></section>`}
@@ -3249,6 +3259,9 @@ function upEvent(d){if(d.umseg){umSeg=d.umseg;S.umSeg=umSeg;save();return 1}
 function upCount(btn){const key=btn.dataset.upc,n=+btn.dataset.upn,P=upStore(key);if((P.c[key]||0)>=n)return;const c=Math.min(n,(P.c[key]||0)+1);if(c===1)try{sndUnlock()}catch(e){}if(c>=n)upSnd('end');P.c[key]=c;save();
   const b=btn.querySelector('b');if(b)b.textContent=c+' / '+n;try{navigator.vibrate&&navigator.vibrate(c>=n?[40,60,40]:8)}catch(e){}
   if(c>=n){const y=SCR().scrollTop;render();SCR().scrollTo(0,y)}else if(c===1){const y=SCR().scrollTop;render();SCR().scrollTo(0,y)}}
+/* «ما تستحضره» pictured: a slow camera drift, the light breathing at the heart, golden sparks rising (all CSS, still with reduced motion) */
+function upVis([img,x,y,cap]){const sp=Array.from({length:14},(_,i)=>`<i style="left:${(x+((i*37)%41)-20).toFixed(0)}%;--d:${(i*0.53)%4+3}s;--w:${(i*0.71)%5}s;--s:${2+i%3}px"></i>`).join('');
+  return `<figure class="up-vis" style="--fx:${x}%;--fy:${y}%"><img src="il/${img}.webp" alt="" loading="lazy" decoding="async"><span class="up-glow" aria-hidden="true"></span><span class="up-sp" aria-hidden="true">${sp}</span>${cap?`<figcaption>${cap}</figcaption>`:''}</figure>`}
 /* ---------- purification: today · the organs' journey · self-review ---------- */
 let tzTab=null,orgSel=null,tzMsg='',tzDate=null,tzConf=null,tzEdit=null;
 function tzDateBar(){const D=tzDate||TODAY,min=addDays(TODAY,-365);
@@ -5888,7 +5901,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   ${isStandalone()?`<button class="btn notif-cta" data-go="profile" data-openacc="push">فعّل التذكيرات على هاتفك</button>`:`<button class="btn ok notif-cta" data-go="install">ثبّت التطبيق لتصلك التذكيرات على هاتفك</button>`}</section>`;
 }
-const APP_VER='2026-11-08 22:19';
+const APP_VER='2026-11-08 22:49';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
