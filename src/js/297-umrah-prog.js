@@ -84,7 +84,7 @@ function viewUmProg(){upS();if(Object.keys(upRun).length)upTickOn();const T=UP.f
   return `<section class="up">
    <p class="meta up-src">من كتيّب «أعمال الحج والعمرة» للطريقة المحمدية. افعل منه ما تستطيع؛ والأعداد والمدد المذكورة هي الأصل.</p>
    <div class="up-tabs" role="tablist">${UP.map(x=>{const[d,n]=upTabProg(x);return `<button role="tab" aria-selected="${x.k===T.k}" class="${x.k===T.k?'on':''}${n&&d>=n?' dn':''}" data-uptab="${x.k}"><span>${n&&d>=n?'✓ ':''}${x.t}</span>${d?`<small dir="ltr">${d}/${n}</small>`:''}</button>`}).join('')}</div>
-   <article class="box up-card">${IL_IMG.has(T.ic)?`<div class="up-art">${ilSvg(T.ic)}</div>`:''}<div class="pad"><h3>${T.t}</h3><p class="up-in">${T.intro}</p></div></article>
+   <article class="box up-card"><div class="up-art"><img class="up-hd" src="il/uph_${T.k}.webp" alt="" decoding="async"></div><div class="pad"><h3>${T.t}</h3><p class="up-in">${T.intro}</p></div></article>
    ${T.g.map((G,gi)=>{const P=G.it.filter(it=>it[0]!=='r'),dn=P.filter((it,ii)=>upDone(T.k+':'+gi+':'+G.it.indexOf(it),it)).length;
      return `<div class="sh up-sh${P.length&&dn>=P.length?' dn':''}"><h2>${P.length&&dn>=P.length?'<i class="up-gok" aria-hidden="true">✓</i>':''}${G.t}</h2>${P.length?`<span dir="ltr">${dn} / ${P.length}</span>`:''}</div>${G.once?'<p class="meta up-once">مرة واحدة في الرحلة</p>':''}
      <ol class="box up-list${G.it[0][0]==='r'?' up-rl':''}">${G.it.map((it,ii)=>upItem(T,gi,ii,it)).join('')}</ol>`}).join('')}

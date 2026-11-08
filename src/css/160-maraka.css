@@ -141,3 +141,5 @@ html[data-theme=light] .nt-c{background:linear-gradient(160deg,#EEE6F3,var(--car
 @keyframes upGl{0%,100%{opacity:.45}50%{opacity:1}}
 @keyframes upSp{0%{opacity:0;transform:translateY(0)}15%{opacity:1}100%{opacity:0;transform:translateY(-120px)}}
 @media (prefers-reduced-motion:reduce){.up-vis img,.up-glow,.up-sp i{animation:none}.up-sp{display:none}}
+.up-art{aspect-ratio:3/2;overflow:hidden;background:#0b1530}.up-hd{display:block;width:100%;height:100%;object-fit:cover;animation:upKb 26s ease-in-out infinite alternate;transform-origin:50% 60%}
+@media (prefers-reduced-motion:reduce){.up-hd{animation:none}}
