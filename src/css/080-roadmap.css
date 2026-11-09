@@ -27,3 +27,17 @@
 .rm-hp{flex:none;width:22px;height:22px;fill:none;stroke:var(--gold);stroke-width:1.8;stroke-linecap:round}
 html[data-scr=aqida] body::after{content:"";position:fixed;top:0;left:0;right:0;height:80vh;z-index:0;pointer-events:none;background:linear-gradient(180deg,rgba(43,33,27,.18) 0%,rgba(43,33,27,.32) 32%,rgba(43,33,27,.60) 62%,rgba(43,33,27,.82) 100%),url(bg-method.jpg) center 25%/cover no-repeat;-webkit-mask-image:linear-gradient(180deg,#000 50%,transparent 100%);mask-image:linear-gradient(180deg,#000 50%,transparent 100%)}
 html[data-scr=aqida] .hero h1{text-shadow:0 2px 14px rgba(0,0,0,.6)}
+/* station labels over the map (they follow the app language) */
+.rm-img,.rm-fw{container-type:inline-size}
+.rm-lb,.rm-tt{position:absolute;z-index:3;display:flex;align-items:center;gap:.6cqw;white-space:nowrap;font-family:inherit;line-height:1.2}
+.rm-lb{padding:.5cqw 1.2cqw .5cqw .6cqw;border-radius:99px;background:rgba(18,13,10,.8);border:1px solid rgba(230,200,145,.65);color:#F3EDE6;font-size:1.75cqw;cursor:pointer;box-shadow:0 .4cqw 1.2cqw rgba(0,0,0,.45)}
+.rm-lb i{font-style:normal;display:grid;place-items:center;width:2.5cqw;height:2.5cqw;border-radius:50%;background:#E6C891;color:#2a1f19;font-weight:700;font-size:1.5cqw;flex:none}
+.rm-lb.s-l{transform:translate(calc(-100% - 2.6cqw),-50%)}.rm-lb.s-r{transform:translate(2.6cqw,-50%)}.rm-lb.s-t{transform:translate(-50%,calc(-100% - 2.4cqw));flex-direction:column;gap:.3cqw;padding:.5cqw 1cqw;border-radius:1.2cqw;text-align:center}
+.rm-tt{font-size:2.1cqw;font-weight:600;color:#FFE7B0;text-shadow:0 0 .8cqw rgba(0,0,0,.9),0 0 2cqw rgba(0,0,0,.7);pointer-events:none}
+.rm-tt.s-l{transform:translate(-100%,-50%)}.rm-tt.s-r{transform:translate(0,-50%)}.rm-tt.s-c{transform:translate(-50%,-50%)}
+.rm-lb:active{transform-origin:center;filter:brightness(1.2)}
+.rm-lb{font-size:1.5cqw}.rm-lb i{width:2.2cqw;height:2.2cqw;font-size:1.3cqw}.rm-tt{font-size:1.9cqw}
+.rm-lb.s-b{transform:translate(-50%,2.2cqw);flex-direction:column;gap:.3cqw;padding:.5cqw 1cqw;border-radius:1.2cqw;text-align:center}
+.rm-img .rm-zm{top:auto;bottom:8px}
+.rm-lb.s-b{white-space:normal;width:max-content;max-width:17cqw;line-height:1.25}
+.rm-lb.s-b{max-width:12.6cqw;font-size:1.3cqw;padding:.4cqw .6cqw}
