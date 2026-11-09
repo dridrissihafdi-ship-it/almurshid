@@ -66,7 +66,7 @@ function rmZoom(){const o=document.createElement('div');o.className='rm-full';o.
   document.body.appendChild(o);const sc=o.querySelector('.rm-sc'),im=sc.querySelector('img');
   const fit=()=>{sc.scrollLeft=sc.scrollWidth}; im.complete?requestAnimationFrame(fit):im.addEventListener('load',fit);
   const close=()=>{o.remove();removeEventListener('keydown',esc_)};const esc_=e=>{if(e.key==='Escape')close()};addEventListener('keydown',esc_);
-  o.querySelector('.rm-x').addEventListener('click',close);o.querySelectorAll('.rm-hs').forEach(b=>b.addEventListener('click',()=>setTimeout(close,0)));setTimeout(()=>{const t=o.querySelector('.rm-tip');if(t)t.classList.add('off')},2600)}
+  o.querySelector('.rm-x').addEventListener('click',close);o.querySelectorAll('.rm-lb,.rm-hs').forEach(b=>b.addEventListener('click',()=>setTimeout(close,0)));setTimeout(()=>{const t=o.querySelector('.rm-tip');if(t)t.classList.add('off')},2600)}
 
 /* video lessons (Maliki fiqh): files live in video/<series>/NN - title.mp4, with an optional same-name .jpg poster */
 const FQ_K='الفقه_المالكي',FQ_BY='الشيخ نايف آل الشيخ مبارك';let vdCat=null,vdCur=null;
