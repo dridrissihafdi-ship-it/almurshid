@@ -109,7 +109,7 @@ function uyFault(f){const R=uyRes(),x=R&&R[f],T=uyLast(),B=qb(),d=QALB.find(q=>q
     ${ihc?`<div class="uy-ihc"><p class="uy-k"><span>وكان يداوي في نفسه:</span> <b class="notr">${ihc[0]}</b></p>${uyQ(ihc[1])}</div>`:''}</article>`:''}
    ${f==='ujb'?uyUjbBox():''}
    <div class="sh"><h2>علاجه</h2></div>
-   <article class="box pad uy-cure"><div class="uy-do"><small>عمل اليوم</small><p>${UY_DO[f]}</p>${UY_HAD[f]?`<p class="verse uy-had">${UY_HAD[f]}</p>`:''}</div>
+   <article class="box pad uy-cure"><div class="uy-do"><small>عمل اليوم</small><p>${UY_DO[f]}</p>${UY_HAD[f]?`<p class="verse uy-had">${UY_HAD[f]}</p>${S.lang&&S.lang!=='ar'?`<p class="uy-hadt">${Tx(UY_HAD[f])}</p>`:''}`:''}</div>
     ${A&&AMRAD.ar[f]?`<div class="uy-do"><small>تمرين الأسبوع</small><p class="notr" dir="${RTL()?'rtl':'ltr'}">${A[4]}</p>${S.amEx&&S.amEx.id===f?'<p class="logged">اخترته لأسبوعك ✓</p>':`<div class="btns"><button class="btn small" data-amsel="${f}">اختره لأسبوعك</button></div>`}</div>`:''}
     <div class="uy-prog"><b>برنامج العلاج: أربعون يومًا</b><p class="meta">سبعة أيام للعلم، ثم ثلاثة وثلاثون يومًا من المجاهدة بعمل مضاد كل يوم، ثم تُعاد أسئلة العيب فترى الفرق.</p>
      <div class="btns">${cur?`<button class="btn ok" data-uyprog="1">متابعة العلاج</button>`:`<button class="btn ok" data-uyqb="${f}">ابدأ العلاج</button>`}${UY_LIS.has(f)?'<button class="btn small" data-go="jawarih">تطهير اللسان</button>':''}</div></div></article></section>`}
@@ -160,6 +160,6 @@ function uyCard(x,T,PR){const src=[['s','النفس'],['c','المنتقدون']
    ${uyBar(x)}<p class="uy-lv2" style="color:${UY_LC[x.lv]}">${UY_LV[x.lv]}</p>
    ${src.length?`<p class="uy-src"><span>شهد به:</span> ${src.map(([,n])=>`<i>${n}</i>`).join('')}</p>`:''}
    ${items.length?`<ul class="uy-it">${items.map(([q])=>`<li>${q[1]}</li>`).join('')}</ul>`:''}
-   <div class="uy-do"><small>عمل اليوم</small><p>${UY_DO[x.f]}</p>${UY_HAD[x.f]?`<p class="verse uy-had">${UY_HAD[x.f]}</p>`:''}</div>
+   <div class="uy-do"><small>عمل اليوم</small><p>${UY_DO[x.f]}</p>${UY_HAD[x.f]?`<p class="verse uy-had">${UY_HAD[x.f]}</p>${S.lang&&S.lang!=='ar'?`<p class="uy-hadt">${Tx(UY_HAD[x.f])}</p>`:''}`:''}</div>
    ${btn?`<div class="btns">${btn}</div>`:''}</div></article>`}
 
