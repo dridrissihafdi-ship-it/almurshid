@@ -13,7 +13,7 @@ function uyScore(T,ref){const U=uy(),S9={};UY_Q.forEach(([f],i)=>S9[f]=(S9[f]||0
   const mr=U.mr.filter(e=>e.t<=ref&&ref-e.t<=30*UY_DAY&&e.v!=null),mrOn=mr.length>0;
   const {A,nights}=uyMuh(ref),aOn=nights>=7,out={};
   UY.forEach(([f],i)=>{const C=cr.filter(e=>e.f===f).reduce((a,e)=>a+e.v,0),M=mr.filter(e=>e.f===f).reduce((a,e)=>a+e.v,0),Af=A[f]||0;
-    const src={s:S9[f]/9};let num=UY_W.s*src.s,den=UY_W.s;
+    const src={s:(S9[f]||0)/9};let num=UY_W.s*src.s,den=UY_W.s;
     if(crOn){src.c=Math.min(1,C/3);num+=UY_W.c*src.c;den+=UY_W.c}
     if(mrOn){src.m=Math.min(1,M/4);num+=UY_W.m*src.m;den+=UY_W.m}
     if(aOn&&UY_AF.has(f)){src.a=Math.min(1,Af/8);num+=UY_W.a*src.a;den+=UY_W.a}

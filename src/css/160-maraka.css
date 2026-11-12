@@ -143,3 +143,13 @@ html[data-theme=light] .nt-c{background:linear-gradient(160deg,#EEE6F3,var(--car
 @media (prefers-reduced-motion:reduce){.up-vis img,.up-glow,.up-sp i{animation:none}.up-sp{display:none}}
 .up-art{aspect-ratio:3/2;overflow:hidden;background:#0b1530}.up-hd{display:block;width:100%;height:100%;object-fit:cover;animation:upKb 26s ease-in-out infinite alternate;transform-origin:50% 60%}
 @media (prefers-reduced-motion:reduce){.up-hd{animation:none}}
+
+/* «عمرة القلب»: pictures and levels under each session */
+.up-v{margin-top:8px;border-top:1px dashed var(--card-line);padding-top:6px}.up-v summary{cursor:pointer;color:var(--gold);font-weight:600;font-size:14px;list-style:none;display:flex;align-items:center;gap:6px;min-height:36px}.up-v summary::-webkit-details-marker{display:none}.up-v summary:before{content:'▸';transition:transform .2s}.up-v[open] summary:before{transform:rotate(90deg)}
+html[dir=rtl] .up-v summary:before{content:'◂'}html[dir=rtl] .up-v[open] summary:before{transform:rotate(-90deg)}
+.up-vb{display:flex;flex-direction:column;gap:8px;padding:4px 0 2px}.up-vi{display:block;width:100%;height:auto;border-radius:12px;background:#0b1530}
+.up-vs,.up-vl{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.7}
+.up-vh{color:var(--gold);font-size:13px;margin-top:4px}.up-vl li b{display:block;font-size:14px}.up-vl li span{color:var(--muted);font-size:13.5px}
+.up-vlim{display:flex;flex-direction:column;gap:6px;margin-top:6px}.up-vd{margin:0;font-size:13.5px;background:var(--gold-soft,rgba(201,162,74,.12));border-radius:10px;padding:8px 10px}.up-vd b{display:block;color:var(--gold);font-size:12.5px}
+.up-gv{padding:4px 14px 10px;margin-top:-4px}.up-gv .up-v{border-top:0}
+.up-tabs{grid-template-columns:repeat(4,1fr)}.up-tabs button{padding:8px 6px;font-size:13px}

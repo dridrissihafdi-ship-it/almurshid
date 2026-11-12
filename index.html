@@ -1600,6 +1600,16 @@ html[data-theme=light] .nt-c{background:linear-gradient(160deg,#EEE6F3,var(--car
 @media (prefers-reduced-motion:reduce){.up-vis img,.up-glow,.up-sp i{animation:none}.up-sp{display:none}}
 .up-art{aspect-ratio:3/2;overflow:hidden;background:#0b1530}.up-hd{display:block;width:100%;height:100%;object-fit:cover;animation:upKb 26s ease-in-out infinite alternate;transform-origin:50% 60%}
 @media (prefers-reduced-motion:reduce){.up-hd{animation:none}}
+
+/* «عمرة القلب»: pictures and levels under each session */
+.up-v{margin-top:8px;border-top:1px dashed var(--card-line);padding-top:6px}.up-v summary{cursor:pointer;color:var(--gold);font-weight:600;font-size:14px;list-style:none;display:flex;align-items:center;gap:6px;min-height:36px}.up-v summary::-webkit-details-marker{display:none}.up-v summary:before{content:'▸';transition:transform .2s}.up-v[open] summary:before{transform:rotate(90deg)}
+html[dir=rtl] .up-v summary:before{content:'◂'}html[dir=rtl] .up-v[open] summary:before{transform:rotate(-90deg)}
+.up-vb{display:flex;flex-direction:column;gap:8px;padding:4px 0 2px}.up-vi{display:block;width:100%;height:auto;border-radius:12px;background:#0b1530}
+.up-vs,.up-vl{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.7}
+.up-vh{color:var(--gold);font-size:13px;margin-top:4px}.up-vl li b{display:block;font-size:14px}.up-vl li span{color:var(--muted);font-size:13.5px}
+.up-vlim{display:flex;flex-direction:column;gap:6px;margin-top:6px}.up-vd{margin:0;font-size:13.5px;background:var(--gold-soft,rgba(201,162,74,.12));border-radius:10px;padding:8px 10px}.up-vd b{display:block;color:var(--gold);font-size:12.5px}
+.up-gv{padding:4px 14px 10px;margin-top:-4px}.up-gv .up-v{border-top:0}
+.up-tabs{grid-template-columns:repeat(4,1fr)}.up-tabs button{padding:8px 6px;font-size:13px}
 /* the Sira and the Day of Judgment, in every language */
 .ys-note{margin-top:10px}.ys-nl{display:block;font-weight:600;font-size:14px;margin:0 0 4px}.ys-note textarea{width:100%;box-sizing:border-box;border-radius:12px;border:1px solid var(--card-line);background:var(--page);color:var(--ink);padding:10px;font:inherit;font-size:14.5px;line-height:1.7;resize:vertical}
 .ys-ns{min-height:1.2em;margin:2px 0 0;font-size:12px}
@@ -3213,7 +3223,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)r
     umNewArm=0;S.umr={chk:{},ok:[],tw:0,sa:0};S.umStep=0;save();render();return}
 });
 /* ---------- برنامج الرحلة: the daily works of the journey, from the Hajj & Umrah booklet of the Muhammadan path ----------
-   Tabs: before travel, Makkah, Madinah, al-Baqi', the cave of Hira', after returning.
+   Tabs: before travel, Makkah, Madinah, every day (Makkah, Madinah and every day follow «The Umrah of the Heart»), al-Baqi', the cave of Hira', after returning.
    Item kinds: r = recited inside the prayer (no tracking) · a = an act to tick · n = a dhikr counted to a number · m = a dhikr timed in minutes.
    Progress is kept per day (S.umP, reset each day); a group marked once:1 is kept for the whole journey (S.umOnce). */
 const UPD={
@@ -3232,6 +3242,7 @@ const UPD={
  rabbi:['رَبِّ اغْفِرْ وَارْحَمْ وَأَنْتَ خَيْرُ الرَّاحِمِينَ','طلب المغفرة والرحمة'],
  wahdah:['لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ','التوحيد'],
  jalal:['يَا ذَا الْجَلَالِ وَالْإِكْرَامِ','يا ذا الجلال والإكرام'],
+ a1:['أَسْتَغْفِرُ اللَّهَ','الاستغفار'],tas:['سُبْحَانَ اللَّهِ','التسبيح'],ham:['الْحَمْدُ لِلَّهِ','التحميد'],tah:['لَا إِلَٰهَ إِلَّا اللَّهُ','التهليل'],kab:['اللَّهُ أَكْبَرُ','التكبير'],
  mubin:['لَا إِلَٰهَ إِلَّا اللَّهُ الْمَلِكُ الْحَقُّ الْمُبِينُ','التوحيد'],
 };
 const UP_AFTER_TAWBA=[['n','sal',10],['n','ist',10],['n','haw',10],['n','yAllah',100],['n','yRahim',100],['n','yGhafur',100]];
@@ -3244,20 +3255,33 @@ const UP=[
      {t:'صلاة التوبة وما بعدها',it:[['a','صلِّ صلاة التوبة'],...UP_AFTER_TAWBA,['n','sal',10]]}],
   think:'استحضر أنك بين يدي ربك تطلب مغفرته من كل ذنب صغير وكبير، وأنه يراك ويسمعك. وتخيّل مطر الرحمة ينزل عليك فيغسلك حتى تتلألأ. من سأل بصدق غُفر له.',
   tips:['تعلّم أحكام العمرة قبل السفر: أركانها وواجباتها وسننها وما يفسدها (تجدها في «مراحل العمرة»).']},
- {k:'makkah',vis:[['upn_makkah',31,50],['upn_sujood',40,58,'في المراقبة']],t:'مكة',ic:'um_kaaba',
-  intro:'ادخل مكة في غاية التواضع، ونيّتك لقاء ربك، في حال توبة وتوكّل وشكر. كن دائمًا في عبادة: صلاة أو ذكر أو قرآن، ولا تترك شيئًا من سنن النبي ﷺ. هنا تُجاب الدعوات، فانتبه لما تسأل.',
-  g:[{t:'صباحًا بعد الفجر، جالسًا أمام الكعبة',it:UP_KAABA},
-     {t:'عند أول زيارة للحرم، بعد الظهر',once:1,it:[['a','أربع ركعات صلاة التسبيح'],['n','dur',10],['n','yAllah',100],['n','yRahman',100],['n','yRahim',100],['n','yJabbar',100],['n','dur',10]]},
-     {t:'بعد الظهر كل يوم',it:[['a','أربع ركعات صلاة التوبة (بقراءتها في «قبل السفر»)'],...UP_AFTER_TAWBA,['n','yMalik',100],['n','sal',10]]},
-     {t:'مساءً بعد العشاء، جالسًا أمام الكعبة',it:UP_KAABA}],
-  think:'تخيّل نور الكعبة يقع على قلبك، ثم يتّسع فيضيء جسدك كله، وما فيك من سوء يتفتّت حتى يطهر باطنك لتكون بين يدي ربك. واسأله أن ينظّف قلبك حتى يشرق كالشمس في الظهيرة. وفي المراقبة: استحضر أنك ساجد لربك بجسدك وعقلك وروحك، لا ملجأ لك إلا إليه؛ فاحمده واستغفره واشكره.',
-  tips:['يرفع الرجال صوتهم بالذكر أكثر من النساء، وتجلس النساء بعيدًا عن الرجال؛ فذلك أجمع للقلب.','يجوز ذكر «الله الله» و«الله هو» أثناء الطواف.','صلاة التسبيح تُصلّى عند أول زيارة للحرم، ثم إن شئت داومت عليها.']},
- {k:'madinah',vis:[['upn_madinah',50,55]],t:'المدينة المنورة',ic:'m_mosque',
-  intro:'زر الحبيب ﷺ في غاية التواضع والشكر، فهو الذي دلّك على طريق الرحمة. اجلس كأنه جالس معك، واستغفر من تقصيرك في اتباع سنّته، وأكثر من السلام والصلاة عليه.',
-  g:[{t:'عند الوصول إلى المسجد النبوي',once:1,it:[['n','dur',100],['n','salam',100],['n','ummi',100],['n','dur',100]]},
-     {t:'صباحًا',it:UP_MAD},{t:'مساءً',it:UP_MAD}],
-  think:'تخيّل القبر الشريف يضيء ونوره يقع على جسدك، ثم تخيّل نور البيت الحرام يسري إلى القبة الخضراء فيجتمع النوران ويقعان عليك، فتدور حياتك حول ربك وحبيبه ﷺ. وكلما اجتهدت في اتباع سنّته كنت أقرب إليه. وإن لم تره فاعلم أنه ﷺ يُعرض عليه سلامك.',
-  tips:['اسأل نفسك: كم تحب الحبيب ﷺ؟ وكم اتبعت سنّته؟ فعلى قدر الاتباع يكون القرب.']},
+ {k:'makkah',vis:[['upn_makkah',31,50],['upn_sujood',40,58,'في المراقبة']],t:'مكة',ic:'um_kaaba',src:'qalb',
+  intro:'في مكة خصّص 15 دقيقة لكل ذكر من الأذكار الثلاثة: التهليل والتكبير والحوقلة، فذلك 45 دقيقة في اليوم، ووزّعها بين الصلوات. وفي كل طواف استحضر في كل شوط معنًى واحدًا. وتستمر معها أعمال «كل يوم».',
+  g:[{t:'جلسات الذكر اليومية · 45 دقيقة',it:[['m','tah',15,'tah'],['m','kab',15,'kab'],['m','haw2',15,'haw']]},
+     {t:'في كل طواف: الأشواط السبعة',v:'taw',it:[
+      ['a','الشوط 1 · الاستغفار: اللهم اغفر ذنوبي، وطهّر قلبي، وأعنّي على ترك المعاصي.'],
+      ['a','الشوط 2 · التسبيح: أنت منزّه عن كل عيب؛ طهّر خواطري، وعمّق شعوري بكمالك.'],
+      ['a','الشوط 3 · التحميد: كل النعم منك ولا أستحق شيئًا منها؛ اجعلني شاكرًا وأهلًا لحسن استعمالها.'],
+      ['a','الشوط 4 · التهليل: اجعلك غايتي العليا، وأضعِف فيّ التعلّقات والأولويات الزائفة.'],
+      ['a','الشوط 5 · التكبير: أنت أكبر من طموحاتي ومخاوفي وهمومي؛ ارفع أخلاقي وحرّرني مما يُنقص قدري.'],
+      ['a','الشوط 6 · الحوقلة: لا حول لي ولا قوة من نفسي؛ امنحني القوة والهداية لأتغيّر، وأفوّض أموري إليك.'],
+      ['a','الشوط 7 · الدعاء: بمفاتيح الحضور الثلاثة، اسأل الله من قلبك المغفرة والهداية والقبول، وحاجاتك وحاجات أحبّتك والخلق.']]}],
+  think:'قبل كل جلسة: احضر بقلبك (الله يراني، يسمعني، معي)، ثم اقرأ الذكر، ثم تأمّل معناه، ثم حوّله إلى دعاء. وتخيّل اسم «الله» فوقك بنور أبيض صافٍ ينزل عليك فيغمرك كلك ثم يدخل قلبك. وهي وسيلة للتذكّر، لا تصوير لذات الله ولا لمكان حسّي. وتحت كل ذكر تجد صورته ومستوياته.',
+  tips:['في الطواف ابقَ منتبهًا لما حولك وللطائفين، ولا تُغمض عينيك، ولا يشغلك التأمل عن المشي بأمان.','توزيع المعاني على الأشواط إطار تأملي مقترح، وليس من السنة الثابتة، ولا يحل محل أذكار الطواف المعتادة.','استحضر مستوى واحدًا في كل جلسة، ولا تحاول المرور على كل المستويات.']},
+ {k:'madinah',vis:[['upn_madinah',50,55]],t:'المدينة المنورة',ic:'m_mosque',src:'qalb',
+  intro:'في المدينة خصّص 15 دقيقة لكل ذكر من الأذكار الثلاثة: الاستغفار والتسبيح والتحميد، و15 دقيقة للصلاة والسلام على النبي ﷺ بالقلب، فذلك 60 دقيقة في اليوم، موزّعة حول الصلوات. وتستمر معها أعمال «كل يوم».',
+  g:[{t:'جلسات الذكر اليومية · 60 دقيقة',it:[['m','a1',15,'ist'],['m','tas',15,'tas'],['m','ham',15,'ham'],['m','ummi',15,'sal']]}],
+  think:'قبل كل جلسة: احضر بقلبك (الله يراني، يسمعني، معي)، ثم اقرأ الذكر، ثم تأمّل معناه، ثم حوّله إلى دعاء. وتخيّل اسم «الله» فوقك بنور أبيض صافٍ ينزل عليك فيغمرك كلك ثم يدخل قلبك. وهي وسيلة للتذكّر، لا تصوير لذات الله ولا لمكان حسّي. وتحت كل ذكر تجد صورته ومستوياته.',
+  tips:['استحضر مستوى واحدًا في كل جلسة، ولا تنتقل إلى ما بعده حتى تألفه.','تصوّرات الصلاة على النبي ﷺ وسائل للحضور والمحبة، وليست دعوى رؤية حقيقية، ولا تتغيّر بها ألفاظ الصلاة.','اسأل نفسك: كم تحب الحبيب ﷺ؟ وكم اتبعت سنّته؟ فعلى قدر الاتباع يكون القرب.']},
+ {k:'daily',t:'كل يوم',ic:'tree4',src:'qalb',
+  intro:'هذه الأعمال تسير مع برنامجي المدينة ومكة، في الصلوات اليومية وعلى امتداد اليوم.',
+  g:[{t:'قبل كل صلاة',it:[['a','المراقبة قبل الصلاة: الله يراني، الله يسمعني، الله معي',10,'mur'],['a','صلِّ بمستوى واحد من الخشوع',0,'khu']]},
+     {t:'بعد الفجر',it:[['a','أدعية التحصين من السنة، مع مستوى باطنيّ واحد',10,'hisn']]},
+     {t:'بعد المغرب',it:[['a','أدعية التحصين من السنة، مع مستوى باطنيّ واحد',10,'hisn']]},
+     {t:'طوال اليوم',it:[['a','مستوى واحد من الأخلاق تحافظ عليه 24 إلى 48 ساعة',0,'akh']]},
+     {t:'متقدّم (بتوجيه مربٍّ)',it:[['a','دعاء النور بعد الوضوء، قبل صلاتين على الأقل',2,'nur']]}],
+  think:'أساس البرنامج كله الحضور مع الله: الله يراني، الله يسمعني، الله معي. وكلما شرد قلبك فارجع برفق إلى هذه المفاتيح الثلاثة، واحمل هذا الحضور إلى صلاتك وذكرك ومعاملتك للناس.',
+  tips:['لا يتغيّر شيء من صورة الصلاة الظاهرة؛ الخشوع معانٍ تُستحضر في القلب.']},
  {k:'baqi',vis:[['upn_baqi',18,52]],t:'البقيع',ic:'m_drop',
   intro:'كن على وضوء في البقيع وفي كل مكان مبارك تزوره، فهو مثوى كثير من الصحابة رضي الله عنهم.',
   g:[{t:'عند زيارة البقيع',it:[['n','dur',3],['n','haw2',33],['n','subbuh',33],['n','rabbi',33],['n','dur',3]]}],
@@ -3272,6 +3296,54 @@ const UP=[
      {t:'كل جمعة',it:[['a','مراقبة تحفظ بها بركة الرحلة',10]]}],
   think:'في مراقبة الجمعة: أغمض عينيك واستعد رحلتك إلى بيت الله وإلى حبيبه ﷺ، وتخيّل روحك ما زالت هناك تؤدّي أعمالها، ونورها يدخل جسدك ثم يحيط به كالدرع يحفظ ما نلت من بركة. ومن حفظ بركته زاده الله منها.',
   tips:['مقاصد الرحلة ثلاثة: تجديد العهد مع الله، فالطواف وعدٌ أن تدور حياتك حول الله ورسوله ﷺ لا حول الدنيا؛ واتباع خطى النبي ﷺ؛ وأن يكون ذلك كله لوجه الله وحده.','بعد الرجوع قم بحقوق الله ورسوله ﷺ وحقوق الناس، واتبع السنة كلها لا ما يوافق هواك، ودلّ غيرك عليها.','ليس المقصود أن ترى منامات أو أحوالًا، فطلبها مدخل للشيطان؛ المقصود الاتباع والتعلّم على يد عالم.']}];
+/* «ما تستحضره بالصور» for each session of «عمرة القلب»: pictures, the visualisation steps, and the levels (one per session) */
+const UPV={
+ ist:{im:['uh_ist1','uh_ist2'],st:['مع كل «أستغفر الله» انظر إلى اسم الله ﷻ يُكتب على قلبك.','نورٌ يحيط بالقلب كالدرع الحامي.','تبدأ ظلمة الذنوب وصدؤها في الزوال، ومع كل تكرار يزداد الدرع إشراقًا والقلب صفاءً.'],
+  lv:[['ذنب كبير','ذنب بعينه يُثقل قلبك؛ انظر إلى ظلمته يغسلها النور النازل حتى لا يبقى منها أثر.'],['ذنب صغير','معصية أخفى أو غفلة يسهل التغاضي عنها؛ ومع كل زفير انظر إليها تُرفع عنك.'],['التقصير في شكر النعم','صحتك وأمنك وأهلك ورزقك وإيمانك؛ انظر إلى الجحود يخرج منك ويحلّ مكانه نور الشكر.'],['التقصير في الأعمال','عبادة وطاعة أقل من الإحسان؛ انظر إلى ظلال الكسل والشرود تغادر جوارحك وقلبك.'],['عدم الإخلاص','أعمال عملتها للظهور أو العادة؛ انظر إليها تُستخرج منك وتحلّ مكانها نية خالصة لله.'],['الغفلة','ساعات وأيام عشتها دون شعور بالله؛ دعها تذوب حتى يتيقّظ القلب بذكره.']],
+  day:'تجاوز عن أخطاء الناس، واعفُ عمّن ظلمك، وقبل أن تنام اعفُ في قلبك عن كل أحد.'},
+ tas:{im:['uh_tas1','uh_tas2'],st:['انظر إلى اسم الله ﷻ في مركز الوجود، قائمًا في النور كالكعبة.','الخلق كله يدور حوله في تناغم: الأرض والسماوات والنجوم والمجرّات.','ومع كل «سبحان الله» انضمّ إلى هذا الطواف، مقرًّا بأنه منزّه عن كل عيب في الخلق.'],
+  lv:[['عيوبك وذنوبك','أقِرّ بأن الله ﷻ منزّه عن كل عيب فيك، واعرف حاجتك إليه.'],['أذى الآخرين','الناس يظلمون ويخذلون ويُهملون، والله ﷻ منزّه عن ذلك.'],['الظلم في الخلق','الله ﷻ منزّه عن كل ظلم وفساد في العالم.'],['الأذى الخفي','الله ﷻ منزّه عن كل ظلمة، ظاهرة كانت أو خفية.'],['قصور المساعي الحسنة','حتى محبة الناس ناقصة، وعطاء الله لا ينقص أبدًا.'],['حين لا يُقدَّر جهدك','الله ﷻ هو الشكور، لا يضيع عنده جهد خفي.'],['حدود الخير في الخلق','الإنسان يعفو ويحب ويعطي إلى حدّ، والله منزّه عن كل حدّ.']],
+  day:'اجعل كل صعوبة أو تأخير أو أذى تلقاه منبّهًا: التفت بقلبك إلى الله وتذكّر أنه منزّه عنه.'},
+ ham:{im:['uh_ham1','uh_ham2'],st:['انظر إلى اسم الله ﷻ أمامك في نور.','دع نعمك تظهر واحدة بعد الأخرى: الصحة والرزق والأهل والأمن والهداية والحفظ والإيمان.','وانظر إلى النور يسري من كل نعمة عائدًا إلى مصدرها الحق، حتى لا يبقى في نظرك إلا الله.'],
+  lv:[['نعم لا تستحقها','جهدك جزء ضئيل، والنعم عطايا من كرمه لا أجرة.'],['النعم المادية','الصحة والمال والمسكن والطعام والأهل والأمن.'],['النعم الباطنة','الهداية والإيمان والبصيرة والإخلاص والطمأنينة.'],['بلاء لم يصبك','اشكر الله على الضرّ الذي صرفه عنك.'],['نعم لم تُعطَها','ما منعه الله قد يكون رحمة أو حفظًا أو تربية.'],['أسماؤه في الخلق','انتقل من حمد النعم إلى حمد الصفات إلى حمد الله ذاته.'],['القدرة على الشكر','احمده على البوصلة التي تعيد قلبك إليه.'],['الخير الذي فيك','مواهبك عطايا منه، فلا تدّعها لنفسك.']],
+  day:'اشكر بصدق كل من أحسن إليك، وفي باطنك أرجِع الحمد إلى الله الذي وصلك فضله على يديه.'},
+ sal:{im:['uh_sal','uh_sal0'],st:['اجلس بأدب، وصلِّ وسلّم بتمهّل.','مع كل صلاة تقترب أكثر من النبي ﷺ، ويزداد النور.','استحضر مستوى واحدًا من المستويات الخمسة، ثم اختم بالدعاء.'],
+  lv:[['صلاة الإيجاب: الحضور أمام القبر الشريف','يأتي بك الملَك من الأبواب الذهبية إلى القبة البيضاء، فتنزل الدرج والنور يزداد، حتى تقف أمام القبر الشريف وتقول: السلام عليك أيها النبي.',['uh_sl1a','uh_sl1b','uh_sl1c','uh_sl1d']],
+   ['صلاة الشكر: وجهًا لوجه','صلِّ عليه ﷺ وعلى آله، واشكرهم على ما بذلوه للبشرية، واسأل الله أن يجزيهم عنّا.',['uh_sl2']],
+   ['صلاة الاستغفار: نور يطهّر','نوره ﷺ يدخل جسدك ويطهّر موضعًا بعد موضع: العينين والأذنين واللسان والقلب واليدين والقدمين.',['uh_sl3']],
+   ['صلاة التحلية: نور يدخل القلب','مع كل صلاة تدخل قلبك صفة من أخلاقه ﷺ: الرحمة والصبر والحلم والصدق والكرم والتواضع.',['uh_sl4']],
+   ['صلاة الترقية: إلى الصفات الإلهية','من صفات الله إلى نور النبي ﷺ، إلى جسدك وعقلك وقلبك ونفسك وروحك.',['uh_sl5']]],
+  dt:'صيغ أخرى',day:'الصلاة الإبراهيمية، و«السلام عليك أيها النبي ورحمة الله وبركاته».'},
+ tah:{im:['uh_tah1','uh_tah2'],st:['«لا»: فتّش في داخلك ثم في العالم ثم في السماوات والجنة عن كل تعلّق وغاية زائفة.','«إله»: ارفض كل واحدة منها، فليس شيء منها جديرًا بأن يكون غايتك.','«إلا الله»: انظر إلى النور ينزل من اسم الله فيملأ قلبك مكان الظلمة.'],
+  lv:[['الذنوب المتجذّرة','تُقتلع عند «لا» ويحلّ مكانها النور عند «إلا الله».'],['الشهوات المحرّمة','زائلة دنيئة خادعة إذا قارنتها بالله.'],['الرغبات المباحة','رضا الناس والراحة والسمعة: حُجُب إذا عُظّمت فوق قدرها.'],['الجنة','الجنة منه، لكنها ليست هو؛ والله أحقّ بأن يُطلب.'],['الأجر والبركات','عطايا وليست المعطي.'],['الرتب الروحية','طهّر قلبك من طلب المكانة حتى في الطريق.'],['التجارب الروحية','الكشوف والحلاوة ليست الغاية.'],['الأنبياء','عظمتهم تدلّ على الله ولا تحلّ محلّه.'],['أسماء الله','أبواب إليه؛ فاعبر منها إليه.'],['نفي الذات','لا يبقى إلا الله: غاية كل عبادة.']],
+  day:'افعل الخير دون أن تطلب الثناء، وإذا لاحظت في نفسك طلب الظهور فارجع إلى معنى التهليل.'},
+ kab:{im:['uh_kab1','uh_kab2'],st:['اشعر بالدنيا تتلاشى وأنت ترتفع فوقها حتى تكون تحت العرش العظيم.','انظر إلى الخلق من علٍ: ناسه وأنظمته وشهواته منبسطة تحتك.','ومع كل «الله أكبر» اشهد أنه أكبر من كل شيء منها، وأنه خلقك لما هو أعظم.'],
+  lv:[['الذنوب والوساوس','الله أكبر من الذنب، وفيك القدرة على أن ترتفع فوقه.'],['الدنيا ومناصبها','كرّمك لتكون عبدًا له، لا أسيرًا لمنصب.'],['حدود المخلوقات','الله وحده لا حدّ له.'],['تحقير الذات','خلقك لتعرفه وتعبده وتكون من أوليائه.'],['الملائكة','أعطى الإنسان المجاهدة والترقّي.'],['الجنة','خُلقت الجنة لك، وخُلقت أنت لله.'],['رتب الأولياء','أعلى الشرف أن تكون معه.'],['أكبر مما نتصور','نعبده هو، لا تصوّراتنا عنه.']],
+  day:'كلما خطر وسواس أو رغبة تخالف رضا الله، قل في نفسك: الله أكبر من هذا.'},
+ haw:{im:['uh_haw1','uh_haw2'],st:['ابدأ من القلب: لاحظ ما في داخلك خارج قدرتك: نبضك ونَفَسك وصحتك ومشاعرك.','وسّع الدائرة إلى الناس والأحداث من حولك، ثم إلى السماوات والكون.','ومع «إلا بالله» سلّمها كلها إلى الله الذي يدبّر ما في داخلك وما حولك.'],
+  lv:[['تغيير نفسك','التغيير الحقيقي لا يكون إلا بالله؛ توكّل عليه في التزكية.'],['أعمالك وفضل الله','هو الذي يوفّق ويقبل ويثيب.'],['المخاوف والنتائج','لا يملك مخلوق نتيجتها، فأرجِعها إلى من يدبّرها.'],['المساعي الصالحة','استمر في العمل، وتوكّل عليه في النتيجة.'],['النيات العظيمة','وسّع نيّاتك، ثم توكّل عليه في إخراجها إلى الواقع.']],
+  day:'قلها كلما اعتمدت على سبب أو أقلقتك نتيجة: لا تترك العمل، بل اترك الاعتماد عليه.'},
+ taw:{im:['uh_taw'],st:['في الأشواط الستة الأولى ردّد الذكر وحوّل معناه إلى دعاء في باطنك.','واجعل الشوط السابع للدعاء من القلب في حضرة الله.','ابقَ مع المعنى، ولا تحاول المرور على كل المستويات.']},
+ mur:{im:['uh_keys'],st:['اجلس بسكينة واجمع انتباهك بين يدي الله، دون أن تتخيّل له صورة أو مكانًا.','استحضر المفاتيح الثلاثة واحدًا بعد الآخر: الله يراني، الله يسمعني، الله معي.','وكلما شرد قلبك، ارجع برفق إلى المفاتيح الثلاثة.']},
+ khu:{st:['استحضر مستوى واحدًا تختاره في كل صلاة.'],
+  lv:[['الشكر','عند كل انتقال من ركن إلى ركن، تذكّر نعمة واشكر الله عليها.'],['حاجاتك','ناجِ الله في باطنك بحاجاتك وطلب الهداية.'],['حاجات الآخرين','ادعُ في باطنك لغيرك في كرباتهم.'],['حسن الخاتمة','صلِّ كأنها آخر ركعة قبل لقاء الله.'],['الصفات الإلهية','تذكّر صفة لله واشكره على أثرها في حياتك.'],['معاني القراءة','عِش مع معاني ما تقرأ في الصلاة.'],['الكمال والنقص','قارِن كمال الله بنقص المخلوقات.']]},
+ hisn:{im:['uh_hisn'],st:['اقرأ أذكار الصباح والمساء من السنة في حضرة الله، مع مستوى باطنيّ واحد.'],
+  lv:[['الحضور','جدّد المفاتيح الثلاثة وافهم المعاني.'],['الدعاء','حوّل القراءة إلى دعاء بالحفظ وقضاء الحاجات.'],['التبرّؤ من الحول','اعتمد على الله في حفظك، لا على قدرتك.'],['الحفظ والرحمة','تأمّلهما يبلغانك من خلال معاني الأذكار.'],['نفع الخلق','تصوّر الحفظ والرحمة يمتدّان إلى غيرك.'],['الدعاء للخلق','ادعُ من قلبك للخلق، ما يُرى منه وما لا يُرى.'],['الحضور النبوي','استحضره، وتأمّل النفع يصل إلى الخلق.']]},
+ akh:{im:['uh_akh','uh_khaw'],st:['اختر مستوى واحدًا تركّز عليه 24 إلى 48 ساعة، واستمر في كفّ الأذى.'],
+  lv:[['حفظ ثلاث جوارح','العينان واللسان واليدان: أمسِكها عن الظلم.'],['حفظ سبع جوارح','وسّع اليقظة إلى الجوارح السبع كلها.'],['خدمة دون طلب','ساعد شخصًا واحدًا على الأقل دون أن يطلب.'],['الحلم','إذا ظُلمت في حق نفسك فاصبر واعفُ.'],['اترك الناس أحسن','أصلِح حال من تلقاه بكلمة أو عون.'],['تطهير الخواطر','لا تصارع الخاطر الضارّ ولا تسترسل معه؛ اصرف انتباهك وارجع إلى الله.'],['سبعة دروس','تأمّل شيئًا واكتب منه سبعة دروس وكيف تطبّقها.'],['حسن الظن','نمِّ الأفكار الطيبة عن الناس والأحداث، مع البصيرة.']]},
+ nur:{im:['uh_nur'],st:['بعد الوضوء اجلس ساكنًا، وجدّد المفاتيح الثلاثة.','اقرأ الدعاء بتمهّل، وانظر إلى النور يدخل كل جزء تسمّيه.','اختم بتأمّل استنارة الجسد والقلب والروح، ثم ادخل الصلاة.'],
+  ar:'اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا، وَفِي لِسَانِي نُورًا، وَاجْعَلْ فِي سَمْعِي نُورًا، وَاجْعَلْ فِي بَصَرِي نُورًا، وَاجْعَلْ مِنْ خَلْفِي نُورًا، وَمِنْ أَمَامِي نُورًا، وَاجْعَلْ مِنْ فَوْقِي نُورًا، وَمِنْ تَحْتِي نُورًا، اللَّهُمَّ أَعْطِنِي نُورًا'}
+};
+const upVOpen=new Set();
+document.addEventListener('toggle',e=>{const d=e.target;if(d&&d.classList&&d.classList.contains('up-v')){d.open?upVOpen.add(d.dataset.k):upVOpen.delete(d.dataset.k)}},true);
+const upImg=n=>`<img class="up-vi" src="il/${n}.webp" alt="" loading="lazy" decoding="async">`;
+function upV(vk,key,lab){const V=UPV[vk];if(!V)return '';
+  return `<details class="up-v" data-k="${key}"${upVOpen.has(key)?' open':''}><summary>${lab||'ما تستحضره بالصور'}</summary><div class="up-vb">
+   ${(V.im||[]).map(upImg).join('')}
+   ${V.ar?`<p class="up-ar notr" dir="rtl" lang="ar">${V.ar}</p>`:''}
+   <ol class="up-vs">${V.st.map(s=>`<li>${s}</li>`).join('')}</ol>
+   ${V.lv?`<b class="up-vh">مستويات الاستحضار: اختر واحدًا للجلسة</b><ol class="up-vl">${V.lv.map(([t,d,im])=>`<li><b>${t}</b><span>${d}</span>${im?`<div class="up-vlim">${im.map(upImg).join('')}</div>`:''}</li>`).join('')}</ol>`:''}
+   ${V.day?`<p class="up-vd"><b>${V.dt||'طوال اليوم'}</b><span>${V.day}</span></p>`:''}</div></details>`}
 let upTab=null,umSeg=null;const upRun={};let upTick=null;
 function upS(){if(!S.umP||S.umP.d!==TODAY)S.umP={d:TODAY,c:{},t:{},a:{}};if(!S.umOnce)S.umOnce={c:{},t:{},a:{}};return S.umP}
 const upStore=key=>{const[k,g]=key.split(':'),G=UP.find(x=>x.k===k).g[+g];return G.once?(upS(),S.umOnce):upS()};
@@ -3279,7 +3351,8 @@ function upSecs(key){const P=upStore(key);return (P.t[key]||0)+(upRun[key]?(Date
 function upDone(key,it){const P=upStore(key);if(it[0]==='a')return !!P.a[key]||(!!it[2]&&upSecs(key)>=it[2]*60);if(it[0]==='n')return (P.c[key]||0)>=it[2];if(it[0]==='m')return upSecs(key)>=it[2]*60||!!P.a[key];return false}
 const upMM=s=>{s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 function upTabProg(T){let d=0,n=0;T.g.forEach((G,gi)=>G.it.forEach((it,ii)=>{if(it[0]==='r')return;n++;if(upDone(T.k+':'+gi+':'+ii,it))d++}));return [d,n]}
-function upItem(T,gi,ii,it){const key=T.k+':'+gi+':'+ii,ok=upDone(key,it),D=UPD[it[1]];
+function upItem(T,gi,ii,it){const h=upItem0(T,gi,ii,it);return it[3]?h.replace(/<\/li>$/,upV(it[3],T.k+':'+gi+':'+ii)+'</li>'):h}
+function upItem0(T,gi,ii,it){const key=T.k+':'+gi+':'+ii,ok=upDone(key,it),D=UPD[it[1]];
   if(it[0]==='r')return `<li class="up-r"><span>${it[1]}</span>${it[2]?`<b dir="ltr">×${it[2]}</b>`:''}</li>`;
   const okb=ok?`<span class="up-okb" aria-label="${esc(Tx('تمّ'))}">✓</span>`:'';
   if(it[0]==='a')return `<li class="up-i up-a${ok?' ok':''}"><button class="up-ck" data-upa="${key}" aria-pressed="${ok}"><i>${ok?'✓':''}</i><span>${it[1]}${it[2]?` <small>· ${it[2]} <span>دقيقة</span></small>`:''}</span></button>${it[2]?`<div class="up-row">${upTimer(key,it[2],ok)}${upZt(key)}</div>`:''}</li>`;
@@ -3296,15 +3369,15 @@ function upTimer(key,min,ok){const run=!!upRun[key],left=min*60-upSecs(key);
   return `<button class="up-tm${run?' run':''}${ok?' ok':''}" data-upt="${key}" data-upm="${min}"><span class="up-tg" aria-hidden="true">${ok?'✓':run?'❚❚':'▶'}</span><b dir="ltr" id="upt-${key.replace(/:/g,'-')}">${ok?min+':00':upMM(left)}</b><small>${ok?'<span>تمّ</span>':run?'<span>إيقاف مؤقت</span>':`${min} <span>دقيقة</span>`}</small></button>`}
 function viewUmProg(){upS();if(Object.keys(upRun).length)upTickOn();const T=UP.find(x=>x.k===upTab)||UP[0];upTab=T.k;
   return `<section class="up">
-   <p class="meta up-src">من كتيّب «أعمال الحج والعمرة» للطريقة المحمدية. افعل منه ما تستطيع؛ والأعداد والمدد المذكورة هي الأصل.</p>
+   ${T.src==='qalb'?'<p class="meta up-src">من دليل «عمرة القلب»، من تعاليم الشيخ أحمد دبّاغ. كل جلسة: الحضور، ثم الذكر، ثم تأمّل معناه، ثم الدعاء.</p>':'<p class="meta up-src">من كتيّب «أعمال الحج والعمرة» للطريقة المحمدية. افعل منه ما تستطيع؛ والأعداد والمدد المذكورة هي الأصل.</p>'}
    <div class="up-tabs" role="tablist">${UP.map(x=>{const[d,n]=upTabProg(x);return `<button role="tab" aria-selected="${x.k===T.k}" class="${x.k===T.k?'on':''}${n&&d>=n?' dn':''}" data-uptab="${x.k}"><span>${n&&d>=n?'✓ ':''}${x.t}</span>${d?`<small dir="ltr">${d}/${n}</small>`:''}</button>`}).join('')}</div>
    <article class="box up-card"><div class="up-art"><img class="up-hd" src="il/uph_${T.k}.webp" alt="" decoding="async"></div><div class="pad"><h3>${T.t}</h3><p class="up-in">${T.intro}</p></div></article>
    ${T.g.map((G,gi)=>{const P=G.it.filter(it=>it[0]!=='r'),dn=P.filter((it,ii)=>upDone(T.k+':'+gi+':'+G.it.indexOf(it),it)).length;
      return `<div class="sh up-sh${P.length&&dn>=P.length?' dn':''}"><h2>${P.length&&dn>=P.length?'<i class="up-gok" aria-hidden="true">✓</i>':''}${G.t}</h2>${P.length?`<span dir="ltr">${dn} / ${P.length}</span>`:''}</div>${G.once?'<p class="meta up-once">مرة واحدة في الرحلة</p>':''}
-     <ol class="box up-list${G.it[0][0]==='r'?' up-rl':''}">${G.it.map((it,ii)=>upItem(T,gi,ii,it)).join('')}</ol>`}).join('')}
+     <ol class="box up-list${G.it[0][0]==='r'?' up-rl':''}">${G.it.map((it,ii)=>upItem(T,gi,ii,it)).join('')}</ol>${G.v?`<div class="box up-gv">${upV(G.v,T.k+':'+gi+':v','ما تستحضره في الطواف')}</div>`:''}`}).join('')}
    <div class="box up-th">${T.vis?upVis(T.vis[0]):''}<div class="pad"><b>ما تستحضره</b><p>${T.think}</p></div>${T.vis&&T.vis[1]?`${upVis(T.vis[1])}`:''}</div>
    ${T.tips?`<div class="box pad up-tips"><b>نصائح</b><ul>${T.tips.map(t=>`<li>${t}</li>`).join('')}</ul></div>`:''}
-   ${T.k==='makkah'||T.k==='madinah'?'<p class="meta">اليوم يبدأ من جديد كل يوم، وما يُفعل مرة واحدة يبقى محفوظًا طوال الرحلة.</p>':''}
+   ${T.k==='makkah'||T.k==='madinah'||T.k==='daily'?'<p class="meta">اليوم يبدأ من جديد كل يوم، وما يُفعل مرة واحدة يبقى محفوظًا طوال الرحلة.</p>':''}
    <button class="btn link-btn up-reset" data-upreset="1">مسح علامات الرحلة والبدء من جديد</button></section>`}
 function upTickOn(){if(upTick)return;upTick=setInterval(()=>{const ks=Object.keys(upRun);if(!ks.length){clearInterval(upTick);upTick=null;keepAwake(false);return}
   ks.forEach(key=>{const[k,g,i]=key.split(':'),it=UP.find(x=>x.k===k).g[+g].it[+i],min=it[2],left=min*60-upSecs(key),el=document.getElementById('upt-'+key.replace(/:/g,'-'));
@@ -6057,7 +6130,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   ${isStandalone()?`<button class="btn notif-cta" data-go="profile" data-openacc="push">فعّل التذكيرات على هاتفك</button>`:`<button class="btn ok notif-cta" data-go="install">ثبّت التطبيق لتصلك التذكيرات على هاتفك</button>`}</section>`;
 }
-const APP_VER='2026-11-09 01:27';
+const APP_VER='2026-11-12 01:57';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
@@ -6653,7 +6726,7 @@ const SCR_BAN={aqida:'c_aqida',fiqh:'c_fiqh',fatur:'fatur',khalwa:'khalwa',adh_s
 const scrBan=s=>{const b=SCR_BAN[s];return b?ilBan(typeof b==='function'?b():b,'scr-ban'):''};
 /* a picture that fails to load is replaced by its drawing, then retried once from the network */
 function ilFail(el,k,cls){IL_BAD.add(k);el.outerHTML=ilSvg(k,cls);if(!ilFail.r)ilFail.r={};if(ilFail.r[k])return;ilFail.r[k]=1;fetch('il/'+k+'.webp',{cache:'reload'}).then(r=>{if(r.ok&&(r.headers.get('Content-Type')||'').startsWith('image/')){IL_BAD.delete(k);setTimeout(()=>{try{render()}catch(e){}},300)}}).catch(()=>{})}
-const IL_IMG=new Set(['mk_d1','mk_d2','mk_s1','mk_s2','mk_s3','mk_s4','mk_l1','mk_l2','mk_l3','mk_l4','mk_l5','mk_l6','mk_l7','mk_l8','mk_l9','mk_l10','aamal','amrad','ask','dunya','ghadab','ghafla','hasad','hiqd','khushu','kibr','m_book','m_climb','m_door','m_drop','m_heart','m_lamp','m_mosque','m_path','m_tree','majalis','method','qa','quran','riya','s1','s2','s3','s4','s5','s6','s8','s9','salat','sira','taammulat','tazkiya','tools','tree0','tree1','tree2','tree3','tree4','o_ayn','o_batn','o_farj','o_lisan','o_qadam','o_udhun','o_yad','aql','fudul','ghiba','kadhib','khalwa','ob1','ob2','ob3','q_ikh','q_shk','q_taw','q_tob','qiyama','zann','tree_wilt','tree_dry','tree_dead','ujb','um_halq','um_ihram','um_kaaba','um_maqam','um_masjid','um_miqat','um_sai','um_tawaf','umrah','w1','w2','w3','w4','w5','w6','w7','w8','w9','wudu']);
+const IL_IMG=new Set(['nifaq','mk_d1','mk_d2','mk_s1','mk_s2','mk_s3','mk_s4','mk_l1','mk_l2','mk_l3','mk_l4','mk_l5','mk_l6','mk_l7','mk_l8','mk_l9','mk_l10','aamal','amrad','ask','dunya','ghadab','ghafla','hasad','hiqd','khushu','kibr','m_book','m_climb','m_door','m_drop','m_heart','m_lamp','m_mosque','m_path','m_tree','majalis','method','qa','quran','riya','s1','s2','s3','s4','s5','s6','s8','s9','salat','sira','taammulat','tazkiya','tools','tree0','tree1','tree2','tree3','tree4','o_ayn','o_batn','o_farj','o_lisan','o_qadam','o_udhun','o_yad','aql','fudul','ghiba','kadhib','khalwa','ob1','ob2','ob3','q_ikh','q_shk','q_taw','q_tob','qiyama','zann','tree_wilt','tree_dry','tree_dead','ujb','um_halq','um_ihram','um_kaaba','um_maqam','um_masjid','um_miqat','um_sai','um_tawaf','umrah','w1','w2','w3','w4','w5','w6','w7','w8','w9','wudu']);
 function ilSvg(k,cls){if(k==='s7')k='s5';if(!IL_IMG.has(k)&&typeof IL_ALIAS!=='undefined'&&IL_ALIAS[k]){const a=[].concat(IL_ALIAS[k]);k=a.find(x=>IL_IMG.has(x))||a[a.length-1]}if(IL_IMG.has(k)&&!IL_BAD.has(k))return `<img class="il ${cls||''}" src="il/${k}.webp" alt="" loading="lazy" decoding="async" width="960" height="600" onerror="ilFail(this,'${k}','${cls||''}')">`;const f=IL[k]||IL.m_path;return `<svg class="il ${cls||''}" viewBox="0 0 320 200" role="img" aria-hidden="true"><defs>${ilClip('c_'+k)}</defs><g clip-path="url(#c_${k}c)">${f()}</g></svg>`}
 
 /* ================= simplified, picture-first interface ================= */
@@ -6672,7 +6745,7 @@ const SMT={maraka:'معركة اليوم',h_quran:'القرآن',h_ibadat:'عب�
 /* the Path's sections ("tabs"): each opens a page of picture tiles */
 const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['uyub','khushu','mraqib','munajat','khalwa'],
  h_ilm:['method','majalis','sira','qiyama','qa','ask'],h_shurut:['aqida','fiqh','tawba','mujahada']};
-const IL_ALIAS={maraka:['mk_s1','m_climb'],h_quran:'quran',h_ibadat:'salat',h_ruh:'taammulat',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],khalwa:['khalwa','taammulat'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
+const IL_ALIAS={maraka:['mk_s1','m_climb'],h_quran:'quran',h_ibadat:'salat',h_ruh:'taammulat',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],khalwa:['khalwa','taammulat'],nifaq:['nifaq','kadhib'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
 const viewHub=k=>()=>`<section>${smTiles(HUBS[k],HUBS[k].length%2?'odd':'')}</section>`;
 
 /* Today's four tiles: the user can change or remove each one (long press), and fill an empty place with "+" */
@@ -7035,8 +7108,8 @@ function deedPulse(){try{if(gated()||needOnboard())return;const [dn,tot]=amProgr
     document.body.appendChild(t);setTimeout(()=>t.classList.add('out'),all?2600:1300);setTimeout(()=>t.remove(),all?3200:1800)}
   dnLast=dn;dnDay=TODAY}catch(e){}}
 /* ---------- اعرف عيوبك: al-Ghazali's ways of knowing one's own faults (Ihya, Riyadat al-nafs), without a sheikh or a friend ----------
-   four doors: the self-test (36 items), critics (the tongues of enemies), the mirror (mixing with people), the night's muhasaba */
-const UY=[['kibr','الكبر'],['riya','الرياء'],['hasad','الحسد'],['hiqd','الحقد'],['ujb','العجب'],['ghadab','الغضب'],['dunya','حب الدنيا والشح'],
+   four doors: the self-test (3 items per fault), critics (the tongues of enemies), the mirror (mixing with people), the night's muhasaba */
+const UY=[['kibr','الكبر'],['riya','الرياء'],['nifaq','النفاق'],['hasad','الحسد'],['hiqd','الحقد'],['ujb','العجب'],['ghadab','الغضب'],['dunya','حب الدنيا والشح'],
  ['ghiba','الغيبة والنميمة'],['kadhib','الكذب'],['zann','سوء الظن'],['fudul','فضول الكلام'],['ghafla','الغفلة']];/* severity order */
 const UYN=Object.fromEntries(UY);
 const UY_HEART=new Set(['kibr','riya','hasad','hiqd','ujb','ghadab','dunya','ghafla']);/* the 8 diseases of the heart programme */
@@ -7054,7 +7127,9 @@ const UY_Q=[
  ['ghiba','ذكرتُ غائبًا بما يكره'],['ghiba','نقلتُ كلامًا عن أحد إلى غيره'],['ghiba','جلستُ في مجلس غيبة ولم أنكر'],
  ['kadhib','قلتُ غير الصحيح لأتجنّب لومًا أو حرجًا'],['kadhib','بالغتُ أو زدتُ في حكاية'],['kadhib','وعدتُ وأنا أعلم أني لن أفي'],
  ['fudul','تكلّمتُ فيما لا يعنيني أو سألتُ عن خصوصيات الناس'],['fudul','طال حديثي حتى ندمتُ'],['fudul','جادلتُ فيما لا فائدة منه لأثبت أني على حق'],
- ['zann','فسّرتُ تصرّف أحد بنية سيئة بلا دليل'],['zann','اتّهمتُ أحدًا ثم ظهرت براءته'],['zann','شككتُ في نصيحة أو هدية أنّ وراءها مصلحة']];
+ ['zann','فسّرتُ تصرّف أحد بنية سيئة بلا دليل'],['zann','اتّهمتُ أحدًا ثم ظهرت براءته'],['zann','شككتُ في نصيحة أو هدية أنّ وراءها مصلحة'],
+ /* added after the first 36: answers are stored by index, so new questions only go at the end */
+ ['nifaq','أخلفتُ وعدًا وأنا قادر على الوفاء به'],['nifaq','قصّرتُ في أمانة، أو أفشيتُ سرًّا اؤتُمنتُ عليه'],['nifaq','قلتُ في وجه أحد غير ما أقوله في غيبته']];
 const UY_A=['لم يحدث','مرة أو مرتين','كل أسبوع تقريبًا','كل يوم تقريبًا'];
 const UY_W={s:.55,c:.20,m:.10,a:.15};
 const UY_LV=['سالم في الغالب','أثر خفيف','عيب ظاهر','عيب غالب'],UY_LC=['var(--green)','var(--amber)','#E09A5B','var(--red)'];
@@ -7063,8 +7138,8 @@ const UY_DO={kibr:'استمع اليوم إلى من هو أصغر منك حتى
  ujb:'بعد كل طاعة اليوم قل: الحمد لله الذي وفّقني.',ghadab:'إذا غضبت اليوم فاسكت، وغيّر حالك: إن كنت قائمًا فاجلس.',
  dunya:'تصدّق اليوم بشيء تحبه، ولو قليلًا.',ghiba:'إذا ذُكر غائب، فاذكره بخير أو غيّر الحديث.',
  kadhib:'لا تعِد بما لا تقدر عليه، وصحّح فورًا كل كلمة غير دقيقة.',zann:'ابحث عن عذر قبل أن تحكم على أحد.',
- fudul:'ساعة صمت كل يوم، إلا عن ذكر أو حاجة.',ghafla:'جدّد نيتك قبل كل عمل، وقف وقفة حضور مع الله كل ساعة.'};
-const UY_HAD={fudul:'«من حسن إسلام المرء تركه ما لا يعنيه» (الترمذي)',zann:'«إياكم والظن فإن الظن أكذب الحديث» (متفق عليه)'};
+ nifaq:'أوفِ اليوم بكل وعد، وأدِّ كل أمانة، ولا تقل في غيبة أحد إلا ما تقوله في وجهه.',fudul:'ساعة صمت كل يوم، إلا عن ذكر أو حاجة.',ghafla:'جدّد نيتك قبل كل عمل، وقف وقفة حضور مع الله كل ساعة.'};
+const UY_HAD={nifaq:'«آية المنافق ثلاث: إذا حدّث كذب، وإذا وعد أخلف، وإذا اؤتمن خان» (متفق عليه)',fudul:'«من حسن إسلام المرء تركه ما لا يعنيه» (الترمذي)',zann:'«إياكم والظن فإن الظن أكذب الحديث» (متفق عليه)'};
 const UY_RS={'مجلس طال فيه الكلام':{fudul:1,ghiba:.5},'غضب':{ghadab:1},'تعب وغفلة':{ghafla:1},'صحبة معيّنة':{ghiba:.5,fudul:.5}};
 const UY_WHO=['قريب','زميل','خصم'],UY_CV=[['نعم',1],['فيه بعض الحق',.5],['لا',0]],UY_MV=[['نعم',1],['ربما',.5],['لا',0]];
 const UY_DAY=864e5;
@@ -7088,7 +7163,7 @@ function uyScore(T,ref){const U=uy(),S9={};UY_Q.forEach(([f],i)=>S9[f]=(S9[f]||0
   const mr=U.mr.filter(e=>e.t<=ref&&ref-e.t<=30*UY_DAY&&e.v!=null),mrOn=mr.length>0;
   const {A,nights}=uyMuh(ref),aOn=nights>=7,out={};
   UY.forEach(([f],i)=>{const C=cr.filter(e=>e.f===f).reduce((a,e)=>a+e.v,0),M=mr.filter(e=>e.f===f).reduce((a,e)=>a+e.v,0),Af=A[f]||0;
-    const src={s:S9[f]/9};let num=UY_W.s*src.s,den=UY_W.s;
+    const src={s:(S9[f]||0)/9};let num=UY_W.s*src.s,den=UY_W.s;
     if(crOn){src.c=Math.min(1,C/3);num+=UY_W.c*src.c;den+=UY_W.c}
     if(mrOn){src.m=Math.min(1,M/4);num+=UY_W.m*src.m;den+=UY_W.m}
     if(aOn&&UY_AF.has(f)){src.a=Math.min(1,Af/8);num+=UY_W.a*src.a;den+=UY_W.a}
@@ -7105,6 +7180,13 @@ function uyPend(){const n=Date.now();return uy().cr.filter(e=>e.f&&e.v==null&&n-
 /* ---- screens ---- */
 /* the four faults of the tongue and the mind get the same 40-day programme as the 8 diseases of the heart */
 QALB.push(
+ {id:'nifaq',n:'النفاق',v:'﴿يَا أَيُّهَا الَّذِينَ آمَنُوا لِمَ تَقُولُونَ مَا لَا تَفْعَلُونَ﴾',q:[],act:'أوفِ بكل وعد، وأدِّ كل أمانة، ولا تقل في غيبة أحد إلا ما تقوله في وجهه، وصلِّ الفجر والعشاء في وقتهما.',wird:['يا مقلّب القلوب ثبّت قلبي على دينك',100],mh:'هل أخلفتُ اليوم وعدًا، أو قصّرتُ في أمانة، أو أظهرتُ غير ما في قلبي؟',
+  learn:['حقيقته: النفاق أن يُظهر المرء الخير ويُبطن خلافه. وهو نوعان: نفاق اعتقادي، وهو إظهار الإسلام وإبطان الكفر، وصاحبه خارج من الملّة. ونفاق عملي، وهو أن يتخلّق المؤمن بخصلة من أخلاق المنافقين وفي قلبه الإيمان؛ وهو المقصود هنا.',
+   'علاماته: قال ﷺ: «آية المنافق ثلاث: إذا حدّث كذب، وإذا وعد أخلف، وإذا اؤتمن خان» (متفق عليه)، وفي رواية: «وإذا عاهد غدر، وإذا خاصم فجر». ومنها الكسل عن الصلاة والرياء فيها: ﴿وَإِذَا قَامُوا إِلَى الصَّلَاةِ قَامُوا كُسَالَىٰ يُرَاءُونَ النَّاسَ وَلَا يَذْكُرُونَ اللَّهَ إِلَّا قَلِيلًا﴾، وأن يكون المرء ذا وجهين.',
+   'أسبابه: حب المدح والخوف من ذمّ الناس، وطلب المصلحة الدنيوية، وضعف اليقين، واعتياد المجاملة والكذب حتى يختلف الظاهر عن الباطن.',
+   'خطره: إذا اجتمعت خصاله في المرء كان «منافقًا خالصًا» كما في الحديث (متفق عليه)، وقد تجرّ صاحبها إلى ما هو أعظم. وكان الصحابة يخافونه على أنفسهم؛ قال ابن أبي مُليكة: «أدركتُ ثلاثين من أصحاب النبي ﷺ كلهم يخاف النفاق على نفسه» (ذكره البخاري).',
+   'علاجه: الصدق في الحديث، والوفاء بالوعد، وأداء الأمانة، وأن يستوي سرّك وعلانيتك، والمحافظة على الصلاة في وقتها ولا سيما الفجر والعشاء: «ليس صلاة أثقل على المنافقين من الفجر والعشاء» (متفق عليه)، وكثرة ذكر الله، ومحاسبة النفس كل ليلة، والدعاء: «يا مقلّب القلوب ثبّت قلبي على دينك».',
+   'ضدّه الصدق واستواء الظاهر والباطن. قال الحسن البصري في النفاق: «ما خافه إلا مؤمن، ولا أمنه إلا منافق» (ذكره البخاري).']},
  {id:'ghiba',n:'الغيبة والنميمة',v:'﴿وَلَا يَغْتَب بَّعْضُكُم بَعْضًا﴾',q:[],act:'إذا ذُكر غائب فاذكره بخير أو غيّر الحديث، ولا تنقل كلامًا عن أحد إلى غيره.',wird:['أستغفر الله وأتوب إليه',100],mh:'هل ذكرتُ اليوم أحدًا بما يكره، أو نقلتُ كلامًا؟ وهل رددتُ عن عرض أخ لي؟',
   learn:['حقيقتها: الغيبة ذكرك أخاك بما يكره وهو غائب، ولو كان ما تقوله فيه حقًّا. والنميمة نقل الكلام بين الناس على وجه الإفساد.',
    'علاماتها: أن يجد المرء لذة في الحديث عن الناس، وأن يكثر قوله «قال فلان» و«فعل فلان»، وأن يجلس في مجالس الغيبة فلا ينكر.',
@@ -7183,7 +7265,7 @@ function uyMain(){const T=uyLast(),R=uyRes(),B=qb();
   const ord=R?uyRank(R).map(x=>x.f):UY.map(x=>x[0]);
   return `<section class="uy">${uyPendCard()}${uyCurCard()}
    ${T?uyResults(T):uyIntro()}
-   <div class="sh"><h2>العيوب الاثنا عشر</h2></div><p class="meta uy-sub">${R?'مرتّبة حسب تشخيصك. اختر عيبًا لتعرفه وتعالجه.':'اختر عيبًا لتعرف حقيقته وعلاماته وعلاجه.'}</p>
+   <div class="sh"><h2>العيوب الثلاثة عشر</h2></div><p class="meta uy-sub">${R?'مرتّبة حسب تشخيصك. اختر عيبًا لتعرفه وتعالجه.':'اختر عيبًا لتعرف حقيقته وعلاماته وعلاجه.'}</p>
    <div class="sm-tiles c3 uy-tiles">${ord.map(f=>{const x=R&&R[f];return `<button class="sm-tile" data-uyf="${f}">${ilSvg(f)}<span>${UYN[f]}</span>${x?`<i class="uy-dot" style="background:${UY_LC[x.lv]}" aria-label="${esc(Tx(UY_LV[x.lv]))}"></i>`:''}${B.cur&&B.cur.id===f?'<i class="uy-now">تعالجه</i>':''}</button>`}).join('')}</div>
    ${uyDoors()}${uyHazm()}
    ${B.hist.length?`<div class="sh" style="margin-top:14px"><h2>ما عالجته</h2></div><div class="box qb-list">${B.hist.slice().reverse().map(h=>`<div class="qb-dz"><b>${UYN[h.id]||qbD(h.id).n}</b><span class="meta">${fmtD(h.start)} – ${fmtD(h.end)}</span><span class="qb-lv">${qbLevel(h.pre)[0]} ← ${qbLevel(h.post)[0]}</span></div>`).join('')}</div>`:''}</section>`}
@@ -7191,18 +7273,19 @@ function uyHazm(){return `<details class="box uy-hz"><summary><b>ابن حزم �
    ${uyQ('كانت فيّ عيوب، فلم أزل بالرياضة واطّلاعي على ما قالت الأنبياء صلوات الله عليهم والأفاضل من الحكماء المتأخرين والمتقدمين في الأخلاق وفي آداب النفس أعاني مداواتها، حتى أعان الله عز وجل على أكثر ذلك بتوفيقه ومنّه.')}
    ${Object.entries(UY_IHC).map(([f,[n,t]])=>`<div class="uy-ihc"><b class="notr" dir="rtl">${n}</b>${uyQ(t)}<button class="uy-lnk" data-uyf="${f}"><span>${UYN[f]}</span> ←</button></div>`).join('')}
    ${uyQ('طوبى لمن علم من عيوب نفسه أكثر مما يعلم الناس منها.')}</div></details>`}
+const esc0=s=>s;/* learn texts are trusted app content */
 function uyFault(f){const R=uyRes(),x=R&&R[f],T=uyLast(),B=qb(),d=QALB.find(q=>q.id===f),A=(AMRAD[LANG]||AMRAD.ar)[f],ar=LANG==='ar'||!A;
   const items=x&&T?UY_Q.map((q,i)=>[q,T.ans[i]]).filter(([q,v])=>q[0]===f&&v>=2):[];
   const cur=B.cur&&B.cur.id===f,ihc=UY_IHC[f];
-  const learn=ar?d.learn.map((t,i)=>{const k=t.indexOf(':');return `<div class="uy-ls"><h4>${UY_LT[i]}</h4><p class="notr" dir="rtl">${k>0&&k<14?t.slice(k+1).trim():t}</p></div>`}).join('')
+  const learn=ar?d.learn.map((t,i)=>{const tt=LANG==='ar'?t:Tx(t),tr=tt!==t,k=tt.indexOf(':');return `<div class="uy-ls"><h4>${UY_LT[i]}</h4><p class="notr" dir="${tr?'auto':'rtl'}">${esc0((x=>tr?x.charAt(0).toUpperCase()+x.slice(1):x)(k>0&&k<(tr?24:14)?tt.slice(k+1).trim():tt))}</p></div>`}).join('')
     :`<div class="uy-ls"><h4>مَا هُوَ؟</h4><p class="notr">${A[1]}</p></div><div class="uy-ls"><h4>عَلَامَتُهُ</h4><p class="notr">${A[2]}</p></div><div class="uy-ls"><h4>عِلَاجُهُ</h4><p class="notr">${A[3]}</p></div>`;
   return `<section class="uy uy-f"><div class="btns uy-back"><button class="btn small" data-uyf="">كل العيوب</button></div>
    <article class="box uy-fh">${ilSvg(f)}<div class="pad"><h2>${UYN[f]}</h2><p class="verse notr" dir="rtl">${d.v}</p>
     ${x?`${uyBar(x)}<p class="uy-lv2" style="color:${UY_LC[x.lv]}">${UY_LV[x.lv]}${x.conf?' · <span>مؤكَّد</span>':''}</p>`:`<p class="meta">لم تشخّص نفسك بعد.</p><div class="btns"><button class="btn small" data-uystart="1">ابدأ التشخيص</button></div>`}
     ${items.length?`<p class="uy-k">ما ظهر منه في أجوبتك</p><ul class="uy-it">${items.map(([q])=>`<li>${q[1]}</li>`).join('')}</ul>`:''}</div></article>
    <div class="sh"><h2>تعريفه</h2></div><article class="box pad uy-learn">${learn}</article>
-   <div class="sh"><h2>قال ابن حزم</h2></div><article class="box pad uy-ih">${UY_IH[f].map(uyQ).join('')}
-    ${ihc?`<div class="uy-ihc"><p class="uy-k"><span>وكان يداوي في نفسه:</span> <b class="notr">${ihc[0]}</b></p>${uyQ(ihc[1])}</div>`:''}</article>
+   ${UY_IH[f]?`<div class="sh"><h2>قال ابن حزم</h2></div><article class="box pad uy-ih">${UY_IH[f].map(uyQ).join('')}
+    ${ihc?`<div class="uy-ihc"><p class="uy-k"><span>وكان يداوي في نفسه:</span> <b class="notr">${ihc[0]}</b></p>${uyQ(ihc[1])}</div>`:''}</article>`:''}
    ${f==='ujb'?uyUjbBox():''}
    <div class="sh"><h2>علاجه</h2></div>
    <article class="box pad uy-cure"><div class="uy-do"><small>عمل اليوم</small><p>${UY_DO[f]}</p>${UY_HAD[f]?`<p class="verse uy-had">${UY_HAD[f]}</p>`:''}</div>
@@ -7216,7 +7299,7 @@ function uyUjbBox(){return `<div class="sh"><h2>بماذا تُعجَب؟</h2></
 function uyIntro(){return `<article class="box uy-intro">${ilSvg('uyub')}<div class="pad">
   <p class="uy-lead">قال الغزالي: إذا أراد الله بعبد خيرًا بصّره بعيوب نفسه.</p>
   <p class="muted">تعرف عيوبك هنا من أربعة أبواب، كلها بينك وبين نفسك:</p>
-  <ol class="uy-ol"><li><b>باب النفس:</b> <span>36 سؤالًا عن الأسبوعين الأخيرين.</span></li><li><b>باب المنتقدين:</b> <span>تسجّل ما انتُقدت به، ثم تحكم عليه بعد يوم.</span></li>
+  <ol class="uy-ol"><li><b>باب النفس:</b> <span>39 سؤالًا عن الأسبوعين الأخيرين.</span></li><li><b>باب المنتقدين:</b> <span>تسجّل ما انتُقدت به، ثم تحكم عليه بعد يوم.</span></li>
    <li><b>باب المرآة:</b> <span>كل عيب تراه في غيرك تسأل عنه نفسك.</span></li><li><b>شاهد المحاسبة:</b> <span>يُحسب تلقائيًا من زلّات محاسبة الليلة.</span></li></ol>
   <p class="meta">يبقى كل شيء في هاتفك، ولا تُحفظ أسماء الناس.</p>
   <div class="btns"><button class="btn ok" data-uystart="1">ابدأ باب النفس</button></div></div></article>`}
@@ -7229,7 +7312,7 @@ function uyPendCard(){const P=uyPend();if(!P.length)return '';const e=P[0];
   return `<article class="box pad uy-pend"><p class="uy-k">مرّ يوم على انتقاد سجّلته</p><p><span>انتُقدتَ في:</span> <b>${e.f==='other'?esc(e.o||Tx('أخرى')):UYN[e.f]}</b>${e.w!=null?` · <span>${UY_WHO[e.w]}</span>`:''}</p>
    <h3>هل فيما قيل حق؟</h3>${uyQ('ذمّ الناس إن كان بحقّ فربما كان سببًا إلى تجنّب ما يُعاب عليه، وإن كان بباطل فصبرتَ اكتسبت فضلًا زائدًا بالحلم والصبر.')}<div class="uy-as">${UY_CV.map(([l,v])=>`<button class="btn${v===1?' ok':''}" data-uycv="${e.t}:${v}">${l}</button>`).join('')}<button class="btn" data-uycv="${e.t}:later">لا أدري بعد</button></div></article>`}
 function uyTest(){const r=uyRun,qi=r.ord[r.i],q=UY_Q[qi];
-  return `<section class="uy"><div class="uy-pg"><i style="width:${r.i/36*100}%"></i></div><p class="meta uy-n">${uyNum((r.i+1)+' / 36')}</p>
+  return `<section class="uy"><div class="uy-pg"><i style="width:${r.i/UY_Q.length*100}%"></i></div><p class="meta uy-n">${uyNum((r.i+1)+' / '+UY_Q.length)}</p>
    <article class="box pad uy-q"><p class="uy-pre">في الأسبوعين الأخيرين…</p><h3>${q[1]}</h3></article>
    <div class="uy-as v">${UY_A.map((a,k)=>`<button class="btn${r.ans[qi]===k?' ok':''}" data-uya="${k}">${a}</button>`).join('')}</div>
    <div class="btns"><button class="btn small" data-uyback="1"${r.i?'':' disabled'}>السابق</button><button class="btn small" data-uyquit="1">إيقاف</button></div></section>`}
@@ -7272,9 +7355,9 @@ function uySheet(){const o=uyOpen;if(!o)return;let h='';
 function uyDone(){uyOpen=null;sheetClose();if(screen==='uyub')render()}
 
 document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;const d=t.dataset,U=()=>uy();
-  if(d.uystart){const ord=[...Array(36).keys()];for(let i=35;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ord[i],ord[j]]=[ord[j],ord[i]]}
+  if(d.uystart){const ord=[...Array(UY_Q.length).keys()];for(let i=ord.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ord[i],ord[j]]=[ord[j],ord[i]]}
     uyRun={ord,ans:{},i:0,t0:Date.now()};uyF=null;uyProg=false;if(screen!=='uyub')return go('uyub');SCR().scrollTo(0,0);return render()}
-  if(d.uya!==undefined&&uyRun){const r=uyRun;r.ans[r.ord[r.i]]=+d.uya;if(r.i<35){r.i++;return render()}
+  if(d.uya!==undefined&&uyRun){const r=uyRun;r.ans[r.ord[r.i]]=+d.uya;if(r.i<UY_Q.length-1){r.i++;return render()}
     const T={t:Date.now(),d:TODAY,ans:UY_Q.map((q,i)=>r.ans[i]||0),dur:Math.round((Date.now()-r.t0)/1000)};uyRun=null;
     const X=U();X.tests.push(T);while(X.tests.length>12)X.tests.shift();save();SCR().scrollTo(0,0);return render()}
   if(d.uyback&&uyRun){if(uyRun.i)uyRun.i--;return render()}

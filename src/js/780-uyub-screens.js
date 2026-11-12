@@ -1,6 +1,13 @@
 /* ---- screens ---- */
 /* the four faults of the tongue and the mind get the same 40-day programme as the 8 diseases of the heart */
 QALB.push(
+ {id:'nifaq',n:'النفاق',v:'﴿يَا أَيُّهَا الَّذِينَ آمَنُوا لِمَ تَقُولُونَ مَا لَا تَفْعَلُونَ﴾',q:[],act:'أوفِ بكل وعد، وأدِّ كل أمانة، ولا تقل في غيبة أحد إلا ما تقوله في وجهه، وصلِّ الفجر والعشاء في وقتهما.',wird:['يا مقلّب القلوب ثبّت قلبي على دينك',100],mh:'هل أخلفتُ اليوم وعدًا، أو قصّرتُ في أمانة، أو أظهرتُ غير ما في قلبي؟',
+  learn:['حقيقته: النفاق أن يُظهر المرء الخير ويُبطن خلافه. وهو نوعان: نفاق اعتقادي، وهو إظهار الإسلام وإبطان الكفر، وصاحبه خارج من الملّة. ونفاق عملي، وهو أن يتخلّق المؤمن بخصلة من أخلاق المنافقين وفي قلبه الإيمان؛ وهو المقصود هنا.',
+   'علاماته: قال ﷺ: «آية المنافق ثلاث: إذا حدّث كذب، وإذا وعد أخلف، وإذا اؤتمن خان» (متفق عليه)، وفي رواية: «وإذا عاهد غدر، وإذا خاصم فجر». ومنها الكسل عن الصلاة والرياء فيها: ﴿وَإِذَا قَامُوا إِلَى الصَّلَاةِ قَامُوا كُسَالَىٰ يُرَاءُونَ النَّاسَ وَلَا يَذْكُرُونَ اللَّهَ إِلَّا قَلِيلًا﴾، وأن يكون المرء ذا وجهين.',
+   'أسبابه: حب المدح والخوف من ذمّ الناس، وطلب المصلحة الدنيوية، وضعف اليقين، واعتياد المجاملة والكذب حتى يختلف الظاهر عن الباطن.',
+   'خطره: إذا اجتمعت خصاله في المرء كان «منافقًا خالصًا» كما في الحديث (متفق عليه)، وقد تجرّ صاحبها إلى ما هو أعظم. وكان الصحابة يخافونه على أنفسهم؛ قال ابن أبي مُليكة: «أدركتُ ثلاثين من أصحاب النبي ﷺ كلهم يخاف النفاق على نفسه» (ذكره البخاري).',
+   'علاجه: الصدق في الحديث، والوفاء بالوعد، وأداء الأمانة، وأن يستوي سرّك وعلانيتك، والمحافظة على الصلاة في وقتها ولا سيما الفجر والعشاء: «ليس صلاة أثقل على المنافقين من الفجر والعشاء» (متفق عليه)، وكثرة ذكر الله، ومحاسبة النفس كل ليلة، والدعاء: «يا مقلّب القلوب ثبّت قلبي على دينك».',
+   'ضدّه الصدق واستواء الظاهر والباطن. قال الحسن البصري في النفاق: «ما خافه إلا مؤمن، ولا أمنه إلا منافق» (ذكره البخاري).']},
  {id:'ghiba',n:'الغيبة والنميمة',v:'﴿وَلَا يَغْتَب بَّعْضُكُم بَعْضًا﴾',q:[],act:'إذا ذُكر غائب فاذكره بخير أو غيّر الحديث، ولا تنقل كلامًا عن أحد إلى غيره.',wird:['أستغفر الله وأتوب إليه',100],mh:'هل ذكرتُ اليوم أحدًا بما يكره، أو نقلتُ كلامًا؟ وهل رددتُ عن عرض أخ لي؟',
   learn:['حقيقتها: الغيبة ذكرك أخاك بما يكره وهو غائب، ولو كان ما تقوله فيه حقًّا. والنميمة نقل الكلام بين الناس على وجه الإفساد.',
    'علاماتها: أن يجد المرء لذة في الحديث عن الناس، وأن يكثر قوله «قال فلان» و«فعل فلان»، وأن يجلس في مجالس الغيبة فلا ينكر.',
@@ -79,7 +86,7 @@ function uyMain(){const T=uyLast(),R=uyRes(),B=qb();
   const ord=R?uyRank(R).map(x=>x.f):UY.map(x=>x[0]);
   return `<section class="uy">${uyPendCard()}${uyCurCard()}
    ${T?uyResults(T):uyIntro()}
-   <div class="sh"><h2>العيوب الاثنا عشر</h2></div><p class="meta uy-sub">${R?'مرتّبة حسب تشخيصك. اختر عيبًا لتعرفه وتعالجه.':'اختر عيبًا لتعرف حقيقته وعلاماته وعلاجه.'}</p>
+   <div class="sh"><h2>العيوب الثلاثة عشر</h2></div><p class="meta uy-sub">${R?'مرتّبة حسب تشخيصك. اختر عيبًا لتعرفه وتعالجه.':'اختر عيبًا لتعرف حقيقته وعلاماته وعلاجه.'}</p>
    <div class="sm-tiles c3 uy-tiles">${ord.map(f=>{const x=R&&R[f];return `<button class="sm-tile" data-uyf="${f}">${ilSvg(f)}<span>${UYN[f]}</span>${x?`<i class="uy-dot" style="background:${UY_LC[x.lv]}" aria-label="${esc(Tx(UY_LV[x.lv]))}"></i>`:''}${B.cur&&B.cur.id===f?'<i class="uy-now">تعالجه</i>':''}</button>`}).join('')}</div>
    ${uyDoors()}${uyHazm()}
    ${B.hist.length?`<div class="sh" style="margin-top:14px"><h2>ما عالجته</h2></div><div class="box qb-list">${B.hist.slice().reverse().map(h=>`<div class="qb-dz"><b>${UYN[h.id]||qbD(h.id).n}</b><span class="meta">${fmtD(h.start)} – ${fmtD(h.end)}</span><span class="qb-lv">${qbLevel(h.pre)[0]} ← ${qbLevel(h.post)[0]}</span></div>`).join('')}</div>`:''}</section>`}
@@ -87,18 +94,19 @@ function uyHazm(){return `<details class="box uy-hz"><summary><b>ابن حزم �
    ${uyQ('كانت فيّ عيوب، فلم أزل بالرياضة واطّلاعي على ما قالت الأنبياء صلوات الله عليهم والأفاضل من الحكماء المتأخرين والمتقدمين في الأخلاق وفي آداب النفس أعاني مداواتها، حتى أعان الله عز وجل على أكثر ذلك بتوفيقه ومنّه.')}
    ${Object.entries(UY_IHC).map(([f,[n,t]])=>`<div class="uy-ihc"><b class="notr" dir="rtl">${n}</b>${uyQ(t)}<button class="uy-lnk" data-uyf="${f}"><span>${UYN[f]}</span> ←</button></div>`).join('')}
    ${uyQ('طوبى لمن علم من عيوب نفسه أكثر مما يعلم الناس منها.')}</div></details>`}
+const esc0=s=>s;/* learn texts are trusted app content */
 function uyFault(f){const R=uyRes(),x=R&&R[f],T=uyLast(),B=qb(),d=QALB.find(q=>q.id===f),A=(AMRAD[LANG]||AMRAD.ar)[f],ar=LANG==='ar'||!A;
   const items=x&&T?UY_Q.map((q,i)=>[q,T.ans[i]]).filter(([q,v])=>q[0]===f&&v>=2):[];
   const cur=B.cur&&B.cur.id===f,ihc=UY_IHC[f];
-  const learn=ar?d.learn.map((t,i)=>{const k=t.indexOf(':');return `<div class="uy-ls"><h4>${UY_LT[i]}</h4><p class="notr" dir="rtl">${k>0&&k<14?t.slice(k+1).trim():t}</p></div>`}).join('')
+  const learn=ar?d.learn.map((t,i)=>{const tt=LANG==='ar'?t:Tx(t),tr=tt!==t,k=tt.indexOf(':');return `<div class="uy-ls"><h4>${UY_LT[i]}</h4><p class="notr" dir="${tr?'auto':'rtl'}">${esc0((x=>tr?x.charAt(0).toUpperCase()+x.slice(1):x)(k>0&&k<(tr?24:14)?tt.slice(k+1).trim():tt))}</p></div>`}).join('')
     :`<div class="uy-ls"><h4>مَا هُوَ؟</h4><p class="notr">${A[1]}</p></div><div class="uy-ls"><h4>عَلَامَتُهُ</h4><p class="notr">${A[2]}</p></div><div class="uy-ls"><h4>عِلَاجُهُ</h4><p class="notr">${A[3]}</p></div>`;
   return `<section class="uy uy-f"><div class="btns uy-back"><button class="btn small" data-uyf="">كل العيوب</button></div>
    <article class="box uy-fh">${ilSvg(f)}<div class="pad"><h2>${UYN[f]}</h2><p class="verse notr" dir="rtl">${d.v}</p>
     ${x?`${uyBar(x)}<p class="uy-lv2" style="color:${UY_LC[x.lv]}">${UY_LV[x.lv]}${x.conf?' · <span>مؤكَّد</span>':''}</p>`:`<p class="meta">لم تشخّص نفسك بعد.</p><div class="btns"><button class="btn small" data-uystart="1">ابدأ التشخيص</button></div>`}
     ${items.length?`<p class="uy-k">ما ظهر منه في أجوبتك</p><ul class="uy-it">${items.map(([q])=>`<li>${q[1]}</li>`).join('')}</ul>`:''}</div></article>
    <div class="sh"><h2>تعريفه</h2></div><article class="box pad uy-learn">${learn}</article>
-   <div class="sh"><h2>قال ابن حزم</h2></div><article class="box pad uy-ih">${UY_IH[f].map(uyQ).join('')}
-    ${ihc?`<div class="uy-ihc"><p class="uy-k"><span>وكان يداوي في نفسه:</span> <b class="notr">${ihc[0]}</b></p>${uyQ(ihc[1])}</div>`:''}</article>
+   ${UY_IH[f]?`<div class="sh"><h2>قال ابن حزم</h2></div><article class="box pad uy-ih">${UY_IH[f].map(uyQ).join('')}
+    ${ihc?`<div class="uy-ihc"><p class="uy-k"><span>وكان يداوي في نفسه:</span> <b class="notr">${ihc[0]}</b></p>${uyQ(ihc[1])}</div>`:''}</article>`:''}
    ${f==='ujb'?uyUjbBox():''}
    <div class="sh"><h2>علاجه</h2></div>
    <article class="box pad uy-cure"><div class="uy-do"><small>عمل اليوم</small><p>${UY_DO[f]}</p>${UY_HAD[f]?`<p class="verse uy-had">${UY_HAD[f]}</p>`:''}</div>
@@ -112,7 +120,7 @@ function uyUjbBox(){return `<div class="sh"><h2>بماذا تُعجَب؟</h2></
 function uyIntro(){return `<article class="box uy-intro">${ilSvg('uyub')}<div class="pad">
   <p class="uy-lead">قال الغزالي: إذا أراد الله بعبد خيرًا بصّره بعيوب نفسه.</p>
   <p class="muted">تعرف عيوبك هنا من أربعة أبواب، كلها بينك وبين نفسك:</p>
-  <ol class="uy-ol"><li><b>باب النفس:</b> <span>36 سؤالًا عن الأسبوعين الأخيرين.</span></li><li><b>باب المنتقدين:</b> <span>تسجّل ما انتُقدت به، ثم تحكم عليه بعد يوم.</span></li>
+  <ol class="uy-ol"><li><b>باب النفس:</b> <span>39 سؤالًا عن الأسبوعين الأخيرين.</span></li><li><b>باب المنتقدين:</b> <span>تسجّل ما انتُقدت به، ثم تحكم عليه بعد يوم.</span></li>
    <li><b>باب المرآة:</b> <span>كل عيب تراه في غيرك تسأل عنه نفسك.</span></li><li><b>شاهد المحاسبة:</b> <span>يُحسب تلقائيًا من زلّات محاسبة الليلة.</span></li></ol>
   <p class="meta">يبقى كل شيء في هاتفك، ولا تُحفظ أسماء الناس.</p>
   <div class="btns"><button class="btn ok" data-uystart="1">ابدأ باب النفس</button></div></div></article>`}
@@ -125,7 +133,7 @@ function uyPendCard(){const P=uyPend();if(!P.length)return '';const e=P[0];
   return `<article class="box pad uy-pend"><p class="uy-k">مرّ يوم على انتقاد سجّلته</p><p><span>انتُقدتَ في:</span> <b>${e.f==='other'?esc(e.o||Tx('أخرى')):UYN[e.f]}</b>${e.w!=null?` · <span>${UY_WHO[e.w]}</span>`:''}</p>
    <h3>هل فيما قيل حق؟</h3>${uyQ('ذمّ الناس إن كان بحقّ فربما كان سببًا إلى تجنّب ما يُعاب عليه، وإن كان بباطل فصبرتَ اكتسبت فضلًا زائدًا بالحلم والصبر.')}<div class="uy-as">${UY_CV.map(([l,v])=>`<button class="btn${v===1?' ok':''}" data-uycv="${e.t}:${v}">${l}</button>`).join('')}<button class="btn" data-uycv="${e.t}:later">لا أدري بعد</button></div></article>`}
 function uyTest(){const r=uyRun,qi=r.ord[r.i],q=UY_Q[qi];
-  return `<section class="uy"><div class="uy-pg"><i style="width:${r.i/36*100}%"></i></div><p class="meta uy-n">${uyNum((r.i+1)+' / 36')}</p>
+  return `<section class="uy"><div class="uy-pg"><i style="width:${r.i/UY_Q.length*100}%"></i></div><p class="meta uy-n">${uyNum((r.i+1)+' / '+UY_Q.length)}</p>
    <article class="box pad uy-q"><p class="uy-pre">في الأسبوعين الأخيرين…</p><h3>${q[1]}</h3></article>
    <div class="uy-as v">${UY_A.map((a,k)=>`<button class="btn${r.ans[qi]===k?' ok':''}" data-uya="${k}">${a}</button>`).join('')}</div>
    <div class="btns"><button class="btn small" data-uyback="1"${r.i?'':' disabled'}>السابق</button><button class="btn small" data-uyquit="1">إيقاف</button></div></section>`}

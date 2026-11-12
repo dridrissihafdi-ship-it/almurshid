@@ -11,9 +11,9 @@ function uySheet(){const o=uyOpen;if(!o)return;let h='';
 function uyDone(){uyOpen=null;sheetClose();if(screen==='uyub')render()}
 
 document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;const d=t.dataset,U=()=>uy();
-  if(d.uystart){const ord=[...Array(36).keys()];for(let i=35;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ord[i],ord[j]]=[ord[j],ord[i]]}
+  if(d.uystart){const ord=[...Array(UY_Q.length).keys()];for(let i=ord.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ord[i],ord[j]]=[ord[j],ord[i]]}
     uyRun={ord,ans:{},i:0,t0:Date.now()};uyF=null;uyProg=false;if(screen!=='uyub')return go('uyub');SCR().scrollTo(0,0);return render()}
-  if(d.uya!==undefined&&uyRun){const r=uyRun;r.ans[r.ord[r.i]]=+d.uya;if(r.i<35){r.i++;return render()}
+  if(d.uya!==undefined&&uyRun){const r=uyRun;r.ans[r.ord[r.i]]=+d.uya;if(r.i<UY_Q.length-1){r.i++;return render()}
     const T={t:Date.now(),d:TODAY,ans:UY_Q.map((q,i)=>r.ans[i]||0),dur:Math.round((Date.now()-r.t0)/1000)};uyRun=null;
     const X=U();X.tests.push(T);while(X.tests.length>12)X.tests.shift();save();SCR().scrollTo(0,0);return render()}
   if(d.uyback&&uyRun){if(uyRun.i)uyRun.i--;return render()}
