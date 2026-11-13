@@ -33,7 +33,9 @@ section{display:flex;flex-direction:column;gap:12px;margin-bottom:26px}
 .prep-l{margin:0;padding-inline-start:18px;display:flex;flex-direction:column;gap:6px}
 .prep-l small,.prep-r small{display:block;color:var(--muted);font-size:12.5px;line-height:1.6}
 .prep-r{display:flex;flex-wrap:wrap;align-items:center;gap:8px;justify-content:space-between;border-top:1px solid var(--card-line);padding-top:10px}
-.prep-r .t{flex:1 1 180px;min-width:0}.prep-r .confirm{flex:1 1 100%}
+.prep-r .t{flex:1 1 180px;min-width:0}
+.prep-x{margin-top:4px}.prep-x summary{cursor:pointer;color:var(--gold);font-size:12.5px;font-weight:600;min-height:30px;display:flex;align-items:center}.prep-x p{margin:4px 0 2px;font-size:13.5px;line-height:1.75;color:var(--ink)}
+.prep-had{font-size:13px;line-height:1.75;color:var(--muted);border-inline-start:3px solid var(--gold);padding-inline-start:10px;margin:2px 0 10px}.prep-r .confirm{flex:1 1 100%}
 .orow{display:flex;align-items:center;gap:14px}
 .ring{flex:none;width:64px;height:64px;position:relative}
 .ring svg{width:64px;height:64px;transform:rotate(-90deg)}
