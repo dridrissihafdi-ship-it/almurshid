@@ -14,7 +14,7 @@ function umCounter(i){const R=umS(),c=UM_CNT[i],n=R[c];if(!c)return '';
   return `<div class="umc">
    <p class="umc-h"><span>${sai?'أشواط السعي':'أشواط الطواف'}</span> <b dir="ltr">${n} / 7</b></p>
    <div class="umc-dots" aria-hidden="true">${Array.from({length:7},(_,k)=>`<i class="${k<n?'on':''}"></i>`).join('')}</div>
-   ${n<7?`<p class="umc-next"><span>الشوط</span> ${n+1}: <span>${dir}</span></p><button class="umc-b" data-umc="${c}" data-v="1">${sai?'وصلتُ، أتممتُ شوطًا':'مررتُ بالحجر الأسود، أتممتُ شوطًا'}</button>`
+   ${n<7?`<p class="umc-next"><span>الشوط</span> ${n+1}: <span>${dir}</span></p>${!sai&&umU().tw7?`<ol class="umc-tw">${umTw(umU(),umU().tw7[n],n,1)}</ol>`:''}<button class="umc-b" data-umc="${c}" data-v="1">${sai?'وصلتُ، أتممتُ شوطًا':'مررتُ بالحجر الأسود، أتممتُ شوطًا'}</button>`
      :`<p class="umc-done">${sai?'أتممتَ السعي سبعة أشواط، وانتهيت عند المروة ✓':'أتممتَ الطواف سبعة أشواط ✓'}</p>`}
    ${n?`<button class="lnk umc-u" data-umc="${c}" data-v="-1">تراجع شوطًا</button>`:''}
    <p class="meta umc-n">إن شككتَ في العدد فخذ بالأقل.</p></div>`}
