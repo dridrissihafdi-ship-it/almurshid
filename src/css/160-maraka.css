@@ -155,3 +155,5 @@ html[dir=rtl] .up-v summary:before{content:'◂'}html[dir=rtl] .up-v[open] summa
 .up-tabs{grid-template-columns:repeat(4,1fr)}.up-tabs button{padding:8px 6px;font-size:13px}
 
 .uy-hadt{font-size:13px;color:var(--muted);margin:4px 0 0;font-style:italic}
+
+.um-hd{margin:12px 0 4px;background:var(--gold-soft,rgba(201,162,74,.12));border-radius:12px;padding:10px 12px}.um-hd-h{margin:0 0 6px;color:var(--gold);font-weight:700;font-size:14px}.um-hd ul{margin:0;padding-inline-start:18px;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.75}

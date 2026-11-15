@@ -2,16 +2,12 @@
    Each stage lists what the seeker confirms (r: required by the Maliki school as the guide states it; others are sunna).
    The tawaf and the sa'i are confirmed by counting seven rounds. Progress is kept for the current umrah. */
 const UM_CHK=[
-  [['اغتسلتُ',0],['لبستُ ثياب الإحرام (والمرأة ثيابها الساترة)',1],['تبتُ وطلبتُ المسامحة وقضيتُ ديوني أو وكّلتُ من يقضيها',0]],
-  [['صلّيتُ ركعتين',0],['نويتُ العمرة بقلبي',1],['لبّيتُ',1]],
-  [['دخلتُ برجلي اليمنى',0],['أنا على وضوء للطواف',1],['دعوتُ عند رؤية الكعبة',0]],
-  [['بدأتُ من الحجر الأسود، والكعبة عن يساري',1],['لم أدخل الحِجر',1]],
-  [['صلّيتُ ركعتي الطواف',1],['شربتُ من زمزم',0]],
+  [['اغتسلتُ',0],['لبستُ ثياب الإحرام (والمرأة ثيابها الساترة)',1],['تبتُ وطلبتُ المسامحة وقضيتُ ديوني أو وكّلتُ من يقضيها',0],['نويتُ العمرة بقلبي',1],['لبّيتُ',1]],
+  [['أنا على وضوء للطواف',1],['بدأتُ من الحجر الأسود، والكعبة عن يساري',1],['لم أدخل الحِجر',1],['صلّيتُ ركعتي الطواف',1],['شربتُ من زمزم',0]],
   [['بدأتُ من الصفا',1],['ذكرتُ الله على الصفا مستقبلًا الكعبة',0]],
-  [['حلقتُ أو قصّرتُ من كل شعري (والمرأة قدر أنملة)',1]],
-  [['حمدتُ الله ودعوتُ لنفسي ولوالديّ وللمسلمين',0]]];
-const UM_CNT={3:'tw',5:'sa'},UM_LAST=6;
-function umS(){const R=S.umr=S.umr||{};R.chk=R.chk||{};R.ok=R.ok||[];R.tw=R.tw||0;R.sa=R.sa||0;return R}
+  [['حلقتُ أو قصّرتُ من كل شعري (والمرأة قدر أنملة)',1],['حمدتُ الله ودعوتُ لنفسي ولوالديّ وللمسلمين',0]]];
+const UM_CNT={1:'tw',2:'sa'},UM_LAST=3;
+function umS(){if(S.umr&&S.umr.v!==4){S.umr={v:4};S.umStep=0}const R=S.umr=S.umr||{v:4};R.chk=R.chk||{};R.ok=R.ok||[];R.tw=R.tw||0;R.sa=R.sa||0;return R}
 const umNeed=i=>{const R=umS(),c=UM_CNT[i];return UM_CHK[i].every(([,r],j)=>!r||R.chk[i+'-'+j])&&(!c||R[c]>=7)};
 function umCounter(i){const R=umS(),c=UM_CNT[i],n=R[c];if(!c)return '';
   const sai=c==='sa',dir=n>=7?'':sai?(n%2===0?'من الصفا إلى المروة':'من المروة إلى الصفا'):'ابدأ الشوط عند الحجر الأسود';
@@ -49,5 +45,5 @@ document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)r
     else{R.ok=R.ok.filter(k=>k!==i);if(i===UM_LAST)R.doneAt=null}
     save();render();const c=document.querySelector('.um-dots');SCR().scrollTo({top:c?c.getBoundingClientRect().top+SCR().scrollTop-20:0});return}
   if(d.umnew){if(!umNewArm){umNewArm=1;render();setTimeout(()=>{umNewArm=0;if(screen==='umrah')render()},4000);return}
-    umNewArm=0;S.umr={chk:{},ok:[],tw:0,sa:0};S.umStep=0;save();render();return}
+    umNewArm=0;S.umr={v:4,chk:{},ok:[],tw:0,sa:0};S.umStep=0;save();render();return}
 });
