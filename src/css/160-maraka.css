@@ -163,3 +163,11 @@ html[dir=rtl] .up-v summary:before{content:'◂'}html[dir=rtl] .up-v[open] summa
 .um-twi b{color:var(--gold);font-size:14px}.um-twa{font-family:var(--quran,Amiri),serif;font-size:19px;line-height:1.8}.um-twi i{font-style:normal;color:var(--muted);font-size:12.5px}.um-twd{color:var(--ink)}
 .umc-tw{margin:6px 0 10px;background:var(--gold-soft,rgba(201,162,74,.12));border-radius:12px;padding:10px 12px;text-align:start}
 .um-twimg{margin:4px 0}.um-twl{margin:0;padding-inline-start:18px;display:flex;flex-direction:column;gap:3px;font-size:13.5px}
+/* umrah stages as a timeline: each step with its du‘a and note */
+.um-ni{margin:-2px 0 10px;font-size:14px;line-height:1.8;color:var(--muted)}
+.um-path{gap:14px}.um-path>li{padding-bottom:12px;border-bottom:1px dashed var(--card-line)}.um-path>li:last-child{border-bottom:0}
+.um-sd{margin:0;font-weight:600;line-height:1.8}
+.um-path .um-dua{margin:8px 0 4px}
+.um-dua p.um-dm{font-family:inherit;font-size:13.5px;line-height:1.7;color:var(--muted);margin:4px 0 0}
+.um-sn{margin:6px 0 0;font-size:13px;line-height:1.75;color:var(--muted)}
+.um-path .umc{margin:10px 0 6px}
