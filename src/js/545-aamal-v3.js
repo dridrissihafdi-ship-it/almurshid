@@ -73,7 +73,7 @@ function amSimple(o){const {L,past,D,P,awL,nfOn,lateAw,IT,pt,pr,late}=o,PN=Objec
   const ci=ST.findIndex(s=>s[0]===curK),all=[...it];
   const tl=ST.map((s,i)=>{const L2=byS[s[0]];if(!L2.length)return '';const dn=L2.filter(isDone).length,full=dn===L2.length,isAll=s[0]==='all';
     const st=past?'past':isAll?(full?'past':'cur'):s[0]===curK?'cur':i<ci?'past':'fu',def=past?!full:st==='cur',tk=(def?'-':'')+s[0],open=def?!amStOpen.has(tk):amStOpen.has(tk);
-    const n=`<span class="amx-n">${full?'✓':isAll?'∞':i}</span>`,tm=s[2]!=null?`<small>${hm(s[2]%24)}</small>`:'';
+    const n=`<span class="amx-n${st==='cur'&&!isAll&&!full?' now':''}">${full?'✓':isAll?'∞':st==='cur'?'<span>الآن</span>':i}</span>`,tm=s[2]!=null?`<small>${hm(s[2]%24)}</small>`:'';
     if(!open)return `<div class="amx-st2 ${st}${full?' full':''}">${n}<button class="amx-fold" data-amst="${tk}"><b>${s[1]}</b>${st==='fu'?`<span class="amx-nm">${tm} · ${L2.filter(x=>x.k!=='p').map(x=>'<span>'+amName(x.id,pt)+'</span>').slice(0,3).join(' · ')||'<span>الصلاة</span>'}</span>`:`<span class="amx-c${full?' ok':''}" dir="ltr">${full?'✓ ':''}${dn} / ${L2.length}</span>`}</button></div>`;
     return `<div class="amx-st2 ${st} open${full?' full':''}">${n}<section class="amx-open"><button class="amx-hd" data-amst="${tk}"><b>${s[1]}</b>${st==='cur'&&!isAll?'<span class="amx-now-t">الآن</span>':tm}<span class="amx-c" dir="ltr">${dn} / ${L2.length}</span></button>${L2.map(row).join('')}</section></div>`}).join('');
   const nowC=past?'':amNow(o,curK,all,isDone);

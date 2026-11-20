@@ -20,7 +20,7 @@ function qaSearch(v){const words=qaNorm(v.trim()).split(/\s+/).filter(w=>w.lengt
   document.querySelectorAll('.qa-sh,.qa-ban').forEach(x=>x.hidden=q);
   const no=document.getElementById('qaNone');if(no)no.hidden=!q||n>0;
   const cn=document.getElementById('qaCnt');if(cn){cn.hidden=!q||!n;const k=document.getElementById('qaCntN');if(k)k.textContent=n}}
-document.addEventListener('input',e=>{if(e.target.id!=='qaQ')return;const v=e.target.value;clearTimeout(qaTimer);qaTimer=setTimeout(()=>qaSearch(v),180)});
+document.addEventListener('input',e=>{if(e.target.id!=='qaQ')return;const v=e.target.value;if(qaSec===-3&&v.trim()){qaSec=-1;render();const q=document.getElementById('qaQ');if(q){q.value=v;q.focus();try{q.setSelectionRange(v.length,v.length)}catch(x){}}}clearTimeout(qaTimer);qaTimer=setTimeout(()=>qaSearch(v),180)});
 /* share one question by a link that opens it in the app */
 async function qaShare(i){const [q]=qaT(i),url=location.origin+location.pathname+'#qa='+i,txt=String(q).replace(/<[^>]+>/g,'');
   try{if(navigator.share){await navigator.share({title:Tx('سؤال وجواب')+' · '+Tx('المرشد'),text:txt,url});return}}catch(e){if(e&&e.name==='AbortError')return}

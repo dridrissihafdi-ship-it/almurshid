@@ -29,6 +29,18 @@ const CACHE = arg('cache') || String(Math.floor(Date.now() / 1000));
 const cssFiles = list('css', '.css'), jsFiles = list('js', '.js');
 const css = cssFiles.map((f) => read('css/' + f)).join('');
 const parts = jsFiles.map((f) => ({ f, t: read('js/' + f) }));
+/* the lessons' translations (LTR, about a sixth of the app) leave index.html: each language gets its own file, ltr/<lang>.json,
+   loaded only when a reader of that language opens a lesson. Arabic readers never download them. */
+const LTR_OUT = {};
+for (const p of parts) {
+  const b = p.t.indexOf('/*LTR-BEGIN*/'), e = p.t.indexOf('/*LTR-END*/');
+  if (b < 0 || e < 0) continue;
+  const region = p.t.slice(b + 13, e);
+  let LTR;
+  try { LTR = vm.runInNewContext('const LTR={};' + region + ';LTR', {}); } catch (er) { fail(`src/js/${p.f}: the lessons' translations could not be read: ${er.message}`); }
+  for (const [l, o] of Object.entries(LTR)) LTR_OUT[l] = JSON.stringify(o);
+  p.t = p.t.slice(0, b + 13) + '\n' + p.t.slice(e);
+}
 const js = parts.map((p) => p.t).join('');
 const firebase = read('firebase.js');
 
@@ -80,6 +92,10 @@ const LNS = ['en', 'fr', 'es', 'ru', 'ur'];
 for (const dir of [path.join(OUT, 'i18n'), path.join(ROOT, 'i18n')]) {
   fs.mkdirSync(dir, { recursive: true });
   LNS.forEach((l, i) => { const o = {}; for (const [k, v] of Object.entries(i18n)) if (v[i]) o[k] = v[i]; fs.writeFileSync(path.join(dir, l + '.json'), JSON.stringify(o)); });
+}
+for (const dir of [path.join(OUT, 'ltr'), path.join(ROOT, 'ltr')]) {
+  fs.mkdirSync(dir, { recursive: true });
+  for (const [l, t] of Object.entries(LTR_OUT)) fs.writeFileSync(path.join(dir, l + '.json'), t);
 }
 const kb = (f) => Math.round(fs.statSync(path.join(OUT, f)).size / 1024) + ' KB';
 console.log(`built ${STAMP}: index.html ${kb('index.html')} (${cssFiles.length} css + ${jsFiles.length} js files), sw.js, i18n.json ${kb('i18n.json')} (${Object.keys(i18n).length} entries)`);

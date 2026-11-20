@@ -86,18 +86,17 @@ async function tqAskSend(){const U=tqU(),el=document.getElementById('tqAsk'),t=(
   catch(e){tqAskMsg=U.fail+(e&&e.code?' ('+e.code+')':'')}
   tqAskBusy=false;render();const b=document.getElementById('tqAskBox');if(b)b.scrollIntoView({block:'center'})}
 
-function viewNotif(){
-  const pt=prayerTimes(new Date()),nx=nextPrayer(pt),L=dayLog(),now=new Date().getHours()+new Date().getMinutes()/60;
-  const items=[{on:true,t:`اقترب وقت صلاة ${nx.n}`,s:`عند ${hm(pt[nx.k])}`}];
-  if(prepPendingToday())items.push({on:true,t:'لم تُسجّل المرحلة التمهيدية اليوم',s:`اليوم ${prepDays()+1} من 30 · طول الصمت، حسن الخلق، الحضور مع الله`,go:'tazkiya'});
-  try{const one=(id,go,lbl)=>{const A=trS(id);if(!A.base||A.base>TODAY||A.done.length>=trN(id))return;const R=trSim(id);if(R.complete||R.today)return;items.push({on:true,t:`<span>لم تُسجّل تدريب اليوم</span>: <span>${lbl}</span>`,s:`<span>اليوم</span> ${Math.min(R.days+1,30)} <span>من</span> 30`,go})};if(S.aqlT)one('aql','aql',Tx('تزكية العقل'));AHD.forEach(a=>{if(S.ahd&&S.ahd[a.id])one(a.id,'qalbruh',Tx('عهد')+' '+Tx(a.n))})}catch(e){}
-  pendingOrgans().forEach(g=>items.push({on:true,t:`لم تُسجّل محاسبة ${g.name} اليوم`,s:`مرحلة ${PHASE[S.organs[g.id].phase]} · اليوم ${S.organs[g.id].days+1} من 30`,go:'tazkiya'}));
-  const lt=lights();
-  if(!lt.halo)items.push({on:true,t:`${lt.p.kind==='sabah'?'أذكار الصباح':'أذكار المساء'}: الهالة مطفأة`,s:`أكّدها قبل ${lt.p.endName} ${tHM(lt.p.end)}`,go:'aamal'});
-  if(!lt.dhikrToday)items.push({on:!lt.heart,t:'الذكر الشخصي اليومي',s:lt.heart?`القلب مستنير حتى ${tHM(lt.heartEnd)}`:'القلب مطفأ',go:'aamal'});
-  if(!lt.quranToday)items.push({on:!lt.head,t:'الورد اليومي من القرآن',s:lt.head?`الرأس مستنير حتى ${tHM(lt.headEnd)}`:'الرأس مطفأ',go:'aamal'});
-  seasonal().filter(s=>s.tag==='اليوم'||s.tag==='الجمعة').forEach(s=>items.push({on:!L.awrad.includes(s.id),t:s.t,s:s.s,go:'aamal'}));
-  return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
+/* the bell: only what is new for the seeker (the day's remaining deeds live on the deeds page) */
+function notifItems(){const it=[],pt=ptDay();
+  try{if(askUnseen())it.push({t:'وصلك جواب من الشيخ',s:'على سؤال أرسلته',go:'ask'})}catch(e){}
+  if(new Date().getDay()===5)it.push({t:'تقريرك الأسبوعي جاهز',s:'صلواتك وأورادك وجوارحك في أسبوع',go:'ijtihad'});
+  try{if(dH()>=pt.maghrib&&!qmDone())it.push({t:'حاسب نفسك قبل النوم',s:'عشرون ثانية لجوارحك',go:'home'})}catch(e){}
+  return it}
+function notifCount(){let n=notifItems().length;try{n+=INBOX.filter(m=>!m.read).length;if(majUpcoming().some(m=>m.at-Date.now()<864e5))n++}catch(e){}return n}
+function viewNotif(){const it=notifItems();let mj='',an='',ib='';try{mj=majCard();an=announcementBanner();ib=inboxCard()}catch(e){}
+  const body=ib+an+(it.length?`<div class="box">${it.map(i=>`<button class="notif nt-b" data-go="${i.go}"><i class="dot on"></i><div class="t">${i.t}<small>${i.s}</small></div><svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>`).join('')}</div>`:'')+mj;
+  return `<section>${body||`<div class="box pad nt-none"><b>لا جديد الآن</b><p class="meta">تصلك هنا أجوبة الشيخ، والمجالس القادمة، والإعلانات، وتذكير المحاسبة في المساء.</p></div>`}
+  <button class="am-mkl nt-am" data-go="aamal"><b>ما بقي من أعمال يومك</b><span>في صفحة الأعمال</span></button>
   ${isStandalone()?`<button class="btn notif-cta" data-go="profile" data-openacc="push">فعّل التذكيرات على هاتفك</button>`:`<button class="btn ok notif-cta" data-go="install">ثبّت التطبيق لتصلك التذكيرات على هاتفك</button>`}</section>`;
 }
 const APP_VER='__BUILD__';

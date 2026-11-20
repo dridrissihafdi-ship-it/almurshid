@@ -210,3 +210,15 @@ mark.qa-m{background:color-mix(in srgb,var(--gold) 55%,transparent);color:inheri
 .qr-all{margin:18px 0 0}.qr-all>summary{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-radius:14px;background:var(--card);border:1px solid var(--card-line);cursor:pointer;list-style:none}
 .qr-all>summary::-webkit-details-marker{display:none}.qr-all>summary span{color:var(--muted)}.qr-all[open]>summary{margin-bottom:10px}
 .me-ins{padding:4px 0 0}.me-ins>.box{margin:10px 0 0}
+/* the deeds' timeline: «الآن» inside the current time; past times left undone look faded */
+.amx-n.now span{font-size:10.5px;font-weight:700;line-height:1}
+.amx-st2.past:not(.full) .amx-n{opacity:.55;border-style:dashed}
+.amx-st2.past:not(.full) .amx-fold{opacity:.75}
+/* the bell */
+button.notif.nt-b{width:100%;background:none;border:0;color:inherit;font:inherit;text-align:start;cursor:pointer;align-items:center}
+button.notif.nt-b .h2-chev{width:18px;height:18px;fill:none;stroke:var(--muted);stroke-width:2;margin-inline-start:auto;flex:none}
+.nt-none b{display:block;margin-bottom:4px}.nt-am{margin-top:14px}
+/* «الطريق»: the detailed steps folded under the map */
+.pth-all{margin:22px 0 0}.pth-all>summary{display:flex;flex-direction:column;gap:2px;padding:14px 16px;border-radius:16px;background:var(--card);border:1px solid var(--card-line);cursor:pointer;list-style:none}
+.pth-all>summary::-webkit-details-marker{display:none}.pth-all>summary span{color:var(--muted);font-size:13px}
+.qa-pick{margin:12px 4px 0}

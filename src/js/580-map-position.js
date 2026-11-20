@@ -54,8 +54,9 @@ function viewRoadmap(){const P=pathData();endLoad();setTimeout(()=>rmAnim(),90);
    <div class="rm-img"><button class="rm-imgb" data-rmzoom="1" aria-label="${esc(Tx('تكبير الخريطة'))}"><img src="roadmap3-s.webp" alt="${esc(Tx('خريطة الطريق إلى رضا الله'))}" width="836" height="470" decoding="async"></button>${rmHot()}${rmLayer(P)}
     <button class="rm-zm" data-rmzoom="1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg><span>تكبير الخريطة</span></button></div>
    ${rmCard(P,'rm-below')}
-   <button class="btn ok rm-path" data-go="path">افتح مساري: أين أنا في هذا الطريق؟</button>
-   ${SIMPLE()?`<div class="sh sm-sh"><h2>زاد الطريق</h2></div>${smTiles(['h_quran','h_ibadat','h_ruh','h_ilm'])}`:''}${SIMPLE()?'<div hidden>':''}
+   ${pathPlanBox(P)}
+   <div class="sh sm-sh"><h2>زاد الطريق</h2></div>${smTiles(['h_quran','h_ibadat','h_ruh','h_ilm'])}
+   <details class="pth-all" id="pthAll"${pthOpen?' open':''}><summary><b>خطوات الطريق بالتفصيل</b><span>الشروط، والتزكية، والأهداف</span></summary>${pathSteps()}</details>${SIMPLE()?'<div hidden>':''}
    <p class="meta rm-how rm-tap"><span class="rm-dot"></span><span>اضغط على أي محطة في الصورة لفتح درسها.</span></p>
    <p class="meta rm-how">يبدأ السالك من جبل الشروط، ثم يعبر جسر التزكية مرحلةً مرحلة، حتى يبلغ جبل الأهداف.</p>
    <ol class="rm-st">${RM.map((g,k)=>`<li class="box rm-g0 ${g.c}"><div class="rm-h"><span class="rm-n">${k+1}</span><span><b>${g.t}</b><small>${g.sub}</small></span></div>

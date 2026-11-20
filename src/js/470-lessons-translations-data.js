@@ -952,7 +952,11 @@ AHDAF:{g1:{t:'اللہ کے حکم کی تعظیم',h:'اللہ اور اس کی
 };
 
 /*LTR-END*/
-const lsL=k=>(LANG!=='ar'&&LTR[LANG]&&LTR[LANG][k])||null;
+/* outside the source, LTR is empty: each language's translations are fetched once, when a lesson is first shown */
+let ltrWait=null;
+function ltrLoad(){const lg=LANG;if(lg==='ar'||LTR[lg]||ltrWait===lg)return;ltrWait=lg;
+  fetch('ltr/'+lg+'.json').then(r=>{if(!r.ok)throw 0;return r.json()}).then(o=>{LTR[lg]=o;ltrWait=null;if(LANG===lg)render()}).catch(()=>{ltrWait=null})}
+const lsL=k=>{if(LANG!=='ar'&&!LTR[LANG])ltrLoad();return (LANG!=='ar'&&LTR[LANG]&&LTR[LANG][k])||null};
 const lsDir=k=>lsL(k)?'dir="auto"':'dir="rtl"';
 function lessonGet(k){const T=lsL(k==='qalb'?'qalbIntro':k),X=LESSONS[k];if(!T)return X;let secs=T.secs;if(k==='qalb'){const A=LTR[LANG].AHD||{};secs=secs.concat(AHD.map(a=>{const B=A[a.id]||a;return {t:T.rules.includes('{n}')?T.rules.replace('{n}',B.n):T.rules+' '+B.n.toLowerCase(),h:'<ol>'+B.lv.map((x,i)=>`<li><b>${T.deg} ${i+1}:</b> ${x}</li>`).join('')+'</ol>'}}))}return Object.assign({},X,{lead:T.lead,secs,dir:'dir="auto"'})}
 const ahLv=(ah,i)=>{const A=lsL('AHD');return (A&&A[ah.id]&&A[ah.id].lv[i])||ah.lv[i]};

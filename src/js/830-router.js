@@ -33,9 +33,9 @@ function render(){
   if(screen==='dhikr_run')paintRun();if(screen==='amrad')amBind();
   auUi();try{sndUi()}catch(e){}
   if(typeof deedPulse==='function')deedPulse();
-  const bd=document.getElementById('badge');if(bd)bd.hidden=!(pendingOrgans().length||prepPendingToday()||!lights().halo);
+  const bd=document.getElementById('badge');if(bd)bd.hidden=!notifCount();
 }
-function go(s){if(s==='amrad')s='uyub';if(s==='qalb'){s='uyub';uyF=null;uyProg=true}else if(s==='uyub'){uyF=null;uyProg=false}if(s==='ijtihad'){ruhiTab='week';wkOff=0;goRaw('ruhi');return}if(s==='sura'||s==='muraqabat'||s==='tahlil'){ruhiTab=s;s='ruhi'}if(s==='taammulat')s='h_ruh';if(s==='h_quran')s='quran';if(s==='khr'){khTab='mine';s='khushu'}if(s==='aql'){tzTab='aql';s='tazkiya'}if(/^g[1-4]$/.test(s)){ahTab=s;s='ahdaf'}if(s==='majalis'&&screen!=='majalis')majTab=null;if(s==='jawarih'){tzTab='jawarih';s='tazkiya'}if(s==='qalbruh'){tzTab='qalb';s='tazkiya'}goRaw(s)}
+function go(s){if(s==='amrad')s='uyub';if(s==='path'){s='roadmap';pthOpen=true}if(s==='qalb'){s='uyub';uyF=null;uyProg=true}else if(s==='uyub'){uyF=null;uyProg=false}if(s==='ijtihad'){ruhiTab='week';wkOff=0;goRaw('ruhi');return}if(s==='sura'||s==='muraqabat'||s==='tahlil'){ruhiTab=s;s='ruhi'}if(s==='taammulat')s='h_ruh';if(s==='h_quran')s='quran';if(s==='khr'){khTab='mine';s='khushu'}if(s==='aql'){tzTab='aql';s='tazkiya'}if(/^g[1-4]$/.test(s)){ahTab=s;s='ahdaf'}if(s==='majalis'&&screen!=='majalis')majTab=null;if(s==='jawarih'){tzTab='jawarih';s='tazkiya'}if(s==='qalbruh'){tzTab='qalb';s='tazkiya'}goRaw(s)}
 const NAVH=[];let navBack=false,navRoute=null;
 function navUrl(s){try{const u=s==='home'?location.pathname+location.search:'#/'+s;if(navBack||!history.state)history.replaceState({s},'',u);else history.pushState({s},'',u)}catch(e){}}
 /* the app always opens on the home page (a link to a screen, such as an icon shortcut #/aamal, still opens that screen) */

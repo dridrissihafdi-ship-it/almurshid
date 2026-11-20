@@ -7,7 +7,7 @@ const qaDayIdx=(d)=>{const x=new Date((d||nowStr())+'T00:00:00Z').getTime()/864e
 let DATA_OK=false;
 async function dataLoad(){try{const [a,b]=await Promise.all([fetch('data/tq.json').then(r=>{if(!r.ok)throw 0;return r.json()}),fetch('data/qa.json').then(r=>{if(!r.ok)throw 0;return r.json()})]);TQ=a;QA=b;DATA_OK=true;try{render()}catch(e){}}catch(e){setTimeout(dataLoad,5000)}}
 dataLoad();
-let qaSec=-1,qaFocus=null;
+let qaSec=-3,qaFocus=null;
 const qaT=i=>{if(!QA.qa[i])return['…',''];const T=LANG!=='ar'&&QA.tr&&QA.tr[LANG];return T?T.qa[i]:[QA.qa[i][1],QA.qa[i][2]]};
 const qaSecT=k=>{const T=LANG!=='ar'&&QA.tr&&QA.tr[LANG];return T?T.secs[k]:(QA.secs[k]||'')};
 const qaDir=()=>RTL()?'dir="rtl" lang="'+LANG+'"':'dir="ltr" lang="'+LANG+'"';
@@ -21,6 +21,6 @@ function viewQA(){if(!QA.qa.length)return '<p class="muted">جارٍ التحم�
    <div class="qa-day"><div><p class="meta">بعد الفجر</p>${qaCard(m,1)}</div><div><p class="meta">بعد العشاء</p>${qaCard(e,1)}</div></div></section>
   <section><div class="sh"><h2>كل الأسئلة</h2></div>
    <div class="qa-chips"><button class="${qaSec===-1?'on':''}" data-qasec="-1">الكل</button><button class="${qaSec===-2?'on':''}" data-qasec="-2">★ <span>المحفوظة</span> <span dir="ltr">${fav.length}</span></button>${QA.secs.map((t,k)=>`<button class="${qaSec===k?'on':''} notr" data-qasec="${k}">${qaSecT(k)}</button>`).join('')}</div>
-   ${qaSec===-2?(list.length?`<div class="qa-grid qa-list">${list.map(i=>qaCard(i)).join('')}</div>`:'<p class="muted">لم تحفظ سؤالًا بعد. اضغط ☆ على أي سؤال لتجده هنا.</p>'):''}${(qaSec===-2?[]:qaSec<0?QA.secs.map((t,k)=>k):[qaSec]).map(k=>`${ilBan('qa'+(k+1),'qa-ban')}<h3 class="qa-sh notr">${qaSecT(k)}</h3><div class="qa-grid qa-list">${list.filter(i=>QA.qa[i][0]===k).map(i=>qaCard(i)).join('')}</div>`).join('')}
+   ${qaSec===-2?(list.length?`<div class="qa-grid qa-list">${list.map(i=>qaCard(i)).join('')}</div>`:'<p class="muted">لم تحفظ سؤالًا بعد. اضغط ☆ على أي سؤال لتجده هنا.</p>'):''}${qaSec===-3?'<p class="meta qa-pick">اختر قسمًا لتعرض أسئلته، أو ابحث في الأعلى.</p>':''}${(qaSec===-2||qaSec===-3?[]:qaSec<0?QA.secs.map((t,k)=>k):[qaSec]).map(k=>`${ilBan('qa'+(k+1),'qa-ban')}<h3 class="qa-sh notr">${qaSecT(k)}</h3><div class="qa-grid qa-list">${list.filter(i=>QA.qa[i][0]===k).map(i=>qaCard(i)).join('')}</div>`).join('')}
    <p class="meta" style="margin-top:12px">يصلك سؤال بعد الفجر بربع ساعة وآخر بعد العشاء بنصف ساعة، إذا فعّلت «سؤال وجواب» في التذكيرات.</p></section>`}
 function openQA(n,tries){n=+n;if(!QA.qa.length&&(tries||0)<20){setTimeout(()=>openQA(n,(tries||0)+1),300);return}if(!(n>=0&&n<QA.qa.length))return;qaSec=-1;qaFocus=n;go('qa');setTimeout(()=>{const el=document.querySelectorAll('#qa-'+n);const t=el[0];if(t)t.scrollIntoView({block:'center'})},120)}
