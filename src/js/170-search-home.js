@@ -39,8 +39,10 @@ function viewHome(){
   const subs={tools:'القبلة، سنن الرسول ﷺ، حفظ القرآن، وضع رمضان',ask:askUnseen()?'وصلك جواب جديد ✦':'سؤالك يصل إلى الشيخ، والجواب هنا',majalis:majUpcoming().length?'<span>المجلس القادم:</span> <span class="notr">'+majFmt(majUpcoming()[0].at)+'</span>':'مواعيد مجالس الذكر والدروس',roadmap:'الشروط الأربعة، الجسر، والأهداف الأربعة',audio:'دروس ومحاضرات صوتية',method:'الطريقة المحمدية: الأصول والأبواب وطريق التحقق',ruhi:`${lc} <span>من 4 أنوار مضيئة</span>`,admin:'المستعملون، الرسائل، الأعمال المقترحة',about:'التعريف بالتطبيق والإعدادات'};
   const list=`<div class="sh" style="margin:22px 2px 10px"><h2>المزيد</h2></div><div class="box h2-more">${more.map(m=>`<button class="h2-row" data-go="${m.id}"><span class="h2-ri"><svg viewBox="0 0 48 48" aria-hidden="true">${m.ic||m.art}</svg></span><span class="tx">${m.t}<small>${subs[m.id]||''}</small></span><svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>`).join('')}</div>`;
   const langs=`<div class="langs h2-langs" role="group" aria-label="اللغة">${LANGS.map(([c,l,n])=>`<button class="lang notr${c===LANG?' on':''}" data-lang="${c}" aria-pressed="${c===LANG}" title="${n}" lang="${c}">${l}</button>`).join('')}</div>`;
-  if(SIMPLE()){const eve=dH()>=ptDay().maghrib&&!qmDone();
-    return heroHome()+`<main class="sheet sm-home">${inboxCard()}${banner}${nightCard()}${homeNow()}${fsCard()}${eve?qmCard(1):''}${ramCard()}${majCard()}${homeTiles()}</main>`}
+  if(SIMPLE()){const eve=dH()>=ptDay().maghrib&&!qmDone(),fs=fsCard();
+    /* «اليوم»: the prayer times, the one thing to do now, today's fruits; the rest only when it matters */
+    const acc=fs?'':(AUTH.state==='local'&&!(S.locBan&&S.locBan>addDays(TODAY,-7))?banner.slice(banner.indexOf('<div class="box loc-ban">')):'');
+    return heroHome()+`<main class="sheet sm-home">${inboxCard()}${moved}${announcementBanner()}${nightCard()}${homeNow()}${fs}${eve?qmCard(1):''}${ramCard()}${majCard()}${acc}</main>`}
   return heroHome()+`<main class="sheet">${inboxCard()}${banner}${nightCard()}${homeNow()}${fsCard()}${careCard()}${ramCard()}${majCard()}${qaGrid()}${homeProg()}<button class="me-ui" data-uimode="simple"><span>الواجهة المبسّطة</span><small>صور، وأقسام أقل، وكل شيء أقرب</small></button></main>`;
 }
 

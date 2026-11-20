@@ -48,8 +48,8 @@ function viewQuran(){const M=msh(),k=suraAt(M.p),[hz,,,th]=QIDX[M.p],n=Math.min(
     <span class="qr-pr"><i><b style="width:${n/M.wird*100}%"></b></i><em dir="ltr">${n} / ${M.wird}</em></span></button>
    <div class="qr-hz"><button class="h2-row" data-go="hifz"><span class="h2-ri"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 36V12c5-2 10-2 16 2 6-4 11-4 16-2v24c-5-2-10-2-16 2-6-4-11-4-16-2z"/><path d="M24 14v24"/></svg></span><span class="tx">حفظ القرآن وتسميعه<small>${hzDone()} <span>سورة محفوظة</span> · <span>سمّع حفظك بصوتك</span></small></span><svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button></div>
    <label class="qr-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="mshQ" type="search" placeholder="${Tx('ابحث عن سورة بالاسم أو الرقم')}" autocomplete="off"></label>
-   <div class="sh" style="margin:18px 2px 6px"><h2>السور</h2><span>114</span></div>
-   <div class="qr-list" id="mshSL">${mshSurList()}</div><p class="meta" id="mshNone" hidden>لا توجد سورة بهذا الاسم.</p>
+   <details class="qr-all" id="mshAll"><summary><b>كل السور</b><span>114</span></summary>
+   <div class="qr-list" id="mshSL">${mshSurList()}</div></details><p class="meta" id="mshNone" hidden>لا توجد سورة بهذا الاسم.</p>
   </section>`}
 function viewMushaf(){const M=msh(),P=mshCP(),[hz,,,th]=QIDX[P],n=Math.min(M.day.read.length,M.wird),pct=n/M.wird*100;
   setTimeout(mushafPaint,0);
@@ -102,3 +102,5 @@ document.addEventListener('touchend',e=>{if(!mshX||screen!=='mushaf')return;cons
 
 /* reading mode: only the page stays; one tap on it shows or hides the tools */
 document.addEventListener('click',e=>{if(screen!=='mushaf'||!S.mshFocus||!e.target.closest('#mshPage'))return;document.body.classList.toggle('msh-show')});
+
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='mshQ'){const d=document.getElementById('mshAll');if(d&&e.target.value)d.open=true}});

@@ -80,7 +80,7 @@ function amSimple(o){const {L,past,D,P,awL,nfOn,lateAw,IT,pt,pr,late}=o,PN=Objec
   const list=`<div class="sh am-h"><h2>يومك على أوقات الصلاة ${hintBtn('day')}</h2></div><div class="amx-tl">${tl}</div>
     ${past?'':`<div class="am-add"><button class="am-addb" data-mineadd="1">+ <span>أضف عملًا</span></button>${myDeeds().length?`<button class="am-addb s" data-ammine="1">${amMineOpen?'إخفاء':'أعمالي الخاصة'}</button>`:''}</div>`}
     ${amDlOpen&&!past?dhikrEditor():''}${(mineForm||amMineOpen)&&!past?mineBlock(L,D,past):''}`;
-  return `${past?aDateBar():''}${amWeek()}${amHead(D,past)}${nowC}${past?'':amTips()}${past?'':pushInvite()}${five}${list}${past?'':amInsights(pt)}
+  return `${past?aDateBar():''}${amWeek()}${past?amHead(D,past):`<div class="am-trw">${treeMini('am-tr')}<button class="amx-more" data-ammore="1" aria-label="${esc(Tx('المزيد'))}">⋯</button></div>`}${nowC}${past?'':amTips()}${past?'':pushInvite()}${five}${list}${past?'':`<button class="am-mkl" data-go="maraka"><b>معركة اليوم</b><span>تحدٍّ اختياري مع النفس والشيطان</span></button>`}
    <p class="meta amx-hint">اسحب أي عمل جانبًا لإتمامه، واضغط عليه مطوّلًا لترى تفاصيله.</p>`}
 /* insights: the deed missed most this week, two weeks of constancy, and ready levels */
 const AM_LV=[['مبتدئ',{aw:['sabah','masa'],nf:['witr']}],['متوسط',{aw:['sabah','masa','quran','dhikr','sadaqa'],nf:['raghiba','witr']}],

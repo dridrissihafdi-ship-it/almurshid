@@ -1,5 +1,5 @@
 /* ================= simplified, picture-first interface ================= */
-const SIMPLE=()=>S.ui!=='classic';
+const SIMPLE=()=>true;
 const NAV_CLASSIC=(document.querySelector('nav.tabs .in')||{}).innerHTML||'';
 const NAV_SIMPLE=`<button data-nav="home" aria-label="اليوم"><svg viewBox="0 0 24 24"><circle class="f" cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="4.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></svg><span>اليوم</span></button>
  <button data-nav="tariq" aria-label="الطريق"><svg viewBox="0 0 24 24"><path class="f" d="M3 19l6-12 4 7 3-4 5 9z"/><path d="M3 19l6-12 4 7 3-4 5 9zM2 19h20"/></svg><span>الطريق</span></button>
@@ -9,12 +9,12 @@ function tabS(s){if(s==='home'||s.startsWith('adh_')||['aamal','maraka','dhikr_r
   if(['me','profile','ruhi','notif','about','admin','week','install','muraqabat','sura','tahlil','mraqib','munajat'].includes(s))return 'me';return 'tariq'}
 
 /* picture tiles */
-const SMT={maraka:'معركة اليوم',h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'الروحانيات',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',ahdaf:'جبل الأهداف الأربعة',mraqib:'مراقبات',munajat:'مناجاة',qiyama:'يوم القيامة',aqida:'العقيدة',fiqh:'الفقه',tawba:'التوبة',mujahada:'المجاهدة',hifz:'حفظ القرآن وتسميعه',tasmi:'التسميع',aamal:'أعمال اليوم',quran:'القرآن',khushu:'الخشوع',amrad:'أمراض القلب',qa:'سؤال وجواب',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',khalwa:'الخلوة والاعتكاف',method:'المنهج المحمدي',taammulat:'تأملات',majalis:'المجالس والدروس',ask:'اسأل الشيخ',tools:'أدوات السالك',umrah:'العمرة',wudu:'الوضوء',salat:'الصلاة',sira:'السيرة النبوية'};
+const SMT={maraka:'معركة اليوم',h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'التزكية',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',ahdaf:'جبل الأهداف الأربعة',mraqib:'مراقبات',munajat:'مناجاة',qiyama:'يوم القيامة',aqida:'العقيدة',fiqh:'الفقه',tawba:'التوبة',mujahada:'المجاهدة',hifz:'حفظ القرآن وتسميعه',tasmi:'التسميع',aamal:'أعمال اليوم',quran:'القرآن',khushu:'الخشوع',amrad:'أمراض القلب',qa:'سؤال وجواب',tazkiya:'مراحل التزكية',uyub:'اعرف عيوبك وعالجها',khalwa:'الخلوة والاعتكاف',method:'المنهج المحمدي',taammulat:'تأملات',majalis:'المجالس والدروس',ask:'اسأل الشيخ',tools:'أدوات السالك',umrah:'العمرة',wudu:'الوضوء',salat:'الصلاة',sira:'السيرة النبوية'};
 
 /* the Path's sections ("tabs"): each opens a page of picture tiles */
-const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['uyub','khushu','mraqib','munajat','khalwa'],
+const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['tazkiya','uyub','khushu','mraqib','munajat','khalwa'],
  h_ilm:['method','majalis','sira','qiyama','qa','ask'],h_shurut:['aqida','fiqh','tawba','mujahada']};
-const IL_ALIAS={maraka:['mk_s1','m_climb'],h_quran:'quran',h_ibadat:'salat',h_ruh:'taammulat',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],khalwa:['khalwa','taammulat'],nifaq:['nifaq','kadhib'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
+const IL_ALIAS={maraka:['mk_s1','m_climb'],h_quran:'quran',h_ibadat:'salat',h_ruh:'tazkiya',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],khalwa:['khalwa','taammulat'],nifaq:['nifaq','kadhib'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
 const viewHub=k=>()=>`<section>${smTiles(HUBS[k],HUBS[k].length%2?'odd':'')}</section>`;
 
 /* Today's four tiles: the user can change or remove each one (long press), and fill an empty place with "+" */

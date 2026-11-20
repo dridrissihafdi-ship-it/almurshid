@@ -26,8 +26,12 @@ function treeArt(T){const C=ILC;
   const nf=T.hs<=2&&img==='tree3'?Math.round(TR_FP.length*T.t):0;
   const fr=TR_FP.slice(0,nf).map(([x,y],i)=>`<i class="tr-f" style="left:${(x/9.6).toFixed(2)}%;top:${(y/6).toFixed(2)}%;--s:${[1,.88,.96,.92,1.04][i%5]}"><img src="il/tr_f${i%3+1}.webp" alt=""></i>`).join('');
   return `<div class="tr-im${cls}">${ilSvg(img)}${fr}</div>`}
+const treeTitle=T=>T.st<3?TREE_ST[T.st]:T.hs===0?(T.t>=1?'شجرة مثمرة كاملة':T.t>0?'شجرة مثمرة':'شجرة نضرة'):TREE_HS[T.hs];
+/* the one daily progress shown on «اليوم» and the deeds page: the tree, its fruits today */
+function treeMini(cls){let T;try{T=treeState()}catch(e){return ''}
+  return `<button class="tr-mini ${cls||''}" data-go="me"><span class="tr-mic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21v-6"/><path d="M12 15c-4.4 0-7-2.4-7-5.6C5 6 8 3.5 12 3.5S19 6 19 9.4c0 3.2-2.6 5.6-7 5.6z"/><circle class="f" cx="9.5" cy="9" r="1.1"/><circle class="f" cx="14" cy="7.6" r="1.1"/><circle class="f" cx="13.6" cy="11.4" r="1.1"/></svg></span><span class="tr-mt"><small>ثمار اليوم</small><b>${treeTitle(T)}</b></span><b class="tr-mn" dir="ltr">${T.dn} / ${T.tot}</b><i class="tr-bar tr-bf"><b style="width:${T.t*100}%"></b></i></button>`}
 function treeCard(){const T=treeState();
-  const title=T.st<3?TREE_ST[T.st]:T.hs===0?(T.t>=1?'شجرة مثمرة كاملة':T.t>0?'شجرة مثمرة':'شجرة نضرة'):TREE_HS[T.hs];
+  const title=treeTitle(T);
   const need=[2,5,10][T.st],left=T.st<3?need-T.g:0;
   const msg=T.st<3?'':T.hs===4?'ماتت أغصانها لأن الأعمال انقطعت في الأيام الأخيرة، لكن جذورها باقية: كل عمل تتمه اليوم يعيد إليها الحياة.':T.hs>=2?'ذبلت لأن أعمالك قلّت في الأيام الأخيرة. كل عمل تتمه اليوم يسقيها، ومع الأيام تعود نضرة.':'';
   return `<section class="box tr-c">${treeArt(T)}<div class="tr-t"><small class="tr-k">شجرة المداومة</small><b>${title}</b>

@@ -194,3 +194,19 @@ mark.qa-m{background:color-mix(in srgb,var(--gold) 55%,transparent);color:inheri
 .lang-mini{display:inline-flex;align-items:center;gap:6px;align-self:flex-end;background:transparent;border:1px solid var(--card-line);color:var(--muted);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}.lang-mini svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6}
 @media (prefers-reduced-motion:reduce){.me-g[open] .me-list{animation:none}}
 .tzl-s.l{cursor:pointer}.tzo-p{line-height:1.8;margin:4px 0 10px}.tzo-b{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.tzo-b .btn{flex:1;min-width:130px}
+/* simplification: one daily progress (the tree's fruits), shown on «اليوم» and on the deeds page */
+.tr-mini{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 12px;width:100%;padding:12px 14px;margin:12px 0 0;border-radius:18px;border:1px solid var(--card-line);background:var(--card);color:var(--ink);text-align:start;font:inherit;cursor:pointer}
+.tr-mini .tr-bar{grid-column:1/-1;margin-top:4px}
+.tr-mic{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(127,176,105,.16)}
+.tr-mic svg{width:22px;height:22px;fill:none;stroke:var(--green);stroke-width:1.6;stroke-linecap:round}.tr-mic svg .f{fill:var(--gold);stroke:none}
+.tr-mt{display:flex;flex-direction:column;min-width:0}.tr-mt small{color:var(--muted);font-size:12px}.tr-mt b{font-size:15px}
+.tr-mn{font-size:16px;color:var(--gold)}
+.hero .tr-mini.h2-tr{background:rgba(255,255,255,.06);border-color:rgba(243,237,230,.14);color:#F3EDE6}
+.hero .tr-mini.h2-tr .tr-mt small{color:rgba(243,237,230,.7)}.hero .tr-mini .tr-bar{background:rgba(255,255,255,.12)}
+.am-trw{position:relative}.am-trw .tr-mini{margin:12px 0;padding-inline-end:48px}.am-trw .amx-more{top:10px;inset-inline-end:6px;inset-inline-start:auto}
+.am-trw .tr-mn{margin-inline-end:4px}
+.am-mkl{display:flex;flex-direction:column;gap:2px;width:100%;margin:18px 0 6px;padding:12px 16px;border-radius:16px;border:1px dashed var(--card-line);background:transparent;color:var(--ink);font:inherit;text-align:start;cursor:pointer}
+.am-mkl span{color:var(--muted);font-size:13px}
+.qr-all{margin:18px 0 0}.qr-all>summary{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-radius:14px;background:var(--card);border:1px solid var(--card-line);cursor:pointer;list-style:none}
+.qr-all>summary::-webkit-details-marker{display:none}.qr-all>summary span{color:var(--muted)}.qr-all[open]>summary{margin-bottom:10px}
+.me-ins{padding:4px 0 0}.me-ins>.box{margin:10px 0 0}

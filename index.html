@@ -1457,6 +1457,22 @@ mark.qa-m{background:color-mix(in srgb,var(--gold) 55%,transparent);color:inheri
 .lang-mini{display:inline-flex;align-items:center;gap:6px;align-self:flex-end;background:transparent;border:1px solid var(--card-line);color:var(--muted);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}.lang-mini svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6}
 @media (prefers-reduced-motion:reduce){.me-g[open] .me-list{animation:none}}
 .tzl-s.l{cursor:pointer}.tzo-p{line-height:1.8;margin:4px 0 10px}.tzo-b{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.tzo-b .btn{flex:1;min-width:130px}
+/* simplification: one daily progress (the tree's fruits), shown on «اليوم» and on the deeds page */
+.tr-mini{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 12px;width:100%;padding:12px 14px;margin:12px 0 0;border-radius:18px;border:1px solid var(--card-line);background:var(--card);color:var(--ink);text-align:start;font:inherit;cursor:pointer}
+.tr-mini .tr-bar{grid-column:1/-1;margin-top:4px}
+.tr-mic{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(127,176,105,.16)}
+.tr-mic svg{width:22px;height:22px;fill:none;stroke:var(--green);stroke-width:1.6;stroke-linecap:round}.tr-mic svg .f{fill:var(--gold);stroke:none}
+.tr-mt{display:flex;flex-direction:column;min-width:0}.tr-mt small{color:var(--muted);font-size:12px}.tr-mt b{font-size:15px}
+.tr-mn{font-size:16px;color:var(--gold)}
+.hero .tr-mini.h2-tr{background:rgba(255,255,255,.06);border-color:rgba(243,237,230,.14);color:#F3EDE6}
+.hero .tr-mini.h2-tr .tr-mt small{color:rgba(243,237,230,.7)}.hero .tr-mini .tr-bar{background:rgba(255,255,255,.12)}
+.am-trw{position:relative}.am-trw .tr-mini{margin:12px 0;padding-inline-end:48px}.am-trw .amx-more{top:10px;inset-inline-end:6px;inset-inline-start:auto}
+.am-trw .tr-mn{margin-inline-end:4px}
+.am-mkl{display:flex;flex-direction:column;gap:2px;width:100%;margin:18px 0 6px;padding:12px 16px;border-radius:16px;border:1px dashed var(--card-line);background:transparent;color:var(--ink);font:inherit;text-align:start;cursor:pointer}
+.am-mkl span{color:var(--muted);font-size:13px}
+.qr-all{margin:18px 0 0}.qr-all>summary{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-radius:14px;background:var(--card);border:1px solid var(--card-line);cursor:pointer;list-style:none}
+.qr-all>summary::-webkit-details-marker{display:none}.qr-all>summary span{color:var(--muted)}.qr-all[open]>summary{margin-bottom:10px}
+.me-ins{padding:4px 0 0}.me-ins>.box{margin:10px 0 0}
 /* «معركة اليوم» */
 .mk-lvh{text-align:center;margin:4px 0 10px}.mk-lvh h3{margin:2px 0;font-size:22px}.mk-k{margin:0;color:var(--muted);font-size:13px}
 .mk-v{font-family:var(--f-verse);font-size:19px;line-height:1.9;color:var(--red);margin:6px 0 0}
@@ -2516,8 +2532,8 @@ const MENU=[
 ,
  {id:'about',art:'<g transform="translate(13 3) scale(.22)"><path d="M50,3 C53,11 60,16 68,24 C79,35 86,47 86,61 C86,77 72,87 69,99 C68,105 72,109 76,113 C83,119 86,127 86,137 C86,151 70,157 50,157 C30,157 14,151 14,137 C14,127 17,119 24,113 C28,109 32,105 31,99 C28,87 14,77 14,61 C14,47 21,35 32,24 C40,16 47,11 50,3 Z" stroke-width="7.5"/></g>',t:'عن التطبيق',ic:'<circle cx="24" cy="24" r="16"/><path d="M24 22v10"/><circle cx="24" cy="16.5" r="1.2"/>'}
 ];
-const TITLES={maraka:'معركة اليوم',week:'التقرير الأسبوعي',search:'البحث',h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'الروحانيات',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',tasmi:'التسميع',me:'أنا',amrad:'أمراض القلب',wudu:'الوضوء',salat:'الصلاة',khushu:'الخشوع',khr:'الخشوع',ikhub:'الإخلاص',ikhlas:'ورقة الإخلاص',sirr:'أعمال السر',ikhl:'الإخلاص',ahdaf:'جبل الأهداف الأربعة',tawba:'التوبة',mujahada:'المجاهدة',series:'',fatur:'عند الفتور وضيق الصدر',tools:'أدوات السالك',duas:'سنن الرسول ﷺ',qibla:'اتجاه القبلة',hifz:'حفظ القرآن وتسميعه',ask:'اسأل الشيخ',majalis:'المجالس والدروس',path:'مساري إلى رضا الله',fiqh:'الفقه المالكي',roadmap:'خريطة الطريق إلى رضا الله',aqida:'العقيدة الأشعرية',audio:'الاستماع',sira:'السيرة النبوية العطرة',qiyama:'يوم القيامة',method:'المنهج المحمدي',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',muraqabat:'حالتك الروحية اليومية',sura:'حالة قلبك',aamal:'الأعمال',dhikr_run:'الذكر الشخصي',adh_sabah:'أذكار الصباح',adh_masa:'أذكار المساء',install:'تثبيت التطبيق',notif:'ما بقي من يومك',profile:'الإعدادات',admin:'لوحة الإدارة',taammulat:'تأملات',mraqib:'مراقبات',munajat:'مناجاة',muhasaba:'محاسبة الليلة',ruhi:'بياناتك الروحية',about:'عن التطبيق',tahlil:'تحليل الزلّات',qa:'سؤال وجواب',mushaf:'المصحف',subha:'السبحة',qalb:'أمراض القلب',quran:'القرآن',umrah:'العمرة',khalwa:'الخلوة والاعتكاف'};
-const VERSES={week:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',maraka:'﴿إِنَّ الشَّيْطَانَ لَكُمْ عَدُوٌّ فَاتَّخِذُوهُ عَدُوًّا﴾',search:'﴿وَقُل رَّبِّ زِدْنِي عِلْمًا﴾',h_quran:'﴿إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ﴾',h_ibadat:'﴿وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ﴾',h_ruh:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',h_ilm:'﴿وَقُل رَّبِّ زِدْنِي عِلْمًا﴾',h_shurut:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',tasmi:'﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ﴾',me:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',amrad:'﴿إِلَّا مَنْ أَتَى اللَّهَ بِقَلْبٍ سَلِيمٍ﴾',wudu:'﴿إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ﴾',salat:'﴿وَأَقِمِ الصَّلَاةَ لِذِكْرِي﴾',khushu:'﴿الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ﴾',khr:'﴿الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ﴾',ikhub:'﴿أَلَا لِلَّهِ الدِّينُ الْخَالِصُ﴾',ikhlas:'﴿وَمَا أُمِرُوا إِلَّا لِيَعْبُدُوا اللَّهَ مُخْلِصِينَ لَهُ الدِّينَ﴾',sirr:'«صدقة السر تطفئ غضب الرب»',ikhl:'﴿أَلَا لِلَّهِ الدِّينُ الْخَالِصُ﴾',ahdaf:'﴿وَأَنَّ إِلَىٰ رَبِّكَ الْمُنتَهَىٰ﴾',tawba:'﴿إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ﴾',mujahada:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',series:'',fatur:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',tools:'﴿وَمَا جَعَلَ عَلَيْكُمْ فِي الدِّينِ مِنْ حَرَجٍ﴾',duas:'﴿ادْعُونِي أَسْتَجِبْ لَكُمْ﴾',qibla:'﴿فَوَلِّ وَجْهَكَ شَطْرَ الْمَسْجِدِ الْحَرَامِ﴾',hifz:'﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ﴾',ask:'﴿فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ﴾',majalis:'«ما جلس قوم يذكرون الله إلا حفّتهم الملائكة»',path:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',fiqh:'﴿فَلَوْلَا نَفَرَ مِن كُلِّ فِرْقَةٍ مِّنْهُمْ طَائِفَةٌ لِّيَتَفَقَّهُوا فِي الدِّينِ﴾',aqida:'﴿فَاعْلَمْ أَنَّهُ لَا إِلَٰهَ إِلَّا اللَّهُ﴾',roadmap:'﴿وَأَنَّ هَٰذَا صِرَاطِي مُسْتَقِيمًا فَاتَّبِعُوهُ﴾',qiyama:'﴿يَوْمَ يَقُومُ النَّاسُ لِرَبِّ الْعَالَمِينَ﴾',sira:'﴿لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ﴾',audio:'﴿فَبَشِّرْ عِبَادِ ۝ الَّذِينَ يَسْتَمِعُونَ الْقَوْلَ فَيَتَّبِعُونَ أَحْسَنَهُ﴾',qalb:'﴿إِلَّا مَنْ أَتَى اللَّهَ بِقَلْبٍ سَلِيمٍ﴾',quran:'﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾',umrah:'﴿وَأَتِمُّوا الْحَجَّ وَالْعُمْرَةَ لِلَّهِ﴾',khalwa:'﴿وَاذْكُرِ اسْمَ رَبِّكَ وَتَبَتَّلْ إِلَيْهِ تَبْتِيلًا﴾',subha:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',mushaf:'﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾',qa:'﴿فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ﴾',dhikr_run:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',adh_sabah:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',adh_masa:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',install:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',method:'«أن تعبد الله كأنك تراه»',tazkiya:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',uyub:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',muraqabat:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',sura:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',aamal:'«أحبّ الأعمال إلى الله أدومها وإن قلّ»',notif:'﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾',profile:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',admin:'﴿إِنْ أُرِيدُ إِلَّا الْإِصْلَاحَ مَا اسْتَطَعْتُ﴾',taammulat:'﴿الَّذِينَ يَذْكُرُونَ اللَّهَ قِيَامًا وَقُعُودًا وَعَلَىٰ جُنُوبِهِمْ وَيَتَفَكَّرُونَ﴾',mraqib:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',munajat:'﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ﴾',muhasaba:'﴿وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ﴾',ruhi:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',about:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',tahlil:'﴿إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ﴾'};
+const TITLES={maraka:'معركة اليوم',week:'التقرير الأسبوعي',search:'البحث',h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'التزكية',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',tasmi:'التسميع',me:'أنا',amrad:'أمراض القلب',wudu:'الوضوء',salat:'الصلاة',khushu:'الخشوع',khr:'الخشوع',ikhub:'الإخلاص',ikhlas:'ورقة الإخلاص',sirr:'أعمال السر',ikhl:'الإخلاص',ahdaf:'جبل الأهداف الأربعة',tawba:'التوبة',mujahada:'المجاهدة',series:'',fatur:'عند الفتور وضيق الصدر',tools:'أدوات السالك',duas:'سنن الرسول ﷺ',qibla:'اتجاه القبلة',hifz:'حفظ القرآن وتسميعه',ask:'اسأل الشيخ',majalis:'المجالس والدروس',path:'مساري إلى رضا الله',fiqh:'الفقه المالكي',roadmap:'خريطة الطريق إلى رضا الله',aqida:'العقيدة الأشعرية',audio:'الاستماع',sira:'السيرة النبوية العطرة',qiyama:'يوم القيامة',method:'المنهج المحمدي',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',muraqabat:'حالتك الروحية اليومية',sura:'حالة قلبك',aamal:'الأعمال',dhikr_run:'الذكر الشخصي',adh_sabah:'أذكار الصباح',adh_masa:'أذكار المساء',install:'تثبيت التطبيق',notif:'ما بقي من يومك',profile:'الإعدادات',admin:'لوحة الإدارة',taammulat:'تأملات',mraqib:'مراقبات',munajat:'مناجاة',muhasaba:'محاسبة الليلة',ruhi:'بياناتك الروحية',about:'عن التطبيق',tahlil:'تحليل الزلّات',qa:'سؤال وجواب',mushaf:'المصحف',subha:'السبحة',qalb:'أمراض القلب',quran:'القرآن',umrah:'العمرة',khalwa:'الخلوة والاعتكاف'};
+const VERSES={week:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',maraka:'﴿إِنَّ الشَّيْطَانَ لَكُمْ عَدُوٌّ فَاتَّخِذُوهُ عَدُوًّا﴾',search:'﴿وَقُل رَّبِّ زِدْنِي عِلْمًا﴾',h_quran:'﴿إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ﴾',h_ibadat:'﴿وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ﴾',h_ruh:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',h_ilm:'﴿وَقُل رَّبِّ زِدْنِي عِلْمًا﴾',h_shurut:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',tasmi:'﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ﴾',me:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',amrad:'﴿إِلَّا مَنْ أَتَى اللَّهَ بِقَلْبٍ سَلِيمٍ﴾',wudu:'﴿إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ﴾',salat:'﴿وَأَقِمِ الصَّلَاةَ لِذِكْرِي﴾',khushu:'﴿الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ﴾',khr:'﴿الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ﴾',ikhub:'﴿أَلَا لِلَّهِ الدِّينُ الْخَالِصُ﴾',ikhlas:'﴿وَمَا أُمِرُوا إِلَّا لِيَعْبُدُوا اللَّهَ مُخْلِصِينَ لَهُ الدِّينَ﴾',sirr:'«صدقة السر تطفئ غضب الرب»',ikhl:'﴿أَلَا لِلَّهِ الدِّينُ الْخَالِصُ﴾',ahdaf:'﴿وَأَنَّ إِلَىٰ رَبِّكَ الْمُنتَهَىٰ﴾',tawba:'﴿إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ﴾',mujahada:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',series:'',fatur:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',tools:'﴿وَمَا جَعَلَ عَلَيْكُمْ فِي الدِّينِ مِنْ حَرَجٍ﴾',duas:'﴿ادْعُونِي أَسْتَجِبْ لَكُمْ﴾',qibla:'﴿فَوَلِّ وَجْهَكَ شَطْرَ الْمَسْجِدِ الْحَرَامِ﴾',hifz:'﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ﴾',ask:'﴿فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ﴾',majalis:'«ما جلس قوم يذكرون الله إلا حفّتهم الملائكة»',path:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',fiqh:'﴿فَلَوْلَا نَفَرَ مِن كُلِّ فِرْقَةٍ مِّنْهُمْ طَائِفَةٌ لِّيَتَفَقَّهُوا فِي الدِّينِ﴾',aqida:'﴿فَاعْلَمْ أَنَّهُ لَا إِلَٰهَ إِلَّا اللَّهُ﴾',roadmap:'﴿وَأَنَّ هَٰذَا صِرَاطِي مُسْتَقِيمًا فَاتَّبِعُوهُ﴾',qiyama:'﴿يَوْمَ يَقُومُ النَّاسُ لِرَبِّ الْعَالَمِينَ﴾',sira:'﴿لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ﴾',audio:'﴿فَبَشِّرْ عِبَادِ ۝ الَّذِينَ يَسْتَمِعُونَ الْقَوْلَ فَيَتَّبِعُونَ أَحْسَنَهُ﴾',qalb:'﴿إِلَّا مَنْ أَتَى اللَّهَ بِقَلْبٍ سَلِيمٍ﴾',quran:'﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾',umrah:'﴿وَأَتِمُّوا الْحَجَّ وَالْعُمْرَةَ لِلَّهِ﴾',khalwa:'﴿وَاذْكُرِ اسْمَ رَبِّكَ وَتَبَتَّلْ إِلَيْهِ تَبْتِيلًا﴾',subha:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',mushaf:'﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾',qa:'﴿فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ﴾',dhikr_run:'﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾',adh_sabah:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',adh_masa:'﴿'+ADHKAR.verse.slice(ADHKAR.verse.indexOf('وَسَ'))+'﴾',install:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',method:'«أن تعبد الله كأنك تراه»',tazkiya:'﴿قَدْ أَفْلَحَ مَن زَكَّاهَا﴾',uyub:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',muraqabat:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',sura:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',aamal:'«أحبّ الأعمال إلى الله أدومها وإن قلّ»',notif:'﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾',profile:'﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾',admin:'﴿إِنْ أُرِيدُ إِلَّا الْإِصْلَاحَ مَا اسْتَطَعْتُ﴾',taammulat:'﴿الَّذِينَ يَذْكُرُونَ اللَّهَ قِيَامًا وَقُعُودًا وَعَلَىٰ جُنُوبِهِمْ وَيَتَفَكَّرُونَ﴾',mraqib:'﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾',munajat:'﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ﴾',muhasaba:'﴿وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ﴾',ruhi:'﴿بَلِ الْإِنسَانُ عَلَىٰ نَفْسِهِ بَصِيرَةٌ﴾',about:'﴿وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ﴾',tahlil:'﴿إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ﴾'};
 
 const AVATAR='<svg viewBox="0 0 52 52"><rect width="52" height="52" fill="#eceae6"/><circle cx="26" cy="20" r="9" fill="#c9c4bc"/><path d="M8 52c2-11 9-16 18-16s16 5 18 16z" fill="#c9c4bc"/></svg>';
 function avatarImg(){const src=S.photo||(AUTH.user&&AUTH.user.photoURL)||'';
@@ -2545,7 +2561,7 @@ function heroHome(){
    <section class="h2-pr" aria-label="مواقيت الصلاة"><div class="h2-prh"><span>مواقيت الصلاة</span><b><span>صلاة</span> ${nx.n} <span>بعد</span> ${mins>=60?Math.floor(mins/60)+' <span>س</span> ':''}${mins%60} <span>د</span></b></div>
     <svg class="h2-curve" viewBox="0 0 340 50" aria-hidden="true"><path d="M6 14 Q90 46 170 40 T334 12" fill="none" stroke="rgba(243,237,230,.32)" stroke-width="1.2"/>${(RTL()?X:X.slice().reverse()).map((x,i)=>i===ki?`<circle cx="${x}" cy="${Y[i]}" r="8" fill="none" stroke="#E6C891" stroke-width="1.6"/><circle cx="${x}" cy="${Y[i]}" r="3.6" fill="#E6C891"/>`:`<circle cx="${x}" cy="${Y[i]}" r="2.8" fill="#F3EDE6"/>`).join('')}</svg>
     <div class="h2-pl">${F.map(([k,n])=>`<div class="${k===nx.k?'on':''}"><span>${n}</span><small>${hm(pt[k])}</small></div>`).join('')}</div></section>
-   ${mkStrip('h2-mk')}
+   ${treeMini('h2-tr')}
   </header>`;
 }
 /* the one thing to do now */
@@ -2704,8 +2720,10 @@ function viewHome(){
   const subs={tools:'القبلة، سنن الرسول ﷺ، حفظ القرآن، وضع رمضان',ask:askUnseen()?'وصلك جواب جديد ✦':'سؤالك يصل إلى الشيخ، والجواب هنا',majalis:majUpcoming().length?'<span>المجلس القادم:</span> <span class="notr">'+majFmt(majUpcoming()[0].at)+'</span>':'مواعيد مجالس الذكر والدروس',roadmap:'الشروط الأربعة، الجسر، والأهداف الأربعة',audio:'دروس ومحاضرات صوتية',method:'الطريقة المحمدية: الأصول والأبواب وطريق التحقق',ruhi:`${lc} <span>من 4 أنوار مضيئة</span>`,admin:'المستعملون، الرسائل، الأعمال المقترحة',about:'التعريف بالتطبيق والإعدادات'};
   const list=`<div class="sh" style="margin:22px 2px 10px"><h2>المزيد</h2></div><div class="box h2-more">${more.map(m=>`<button class="h2-row" data-go="${m.id}"><span class="h2-ri"><svg viewBox="0 0 48 48" aria-hidden="true">${m.ic||m.art}</svg></span><span class="tx">${m.t}<small>${subs[m.id]||''}</small></span><svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>`).join('')}</div>`;
   const langs=`<div class="langs h2-langs" role="group" aria-label="اللغة">${LANGS.map(([c,l,n])=>`<button class="lang notr${c===LANG?' on':''}" data-lang="${c}" aria-pressed="${c===LANG}" title="${n}" lang="${c}">${l}</button>`).join('')}</div>`;
-  if(SIMPLE()){const eve=dH()>=ptDay().maghrib&&!qmDone();
-    return heroHome()+`<main class="sheet sm-home">${inboxCard()}${banner}${nightCard()}${homeNow()}${fsCard()}${eve?qmCard(1):''}${ramCard()}${majCard()}${homeTiles()}</main>`}
+  if(SIMPLE()){const eve=dH()>=ptDay().maghrib&&!qmDone(),fs=fsCard();
+    /* «اليوم»: the prayer times, the one thing to do now, today's fruits; the rest only when it matters */
+    const acc=fs?'':(AUTH.state==='local'&&!(S.locBan&&S.locBan>addDays(TODAY,-7))?banner.slice(banner.indexOf('<div class="box loc-ban">')):'');
+    return heroHome()+`<main class="sheet sm-home">${inboxCard()}${moved}${announcementBanner()}${nightCard()}${homeNow()}${fs}${eve?qmCard(1):''}${ramCard()}${majCard()}${acc}</main>`}
   return heroHome()+`<main class="sheet">${inboxCard()}${banner}${nightCard()}${homeNow()}${fsCard()}${careCard()}${ramCard()}${majCard()}${qaGrid()}${homeProg()}<button class="me-ui" data-uimode="simple"><span>الواجهة المبسّطة</span><small>صور، وأقسام أقل، وكل شيء أقرب</small></button></main>`;
 }
 
@@ -2922,8 +2940,8 @@ function viewQuran(){const M=msh(),k=suraAt(M.p),[hz,,,th]=QIDX[M.p],n=Math.min(
     <span class="qr-pr"><i><b style="width:${n/M.wird*100}%"></b></i><em dir="ltr">${n} / ${M.wird}</em></span></button>
    <div class="qr-hz"><button class="h2-row" data-go="hifz"><span class="h2-ri"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 36V12c5-2 10-2 16 2 6-4 11-4 16-2v24c-5-2-10-2-16 2-6-4-11-4-16-2z"/><path d="M24 14v24"/></svg></span><span class="tx">حفظ القرآن وتسميعه<small>${hzDone()} <span>سورة محفوظة</span> · <span>سمّع حفظك بصوتك</span></small></span><svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button></div>
    <label class="qr-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="mshQ" type="search" placeholder="${Tx('ابحث عن سورة بالاسم أو الرقم')}" autocomplete="off"></label>
-   <div class="sh" style="margin:18px 2px 6px"><h2>السور</h2><span>114</span></div>
-   <div class="qr-list" id="mshSL">${mshSurList()}</div><p class="meta" id="mshNone" hidden>لا توجد سورة بهذا الاسم.</p>
+   <details class="qr-all" id="mshAll"><summary><b>كل السور</b><span>114</span></summary>
+   <div class="qr-list" id="mshSL">${mshSurList()}</div></details><p class="meta" id="mshNone" hidden>لا توجد سورة بهذا الاسم.</p>
   </section>`}
 function viewMushaf(){const M=msh(),P=mshCP(),[hz,,,th]=QIDX[P],n=Math.min(M.day.read.length,M.wird),pct=n/M.wird*100;
   setTimeout(mushafPaint,0);
@@ -2976,6 +2994,8 @@ document.addEventListener('touchend',e=>{if(!mshX||screen!=='mushaf')return;cons
 
 /* reading mode: only the page stays; one tap on it shows or hides the tools */
 document.addEventListener('click',e=>{if(screen!=='mushaf'||!S.mshFocus||!e.target.closest('#mshPage'))return;document.body.classList.toggle('msh-show')});
+
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='mshQ'){const d=document.getElementById('mshAll');if(d&&e.target.value)d.open=true}});
 /* ---------- the prayer beads (subha): your own dhikr list, a counter you tap ---------- */
 const SUBHA_DEF=[['سبحان الله',33],['الحمد لله',33],['الله أكبر',34],['أستغفر الله',100],['اللهم صلِّ على سيدنا محمد',100],['لا إله إلا الله',100]];
 let sbAdd=false,sbReset=false,sbEdit=false,sbZero=false;
@@ -5936,7 +5956,7 @@ function amSimple(o){const {L,past,D,P,awL,nfOn,lateAw,IT,pt,pr,late}=o,PN=Objec
   const list=`<div class="sh am-h"><h2>يومك على أوقات الصلاة ${hintBtn('day')}</h2></div><div class="amx-tl">${tl}</div>
     ${past?'':`<div class="am-add"><button class="am-addb" data-mineadd="1">+ <span>أضف عملًا</span></button>${myDeeds().length?`<button class="am-addb s" data-ammine="1">${amMineOpen?'إخفاء':'أعمالي الخاصة'}</button>`:''}</div>`}
     ${amDlOpen&&!past?dhikrEditor():''}${(mineForm||amMineOpen)&&!past?mineBlock(L,D,past):''}`;
-  return `${past?aDateBar():''}${amWeek()}${amHead(D,past)}${nowC}${past?'':amTips()}${past?'':pushInvite()}${five}${list}${past?'':amInsights(pt)}
+  return `${past?aDateBar():''}${amWeek()}${past?amHead(D,past):`<div class="am-trw">${treeMini('am-tr')}<button class="amx-more" data-ammore="1" aria-label="${esc(Tx('المزيد'))}">⋯</button></div>`}${nowC}${past?'':amTips()}${past?'':pushInvite()}${five}${list}${past?'':`<button class="am-mkl" data-go="maraka"><b>معركة اليوم</b><span>تحدٍّ اختياري مع النفس والشيطان</span></button>`}
    <p class="meta amx-hint">اسحب أي عمل جانبًا لإتمامه، واضغط عليه مطوّلًا لترى تفاصيله.</p>`}
 /* insights: the deed missed most this week, two weeks of constancy, and ready levels */
 const AM_LV=[['مبتدئ',{aw:['sabah','masa'],nf:['witr']}],['متوسط',{aw:['sabah','masa','quran','dhikr','sadaqa'],nf:['raghiba','witr']}],
@@ -6157,7 +6177,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   ${isStandalone()?`<button class="btn notif-cta" data-go="profile" data-openacc="push">فعّل التذكيرات على هاتفك</button>`:`<button class="btn ok notif-cta" data-go="install">ثبّت التطبيق لتصلك التذكيرات على هاتفك</button>`}</section>`;
 }
-const APP_VER='2026-11-17 11:55';
+const APP_VER='2026-11-20 14:41';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
@@ -6345,7 +6365,7 @@ function viewRoadmap(){const P=pathData();endLoad();setTimeout(()=>rmAnim(),90);
     <button class="rm-zm" data-rmzoom="1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg><span>تكبير الخريطة</span></button></div>
    ${rmCard(P,'rm-below')}
    <button class="btn ok rm-path" data-go="path">افتح مساري: أين أنا في هذا الطريق؟</button>
-   ${SIMPLE()?`<div class="sh sm-sh"><h2>زاد الطريق</h2></div>${smTiles(['h_quran','h_ibadat','h_ruh','h_ilm','tazkiya','tools'])}`:''}${SIMPLE()?'<div hidden>':''}
+   ${SIMPLE()?`<div class="sh sm-sh"><h2>زاد الطريق</h2></div>${smTiles(['h_quran','h_ibadat','h_ruh','h_ilm'])}`:''}${SIMPLE()?'<div hidden>':''}
    <p class="meta rm-how rm-tap"><span class="rm-dot"></span><span>اضغط على أي محطة في الصورة لفتح درسها.</span></p>
    <p class="meta rm-how">يبدأ السالك من جبل الشروط، ثم يعبر جسر التزكية مرحلةً مرحلة، حتى يبلغ جبل الأهداف.</p>
    <ol class="rm-st">${RM.map((g,k)=>`<li class="box rm-g0 ${g.c}"><div class="rm-h"><span class="rm-n">${k+1}</span><span><b>${g.t}</b><small>${g.sub}</small></span></div>
@@ -6757,7 +6777,7 @@ const IL_IMG=new Set(['nifaq','mk_d1','mk_d2','mk_s1','mk_s2','mk_s3','mk_s4','m
 function ilSvg(k,cls){if(k==='s7')k='s5';if(!IL_IMG.has(k)&&typeof IL_ALIAS!=='undefined'&&IL_ALIAS[k]){const a=[].concat(IL_ALIAS[k]);k=a.find(x=>IL_IMG.has(x))||a[a.length-1]}if(IL_IMG.has(k)&&!IL_BAD.has(k))return `<img class="il ${cls||''}" src="il/${k}.webp" alt="" loading="lazy" decoding="async" width="960" height="600" onerror="ilFail(this,'${k}','${cls||''}')">`;const f=IL[k]||IL.m_path;return `<svg class="il ${cls||''}" viewBox="0 0 320 200" role="img" aria-hidden="true"><defs>${ilClip('c_'+k)}</defs><g clip-path="url(#c_${k}c)">${f()}</g></svg>`}
 
 /* ================= simplified, picture-first interface ================= */
-const SIMPLE=()=>S.ui!=='classic';
+const SIMPLE=()=>true;
 const NAV_CLASSIC=(document.querySelector('nav.tabs .in')||{}).innerHTML||'';
 const NAV_SIMPLE=`<button data-nav="home" aria-label="اليوم"><svg viewBox="0 0 24 24"><circle class="f" cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="4.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></svg><span>اليوم</span></button>
  <button data-nav="tariq" aria-label="الطريق"><svg viewBox="0 0 24 24"><path class="f" d="M3 19l6-12 4 7 3-4 5 9z"/><path d="M3 19l6-12 4 7 3-4 5 9zM2 19h20"/></svg><span>الطريق</span></button>
@@ -6767,12 +6787,12 @@ function tabS(s){if(s==='home'||s.startsWith('adh_')||['aamal','maraka','dhikr_r
   if(['me','profile','ruhi','notif','about','admin','week','install','muraqabat','sura','tahlil','mraqib','munajat'].includes(s))return 'me';return 'tariq'}
 
 /* picture tiles */
-const SMT={maraka:'معركة اليوم',h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'الروحانيات',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',ahdaf:'جبل الأهداف الأربعة',mraqib:'مراقبات',munajat:'مناجاة',qiyama:'يوم القيامة',aqida:'العقيدة',fiqh:'الفقه',tawba:'التوبة',mujahada:'المجاهدة',hifz:'حفظ القرآن وتسميعه',tasmi:'التسميع',aamal:'أعمال اليوم',quran:'القرآن',khushu:'الخشوع',amrad:'أمراض القلب',qa:'سؤال وجواب',tazkiya:'التزكية',uyub:'اعرف عيوبك وعالجها',khalwa:'الخلوة والاعتكاف',method:'المنهج المحمدي',taammulat:'تأملات',majalis:'المجالس والدروس',ask:'اسأل الشيخ',tools:'أدوات السالك',umrah:'العمرة',wudu:'الوضوء',salat:'الصلاة',sira:'السيرة النبوية'};
+const SMT={maraka:'معركة اليوم',h_quran:'القرآن',h_ibadat:'عبادات',h_ruh:'التزكية',h_ilm:'العلم والصحبة',h_shurut:'جبل الشروط الأربعة',ahdaf:'جبل الأهداف الأربعة',mraqib:'مراقبات',munajat:'مناجاة',qiyama:'يوم القيامة',aqida:'العقيدة',fiqh:'الفقه',tawba:'التوبة',mujahada:'المجاهدة',hifz:'حفظ القرآن وتسميعه',tasmi:'التسميع',aamal:'أعمال اليوم',quran:'القرآن',khushu:'الخشوع',amrad:'أمراض القلب',qa:'سؤال وجواب',tazkiya:'مراحل التزكية',uyub:'اعرف عيوبك وعالجها',khalwa:'الخلوة والاعتكاف',method:'المنهج المحمدي',taammulat:'تأملات',majalis:'المجالس والدروس',ask:'اسأل الشيخ',tools:'أدوات السالك',umrah:'العمرة',wudu:'الوضوء',salat:'الصلاة',sira:'السيرة النبوية'};
 
 /* the Path's sections ("tabs"): each opens a page of picture tiles */
-const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['uyub','khushu','mraqib','munajat','khalwa'],
+const HUBS={h_quran:['quran','hifz'],h_ibadat:['aamal','wudu','salat','umrah'],h_ruh:['tazkiya','uyub','khushu','mraqib','munajat','khalwa'],
  h_ilm:['method','majalis','sira','qiyama','qa','ask'],h_shurut:['aqida','fiqh','tawba','mujahada']};
-const IL_ALIAS={maraka:['mk_s1','m_climb'],h_quran:'quran',h_ibadat:'salat',h_ruh:'taammulat',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],khalwa:['khalwa','taammulat'],nifaq:['nifaq','kadhib'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
+const IL_ALIAS={maraka:['mk_s1','m_climb'],h_quran:'quran',h_ibadat:'salat',h_ruh:'tazkiya',h_ilm:'majalis',h_shurut:['c_aqida','m_climb'],ahdaf:['g4','m_mosque'],mraqib:'m_lamp',munajat:'m_heart',uyub:['uyub','amrad'],khalwa:['khalwa','taammulat'],nifaq:['nifaq','kadhib'],ghiba:'m_door',kadhib:'m_path',zann:'m_lamp',fudul:'m_tree',qiyama:'m_path',aqida:['c_aqida','m_tree'],fiqh:['c_fiqh','m_book'],tawba:'m_door',mujahada:'m_climb',hifz:'m_book',tasmi:'m_book'};
 const viewHub=k=>()=>`<section>${smTiles(HUBS[k],HUBS[k].length%2?'odd':'')}</section>`;
 
 /* Today's four tiles: the user can change or remove each one (long press), and fill an empty place with "+" */
@@ -6845,8 +6865,12 @@ function treeArt(T){const C=ILC;
   const nf=T.hs<=2&&img==='tree3'?Math.round(TR_FP.length*T.t):0;
   const fr=TR_FP.slice(0,nf).map(([x,y],i)=>`<i class="tr-f" style="left:${(x/9.6).toFixed(2)}%;top:${(y/6).toFixed(2)}%;--s:${[1,.88,.96,.92,1.04][i%5]}"><img src="il/tr_f${i%3+1}.webp" alt=""></i>`).join('');
   return `<div class="tr-im${cls}">${ilSvg(img)}${fr}</div>`}
+const treeTitle=T=>T.st<3?TREE_ST[T.st]:T.hs===0?(T.t>=1?'شجرة مثمرة كاملة':T.t>0?'شجرة مثمرة':'شجرة نضرة'):TREE_HS[T.hs];
+/* the one daily progress shown on «اليوم» and the deeds page: the tree, its fruits today */
+function treeMini(cls){let T;try{T=treeState()}catch(e){return ''}
+  return `<button class="tr-mini ${cls||''}" data-go="me"><span class="tr-mic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21v-6"/><path d="M12 15c-4.4 0-7-2.4-7-5.6C5 6 8 3.5 12 3.5S19 6 19 9.4c0 3.2-2.6 5.6-7 5.6z"/><circle class="f" cx="9.5" cy="9" r="1.1"/><circle class="f" cx="14" cy="7.6" r="1.1"/><circle class="f" cx="13.6" cy="11.4" r="1.1"/></svg></span><span class="tr-mt"><small>ثمار اليوم</small><b>${treeTitle(T)}</b></span><b class="tr-mn" dir="ltr">${T.dn} / ${T.tot}</b><i class="tr-bar tr-bf"><b style="width:${T.t*100}%"></b></i></button>`}
 function treeCard(){const T=treeState();
-  const title=T.st<3?TREE_ST[T.st]:T.hs===0?(T.t>=1?'شجرة مثمرة كاملة':T.t>0?'شجرة مثمرة':'شجرة نضرة'):TREE_HS[T.hs];
+  const title=treeTitle(T);
   const need=[2,5,10][T.st],left=T.st<3?need-T.g:0;
   const msg=T.st<3?'':T.hs===4?'ماتت أغصانها لأن الأعمال انقطعت في الأيام الأخيرة، لكن جذورها باقية: كل عمل تتمه اليوم يعيد إليها الحياة.':T.hs>=2?'ذبلت لأن أعمالك قلّت في الأيام الأخيرة. كل عمل تتمه اليوم يسقيها، ومع الأيام تعود نضرة.':'';
   return `<section class="box tr-c">${treeArt(T)}<div class="tr-t"><small class="tr-k">شجرة المداومة</small><b>${title}</b>
@@ -6865,7 +6889,7 @@ function viewMe(){const u=AUTH.user,ex=S.amEx&&AMRAD.ar[S.amEx.id]?S.amEx:null,A
   const row=(go,t,ic,extra)=>`<button class="h2-row me-row" ${go}><span class="h2-ri"><svg viewBox="0 0 24 24" aria-hidden="true">${ic}</svg></span><span class="h2-rt"><b>${t}</b></span>${extra||''}<svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>`;
   const exc=ex?`<section class="box am-my"><div>${ilSvg(ex.id,'am-th')}</div><div><small>تمرينك هذا الأسبوع</small><b class="notr" ${LANG==='ar'||LANG==='ur'?'dir="rtl"':'dir="ltr"'}>${A[ex.id][4]}</b>${(ex.done||{})[TODAY]?'<span class="logged">فعلته اليوم ✓</span>':'<button class="btn ok small" data-amdone="1">فعلته اليوم</button>'}</div></section>`:'';
   return `<section class="me-hd"><button class="avatar big" data-go="profile" aria-label="الإعدادات">${avatarImg()}</button><div><h2>${esc(S.name||'')}</h2><p class="muted notr">${esc(cityName(S.loc))}</p></div></section>
-   ${treeCard()}${qmCard()}
+   ${treeCard()}<div class="box h2-more me-list">${row('data-go="tools"','أدوات السالك','<circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',`<small class="me-x">${Tx('القبلة، السبحة، السنن')}</small>`)}</div>
    ${meG('ruh','مساحتي الروحية',['مساري','محاسبة الليلة','تحليل زلّاتي','عيوبك','ما بقي من يومك'])}<div class="box h2-more me-list">
     ${row('data-go="path"','مساري: أين أنا في الطريق؟','<path d="M5 19c3-1 4-5 7-6s5 1 7-2 2-5 2-5"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="6" r="2"/>',`<small class="me-x" dir="ltr">${pathPct(pathData())}%</small>`)}
     ${row('data-go="muhasaba"','محاسبة الليلة','<path d="M12 3a7 7 0 1 0 7 9 5.5 5.5 0 0 1-7-9z"/>')}
@@ -6873,10 +6897,10 @@ function viewMe(){const u=AUTH.user,ex=S.amEx&&AMRAD.ar[S.amEx.id]?S.amEx:null,A
     ${row('data-go="uyub"','اعرف عيوبك وعالجها','<ellipse cx="12" cy="10" rx="6" ry="7"/><path d="M12 17v4M9 21h6"/>')}
     ${row('data-go="notif"','ما بقي من يومك','<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/>')}
    </div></details>
-   ${meG('rep','تقاريري',['التقرير الأسبوعي','بياناتك الروحية'])}<div class="box h2-more me-list">
+   ${meG('rep','تقاريري',['التقرير الأسبوعي','مداومتك','مستواك في الأعمال'])}<div class="box h2-more me-list">
     ${row('data-go="ijtihad"','التقرير الأسبوعي: مرآة أعمالك','<path d="M5 19V13M10 19V9M15 19V11M20 19V5"/>')}
     ${row('data-go="ruhi"','بياناتك الروحية','<path d="M12 20s-8-4.8-8-10.5A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 8 2.5C20 15.2 12 20 12 20z"/>')}
-   </div></details>
+   </div><div class="me-ins">${amInsights(ptDay())}</div></details>
    ${meG('acc','حسابي',['الاسم والصورة','الحساب','النسخة الاحتياطية'])}<div class="box h2-more me-list">
     ${row('data-go="profile" data-openacc="pname"','الاسم والصورة','<circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/>')}
     ${row('data-go="profile" data-openacc="account"',u&&u.email?'الحساب والبريد':'إنشاء حساب','<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 8l9 6 9-6"/>',u&&u.email?`<small class="me-x notr" dir="ltr">${esc(u.email.split('@')[0])}</small>`:'')}
@@ -6896,7 +6920,7 @@ function viewMe(){const u=AUTH.user,ex=S.amEx&&AMRAD.ar[S.amEx.id]?S.amEx:null,A
     ${row('data-go="about" data-openacc="contact"','التواصل والدعم','<path d="M4 5h16v11H8l-4 4z"/>')}
     ${isAdmin()?row('data-go="admin"','لوحة الإدارة','<path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"/>'):''}
    </div></details>
-   <button class="me-ui" data-uimode="classic"><span>الواجهة الكلاسيكية</span><small>كل الأقسام كما كانت من قبل</small></button>`}
+`}
 
 /* ---------- screen: heart diseases as picture cards ---------- */
 let amI=0;
@@ -7537,7 +7561,7 @@ document.addEventListener('change',e=>{const el=e.target;if(!el||!el.dataset||!e
   else if(k==='a1'){t.a1=+el.value;if(t.a2<t.a1)t.a2=t.a1}else if(k==='a2'){t.a2=+el.value;if(t.a2<t.a1)t.a1=t.a2}
   tsRes=null;save();render()});
 
-const VIEWS={search:viewSearch,h_quran:viewHub('h_quran'),h_ibadat:viewHub('h_ibadat'),h_ruh:viewHub('h_ruh'),h_ilm:viewHub('h_ilm'),h_shurut:viewHub('h_shurut'),tasmi:viewTasmi,me:viewMe,amrad:viewAmrad,wudu:()=>viewGuide('wudu'),salat:()=>viewGuide('salat'),khushu:viewKhushu,khr:viewKhushuR,ikhub:viewIkhub,ikhlas:viewIkhlas,sirr:viewSirr,ikhl:()=>viewLesson('ikhlas'),ahdaf:viewAhdaf,tawba:()=>viewLesson('tawba'),mujahada:()=>viewLesson('mujahada'),series:viewSeries,fatur:viewFatur,tools:viewTools,duas:viewDuas,qibla:viewQibla,hifz:viewHifz,ask:viewAsk,majalis:viewMajalis,path:viewPath,roadmap:viewRoadmap,fiqh:viewFiqh,aqida:()=>viewAudio(AQ_K),audio:()=>viewAudio(SIRA_K),sira:()=>viewYS('sira'),qiyama:()=>viewYS('qiy'),method:viewMethod,tazkiya:viewTazkiya,uyub:viewUyub,muraqabat:viewMuraqabat,sura:viewSura,aamal:()=>{const h=viewAamal();return aDate?h:mkStrip('am-mk')+h},dhikr_run:viewDhikrRun,adh_sabah:()=>viewAdhkar('sabah'),adh_masa:()=>viewAdhkar('masa'),install:viewInstall,notif:viewNotif,profile:viewProfile,admin:viewAdmin,taammulat:viewTaammulat,muhasaba:viewMuhasaba,organ:viewOrgan,qalb:viewQalb,quran:viewQuran,umrah:viewUmrah,maraka:viewMaraka,khalwa:viewKhalwa,subha:viewSubha,mushaf:viewMushaf,qa:viewQA,week:viewWeek,about:viewAbout,tahlil:viewTahlil,ruhi:viewRuhi,mraqib:viewMraqib,munajat:viewMraqib};
+const VIEWS={search:viewSearch,h_quran:viewHub('h_quran'),h_ibadat:viewHub('h_ibadat'),h_ruh:viewHub('h_ruh'),h_ilm:viewHub('h_ilm'),h_shurut:viewHub('h_shurut'),tasmi:viewTasmi,me:viewMe,amrad:viewAmrad,wudu:()=>viewGuide('wudu'),salat:()=>viewGuide('salat'),khushu:viewKhushu,khr:viewKhushuR,ikhub:viewIkhub,ikhlas:viewIkhlas,sirr:viewSirr,ikhl:()=>viewLesson('ikhlas'),ahdaf:viewAhdaf,tawba:()=>viewLesson('tawba'),mujahada:()=>viewLesson('mujahada'),series:viewSeries,fatur:viewFatur,tools:viewTools,duas:viewDuas,qibla:viewQibla,hifz:viewHifz,ask:viewAsk,majalis:viewMajalis,path:viewPath,roadmap:viewRoadmap,fiqh:viewFiqh,aqida:()=>viewAudio(AQ_K),audio:()=>viewAudio(SIRA_K),sira:()=>viewYS('sira'),qiyama:()=>viewYS('qiy'),method:viewMethod,tazkiya:viewTazkiya,uyub:viewUyub,muraqabat:viewMuraqabat,sura:viewSura,aamal:viewAamal,dhikr_run:viewDhikrRun,adh_sabah:()=>viewAdhkar('sabah'),adh_masa:()=>viewAdhkar('masa'),install:viewInstall,notif:viewNotif,profile:viewProfile,admin:viewAdmin,taammulat:viewTaammulat,muhasaba:viewMuhasaba,organ:viewOrgan,qalb:viewQalb,quran:viewQuran,umrah:viewUmrah,maraka:viewMaraka,khalwa:viewKhalwa,subha:viewSubha,mushaf:viewMushaf,qa:viewQA,week:viewWeek,about:viewAbout,tahlil:viewTahlil,ruhi:viewRuhi,mraqib:viewMraqib,munajat:viewMraqib};
 const TOPTABS=['aamal','tazkiya','quran'];
 /* ---------- listening: lessons uploaded to the repo's audio/ folder ---------- */
 const AU_REPO='dridrissihafdi-ship-it/almurshid',AU_EXT=/\.(mp3|m4a|aac|ogg|oga|opus|wav)$/i;

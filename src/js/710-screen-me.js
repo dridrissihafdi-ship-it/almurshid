@@ -7,7 +7,7 @@ function viewMe(){const u=AUTH.user,ex=S.amEx&&AMRAD.ar[S.amEx.id]?S.amEx:null,A
   const row=(go,t,ic,extra)=>`<button class="h2-row me-row" ${go}><span class="h2-ri"><svg viewBox="0 0 24 24" aria-hidden="true">${ic}</svg></span><span class="h2-rt"><b>${t}</b></span>${extra||''}<svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>`;
   const exc=ex?`<section class="box am-my"><div>${ilSvg(ex.id,'am-th')}</div><div><small>تمرينك هذا الأسبوع</small><b class="notr" ${LANG==='ar'||LANG==='ur'?'dir="rtl"':'dir="ltr"'}>${A[ex.id][4]}</b>${(ex.done||{})[TODAY]?'<span class="logged">فعلته اليوم ✓</span>':'<button class="btn ok small" data-amdone="1">فعلته اليوم</button>'}</div></section>`:'';
   return `<section class="me-hd"><button class="avatar big" data-go="profile" aria-label="الإعدادات">${avatarImg()}</button><div><h2>${esc(S.name||'')}</h2><p class="muted notr">${esc(cityName(S.loc))}</p></div></section>
-   ${treeCard()}${qmCard()}
+   ${treeCard()}<div class="box h2-more me-list">${row('data-go="tools"','أدوات السالك','<circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',`<small class="me-x">${Tx('القبلة، السبحة، السنن')}</small>`)}</div>
    ${meG('ruh','مساحتي الروحية',['مساري','محاسبة الليلة','تحليل زلّاتي','عيوبك','ما بقي من يومك'])}<div class="box h2-more me-list">
     ${row('data-go="path"','مساري: أين أنا في الطريق؟','<path d="M5 19c3-1 4-5 7-6s5 1 7-2 2-5 2-5"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="6" r="2"/>',`<small class="me-x" dir="ltr">${pathPct(pathData())}%</small>`)}
     ${row('data-go="muhasaba"','محاسبة الليلة','<path d="M12 3a7 7 0 1 0 7 9 5.5 5.5 0 0 1-7-9z"/>')}
@@ -15,10 +15,10 @@ function viewMe(){const u=AUTH.user,ex=S.amEx&&AMRAD.ar[S.amEx.id]?S.amEx:null,A
     ${row('data-go="uyub"','اعرف عيوبك وعالجها','<ellipse cx="12" cy="10" rx="6" ry="7"/><path d="M12 17v4M9 21h6"/>')}
     ${row('data-go="notif"','ما بقي من يومك','<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/>')}
    </div></details>
-   ${meG('rep','تقاريري',['التقرير الأسبوعي','بياناتك الروحية'])}<div class="box h2-more me-list">
+   ${meG('rep','تقاريري',['التقرير الأسبوعي','مداومتك','مستواك في الأعمال'])}<div class="box h2-more me-list">
     ${row('data-go="ijtihad"','التقرير الأسبوعي: مرآة أعمالك','<path d="M5 19V13M10 19V9M15 19V11M20 19V5"/>')}
     ${row('data-go="ruhi"','بياناتك الروحية','<path d="M12 20s-8-4.8-8-10.5A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 8 2.5C20 15.2 12 20 12 20z"/>')}
-   </div></details>
+   </div><div class="me-ins">${amInsights(ptDay())}</div></details>
    ${meG('acc','حسابي',['الاسم والصورة','الحساب','النسخة الاحتياطية'])}<div class="box h2-more me-list">
     ${row('data-go="profile" data-openacc="pname"','الاسم والصورة','<circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/>')}
     ${row('data-go="profile" data-openacc="account"',u&&u.email?'الحساب والبريد':'إنشاء حساب','<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 8l9 6 9-6"/>',u&&u.email?`<small class="me-x notr" dir="ltr">${esc(u.email.split('@')[0])}</small>`:'')}
@@ -38,5 +38,5 @@ function viewMe(){const u=AUTH.user,ex=S.amEx&&AMRAD.ar[S.amEx.id]?S.amEx:null,A
     ${row('data-go="about" data-openacc="contact"','التواصل والدعم','<path d="M4 5h16v11H8l-4 4z"/>')}
     ${isAdmin()?row('data-go="admin"','لوحة الإدارة','<path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"/>'):''}
    </div></details>
-   <button class="me-ui" data-uimode="classic"><span>الواجهة الكلاسيكية</span><small>كل الأقسام كما كانت من قبل</small></button>`}
+`}
 
