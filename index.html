@@ -5948,10 +5948,10 @@ function amSimple(o){const {L,past,D,P,awL,nfOn,lateAw,IT,pt,pr,late}=o,PN=Objec
   it.forEach(x=>byS[AM_ST[x.id]||'all'].push(x));
   const ci=ST.findIndex(s=>s[0]===curK),all=[...it];
   const tl=ST.map((s,i)=>{const L2=byS[s[0]];if(!L2.length)return '';const dn=L2.filter(isDone).length,full=dn===L2.length,isAll=s[0]==='all';
-    const st=past?'past':isAll?(full?'past':'cur'):s[0]===curK?'cur':i<ci?'past':'fu',open=past?amStOpen.has(s[0])||!full:st==='cur'?!amStOpen.has('-'+s[0]):amStOpen.has(s[0]);
+    const st=past?'past':isAll?(full?'past':'cur'):s[0]===curK?'cur':i<ci?'past':'fu',def=past?!full:st==='cur',tk=(def?'-':'')+s[0],open=def?!amStOpen.has(tk):amStOpen.has(tk);
     const n=`<span class="amx-n">${full?'✓':isAll?'∞':i}</span>`,tm=s[2]!=null?`<small>${hm(s[2]%24)}</small>`:'';
-    if(!open)return `<div class="amx-st2 ${st}${full?' full':''}">${n}<button class="amx-fold" data-amst="${s[0]}"><b>${s[1]}</b>${st==='fu'?`<span class="amx-nm">${tm} · ${L2.filter(x=>x.k!=='p').map(x=>'<span>'+amName(x.id,pt)+'</span>').slice(0,3).join(' · ')||'<span>الصلاة</span>'}</span>`:`<span class="amx-c${full?' ok':''}" dir="ltr">${full?'✓ ':''}${dn} / ${L2.length}</span>`}</button></div>`;
-    return `<div class="amx-st2 ${st} open${full?' full':''}">${n}<section class="amx-open"><button class="amx-hd" data-amst="${st==='cur'?'-':''}${s[0]}"><b>${s[1]}</b>${st==='cur'&&!isAll?'<span class="amx-now-t">الآن</span>':tm}<span class="amx-c" dir="ltr">${dn} / ${L2.length}</span></button>${L2.map(row).join('')}</section></div>`}).join('');
+    if(!open)return `<div class="amx-st2 ${st}${full?' full':''}">${n}<button class="amx-fold" data-amst="${tk}"><b>${s[1]}</b>${st==='fu'?`<span class="amx-nm">${tm} · ${L2.filter(x=>x.k!=='p').map(x=>'<span>'+amName(x.id,pt)+'</span>').slice(0,3).join(' · ')||'<span>الصلاة</span>'}</span>`:`<span class="amx-c${full?' ok':''}" dir="ltr">${full?'✓ ':''}${dn} / ${L2.length}</span>`}</button></div>`;
+    return `<div class="amx-st2 ${st} open${full?' full':''}">${n}<section class="amx-open"><button class="amx-hd" data-amst="${tk}"><b>${s[1]}</b>${st==='cur'&&!isAll?'<span class="amx-now-t">الآن</span>':tm}<span class="amx-c" dir="ltr">${dn} / ${L2.length}</span></button>${L2.map(row).join('')}</section></div>`}).join('');
   const nowC=past?'':amNow(o,curK,all,isDone);
   const list=`<div class="sh am-h"><h2>يومك على أوقات الصلاة ${hintBtn('day')}</h2></div><div class="amx-tl">${tl}</div>
     ${past?'':`<div class="am-add"><button class="am-addb" data-mineadd="1">+ <span>أضف عملًا</span></button>${myDeeds().length?`<button class="am-addb s" data-ammine="1">${amMineOpen?'إخفاء':'أعمالي الخاصة'}</button>`:''}</div>`}
@@ -6177,7 +6177,7 @@ function viewNotif(){
   return `<section><div class="box">${items.map(i=>`<div class="notif"><i class="dot${i.on?' on':''}"></i><div class="t">${i.t}<small>${i.s}</small></div>${i.go?`<button class="btn" data-go="${i.go}">افتح</button>`:''}</div>`).join('')}</div>
   ${isStandalone()?`<button class="btn notif-cta" data-go="profile" data-openacc="push">فعّل التذكيرات على هاتفك</button>`:`<button class="btn ok notif-cta" data-go="install">ثبّت التطبيق لتصلك التذكيرات على هاتفك</button>`}</section>`;
 }
-const APP_VER='2026-11-20 14:41';
+const APP_VER='2026-11-20 14:49';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
