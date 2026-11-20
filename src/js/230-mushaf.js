@@ -104,3 +104,8 @@ document.addEventListener('touchend',e=>{if(!mshX||screen!=='mushaf')return;cons
 document.addEventListener('click',e=>{if(screen!=='mushaf'||!S.mshFocus||!e.target.closest('#mshPage'))return;document.body.classList.toggle('msh-show')});
 
 document.addEventListener('input',e=>{if(e.target&&e.target.id==='mshQ'){const d=document.getElementById('mshAll');if(d&&e.target.value)d.open=true}});
+
+/* offline: the hizb being read and the two after it are saved quietly while online, so the daily wird opens without network */
+function mshAhead(){try{if(!navigator.onLine||!window.caches)return;const M=msh(),h=QIDX[M.p][0];
+  const t=qHQ()?'m':'q';for(let k=h;k<=Math.min(60,h+2);k++)fetch(t+String(k).padStart(2,'0')+'.bin').then(r=>r.ok&&r.arrayBuffer()).catch(()=>{})}catch(e){}}
+setTimeout(mshAhead,9000);addEventListener('online',()=>setTimeout(mshAhead,3000));

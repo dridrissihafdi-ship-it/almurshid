@@ -7,7 +7,7 @@ const UM_TWV=['ist','tas','ham','tah','kab','haw','mur'];
 function umTw(U,w,k,one){const[n,ar,m,d]=w,lb=U.tw7L||['','',''],V=typeof UPV!=='undefined'&&UPV[UM_TWV[k]];return `<li class="um-twi${one?' one':''}"><b><span>الشَّوْطُ</span> ${k+1} · ${n}</b>${ar?`<span class="um-twa notr" dir="rtl" lang="ar">${ar}</span>`:''}${UM_TWI.has(k+1)?`<img class="up-vi um-twimg" src="il/ush_tw${k+1}.webp" alt="" loading="lazy" decoding="async">`:''}${V?`<span class="um-twv"><i>${lb[2]||''}:</i></span><ul class="um-twl">${V.st.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}<span class="um-twm"><i>${lb[0]}:</i> ${m}</span><span class="um-twd"><i>${lb[1]}:</i> ${d}</span></li>`}
 /* one lap of sa'i: its dhikr and reflection */
 function umSa(U,w,k,one){const[n,ar,r]=w,lb=U.tw7L||['','',''];return `<li class="um-twi${one?' one':''}"><b><span>الشَّوْطُ</span> ${k+1} · ${n}</b>${ar?`<span class="um-twa notr" dir="rtl" lang="ar">${ar}</span>`:''}<span class="um-twd"><i>${lb[2]||''}:</i> ${r}</span></li>`}
-function viewUmrah(){const U=umU(),n=U.st.length,i=Math.max(0,Math.min(n-1,S.umStep||0)),x=U.st[i],ex=x.x||[];
+function viewUmrah(){umMediaSave();const U=umU(),n=U.st.length,i=Math.max(0,Math.min(n-1,S.umStep||0)),x=U.st[i],ex=x.x||[];
   const duaB=([l,t,m])=>`<div class="um-dua">${l?`<small>${l}</small>`:''}<p class="notr" dir="rtl" lang="ar">${t}</p>${m?`<p class="um-dm">${m}</p>`:''}</div>`;
   const seven=x.img==='tawaf'&&U.tw7?`<details class="um-more um-tw7"><summary>${U.tw7T}</summary><ol>${U.tw7.map((w,k)=>umTw(U,w,k)).join('')}</ol><p class="meta">${U.tw7N}</p></details>`
     :x.img==='sai'&&U.sa7?`<details class="um-more um-tw7"><summary>${U.sa7T}</summary><p class="meta">${U.sa7I}</p><ol>${U.sa7.map((w,k)=>umSa(U,w,k)).join('')}</ol></details>`:'';
@@ -74,3 +74,8 @@ function mqBind(){const v=document.getElementById('mqVideo'),w=document.getEleme
   if(!v.__b){v.__b=1;['play','pause','timeupdate','loadedmetadata','ended'].forEach(ev=>v.addEventListener(ev,sync));v.addEventListener('ended',()=>{v.currentTime=0;keepAwake(false)})}
   sync()}
 function mqToggle(){const v=document.getElementById('mqVideo');if(!v)return;if(v.paused){v.play().catch(()=>{});keepAwake(true)}else{v.pause();keepAwake(false)}}
+
+/* offline: the Umrah film and the two audio guides are saved the first time the Umrah tab is opened online (they are needed in Makkah, often without network) */
+let umMediaDone=false;
+function umMediaSave(){if(umMediaDone||!navigator.onLine||!('serviceWorker' in navigator)||!navigator.serviceWorker.controller)return;umMediaDone=true;
+  setTimeout(()=>{['umrah.mp4','munajat.mp3','muraqaba.mp4'].forEach(f=>fetch(f).then(r=>r.ok&&r.blob()).catch(()=>{}))},4000)}

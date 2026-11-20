@@ -74,8 +74,12 @@ for (const [k, v] of Object.entries(i18n)) {
 /* ---- assemble ---- */
 let tpl = read('index.html');
 for (const mark of ['/*@css*/', '/*@js*/', '/*@firebase*/']) if (!tpl.includes(mark)) fail('src/index.html lost the marker ' + mark);
+/* every picture of the app (il/*.webp) is listed for the offline download, so a new picture is never forgotten */
+const IL_ALL = fs.existsSync(path.join(ROOT, 'il')) ? fs.readdirSync(path.join(ROOT, 'il')).filter((f) => f.endsWith('.webp') && !/^(shot|madina_)/.test(f)).map((f) => f.slice(0, -5)).sort() : [];
 let html = tpl.replace('/*@css*/', () => css).replace('/*@js*/', () => js).replace('/*@firebase*/', () => firebase);
 if (!html.includes("const APP_VER='__BUILD__'")) fail("the code lost const APP_VER='__BUILD__'");
+if (!html.includes('/*@ilall*/[]')) fail('the code lost the marker /*@ilall*/[]');
+html = html.replace('/*@ilall*/[]', () => JSON.stringify(IL_ALL));
 html = html.replace("const APP_VER='__BUILD__'", `const APP_VER='${STAMP}'`);
 let sw = read('sw.js');
 if (!sw.includes("const CACHE='murshid-__BUILD__'")) fail("src/sw.js lost const CACHE='murshid-__BUILD__'");

@@ -116,14 +116,15 @@ async function checkOffline(){let st={sw:false,app:false,i18n:LANG==='ar',quran:
 function offlineLine(){const s=OFFST;if(!s)return '';
   const row=(ok,t,v)=>`<li class="${ok?'ok':''}"><i>${ok?'✓':'…'}</i><span>${t}</span>${v?`<small dir="ltr">${v}</small>`:''}</li>`;
   return `<div class="off-st"><p class="${OFFREADY?'logged':'meta'}" style="margin:10px 0 6px">${OFFREADY?'يعمل التطبيق دون إنترنت ✓':s.sw?'يُحفظ التطبيق للعمل دون إنترنت الآن…':'سيُحفظ التطبيق للعمل دون إنترنت بعد أول فتح كامل له وأنت متصل.'}</p>
-   <ul>${row(s.app&&s.sw,'التطبيق والأذكار ومواقيت الصلاة وتقدّمك')}${LANG!=='ar'?row(s.i18n,'الترجمة'):''}${row(s.quran>=60,'المصحف',(mshDl&&mshDl.on?mshDl.n:s.quran)+' / 60')}${row(s.img>=IL_IMG.size,'الصور',Math.min(s.img,IL_IMG.size)+' / '+IL_IMG.size)}</ul>
+   <ul>${row(s.app&&s.sw,'التطبيق والأذكار ومواقيت الصلاة وتقدّمك')}${LANG!=='ar'?row(s.i18n,'الترجمة'):''}${row(s.quran>=60,'المصحف',(mshDl&&mshDl.on?mshDl.n:s.quran)+' / 60')}${row(s.img>=IL_ALL.size,'الصور',Math.min(s.img,IL_ALL.size)+' / '+IL_ALL.size)}</ul>
    ${s.quran<60?`<button class="btn small" data-mshdl="1"${mshDl&&mshDl.on?' disabled':''} style="margin:6px 0 2px">${mshDl&&mshDl.on?Tx('جارٍ التنزيل…')+' '+mshDl.n+' / 60':Tx('نزّل المصحف ليُقرأ دون إنترنت')}</button>`:''}
    <p class="meta" style="margin:4px 0 0">الدروس الصوتية والمرئية تحتاج إنترنت.</p></div>`}
-/* the pictures of the lessons are saved on the phone once per version, quietly, while online */
+/* the pictures of the lessons are saved on the phone once per version, quietly, while online.
+   IL_ALL is every file in il/ (filled in by the build); the Umrah pictures are needed most where there is no network */
 async function prefetchImgs(){try{if(!window.caches||!navigator.onLine)return;
-  const v=(typeof APP_VER!=='undefined'?APP_VER:'')+'|'+IL_IMG.size;let done='';try{done=localStorage.getItem('murshid-imgv')||''}catch(e){}
+  const v=(typeof APP_VER!=='undefined'?APP_VER:'')+'|'+IL_ALL.size;let done='';try{done=localStorage.getItem('murshid-imgv')||''}catch(e){}
   const c=await caches.open('murshid-img-v2');let miss=0;
-  for(const k of IL_IMG){const path=new URL('il/'+k+'.webp',location.href).pathname;if(await c.match(path))continue;
+  for(const k of IL_ALL){const path=new URL('il/'+k+'.webp',location.href).pathname;if(await c.match(path))continue;
     try{const r=await fetch('il/'+k+'.webp');if(r.ok&&(r.headers.get('Content-Type')||'').startsWith('image/'))await c.put(path,r);else miss++}catch(e){miss++}}
   if(!miss&&done!==v){try{localStorage.setItem('murshid-imgv',v)}catch(e){}}
   checkOffline()}catch(e){}}
