@@ -46,6 +46,7 @@ function viewQuran(){const M=msh(),k=suraAt(M.p),[hz,,,th]=QIDX[M.p],n=Math.min(
    <button class="qr-cont" data-qrcont="1"><small><span>وردك اليوم</span> · <span>مصحف ورش</span></small><span class="qr-sn"><b class="notr">${Tx('سورة')} ${SURAS[k][0]}</b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span>
     <span class="qr-at">${th===0?'<span>الفاتحة</span>':'<span>أكمل من</span> <span>الحزب</span> '+hz+' · <span>الثمن</span> '+th}</span>
     <span class="qr-pr"><i><b style="width:${n/M.wird*100}%"></b></i><em dir="ltr">${n} / ${M.wird}</em></span></button>
+   ${khatmBox()}
    <div class="qr-hz"><button class="h2-row" data-go="hifz"><span class="h2-ri"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 36V12c5-2 10-2 16 2 6-4 11-4 16-2v24c-5-2-10-2-16 2-6-4-11-4-16-2z"/><path d="M24 14v24"/></svg></span><span class="tx">حفظ القرآن وتسميعه<small>${hzDone()} <span>سورة محفوظة</span> · <span>سمّع حفظك بصوتك</span></small></span><svg class="h2-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button></div>
    <label class="qr-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="mshQ" type="search" placeholder="${Tx('ابحث عن سورة بالاسم أو الرقم')}" autocomplete="off"></label>
    <details class="qr-all" id="mshAll"><summary><b>كل السور</b><span>114</span></summary>
@@ -109,3 +110,16 @@ document.addEventListener('input',e=>{if(e.target&&e.target.id==='mshQ'){const d
 function mshAhead(){try{if(!navigator.onLine||!window.caches)return;const M=msh(),h=QIDX[M.p][0];
   const t=qHQ()?'m':'q';for(let k=h;k<=Math.min(60,h+2);k++)fetch(t+String(k).padStart(2,'0')+'.bin').then(r=>r.ok&&r.arrayBuffer()).catch(()=>{})}catch(e){}}
 setTimeout(mshAhead,9000);addEventListener('online',()=>setTimeout(mshAhead,3000));
+
+/* «ختمتي»: the whole Quran as 60 hizbs; the current one with its progress, the next ones with the day they come if the daily wird is kept */
+let HZ_START=null;
+function hzStart(h){if(!HZ_START){HZ_START={};QIDX.forEach((x,i)=>{if(HZ_START[x[0]]==null)HZ_START[x[0]]=i})}return HZ_START[h]}
+function khatmBox(){const M=msh(),N=QIDX.length,p=M.p,hz=QIDX[p][0],pct=Math.round(p/N*100),days=Math.ceil((N-p)/Math.max(1,M.wird));
+  let end='';try{end=new Date(Date.now()+days*864e5).toLocaleDateString(LANG==='ar'?'ar-MA':LANG,{day:'numeric',month:'long'})}catch(e){}
+  const wl=(WIRD_OPTS.find(o=>o[0]===M.wird)||[0,''])[1],when=d=>d<=0?'اليوم':d===1?'غدًا':d===2?'بعد غد':`<span>بعد</span> ${d} <span>أيام</span>`;
+  const rows=[];for(let h=Math.max(1,hz-1);h<=Math.min(60,hz+3);h++){const s=hzStart(h),e=h<60?hzStart(h+1):N,len=e-s;
+    if(h<hz)rows.push(`<div class="kh-r done"><span class="kh-n">${h}</span><span class="kh-t"><b><span>الحزب</span> ${h}</b><small>قرأته</small></span><svg class="kh-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>`);
+    else if(h===hz){const r=(p-s)/len;rows.push(`<button class="kh-r cur" data-qrcont="1"><span class="kh-n">${h}</span><span class="kh-t"><b><span>الحزب</span> ${h}</b><small><span>الثمن</span> ${QIDX[p][3]||1} <span>من</span> 8</small><i class="kh-bar"><b style="width:${Math.round(r*100)}%"></b></i></span><span class="btn small ok">تابع</span></button>`)}
+    else rows.push(`<div class="kh-r"><span class="kh-n">${h}</span><span class="kh-t"><b><span>الحزب</span> ${h}</b><small>${when(Math.floor((s-p)/Math.max(1,M.wird)))}</small></span></div>`)}
+  return `<div class="box kh"><div class="kh-top"><span class="kh-ring" style="--p:${pct}"><b dir="ltr">${pct}%</b></span><span class="kh-tt"><b><span>ختمتي</span>${M.khatm?' · <span>الختمة</span> '+(M.khatm+1):''}</b><small><span>وردك:</span> ${Tx(wl)} <span>كل يوم</span></small><small>${end?`<span>تختم بإذن الله يوم</span> ${end} <span>إن داومت على وردك</span>`:''}</small></span></div>
+   <div class="kh-list">${rows.join('')}</div></div>`}

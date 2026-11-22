@@ -52,7 +52,39 @@ function adClick(d){const kind=screen.startsWith('adh_')?screen.slice(4):null;if
   if(d.adrate){adRate=AD_RATES[(AD_RATES.indexOf(adRate)+1)%AD_RATES.length]||1;ADA.defaultPlaybackRate=adRate;ADA.playbackRate=adRate;try{localStorage.setItem('murshid-ad-rate',adRate)}catch(e){}adUi();return true}
   if(d.admute){adMute=!adMute;ADA.muted=adMute;try{localStorage.setItem('murshid-ad-mute',adMute?'1':'0')}catch(e){}adUi();return true}
   return false}
-function viewAdhkar(kind){
+/* one dhikr at a time: a card, a big circle to count, and it moves on by itself when the count is complete */
+const adhIdx={};
+const adhCardMode=()=>S.adhView!=='list';
+function adhCurI(kind){const list=adhList(kind),st=adhState(kind);if(adhIdx[kind]==null){const f=list.findIndex((a,i)=>st[i]<a.n);adhIdx[kind]=f<0?list.length-1:f}
+  return adhIdx[kind]=Math.max(0,Math.min(list.length-1,adhIdx[kind]))}
+function adhNext(kind,from){const list=adhList(kind),st=adhState(kind);for(let i=from+1;i<list.length;i++)if(st[i]<list[i].n)return i;for(let i=0;i<from;i++)if(st[i]<list[i].n)return i;return -1}
+function viewAdhkarCard(kind){const list=adhList(kind),st=adhState(kind),L=dayLog(),p=period(),j=adhCurI(kind),a=list[j],c=st[j],full=c>=a.n;
+  const done=list.filter((x,i)=>st[i]>=x.n).length,confirmed=L.awrad.includes(kind),name=kind==='sabah'?'أذكار الصباح':'أذكار المساء',q=ADHKAR.quran.length;
+  const sec=j===0?'الاستهلال':j<=q?'من القرآن الكريم':'من السنة النبوية',au=adhAu(kind,j),C=2*Math.PI*52,pct=Math.min(c/a.n,1);
+  const chev=d=>`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
+  return `<section class="adh-wrap adc" style="--adh:${adhSize}px">
+   <div class="adh-bar"><div class="adh-prog"><i style="width:${Math.round(done/list.length*100)}%"></i></div><span dir="ltr">${j+1} / ${list.length}</span>
+    <button class="btn small" data-adhview="list">القائمة</button><button class="btn small" data-adhsize="-1" aria-label="تصغير الخط">أ−</button><button class="btn small" data-adhsize="1" aria-label="تكبير الخط">أ+</button></div>
+   ${p.kind===kind?'':`<p class="tq-note">${kind==='sabah'?'وقت أذكار الصباح من الفجر إلى المغرب':'وقت أذكار المساء من المغرب إلى الفجر'}. يُسجَّل التأكيد الآن في الأعمال، لكن الهالة لا تظهر إلا إذا أكّدتها في وقتها.</p>`}
+   ${adBar(kind)}
+   <p class="adc-sec">${sec}</p>
+   <article class="adc-card adh ${a.k}${full?' full':''}">
+    ${a.s?`<span class="adh-s">${a.s}</span>`:''}<p class="adh-t" dir="rtl" lang="ar">${a.t}</p>
+    ${au?`<button class="adc-pl" data-adpl="${j}">${AU_IC.play}<span>استمع</span></button>`:''}
+   </article>
+   <div class="adc-ctl">
+    <button class="adc-nav" data-adhgo="-1"${j?'':' disabled'} aria-label="${esc(Tx('السابق'))}">${chev('M9 6l6 6-6 6')}</button>
+    <button class="adc-tap${full?' full':''}" data-adh="${j}" aria-label="${esc(Tx(full?'تمّ':'اضغط للعدّ'))}">
+     <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" class="adc-r0"/><circle cx="60" cy="60" r="52" class="adc-r1" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}" transform="rotate(-90 60 60)"/></svg>
+     <span class="adc-n"><b dir="ltr">${full?'✓':c}</b><small>${full?'تمّ':a.n===1?'مرة واحدة':'<span>من</span> '+a.n}</small></span></button>
+    <button class="adc-nav" data-adhgo="1"${j<list.length-1?'':' disabled'} aria-label="${esc(Tx('التالي'))}">${chev('M15 6l-6 6 6 6')}</button>
+   </div>
+   <p class="meta adc-hint">اضغط الدائرة مع كل مرة، وينتقل وحده إلى الذكر التالي عند التمام.</p>
+   ${done===list.length||j===list.length-1||confirmed?`<div class="adh-end">${confirmed?`<p class="logged">✓ أكّدت ${name} اليوم</p><div class="btns"><button class="btn small" data-adhconfirm="0">إلغاء التأكيد</button><button class="btn" data-go="aamal">رجوع إلى الأعمال</button></div>`
+     :`<button class="btn ok big" data-adhconfirm="1">أكّدت ${name}</button>${done<list.length?`<span class="meta">أتممت ${done} من ${list.length}</span>`:''}`}
+    <div class="btns"><button class="btn small" data-adhreset="1">تصفير العدّاد</button></div></div>`:''}
+  </section>`}
+function viewAdhkar(kind){if(adhCardMode())return viewAdhkarCard(kind);
   const list=adhList(kind),st=adhState(kind),L=dayLog(),p=period();
   const done=list.filter((a,i)=>st[i]>=a.n).length,confirmed=L.awrad.includes(kind);
   const name=kind==='sabah'?'أذكار الصباح':'أذكار المساء';
@@ -66,7 +98,7 @@ function viewAdhkar(kind){
   const sec=(title,arr)=>`<h3 class="adh-h">${title}</h3>`+arr.map(a=>card(a,i++)).join('');
   return `<section class="adh-wrap" style="--adh:${adhSize}px">
    <div class="adh-bar"><div class="adh-prog"><i style="width:${Math.round(done/list.length*100)}%"></i></div><span>${ar2(done)} / ${ar2(list.length)}</span>
-    <button class="btn small" data-adhsize="-1" aria-label="تصغير الخط">أ−</button><button class="btn small" data-adhsize="1" aria-label="تكبير الخط">أ+</button></div>
+    <button class="btn small" data-adhview="card">ذكرًا ذكرًا</button><button class="btn small" data-adhsize="-1" aria-label="تصغير الخط">أ−</button><button class="btn small" data-adhsize="1" aria-label="تكبير الخط">أ+</button></div>
    ${inWin?'':`<p class="tq-note">${kind==='sabah'?'وقت أذكار الصباح من الفجر إلى المغرب':'وقت أذكار المساء من المغرب إلى الفجر'}. يُسجَّل التأكيد الآن في الأعمال، لكن الهالة لا تظهر إلا إذا أكّدتها في وقتها.</p>`}
    ${adBar(kind)}
    ${sec('الاستهلال',[list[0]])}

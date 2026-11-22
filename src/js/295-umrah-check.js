@@ -11,7 +11,7 @@ function umS(){if(S.umr&&S.umr.v!==4){S.umr={v:4};S.umStep=0}const R=S.umr=S.umr
 const umNeed=i=>{const R=umS(),c=UM_CNT[i];return UM_CHK[i].every(([,r],j)=>!r||R.chk[i+'-'+j])&&(!c||R[c]>=7)};
 function umCounter(i){const R=umS(),c=UM_CNT[i],n=R[c];if(!c)return '';
   const sai=c==='sa',dir=n>=7?'':sai?(n%2===0?'مِنَ الصَّفَا إِلَى الْمَرْوَةِ':'مِنَ الْمَرْوَةِ إِلَى الصَّفَا'):'ابْدَأِ الشَّوْطَ عِنْدَ الْحَجَرِ الْأَسْوَدِ';
-  return `<div class="umc">
+  return `<div class="umc"><button class="btn ok mt-open" data-mtopen="${sai?'sa':'tw'}"><span>افتح المطوّف</span> · <span>${sai?'السعي':'الطواف'}</span></button>
    <p class="umc-h"><span>${sai?'أَشْوَاطُ السَّعْيِ':'أَشْوَاطُ الطَّوَافِ'}</span> <b dir="ltr">${n} / 7</b></p>
    <div class="umc-dots" aria-hidden="true">${Array.from({length:7},(_,k)=>`<i class="${k<n?'on':''}"></i>`).join('')}</div>
    ${n<7?`<p class="umc-next"><span>الشَّوْطُ</span> ${n+1}: <span>${dir}</span></p>${!sai&&umU().tw7?`<ol class="umc-tw">${umTw(umU(),umU().tw7[n],n,1)}</ol>`:''}${sai&&umU().sa7?`<ol class="umc-tw">${umSa(umU(),umU().sa7[n],n,1)}</ol>`:''}<button class="umc-b" data-umc="${c}" data-v="1">${sai?'وَصَلْتُ، أَتْمَمْتُ شَوْطًا':'مَرَرْتُ بِالْحَجَرِ الْأَسْوَدِ، أَتْمَمْتُ شَوْطًا'}</button>`
@@ -37,7 +37,7 @@ let umNewArm=0;
 document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;const d=t.dataset;
   if(d.umchk){const R=umS();R.chk[d.umchk]=!R.chk[d.umchk];save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(d.umc){const R=umS(),c=d.umc;R[c]=Math.max(0,Math.min(7,(R[c]||0)+(+d.v)));if(+d.v>0)try{navigator.vibrate&&navigator.vibrate(R[c]>=7?[40,60,40]:30)}catch(x){}
-    save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
+    save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);if(screen==='mutawwif')setTimeout(mtSpeak,150);return}
   if(d.umok!==undefined){const R=umS(),i=+d.umok;
     if(+d.v){if(!umNeed(i))return;if(!R.ok.includes(i))R.ok.push(i);if(!R.start)R.start=TODAY;
       if(i===UM_LAST&&!R.doneAt){R.doneAt=TODAY;(S.umH=S.umH||[]).push(TODAY)}

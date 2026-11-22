@@ -1,4 +1,4 @@
-function adhAwake(){const adh=screen==='adh_sabah'||screen==='adh_masa'||screen==='mushaf'||screen==='subha',v=document.getElementById('mqVideo');
+function adhAwake(){const adh=screen==='adh_sabah'||screen==='adh_masa'||screen==='mushaf'||screen==='subha'||screen==='mutawwif',v=document.getElementById('mqVideo');
   if(adh)keepAwake(true);else if(!(v&&!v.paused)&&!(run&&!run.done&&!run.paused))keepAwake(false)}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')adhAwake()});
 function logOrgan(id,ok,reason,D){D=D||TODAY;
@@ -212,8 +212,12 @@ document.addEventListener('click',e=>{
     Object.assign(o,{phase:k,days:0,last:null,today:null,broken:false,attempt:1,attemptStart:TODAY,cycle:(o.cycle||1)+1});orgBase(o,k);
     redoFor=null;save();return render()}
   if(d.adh!==undefined&&screen.startsWith('adh_')){const k=screen.slice(4),st=adhState(k),a=adhList(k)[+d.adh];
+    if(adhCardMode()){if(st[+d.adh]<a.n){st[+d.adh]++;save();try{navigator.vibrate&&navigator.vibrate(st[+d.adh]>=a.n?[60,40,60]:12)}catch(x){}render();
+        if(st[+d.adh]>=a.n){const i0=+d.adh;setTimeout(()=>{if(screen!=='adh_'+k||adhIdx[k]!==i0)return;const nx=adhNext(k,i0);if(nx>=0){adhIdx[k]=nx;render();SCR().scrollTo(0,0)}},450)}}return}
     if(st[+d.adh]<a.n){st[+d.adh]++;save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);
       if(st[+d.adh]>=a.n){const nx=document.querySelector('.adh:not(.full)');if(nx&&nx.getBoundingClientRect().top>window.innerHeight*.6)nx.scrollIntoView({behavior:'smooth',block:'center'})}}return}
+  if(d.adhgo&&screen.startsWith('adh_')){const k=screen.slice(4);adhIdx[k]=adhCurI(k)+(+d.adhgo);adhCurI(k);render();SCR().scrollTo(0,0);return}
+  if(d.adhview){S.adhView=d.adhview;save();render();SCR().scrollTo(0,0);return}
   if(d.adhsize){adhSize=Math.max(16,Math.min(30,adhSize+2*(+d.adhsize)));try{localStorage.setItem('murshid-adh-size',adhSize)}catch(x){};const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(d.adhreset){const k=screen.slice(4);dayLog().ad[k]=adhList(k).map(()=>0);save();return render()}
   if(d.adhconfirm!==undefined){const k=screen.slice(4);applyWird(k,d.adhconfirm==='1');const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
@@ -244,6 +248,7 @@ document.addEventListener('click',e=>{
   if(d.reset){confirmReset=true;return render()}
   if(d.resetno){confirmReset=false;return render()}
   if(d.geoloc){geoLocate();return}
+  if(d.puoff){const [k,v]=d.puoff.split(':'),P=pushPrefs(),[, , lo,hi]=PU_OFF[k];P.off[k]=Math.max(lo,Math.min(hi,(P.off[k]||0)+(+v)));save();pushSync();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(d.pushon1){pushEnable();return}
   if(d.pushoff){pushDisable();return}
   if(d.pushtest){pushTest();return}

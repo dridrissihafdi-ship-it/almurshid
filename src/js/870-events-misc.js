@@ -10,7 +10,8 @@ document.addEventListener('change',e=>{
   if(e.target.id==='tzDateIn'){const v=e.target.value;tzDate=v&&v<TODAY?v:null;tzConf=null;render();return}
   if(e.target.id==='aDateIn'){const v=e.target.value;aDate=v&&v<TODAY?v:null;render();return}
   if(e.target.id==='photoIn'){setPhoto(e.target.files&&e.target.files[0]);return}
-  if(e.target.dataset&&e.target.dataset.pushon){pushPrefs().on[e.target.dataset.pushon]=e.target.checked;save();pushSync();if(e.target.dataset.pushon==='hudur'){const y=SCR().scrollTop;render();SCR().scrollTo(0,y)}return}
+  if(e.target.dataset&&e.target.dataset.puagain){pushPrefs().again=e.target.checked;save();pushSync();return}
+  if(e.target.dataset&&e.target.dataset.pushon){pushPrefs().on[e.target.dataset.pushon]=e.target.checked;save();pushSync();if(['hudur','sabah','masa','wird'].includes(e.target.dataset.pushon)){const y=SCR().scrollTop;render();SCR().scrollTo(0,y)}return}
   if(e.target.id==='bedT'){pushPrefs().bed=e.target.value||'22:00';save();pushSync();return}
   if(e.target.id==='hFrom'||e.target.id==='hTo'){const P=pushPrefs();P[e.target.id]=e.target.value||(e.target.id==='hFrom'?'07:00':'22:00');save();pushSync();return}
   if(e.target.id==='ptMSel'){S.ptM=e.target.value==='auto'?undefined:e.target.value;save();pushSync();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}

@@ -6,6 +6,9 @@ const sbCount=(i)=>(sb().day[TODAY][i]||0);
 const sbTotal=()=>Object.values(sb().day[TODAY]).reduce((a,b)=>a+b,0);
 function subhaCard(){const B=sb(),t=sbTotal();
   return `<button class="box pad sb-card" data-go="subha"><span class="sb-ic"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="9" r="3.2"/><circle cx="15.5" cy="13" r="3.2"/><circle cx="32.5" cy="13" r="3.2"/><circle cx="11.5" cy="21.5" r="3.2"/><circle cx="36.5" cy="21.5" r="3.2"/><circle cx="15.5" cy="30" r="3.2"/><circle cx="32.5" cy="30" r="3.2"/><circle cx="24" cy="34" r="3.2"/><path d="M24 37.5v4M21 44h6"/></svg></span><span class="tz-name"><b>السبحة</b><small>${t?'<span>تسبيحات اليوم:</span> '+t:'أذكارك مع عدّاد باللمس'}</small></span><span class="btn small ok">افتح</span></button>`}
+/* 33 beads around the circle: the ones already counted in this round of the subha are lit, the next one is bigger */
+function sbBeads(c){const f=c%33===0&&c>0?33:c%33;let o='';for(let k=0;k<33;k++){const a=-Math.PI/2+k/33*2*Math.PI,x=130+118*Math.cos(a),y=130+118*Math.sin(a);
+  o+=`<circle class="sb-bd${k<f?' on':''}${k===f%33?' nx':''}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${k===f%33?9:6.5}"/>`}return o}
 function viewSubha(){const B=sb(),i=B.cur,d=B.list[i]||{t:'',n:0},c=sbCount(i),pct=d.n?Math.min(c/d.n,1):0,C=2*Math.PI*118;
   const chips=B.list.map((x,k)=>`<button class="${k===i?'on':''} notr" dir="rtl" data-sbpick="${k}">${esc(x.t)}<small dir="ltr">${sbCount(k)}${x.n?' / '+x.n:''}</small></button>`).join('');
   setTimeout(()=>{const on=document.querySelector('.sb-chips .on');if(on)on.scrollIntoView({inline:'center',block:'nearest'})},0);
@@ -15,10 +18,11 @@ function viewSubha(){const B=sb(),i=B.cur,d=B.list[i]||{t:'',n:0},c=sbCount(i),p
      <label class="muted" for="sbN">العدد المطلوب (اتركه 0 بلا حدّ)</label><input type="number" id="sbN" min="0" value="100" inputmode="numeric">
      <div class="btns"><button class="btn ok" data-sbsave="1">أضف</button><button class="btn" data-sbcancel="1">تراجع</button></div></div>`:''}
    <button class="sb-tap" id="sbTap" data-sbtap="1" aria-label="سبّح">
-     <svg viewBox="0 0 260 260" aria-hidden="true"><circle cx="130" cy="130" r="118" fill="none" stroke="var(--chip)" stroke-width="12"/><circle id="sbRing" cx="130" cy="130" r="118" fill="none" stroke="var(--gold)" stroke-width="12" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}" transform="rotate(-90 130 130)"/></svg>
+     <svg viewBox="0 0 260 260" aria-hidden="true"><circle cx="130" cy="130" r="118" fill="none" stroke="var(--chip)" stroke-width="2"/><circle id="sbRing" cx="130" cy="130" r="100" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round" stroke-dasharray="${2*Math.PI*100}" stroke-dashoffset="${2*Math.PI*100*(1-pct)}" transform="rotate(-90 130 130)" opacity=".55"/>${sbBeads(c)}</svg>
      <span class="sb-in"><b class="notr" dir="rtl">${esc(d.t)}</b><strong id="sbNum">${c}</strong><small id="sbOf" dir="ltr">${d.n?'/ '+d.n:''}</small></span>
    </button>
-   <div class="sb-bar"><button class="sb-b" dir="ltr" data-sbundo="1" aria-label="${esc(Tx('تراجع واحدة'))}">−1</button><span class="sb-tot"><span>اليوم:</span> <b id="sbTot">${sbTotal()}</b></span><button class="sb-b" data-sbmore="1" aria-label="${esc(Tx('المزيد'))}">⋯</button></div>
+   <div class="sb-bar"><button class="sb-b" dir="ltr" data-sbundo="1" aria-label="${esc(Tx('تراجع واحدة'))}">−1</button><span class="sb-tot"><span>اضغط في أي مكان من الدائرة</span></span><button class="sb-b" data-sbmore="1" aria-label="${esc(Tx('المزيد'))}">⋯</button></div>
+   <div class="sb-stats"><span><small>المجموع اليوم</small><b id="sbTot">${sbTotal()}</b></span><span class="on"><small>هذا الذكر</small><b dir="ltr" id="sbCur">${c}${d.n?' / '+d.n:''}</b></span><span><small>دورات السبحة</small><b id="sbRnd">${Math.floor(c/33)}</b></span></div>
    ${sbZero?`<div class="confirm" style="margin-top:10px"><span>تصفير كل عدّادات السبحة لهذا اليوم والبدء من الذكر الأول؟</span><div class="btns"><button class="btn slip" data-sbzeroyes="1">نعم، ابدأ من 0</button><button class="btn" data-sbzerono="1">تراجع</button></div></div>`:''}
    ${sbReset?`<div class="confirm" style="margin-top:10px"><span><span>تصفير عدّاد</span> «<span class="notr">${esc(d.t)}</span>» <span>لهذا اليوم؟</span></span><div class="btns"><button class="btn slip" data-sbresetyes="1">نعم، صفّره</button><button class="btn" data-sbresetno="1">تراجع</button></div></div>`:''}
    ${sbEdit?`<div class="box sb-list">${B.list.map((x,k)=>`<div class="sb-row"><span class="notr" dir="rtl">${esc(x.t)}</span><small>${x.n||'∞'}</small><button class="btn small" data-sbup="${k}"${k?'':' disabled'} aria-label="تقديم">▲</button><button class="btn small dl-del" data-sbdel="${k}" aria-label="حذف"${B.list.length>1?'':' disabled'}>حذف</button></div>`).join('')}<div class="btns"><button class="btn small ok" data-sbedit="1">تمّ</button></div></div>`:''}
@@ -30,6 +34,8 @@ function sbTick(){const B=sb(),i=B.cur,d=B.list[i];if(!d)return;const T=B.day[TO
   if(d.n&&c===d.n){sndPlay('step',()=>bell([784,988],.28,1.4,.35));if(B.list.length>1){B.cur=(i+1)%B.list.length;save();render();const t=document.getElementById('sbTap');if(t){t.classList.add('done');setTimeout(()=>t.classList.remove('done'),900)}return}}
   const num=document.getElementById('sbNum'),ring=document.getElementById('sbRing'),tot=document.getElementById('sbTot');
   if(num)num.textContent=c;if(tot)tot.textContent=sbTotal();
-  if(ring&&d.n){const C=2*Math.PI*118;ring.setAttribute('stroke-dashoffset',C*(1-Math.min(c/d.n,1)))}
+  if(ring&&d.n){const C=2*Math.PI*100;ring.setAttribute('stroke-dashoffset',C*(1-Math.min(c/d.n,1)))}
+  const f=c%33===0&&c>0?33:c%33;document.querySelectorAll('.sb-bd').forEach((b,k)=>{b.classList.toggle('on',k<f);const nx=k===f%33;b.classList.toggle('nx',nx);b.setAttribute('r',nx?9:6.5)});
+  const cu=document.getElementById('sbCur');if(cu)cu.textContent=c+(d.n?' / '+d.n:'');const rn=document.getElementById('sbRnd');if(rn)rn.textContent=Math.floor(c/33);
   const tap=document.getElementById('sbTap');if(tap){tap.classList.remove('pulse');void tap.offsetWidth;tap.classList.add('pulse')}
   const ch=document.querySelector('[data-sbpick="'+i+'"] small');if(ch)ch.textContent=c+(d.n?' / '+d.n:'')}

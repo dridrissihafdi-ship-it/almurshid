@@ -54,6 +54,13 @@ const TXT = {
   hudur:    {ar: ['الحضور مع الله', '﴿وَهُوَ مَعَكُمْ أَيْنَمَا كُنتُمْ﴾ — توقّف لحظة واستحضر أن الله معك'], en: ['Presence with God', '“And He is with you wherever you are.” Pause and remember He is with you.'], fr: ['Présence avec Dieu', '« Et Il est avec vous où que vous soyez. » Arrêtez-vous un instant.'], es: ['Presencia con Dios', '«Y Él está con vosotros dondequiera que estéis.» Detente un momento.'], ru: ['Присутствие с Богом', '«Он с вами, где бы вы ни были». Остановитесь на миг.']},
   muhasaba: {ar: ['محاسبة اليوم', 'قبل النوم: سجّل يومك في التزكية، وحاسب نفسك.'], en: ['Daily self-review', 'Before sleep: log your day and review yourself.'], fr: ['Bilan du jour', 'Avant de dormir : enregistrez votre journée et faites votre bilan.'], es: ['Repaso del día', 'Antes de dormir: registra tu día y haz tu repaso.'], ru: ['Итог дня', 'Перед сном: отметьте день и подведите итог.']},
 };
+TXT.wird = {ar: ['ورد القرآن', 'لم تقرأ وردك من القرآن اليوم بعد. ولو ثمنًا واحدًا ✦'], en: ['Quran wird', "You haven't read your Quran wird today yet. Even one eighth ✦"], fr: ['Wird du Coran', "Vous n'avez pas encore lu votre wird du Coran aujourd'hui. Ne serait-ce qu'un huitième ✦"], es: ['Wird del Corán', 'Aún no has leído tu wird del Corán hoy. Aunque sea un octavo ✦'], ru: ['Вирд Корана', 'Вы ещё не прочитали сегодня свой вирд Корана. Хотя бы восьмую часть ✦'], ur: ['قرآن کا ورد', 'آج آپ نے ابھی قرآن کا ورد نہیں پڑھا۔ چاہے ایک ثمن ہی ✦']};
+TXT.sabah.ur = ['صبح کے اذکار', 'صبح کے اذکار کا وقت ہو گیا ✦']; TXT.masa.ur = ['شام کے اذکار', 'شام کے اذکار کا وقت ہو گیا ✦'];
+const TXT2 = {
+  sabah: {ar: ['أذكار الصباح', 'لم تقرأ أذكار الصباح بعد. دقائق قليلة تحفظك يومك كله ✦'], en: ['Morning adhkar', "You haven't read the morning adhkar yet. A few minutes guard your whole day ✦"], fr: ['Adhkar du matin', "Vous n'avez pas encore lu les adhkar du matin. Quelques minutes protègent toute votre journée ✦"], es: ['Adhkar de la mañana', 'Aún no has leído los adhkar de la mañana. Unos minutos protegen todo tu día ✦'], ru: ['Утренние азкары', 'Вы ещё не прочитали утренние азкары. Несколько минут оберегают весь день ✦'], ur: ['صبح کے اذکار', 'آپ نے ابھی صبح کے اذکار نہیں پڑھے۔ چند منٹ پورے دن کی حفاظت ہیں ✦']},
+  masa: {ar: ['أذكار المساء', 'لم تقرأ أذكار المساء بعد. لا يفوتك حصن ليلتك ✦'], en: ['Evening adhkar', "You haven't read the evening adhkar yet. Don't miss your night's protection ✦"], fr: ['Adhkar du soir', "Vous n'avez pas encore lu les adhkar du soir. Ne manquez pas la protection de votre nuit ✦"], es: ['Adhkar de la tarde', 'Aún no has leído los adhkar de la tarde. No pierdas la protección de tu noche ✦'], ru: ['Вечерние азкары', 'Вы ещё не прочитали вечерние азкары. Не упустите защиту на ночь ✦'], ur: ['شام کے اذکار', 'آپ نے ابھی شام کے اذکار نہیں پڑھے۔ رات کی حفاظت نہ چھوڑیں ✦']},
+  wird: TXT.wird,
+};
 const URL_APP = 'https://dridrissihafdi-ship-it.github.io/almurshid/', URL_OLD = URL_APP;
 /* the 200 questions (qa.json, published with the app): one after Fajr, one after Isha */
 let QA = null;
@@ -79,14 +86,20 @@ for (const doc of snap.docs) {
   const pt = prayerTimes(L.y, L.m, L.d, u.lat, u.lng, L.off);
   const [bh, bm] = String(u.bed || '22:00').split(':').map(Number);
   const bed = (bh || 0) + (bm || 0) / 60;
+  // the minutes after (or before) the prayer are the user's choice in the app (offs); the defaults are the old fixed ones
+  const offs = u.offs || {}, om = (k, d) => (Number.isFinite(offs[k]) ? offs[k] : d) / 60;
+  const sA = pt.fajr + om('sabah', 20), mA = pt.maghrib + om('masa', -15), wA = pt.isha + om('wird', 30);
   const win = {                                   // [from, to) in local hours
-    sabah:    [pt.fajr + 20 / 60, pt.fajr + 3],
-    masa:     [pt.maghrib - 15 / 60, pt.maghrib + 3],
+    sabah:    [sA, sA + 2.7],
+    masa:     [mA, mA + 3.2],
+    wird:     [wA, Math.min(wA + 3, 24)],
     muhasaba: [bed, bed + 2],
   };
   const on = u.on || {}, last = u.lastSent || {}, upd = {};
-  for (const k of ['sabah', 'masa', 'muhasaba']) {
+  const done = u.done && u.done.d === L.date ? u.done : {};
+  for (const k of ['sabah', 'masa', 'wird', 'muhasaba']) {
     if (on[k] === false || last[k] === L.date) continue;
+    if (k === 'wird' && (on.wird !== true || done.wird)) continue;   // the Quran reminder is off unless chosen, and silent once the wird is read
     const [a, b] = win[k];
     if (!(L.h >= a && L.h < b)) continue;
     const [title, body] = (TXT[k][u.lang] || TXT[k].ar);
@@ -100,6 +113,20 @@ for (const doc of snap.docs) {
         await doc.ref.update({token: admin.firestore.FieldValue.delete()}); removed++; break;
       }
       console.warn(doc.id, k, c);
+    }
+  }
+  // a second reminder, an hour after the first, only if the deed is still not done (the app sends what is done today)
+  if (u.again === true && u.token) {
+    for (const k of ['sabah', 'masa', 'wird']) {
+      const k2 = k + '2';
+      if ((k === 'wird' ? on.wird !== true : on[k] === false) || last[k] !== L.date || last[k2] === L.date || done[k]) continue;
+      const [a, b] = win[k];
+      if (!(L.h >= a + 1 && L.h < b)) continue;
+      const [title, body] = (TXT2[k][u.lang] || TXT2[k].ar);
+      try {
+        await fcm.send({token: u.token, data: {title, body, tag: 'murshid-' + k, url: URL_APP + (k === 'wird' ? '#quran' : '')}, webpush: {headers: {TTL: '3600', Urgency: 'high'}}});
+        upd['lastSent.' + k2] = L.date; sent++;
+      } catch (e) { console.warn(doc.id, k2, e.errorInfo && e.errorInfo.code || e.code || ''); }
     }
   }
   // question & answer: 15 min after Fajr and 30 min after Isha (on unless turned off)
