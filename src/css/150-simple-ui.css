@@ -283,3 +283,24 @@ button.notif.nt-b .h2-chev{width:18px;height:18px;fill:none;stroke:var(--muted);
 .mt-go:active{transform:scale(.98)}
 .mt-undo{font-size:13px}.mt-note{text-align:center;margin:0}
 .mt-open{width:100%;margin:0 0 12px}
+/* salat: khushu tabs */
+.sl-tabs{grid-template-columns:repeat(4,1fr)}
+.sl-tabs button{font-size:13px;padding:9px 2px;line-height:1.3}
+.sl-lead{font-size:15px;line-height:1.9;margin:0 4px 14px;color:var(--ink)}
+.sl .sl-c,.sl .sl-heart,.sl .sl-w{margin:0 0 12px}
+.sl-c h3{font-size:16px;margin:0 0 6px;display:flex;align-items:center;gap:8px}
+.sl-c p,.sl-heart p,.sl-lv p{margin:0;line-height:1.9;font-size:14.5px}
+.sl-n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--chip);color:var(--chip-ink);display:grid;place-items:center;font-size:13px;font-weight:600}
+.sl-nur{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--chip)}
+.sl-nur b{display:block;font-size:13px;color:var(--chip-ink);margin-bottom:6px}
+.sl-nur .ar-q{font-size:19px;line-height:2.1;margin:0}
+.sl-nur .sl-m{font-size:13.5px;margin-top:8px;opacity:.85}
+.sl-heart{border-inline-start:4px solid var(--gold,#c9a54a)}
+.sl-heart b{display:block;font-size:13px;margin-bottom:6px;color:var(--chip-ink)}
+.sl-w summary{cursor:pointer;font-weight:600}
+.sl-w ul{margin:10px 0 0;padding-inline-start:20px}.sl-w li{line-height:1.9;margin:0 0 6px;font-size:14.5px}
+.sl-lv{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sl-lv h3{font-size:16px;margin:2px 0 6px}
+.sl-k{font-size:12.5px!important;color:var(--chip-ink);font-weight:600}
+.sl-sj{margin-top:8px!important;padding-top:8px;border-top:1px dashed var(--card-line);font-size:14px!important}
+.sl-src{margin-top:14px}
