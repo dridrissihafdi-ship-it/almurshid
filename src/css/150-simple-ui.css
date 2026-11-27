@@ -295,7 +295,7 @@ button.notif.nt-b .h2-chev{width:18px;height:18px;fill:none;stroke:var(--muted);
 .sl-nur b{display:block;font-size:13px;color:var(--chip-ink);margin-bottom:6px}
 .sl-nur .ar-q{font-size:19px;line-height:2.1;margin:0}
 .sl-nur .sl-m{font-size:13.5px;margin-top:8px;opacity:.85}
-.sl-heart{border-inline-start:4px solid var(--gold,#c9a54a)}
+.sl-heart{border-top:3px solid var(--gold,#c9a54a)}
 .sl-heart b{display:block;font-size:13px;margin-bottom:6px;color:var(--chip-ink)}
 .sl-w summary{cursor:pointer;font-weight:600}
 .sl-w ul{margin:10px 0 0;padding-inline-start:20px}.sl-w li{line-height:1.9;margin:0 0 6px;font-size:14.5px}
@@ -304,3 +304,7 @@ button.notif.nt-b .h2-chev{width:18px;height:18px;fill:none;stroke:var(--muted);
 .sl-k{font-size:12.5px!important;color:var(--chip-ink);font-weight:600}
 .sl-sj{margin-top:8px!important;padding-top:8px;border-top:1px dashed var(--card-line);font-size:14px!important}
 .sl-src{margin-top:14px}
+
+.sl-c{padding:0;overflow:hidden}
+.sl-c .sl-cb{padding:14px 16px 16px}
+.sl-c img.il.sl-img,.sl-c svg.il.sl-img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;margin:0;border-radius:0}
