@@ -1573,7 +1573,12 @@ button.notif.nt-b .h2-chev{width:18px;height:18px;fill:none;stroke:var(--muted);
 .sl-c img.il.sl-img,.sl-c svg.il.sl-img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;margin:0;border-radius:0}
 .sl-hn{font-size:12.5px!important;opacity:.7;margin-top:8px!important;line-height:1.7!important}
 /* home: the "now" card sits on the photo, glass like the prayer times (both themes) */
-html[data-scr=home] body::after{height:100vh;-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent 100%);mask-image:linear-gradient(180deg,#000 72%,transparent 100%)}
+html[data-scr=home] body::after{height:100vh;-webkit-mask-image:none;mask-image:none}
+html[data-scr=home] main.sheet,html[data-theme=light][data-scr=home] main.sheet{background:transparent}
+html[data-scr=home] nav.tabs,html[data-theme=light][data-scr=home] nav.tabs{background:rgba(28,21,17,.38)!important;border-top:1px solid rgba(255,255,255,.10)!important;box-shadow:none!important;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+html[data-scr=home] nav.tabs button,html[data-theme=light][data-scr=home] nav.tabs button{color:rgba(243,237,230,.66)}
+html[data-scr=home] nav.tabs button[aria-current="page"],html[data-theme=light][data-scr=home] nav.tabs button[aria-current="page"]{color:#F3EDE6}
+html[data-scr=home] nav.tabs button .badge{border-color:transparent}
 .hero .h2-now,html[data-theme=light] .hero .h2-now{margin-top:16px;background:rgba(255,248,240,.07);border:1px solid rgba(255,255,255,.10);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);color:#F3EDE6}
 .hero .h2-now small{color:rgba(243,237,230,.72)}
 .hero .h2-now h2{color:#F3EDE6;text-shadow:0 1px 10px rgba(0,0,0,.35)}
@@ -5371,7 +5376,7 @@ function viewNotif(){const it=notifItems();let mj='',an='',ib='';try{mj=majCard(
   <button class="am-mkl nt-am" data-go="aamal"><b>ما بقي من أعمال يومك</b><span>في صفحة الأعمال</span></button>
   ${isStandalone()?`<button class="btn notif-cta" data-go="profile" data-openacc="push">فعّل التذكيرات على هاتفك</button>`:`<button class="btn ok notif-cta" data-go="install">ثبّت التطبيق لتصلك التذكيرات على هاتفك</button>`}</section>`;
 }
-const APP_VER='2026-11-28 16:36';
+const APP_VER='2026-11-28 16:41';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
