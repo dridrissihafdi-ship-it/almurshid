@@ -17,7 +17,7 @@ function render(){
   const keepV=isMedia(screen)?document.getElementById('mqVideo'):null,keepU=screen==='umrah'?document.getElementById('umVideo'):null,keepF=(screen==='fiqh'||screen==='series')?document.getElementById('vdV'):null;
   app.innerHTML=screen==='home'?viewHome():heroSub(screen)+`<main class="sheet">${scrBan(screen)}${VIEWS[screen]()}</main>`;
   fzApply();
-  const navKey=tabOf(screen);document.documentElement.dataset.sky=skyKind();document.documentElement.dataset.pt=ptKind();document.documentElement.dataset.scr=screen;
+  const navKey=tabOf(screen);document.documentElement.dataset.sky=skyKind();document.documentElement.dataset.pt=ptKind();document.documentElement.dataset.scr=screen;document.documentElement.dataset.ph=['home','roadmap','me'].includes(screen)?'1':'';
   document.querySelectorAll('[data-nav]').forEach(b=>b.toggleAttribute('aria-current',b.dataset.nav===navKey)||b.dataset.nav===navKey&&b.setAttribute('aria-current','page'));
   document.querySelectorAll('[data-nav]').forEach(b=>{const k=SIMPLE()?tabS(screen):['home','aamal','tazkiya','quran'].includes(navKey)?navKey:'more';if(b.dataset.nav===k)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
   const rtl=RTL(),nav=document.querySelector('nav.tabs');
