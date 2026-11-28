@@ -42,7 +42,7 @@ function ashTopIn(kind){const list=adhList(kind),st=adhState(kind),j=adhCurI(kin
 function viewAdhFull(kind){const list=adhList(kind),st=adhState(kind),all=list.every((x,i)=>st[i]>=x.n),ord=ashOrder(kind),lit=ashLit(kind);
   const bricks=ord.slice(0,lit).map(i=>ashBrick(ashCells(kind)[i],i,false)).join('');
   const dust=Array.from({length:10},(_,i)=>`<i style="--x:${(i*41)%100}%;--d:${8+(i*5)%9}s;--s:${-(i*1.9).toFixed(1)}s"></i>`).join('');
-  setTimeout(()=>{ashFit();ashStart(kind)},0);
+  setTimeout(()=>{ashFit();ashStart(kind);const f=document.getElementById('ashf');if(f&&window.ResizeObserver&&!f._ro){f._ro=new ResizeObserver(()=>ashFit());f._ro.observe(f)}},0);
   return `<section class="ashf ${kind}${all?' all':''}" id="ashf">
    <div class="ash-fill" style="background-image:url(il/adh_${kind}.webp)"></div>
    <div class="ash-stage ash-up" id="ashUp"><img class="ash-bg" src="il/adh_${kind}.webp" alt=""><div class="ash-name"></div></div>
@@ -96,8 +96,15 @@ function ashFit(){const f=document.getElementById('ashf'),dn=document.getElement
   const upT=Math.min(tt,(H-h)/2),dnT=Math.max(H-h,upT);
   Object.assign(up.style,{width:w+'px',height:h+'px',left:l+'px',top:upT+'px'});Object.assign(dn.style,{width:w+'px',height:h+'px',left:l+'px',top:dnT+'px'});
   /* the free band for the text: under the Name (36% of the width) and above the dome (80 of 150) */
-  const t1=upT+w*.37,t2=dnT+w*.79;f.style.setProperty('--t1',t1+'px');f.style.setProperty('--t2',(H-t2)+'px')}
-addEventListener('resize',()=>{if(document.getElementById('ashf'))ashFit()});
+  const t1=upT+w*.37,t2=dnT+w*.79;f.style.setProperty('--t1',t1+'px');f.style.setProperty('--t2',(H-t2)+'px');
+  /* phone on its side: the whole picture on one side, the text and the counter beside it */
+  const mid=document.getElementById('ashMid'),land=W>H*1.15;f.classList.toggle('land',land);
+  if(land){const lw=H*2/3;[up,dn].forEach(e=>Object.assign(e.style,{width:lw+'px',height:H+'px',left:(W-lw)+'px',top:'0px'}));
+    if(mid)Object.assign(mid.style,{left:'16px',right:(lw+16)+'px',top:tt+'px',bottom:'34px'})}
+  else if(mid)Object.assign(mid.style,{left:'',right:'',top:'',bottom:''})}
+/* turning the phone: fit again once the new size has settled (some phones report it late) */
+function ashRefit(){if(!document.getElementById('ashf'))return;ashFit();requestAnimationFrame(ashFit);setTimeout(ashFit,250);setTimeout(ashFit,700)}
+addEventListener('resize',ashRefit);addEventListener('orientationchange',ashRefit);if(window.visualViewport)visualViewport.addEventListener('resize',ashRefit);
 /* a new brick is sent down from the Name of Allah: it leaves the light at the top and settles, glowing, in its place */
 function ashFly(el,c){const st=document.getElementById('ashStage'),up=document.getElementById('ashUp');if(!el||!st||!up||!el.animate)return;const w=st.clientWidth,dx=(50-c.x)*w/100,dy=(up.offsetTop+16.5*w/100)-(st.offsetTop+c.y*w/100);
   const nm=document.querySelector('.ash-name');if(nm){nm.classList.remove('give');void nm.offsetWidth;nm.classList.add('give')}

@@ -560,3 +560,6 @@ html[data-scr=adh_sabah] nav.tabs,html[data-scr=adh_masa] nav.tabs{display:none}
 .ash-t .sn{display:block;font-family:var(--f);font-size:13px;color:#F3D58E;margin-top:8px;text-shadow:none}
 .ash-t .sn:first-child{margin-top:0}
 .ash-t .ay{color:#F3D58E;font-size:.8em;white-space:nowrap}
+.ashf.land .ash-up,.ashf.land .ash-dn{-webkit-mask-image:none;mask-image:none}
+.ashf.land .ash-dn .ash-bg{opacity:0}
+.ashf.land .ash-hint{right:auto;left:16px;width:calc(100% - 66.667vh - 32px)}
