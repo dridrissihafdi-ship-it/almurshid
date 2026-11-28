@@ -540,3 +540,18 @@ html[data-scr=adh_sabah] nav.tabs,html[data-scr=adh_masa] nav.tabs{display:none}
 @keyframes ashGive{0%{opacity:1;scale:1.05}40%{opacity:1;scale:1.25;filter:brightness(1.6)}100%{opacity:.6;scale:1}}
 .ash-trail{position:absolute;height:2px;transform-origin:0 50%;translate:0 -1px;background:linear-gradient(90deg,rgba(255,236,170,.0),rgba(255,236,170,.85) 40%,rgba(255,250,225,0));border-radius:2px;filter:blur(.5px);animation:ashTrail .9s ease-out forwards;pointer-events:none}
 @keyframes ashTrail{0%{opacity:0;scale:0 1}25%{opacity:1}100%{opacity:0;scale:1 1}}
+/* two copies of the picture: the Name pushed to the top, the seeker to the bottom, the text in the free band between */
+.ash-stage{animation:none!important;scale:none}
+.ash-up{-webkit-mask-image:linear-gradient(180deg,#000 0,#000 27%,transparent 38%);mask-image:linear-gradient(180deg,#000 0,#000 27%,transparent 38%)}
+.ash-dn{-webkit-mask-image:linear-gradient(180deg,transparent 0,transparent 44%,#000 54%);mask-image:linear-gradient(180deg,transparent 0,transparent 44%,#000 54%)}
+.ash-fill{filter:blur(26px) brightness(.7)}
+.ash-mid{position:absolute!important;left:16px;right:16px;top:var(--t1,200px);bottom:var(--t2,260px);display:flex;flex-direction:column;justify-content:center;gap:10px;z-index:2}
+.ash-mid .ash-txt,.ashf.all .ash-mid .ash-end{margin:0}
+.ash-txt{display:flex;flex-direction:column;min-height:0;flex:0 1 auto}
+.ash-scroll{flex:1 1 auto;min-height:0;max-height:none}
+.ash-mid .ash-ctl{flex:none}
+.ash-mid .ash-cnt{min-width:66px;height:66px}.ash-mid .ash-cnt b{font-size:24px}
+.ash-mid.swap .ash-txt{animation:ashSwap .45s ease}
+@keyframes ashSwap{from{opacity:0;translate:0 8px}to{opacity:1;translate:0 0}}
+.ash-hint{position:absolute!important;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);margin:0}
+.ash-pl{align-self:center}
