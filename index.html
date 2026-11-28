@@ -1826,6 +1826,19 @@ html[data-scr=adh_sabah] nav.tabs,html[data-scr=adh_masa] nav.tabs{display:none}
 .ashf.land .ash-up,.ashf.land .ash-dn{-webkit-mask-image:none;mask-image:none}
 .ashf.land .ash-dn .ash-bg{opacity:0}
 .ashf.land .ash-hint{right:auto;left:16px;width:calc(100% - 66.667vh - 32px)}
+/* «اختر أعمالك ونوافلك»: every deed with a switch */
+.pk2-lead{margin:0 2px 8px}
+.pk2-n{margin:0 2px 4px;font-size:13px;color:var(--muted)}.pk2-n b{color:var(--ink)}
+.pk2-g{padding:2px 0;margin-bottom:4px}
+.pk2{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--card-line);cursor:pointer}
+.pk2:last-child{border-bottom:0}
+.pk2-t{flex:1;min-width:0}.pk2-t b{display:block;font-size:14.5px;font-weight:600}.pk2-t small{display:block;font-size:12px;color:var(--muted);margin-top:2px;line-height:1.5}
+input.sw{appearance:none;-webkit-appearance:none;flex:none;width:46px;height:28px;border-radius:14px;background:var(--chip);border:1px solid var(--card-line);position:relative;margin:0;cursor:pointer;transition:background .2s}
+input.sw::after{content:"";position:absolute;top:2px;inset-inline-start:2px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:inset-inline-start .2s}
+input.sw:checked{background:var(--teal,#2f7a5a);border-color:transparent}
+input.sw:checked::after{inset-inline-start:20px}
+.pk2-add{width:100%;border-top:1px solid var(--card-line)!important;color:var(--teal)}
+input.sw:checked{background:#3f9a6b}
 /* «معركة اليوم» */
 .mk-lvh{text-align:center;margin:4px 0 10px}.mk-lvh h3{margin:2px 0;font-size:22px}.mk-k{margin:0;color:var(--muted);font-size:13px}
 .mk-v{font-family:var(--f-verse);font-size:19px;line-height:1.9;color:var(--red);margin:6px 0 0}
@@ -4332,6 +4345,20 @@ function amPickBox(P,pt){const D=naflDefs(pt),T=Object.fromEntries(AWRAD.map(a=>
    <p class="pk-h">الأذكار والأوراد</p><div class="pk-g">${AW_PICK.map(id=>ch('aw',id,T[id],P.aw.includes(id))).join('')}</div>
    <p class="pk-h">النوافل</p><div class="pk-g">${D.map(x=>ch('nf',x.id,x.t,P.nf.includes(x.id))).join('')}${AW_X.map(id=>ch('aw',id,T[id],P.aw.includes(id))).join('')}</div>
    <button class="btn ok" data-ampickdone="1" style="margin-top:10px">تم</button></div>`}
+/* «اختر أعمالك ونوافلك»: every deed the app offers, in one sheet, each with a switch; what is on appears in the day's list */
+function amPickSheet(){const L=aLog(),P=amPick(L),pt=prayerTimes(new Date((aDate||TODAY)+'T12:00:00')),D=naflDefs(pt),A=Object.fromEntries(AWRAD.map(a=>[a.id,a]));
+  const row=(k,id,t,sub,on)=>`<label class="pk2"><span class="pk2-t"><b>${t}</b>${sub?`<small>${sub}</small>`:''}</span><input type="checkbox" class="sw" data-ampick="${k}:${id}"${on?' checked':''}></label>`;
+  const all=AW_PICK.length+D.length+AW_X.length,on=AW_PICK.filter(i=>P.aw.includes(i)).length+D.filter(x=>P.nf.includes(x.id)).length+AW_X.filter(i=>P.aw.includes(i)).length;
+  const mine=myDeeds();
+  sheetOpen(`<div class="bs-top"><h2>اختر أعمالك ونوافلك</h2><button class="qa-ed" data-bsx="1">تم</button></div>
+   <p class="meta pk2-lead">هذه كل الأعمال المتوفّرة. فعّل ما تلتزم به فيظهر في جدول أعمالك ويُحسب في يومك، وأوقف ما لا تريده. الصلوات الخمس ثابتة دائمًا.</p>
+   <p class="pk2-n"><span>اخترت</span> <b id="pk2N">${on}</b> <span>من</span> ${all}</p>
+   <p class="pk-h">الأذكار والأوراد</p><div class="box pk2-g">${AW_PICK.map(id=>row('aw',id,A[id].t,A[id].s,P.aw.includes(id))).join('')}</div>
+   <p class="pk-h">النوافل</p><div class="box pk2-g">${D.map(x=>row('nf',x.id,x.t,x.s,P.nf.includes(x.id))).join('')}</div>
+   <p class="pk-h">الصيام والصدقة والإحسان</p><div class="box pk2-g">${AW_X.map(id=>row('aw',id,A[id].t,A[id].s,P.aw.includes(id))).join('')}</div>
+   <p class="pk-h">أعمالك الخاصة</p><div class="box pk2-g">${mine.length?mine.map(m=>`<div class="pk2"><span class="pk2-t"><b class="notr" dir="auto">${esc(m.t)}</b><small>${mineDays(m)}</small></span></div>`).join(''):'<p class="muted" style="margin:10px 14px">لم تضف عملًا خاصًا بعد.</p>'}
+    <button class="h2-row pk2-add" data-mineadd="1" data-bsx="1"><span class="tx">+ <span>أضف عملًا خاصًا بك</span></span></button></div>
+   <button class="btn ok" data-bsx="1" style="margin:14px 0 4px;width:100%">تم</button>`,'tall')}
 const NAFL_SLOT={fajr:['raghiba','duha'],dhuhr:['qdhuhr','bdhuhr'],asr:['qasr'],maghrib:['bmaghrib'],isha:['bisha','witr']};
 function naflRows(ids,L,pt){const N=L.nafl||{},h=dH(),D=naflDefs(pt);
   return ids.map(id=>{const x=D.find(z=>z.id===id),n=N[id]||0,hh=h,act=!aDate&&!n&&hh>=x.w[0]&&hh<x.w[1];
@@ -5616,7 +5643,7 @@ function viewNotif(){const it=notifItems();let mj='',an='',ib='';try{mj=majCard(
   <button class="am-mkl nt-am" data-go="aamal"><b>ما بقي من أعمال يومك</b><span>في صفحة الأعمال</span></button>
   ${isStandalone()?`<button class="btn notif-cta" data-go="profile" data-openacc="push">فعّل التذكيرات على هاتفك</button>`:`<button class="btn ok notif-cta" data-go="install">ثبّت التطبيق لتصلك التذكيرات على هاتفك</button>`}</section>`;
 }
-const APP_VER='2026-11-28 19:42';
+const APP_VER='2026-11-28 20:09';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
@@ -7601,7 +7628,7 @@ document.addEventListener('click',e=>{
   if(d.umseg||d.uptab||d.upa||d.upz||d.upzt||d.upt||d.upreset){if(upEvent(d)){const y=SCR().scrollTop;render();if(d.umseg||d.uptab){const c=document.querySelector('.um-seg');SCR().scrollTo({top:d.uptab&&c?c.getBoundingClientRect().top+SCR().scrollTop-20:0})}else SCR().scrollTo(0,y)}return}
   if(d.umstep!==undefined){S.umStep=+d.umstep;save();render();const c=document.querySelector('.um-dots');SCR().scrollTo({top:c?c.getBoundingClientRect().top+SCR().scrollTop-20:0});return}
   if(d.amslot){amOpen.has(d.amslot)?amOpen.delete(d.amslot):amOpen.add(d.amslot);const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
-  if(d.ampickopen){amPickOpen=!amPickOpen;render();return}
+  if(d.ampickopen){if(SIMPLE()){setTimeout(amPickSheet,d.bsx!==undefined?260:0);return}amPickOpen=!amPickOpen;render();return}
   if(d.ampickdone){amPickOpen=false;render();SCR().scrollTo(0,0);return}
   if(d.tzprep){tzPrepOpen=!tzPrepOpen;render();return}
   if(d.nafl){e.preventDefault();const L=aLog(),k=+d.nfn;L.nafl=L.nafl||{};if(L.nafl[d.nafl]===k)delete L.nafl[d.nafl];else L.nafl[d.nafl]=k;save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
@@ -7830,7 +7857,7 @@ document.addEventListener('change',e=>{
   if(e.target.id==='ptMSel'){S.ptM=e.target.value==='auto'?undefined:e.target.value;save();pushSync();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(e.target.id==='citySel'){const c=CITIES[+e.target.value];if(c){geoMsg='';setLoc({lat:c[3],lng:c[4],ar:c[1],lt:c[2]})}return}
   const pk=e.target.dataset&&e.target.dataset.ampick;if(pk){const[k,id]=pk.split(':'),L=aLog(),P=amPick(L),cur=S.amPick||{aw:P.aw.slice(),nf:P.nf.slice()};
-    [cur,P].forEach(o=>{o[k]=o[k].filter(x=>x!==id);if(e.target.checked)o[k].push(id)});S.amPick=cur;if(!aDate)L.pick=P;save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
+    [cur,P].forEach(o=>{o[k]=o[k].filter(x=>x!==id);if(e.target.checked)o[k].push(id)});S.amPick=cur;if(!aDate)L.pick=P;save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);const nn=document.getElementById('pk2N');if(nn)nn.textContent=document.querySelectorAll('#bsheet [data-ampick]:checked').length;return}
   if(e.target.dataset&&e.target.dataset.adzon!==undefined){const A=adzP();A.on=e.target.checked;save();if(A.on){adzUnlocked=false}const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(e.target.dataset&&e.target.dataset.adzp){adzP().p[e.target.dataset.adzp]=e.target.checked;save();return}
   const w=e.target.dataset&&e.target.dataset.wird;if(!w)return;const L=screen==='aamal'?aLog():dayLog();

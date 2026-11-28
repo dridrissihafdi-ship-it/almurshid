@@ -17,7 +17,7 @@ document.addEventListener('change',e=>{
   if(e.target.id==='ptMSel'){S.ptM=e.target.value==='auto'?undefined:e.target.value;save();pushSync();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(e.target.id==='citySel'){const c=CITIES[+e.target.value];if(c){geoMsg='';setLoc({lat:c[3],lng:c[4],ar:c[1],lt:c[2]})}return}
   const pk=e.target.dataset&&e.target.dataset.ampick;if(pk){const[k,id]=pk.split(':'),L=aLog(),P=amPick(L),cur=S.amPick||{aw:P.aw.slice(),nf:P.nf.slice()};
-    [cur,P].forEach(o=>{o[k]=o[k].filter(x=>x!==id);if(e.target.checked)o[k].push(id)});S.amPick=cur;if(!aDate)L.pick=P;save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
+    [cur,P].forEach(o=>{o[k]=o[k].filter(x=>x!==id);if(e.target.checked)o[k].push(id)});S.amPick=cur;if(!aDate)L.pick=P;save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);const nn=document.getElementById('pk2N');if(nn)nn.textContent=document.querySelectorAll('#bsheet [data-ampick]:checked').length;return}
   if(e.target.dataset&&e.target.dataset.adzon!==undefined){const A=adzP();A.on=e.target.checked;save();if(A.on){adzUnlocked=false}const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
   if(e.target.dataset&&e.target.dataset.adzp){adzP().p[e.target.dataset.adzp]=e.target.checked;save();return}
   const w=e.target.dataset&&e.target.dataset.wird;if(!w)return;const L=screen==='aamal'?aLog():dayLog();

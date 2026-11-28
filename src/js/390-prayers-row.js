@@ -49,6 +49,20 @@ function amPickBox(P,pt){const D=naflDefs(pt),T=Object.fromEntries(AWRAD.map(a=>
    <p class="pk-h">الأذكار والأوراد</p><div class="pk-g">${AW_PICK.map(id=>ch('aw',id,T[id],P.aw.includes(id))).join('')}</div>
    <p class="pk-h">النوافل</p><div class="pk-g">${D.map(x=>ch('nf',x.id,x.t,P.nf.includes(x.id))).join('')}${AW_X.map(id=>ch('aw',id,T[id],P.aw.includes(id))).join('')}</div>
    <button class="btn ok" data-ampickdone="1" style="margin-top:10px">تم</button></div>`}
+/* «اختر أعمالك ونوافلك»: every deed the app offers, in one sheet, each with a switch; what is on appears in the day's list */
+function amPickSheet(){const L=aLog(),P=amPick(L),pt=prayerTimes(new Date((aDate||TODAY)+'T12:00:00')),D=naflDefs(pt),A=Object.fromEntries(AWRAD.map(a=>[a.id,a]));
+  const row=(k,id,t,sub,on)=>`<label class="pk2"><span class="pk2-t"><b>${t}</b>${sub?`<small>${sub}</small>`:''}</span><input type="checkbox" class="sw" data-ampick="${k}:${id}"${on?' checked':''}></label>`;
+  const all=AW_PICK.length+D.length+AW_X.length,on=AW_PICK.filter(i=>P.aw.includes(i)).length+D.filter(x=>P.nf.includes(x.id)).length+AW_X.filter(i=>P.aw.includes(i)).length;
+  const mine=myDeeds();
+  sheetOpen(`<div class="bs-top"><h2>اختر أعمالك ونوافلك</h2><button class="qa-ed" data-bsx="1">تم</button></div>
+   <p class="meta pk2-lead">هذه كل الأعمال المتوفّرة. فعّل ما تلتزم به فيظهر في جدول أعمالك ويُحسب في يومك، وأوقف ما لا تريده. الصلوات الخمس ثابتة دائمًا.</p>
+   <p class="pk2-n"><span>اخترت</span> <b id="pk2N">${on}</b> <span>من</span> ${all}</p>
+   <p class="pk-h">الأذكار والأوراد</p><div class="box pk2-g">${AW_PICK.map(id=>row('aw',id,A[id].t,A[id].s,P.aw.includes(id))).join('')}</div>
+   <p class="pk-h">النوافل</p><div class="box pk2-g">${D.map(x=>row('nf',x.id,x.t,x.s,P.nf.includes(x.id))).join('')}</div>
+   <p class="pk-h">الصيام والصدقة والإحسان</p><div class="box pk2-g">${AW_X.map(id=>row('aw',id,A[id].t,A[id].s,P.aw.includes(id))).join('')}</div>
+   <p class="pk-h">أعمالك الخاصة</p><div class="box pk2-g">${mine.length?mine.map(m=>`<div class="pk2"><span class="pk2-t"><b class="notr" dir="auto">${esc(m.t)}</b><small>${mineDays(m)}</small></span></div>`).join(''):'<p class="muted" style="margin:10px 14px">لم تضف عملًا خاصًا بعد.</p>'}
+    <button class="h2-row pk2-add" data-mineadd="1" data-bsx="1"><span class="tx">+ <span>أضف عملًا خاصًا بك</span></span></button></div>
+   <button class="btn ok" data-bsx="1" style="margin:14px 0 4px;width:100%">تم</button>`,'tall')}
 const NAFL_SLOT={fajr:['raghiba','duha'],dhuhr:['qdhuhr','bdhuhr'],asr:['qasr'],maghrib:['bmaghrib'],isha:['bisha','witr']};
 function naflRows(ids,L,pt){const N=L.nafl||{},h=dH(),D=naflDefs(pt);
   return ids.map(id=>{const x=D.find(z=>z.id===id),n=N[id]||0,hh=h,act=!aDate&&!n&&hh>=x.w[0]&&hh<x.w[1];

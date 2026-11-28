@@ -563,3 +563,16 @@ html[data-scr=adh_sabah] nav.tabs,html[data-scr=adh_masa] nav.tabs{display:none}
 .ashf.land .ash-up,.ashf.land .ash-dn{-webkit-mask-image:none;mask-image:none}
 .ashf.land .ash-dn .ash-bg{opacity:0}
 .ashf.land .ash-hint{right:auto;left:16px;width:calc(100% - 66.667vh - 32px)}
+/* «اختر أعمالك ونوافلك»: every deed with a switch */
+.pk2-lead{margin:0 2px 8px}
+.pk2-n{margin:0 2px 4px;font-size:13px;color:var(--muted)}.pk2-n b{color:var(--ink)}
+.pk2-g{padding:2px 0;margin-bottom:4px}
+.pk2{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--card-line);cursor:pointer}
+.pk2:last-child{border-bottom:0}
+.pk2-t{flex:1;min-width:0}.pk2-t b{display:block;font-size:14.5px;font-weight:600}.pk2-t small{display:block;font-size:12px;color:var(--muted);margin-top:2px;line-height:1.5}
+input.sw{appearance:none;-webkit-appearance:none;flex:none;width:46px;height:28px;border-radius:14px;background:var(--chip);border:1px solid var(--card-line);position:relative;margin:0;cursor:pointer;transition:background .2s}
+input.sw::after{content:"";position:absolute;top:2px;inset-inline-start:2px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:inset-inline-start .2s}
+input.sw:checked{background:var(--teal,#2f7a5a);border-color:transparent}
+input.sw:checked::after{inset-inline-start:20px}
+.pk2-add{width:100%;border-top:1px solid var(--card-line)!important;color:var(--teal)}
+input.sw:checked{background:#3f9a6b}

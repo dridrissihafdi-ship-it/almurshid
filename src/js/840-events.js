@@ -177,7 +177,7 @@ document.addEventListener('click',e=>{
   if(d.umseg||d.uptab||d.upa||d.upz||d.upzt||d.upt||d.upreset){if(upEvent(d)){const y=SCR().scrollTop;render();if(d.umseg||d.uptab){const c=document.querySelector('.um-seg');SCR().scrollTo({top:d.uptab&&c?c.getBoundingClientRect().top+SCR().scrollTop-20:0})}else SCR().scrollTo(0,y)}return}
   if(d.umstep!==undefined){S.umStep=+d.umstep;save();render();const c=document.querySelector('.um-dots');SCR().scrollTo({top:c?c.getBoundingClientRect().top+SCR().scrollTop-20:0});return}
   if(d.amslot){amOpen.has(d.amslot)?amOpen.delete(d.amslot):amOpen.add(d.amslot);const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
-  if(d.ampickopen){amPickOpen=!amPickOpen;render();return}
+  if(d.ampickopen){if(SIMPLE()){setTimeout(amPickSheet,d.bsx!==undefined?260:0);return}amPickOpen=!amPickOpen;render();return}
   if(d.ampickdone){amPickOpen=false;render();SCR().scrollTo(0,0);return}
   if(d.tzprep){tzPrepOpen=!tzPrepOpen;render();return}
   if(d.nafl){e.preventDefault();const L=aLog(),k=+d.nfn;L.nafl=L.nafl||{};if(L.nafl[d.nafl]===k)delete L.nafl[d.nafl];else L.nafl[d.nafl]=k;save();const y=SCR().scrollTop;render();SCR().scrollTo(0,y);return}
