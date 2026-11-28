@@ -3,24 +3,31 @@
    with his hands raised. Every repetition lays one more brick of a dome around him, in no fixed order; black shadows fly in
    from the sides: they break on the bricks, and slip through where the dome is still open.
    «...كمثل رجل خرج العدو في أثره سراعًا حتى إذا أتى على حصن حصين فأحرز نفسه منهم، كذلك العبد لا يحرز نفسه من الشيطان إلا بذكر الله» (الترمذي 2863) */
-const ASH={cx:50,cy:128,rows:[[23,33,12],[28,39.5,15],[33,46,18]],a0:-12,a1:192,bw:6};   // stage units: width 100, height 150; rows are ellipses (rx, ry, bricks)
-const ASH_CELLS=(()=>{const o=[];ASH.rows.forEach(([rx,ry,n],ri)=>{for(let i=0;i<n;i++){const th=ASH.a0+(i+.5)*(ASH.a1-ASH.a0)/n,t=th*Math.PI/180;
-  o.push({r:rx,ry,ri,th,rot:Math.atan2(-ry*Math.cos(t),-rx*Math.sin(t))*180/Math.PI+180,x:ASH.cx+rx*Math.cos(t),y:ASH.cy-ry*Math.sin(t)})}});return o})();
+const ASH={cx:50,cy:128,in:[24,34],out:[33,46],a0:-12,a1:192};   // stage units: width 100, height 150; the dome is a band of elliptic rows
+/* one brick per repetition: the band is split into rows and the bricks shared out by the length of each row */
+const ASH_C={};
+function ashCells(kind){const N=adhList(kind).reduce((a,x)=>a+x.n,0);if(ASH_C[kind]&&ASH_C[kind].length===N)return ASH_C[kind];
+  const R=Math.max(2,Math.round(Math.sqrt(N/7))),rows=[];for(let r=0;r<R;r++){const f=R>1?r/(R-1):0,rx=ASH.in[0]+(ASH.out[0]-ASH.in[0])*f,ry=ASH.in[1]+(ASH.out[1]-ASH.in[1])*f;rows.push({rx,ry,L:Math.PI*Math.sqrt((rx*rx+ry*ry)/2)})}
+  const tot=rows.reduce((a,r)=>a+r.L,0);let left=N;rows.forEach((r,i)=>{r.n=i===R-1?left:Math.round(N*r.L/tot);left-=r.n});
+  const bw=Math.min(7,rows[0].L*(ASH.a1-ASH.a0)/180/rows[0].n*.92),o=[];
+  rows.forEach((w,ri)=>{for(let i=0;i<w.n;i++){const th=ASH.a0+(i+.5)*(ASH.a1-ASH.a0)/w.n,t=th*Math.PI/180;
+    o.push({ri,th,bw,rot:Math.atan2(-w.ry*Math.cos(t),-w.rx*Math.sin(t))*180/Math.PI+180,x:ASH.cx+w.rx*Math.cos(t),y:ASH.cy-w.ry*Math.sin(t),rx:w.rx,ry:w.ry,step:(ASH.a1-ASH.a0)/w.n})}});
+  return ASH_C[kind]=o}
 /* the order the bricks are laid: shuffled, but the same all day for the same adhkar */
-function ashOrder(kind){let s=0;for(const ch of kind+TODAY)s=(s*31+ch.charCodeAt(0))>>>0;const a=ASH_CELLS.map((_,i)=>i);
+function ashOrder(kind){let s=0;for(const ch of kind+TODAY)s=(s*31+ch.charCodeAt(0))>>>0;const a=ashCells(kind).map((_,i)=>i);
   for(let i=a.length-1;i>0;i--){s=(s*1103515245+12345)>>>0;const j=s%(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
 function ashLevel(kind){const list=adhList(kind),st=adhState(kind);let a=0,b=0;list.forEach((x,i)=>{a+=Math.min(st[i]||0,x.n);b+=x.n});return b?a/b:0}
-const ashLit=kind=>Math.round(ashLevel(kind)*ASH_CELLS.length);
+const ashLit=kind=>Math.round(ashLevel(kind)*ashCells(kind).length);
 function ashBrick(c,i,nw){const sc=(.92+((i*37)%17)/100).toFixed(2),br=(.85+((i*53)%30)/100).toFixed(2);
-  return `<img class="ash-bk${nw?' nw':''}" src="il/adh_brick.webp" alt="" data-c="${i}" style="left:${c.x}%;top:${(c.y/1.5).toFixed(2)}%;width:${ASH.bw}%;--r:${c.rot.toFixed(1)}deg;--s:${sc};filter:brightness(${br})">`}
+  return `<img class="ash-bk${nw?' nw':''}" src="il/adh_brick.webp" alt="" data-c="${i}" style="left:${c.x}%;top:${(c.y/1.5).toFixed(2)}%;width:${c.bw.toFixed(2)}%;--r:${c.rot.toFixed(1)}deg;--s:${sc};--b:${br}">`}
 function viewAdhFull(kind){const list=adhList(kind),st=adhState(kind),L=dayLog(),p=period(),j=adhCurI(kind),a=list[j],c=st[j],full=c>=a.n;
   const done=list.filter((x,i)=>st[i]>=x.n).length,all=done===list.length,confirmed=L.awrad.includes(kind),name=kind==='sabah'?'أذكار الصباح':'أذكار المساء',q=ADHKAR.quran.length;
   const sec=j===0?'الاستهلال':j<=q?'من القرآن الكريم':'من السنة النبوية',au=adhAu(kind,j),ord=ashOrder(kind),lit=ashLit(kind);
-  const bricks=ord.slice(0,lit).map(i=>ashBrick(ASH_CELLS[i],i,false)).join('');
+  const bricks=ord.slice(0,lit).map(i=>ashBrick(ashCells(kind)[i],i,false)).join('');
   const dust=Array.from({length:10},(_,i)=>`<i style="--x:${(i*41)%100}%;--d:${8+(i*5)%9}s;--s:${-(i*1.9).toFixed(1)}s"></i>`).join('');
-  setTimeout(()=>ashStart(kind),60);
+  setTimeout(()=>{ashFit();ashStart(kind)},0);
   return `<section class="ashf ${kind}${all?' all':''}" id="ashf">
-   <div class="ash-stage" id="ashStage"><img class="ash-bg" src="il/adh_${kind}.webp" alt=""><div class="ash-name"></div><div class="ash-dust">${dust}</div>
+   <div class="ash-fill" style="background-image:url(il/adh_${kind}.webp)"></div><div class="ash-stage" id="ashStage"><img class="ash-bg" src="il/adh_${kind}.webp" alt=""><div class="ash-name"></div><div class="ash-dust">${dust}</div>
     <div class="ash-man${all?' safe':''}"></div><div id="ashBricks">${bricks}</div><div id="ashFx"></div></div>
    <div class="ash-top"><button class="ash-x" data-back="aamal" aria-label="رجوع">✕</button>
     <div class="ash-prog"><i style="width:${Math.round(done/list.length*100)}%"></i></div><span class="ash-k" dir="ltr">${j+1} / ${list.length}</span>
@@ -43,7 +50,7 @@ function viewAdhFull(kind){const list=adhList(kind),st=adhState(kind),L=dayLog()
 function ashTap(kind){const list=adhList(kind),st=adhState(kind),j=adhCurI(kind),a=list[j];if(st[j]>=a.n)return;
   const before=ashLit(kind);st[j]++;save();const c=st[j],full=c>=a.n;try{navigator.vibrate&&navigator.vibrate(full?[60,40,60]:12)}catch(x){}
   const after=ashLit(kind),ord=ashOrder(kind),box=document.getElementById('ashBricks');
-  if(box)for(let k=before;k<after;k++){box.insertAdjacentHTML('beforeend',ashBrick(ASH_CELLS[ord[k]],ord[k],true))}
+  if(box)for(let k=before;k<after;k++){box.insertAdjacentHTML('beforeend',ashBrick(ashCells(kind)[ord[k]],ord[k],true));ashFly(box.lastElementChild,ashCells(kind)[ord[k]])}
   const n=document.getElementById('ashN');if(n)n.textContent=full?'✓':c;
   const cn=document.querySelector('.ash-cnt');if(cn){cn.classList.remove('pulse');void cn.offsetWidth;cn.classList.add('pulse')}
   const allDone=list.every((x,i)=>st[i]>=x.n);
@@ -58,8 +65,8 @@ function ashSpawn(){const st=document.getElementById('ashStage'),fx=document.get
   const tx=ASH.cx*u,ty=ASH.cy*u,dx=Math.cos(thr),dy=-Math.sin(thr);
   /* is this side already walled? the outermost laid brick near that angle stops it */
   const lit=new Set(ashOrder(kind).slice(0,ashLit(kind)));let stopR=0;
-  ASH_CELLS.forEach((c,i)=>{if(lit.has(i)&&Math.abs(c.th-th)<(ASH.a1-ASH.a0)/ASH.rows[c.ri][2]*.75)stopR=Math.max(stopR,c.ri+1)});
-  const R0=72,x0=tx+dx*R0*u,y0=ty+dy*R0*u,er=stopR?ASH.rows[stopR-1]:[7,14],ex=(er[0]+(stopR?ASH.bw*.5:0))*Math.cos(thr),ey=-(er[1]+(stopR?ASH.bw*.5:0))*Math.sin(thr),x1=tx+ex*u,y1=ty+ey*u;
+  let stopC=null;ashCells(kind).forEach((c,i)=>{if(lit.has(i)&&Math.abs(c.th-th)<c.step*.8&&(!stopC||c.ri>stopC.ri))stopC=c});stopR=stopC?1:0;
+  const R0=72,x0=tx+dx*R0*u,y0=ty+dy*R0*u,er=stopC?[stopC.rx+stopC.bw*.4,stopC.ry+stopC.bw*.4]:[7,14],ex=er[0]*Math.cos(thr),ey=-er[1]*Math.sin(thr),x1=tx+ex*u,y1=ty+ey*u;
   const el=document.createElement('img');el.src='il/adh_shay.webp';el.alt='';el.className='ash-sh';fx.appendChild(el);
   const sz=(11+Math.random()*4)*u,hh=sz*148/260,vx=x1-x0,vy=y1-y0,vl=Math.hypot(vx,vy),ux=vx/vl,uy=vy/vl,ang=Math.atan2(uy,ux)*180/Math.PI,fl=Math.abs(ang)>90?-1:1;el.style.width=sz+'px';
   /* the image flies head first (its head is at the right, 30% of its width past the centre) */
@@ -71,3 +78,18 @@ function ashSpawn(){const st=document.getElementById('ashStage'),fx=document.get
 document.addEventListener('click',e=>{if(!screen.startsWith('adh_')||!adhCardMode())return;const f=e.target.closest('#ashf');if(!f)return;
   if(e.target.closest('button,a,.ash-txt,.ash-end,input'))return;e.stopPropagation();ashTap(screen.slice(4))},true);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&screen.startsWith('adh_')&&document.getElementById('ashStage'))ashStart(screen.slice(4))});
+/* the picture is shown whole (never cropped): as wide as the screen allows, centred; a blurred copy fills the rest */
+function ashFit(){const f=document.getElementById('ashf'),st=document.getElementById('ashStage');if(!f||!st)return;
+  const W=f.clientWidth,H=f.clientHeight,w=Math.min(W,H*2/3),h=w*1.5;Object.assign(st.style,{width:w+'px',height:h+'px',left:((W-w)/2)+'px',top:((H-h)/2)+'px'});
+  f.style.setProperty('--sh',((H-h)/2)+'px');f.style.setProperty('--sw',w+'px')}
+addEventListener('resize',()=>{if(document.getElementById('ashf'))ashFit()});
+/* a new brick is sent down from the Name of Allah: it leaves the light at the top and settles, glowing, in its place */
+function ashFly(el,c){const st=document.getElementById('ashStage');if(!el||!st||!el.animate)return;const w=st.clientWidth,dx=(50-c.x)*w/100,dy=(16.5-c.y)*w/100;
+  const nm=document.querySelector('.ash-name');if(nm){nm.classList.remove('give');void nm.offsetWidth;nm.classList.add('give')}
+  el.classList.remove('nw');
+  el.animate([{translate:`calc(-50% + ${dx}px) calc(-50% + ${dy}px)`,scale:.25,opacity:0,filter:'brightness(3) drop-shadow(0 0 14px #fff3c4)'},
+    {opacity:1,scale:.7,offset:.18,filter:'brightness(2.4) drop-shadow(0 0 12px #ffe08a)'},
+    {translate:'-50% -50%',scale:'var(--s)',opacity:1,filter:'brightness(var(--b)) drop-shadow(0 0 3px rgba(255,214,130,.9))'}],{duration:900,easing:'cubic-bezier(.35,.1,.25,1)'});
+  /* a thin trail of light behind it */
+  const t=document.createElement('i');t.className='ash-trail';const L=Math.hypot(dx,dy),an=Math.atan2(-dy,-dx)*180/Math.PI;
+  Object.assign(t.style,{left:c.x+'%',top:(c.y/1.5)+'%',width:L+'px',rotate:an+'deg'});document.getElementById('ashFx').appendChild(t);setTimeout(()=>t.remove(),1000)}
