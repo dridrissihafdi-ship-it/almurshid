@@ -1701,6 +1701,94 @@ html[data-scr=tasbih] nav.tabs{display:none}
 .tsb.done{color:#2a1d0c}
 .tsb.done .tsb-end{margin-bottom:4px}
 .tsb-hint{text-shadow:0 1px 6px rgba(0,0,0,.7);opacity:.75}
+/* adhkar: the shield (هالة الحماية) */
+.ash{margin:0 0 12px;border-radius:22px;overflow:hidden;padding:4px 12px 12px;color:#F3EDE6;background:radial-gradient(120% 90% at 50% 10%,#4a3316 0%,#1d140b 60%,#0d0906 100%)}
+.ash.masa{background:radial-gradient(120% 90% at 50% 10%,#1f3566 0%,#0c1630 60%,#060a17 100%)}
+.ash svg{display:block;width:100%;max-height:250px}
+.ash-c{fill:rgba(230,194,122,.07);stroke:rgba(230,194,122,.22);stroke-width:.8;transition:fill .4s,stroke .4s}
+.ash-c.on{fill:rgba(240,205,130,.55);stroke:#F3D58E;filter:drop-shadow(0 0 3px rgba(255,215,140,.7))}
+.ash.masa .ash-c{fill:rgba(170,200,255,.06);stroke:rgba(170,200,255,.2)}
+.ash.masa .ash-c.on{fill:rgba(190,215,255,.5);stroke:#D6E4FF;filter:drop-shadow(0 0 3px rgba(170,200,255,.8))}
+.ash-c.nw{animation:ashNw .9s ease}
+@keyframes ashNw{0%{fill:#fff;stroke:#fff}100%{}}
+.ash-glow{opacity:calc(.15 + var(--p)*.85)}
+.ash-o{animation-name:ashOrb;animation-timing-function:linear;animation-iteration-count:infinite}
+@keyframes ashOrb{to{transform:rotate(360deg)}}
+.ash-w{transition:transform 1s ease}
+.ash-b{fill:#120b10;stroke:rgba(140,40,60,.55);stroke-width:1.5;filter:drop-shadow(0 0 5px rgba(150,20,50,.6))}
+.ash-e{fill:#ff4d5e}
+.ash-rip{fill:none;stroke:#fff3cf;stroke-width:3;animation:ashRip .8s ease-out forwards;transform-origin:180px 172px}
+@keyframes ashRip{from{opacity:.9;transform:scale(.9)}to{opacity:0;transform:scale(1.25)}}
+.ash-robe{fill:#F3EDE6}.ash-head{fill:#e9d9c6}.ash-cap{fill:#fff}.ash-arm{fill:none;stroke:#F3EDE6;stroke-width:5;stroke-linecap:round}
+.ash-gr{stroke:rgba(255,255,255,.18);stroke-width:1}
+.ash.full .ash-man{filter:drop-shadow(0 0 10px rgba(255,240,200,.9))}
+.ash-meter{display:flex;align-items:center;gap:10px;font-size:12.5px;margin-top:2px}
+.ash-meter i{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
+.ash-meter b{display:block;height:100%;background:linear-gradient(90deg,#c9953e,#F3D58E);transition:width .5s}
+.ash.masa .ash-meter b{background:linear-gradient(90deg,#6f8fd6,#D6E4FF)}
+.ash-cap-t{margin:8px 0 0;font-size:13px;opacity:.8;text-align:center}
+.ash-had{margin:6px 0 0;text-align:center;font-family:var(--f-verse);font-size:17px;color:#F3D58E;line-height:1.8}
+.ash-had small{font-family:var(--f);font-size:11px;opacity:.7}
+.adc .ash{margin:12px 0 4px}.ash svg{max-height:215px}
+/* adhkar on one living picture: the dome of bricks */
+html[data-scr=adh_sabah] nav.tabs,html[data-scr=adh_masa] nav.tabs{display:none}
+.ashf{position:fixed;left:0;right:0;top:0;height:100vh;height:100dvh;z-index:40;display:flex;flex-direction:column;overflow:hidden;color:#F3EDE6;background:#120d0a;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;cursor:pointer;
+ padding:calc(env(safe-area-inset-top,0px) + 10px) 16px calc(env(safe-area-inset-bottom,0px) + 10px)}
+.ashf>*:not(.ash-stage){position:relative;z-index:2}
+.ash-stage{position:absolute;left:50%;top:50%;width:max(100vw,66.667vh);width:max(100vw,66.667dvh);aspect-ratio:2/3;transform:translate(-50%,-50%);z-index:0;pointer-events:none;animation:ashKb 26s ease-in-out infinite alternate}
+@keyframes ashKb{from{scale:1}to{scale:1.035}}
+.ash-bg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ash-name{position:absolute;left:50%;top:11%;width:46%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,rgba(255,244,200,.0) 30%,rgba(255,236,170,.45) 45%,rgba(255,230,150,0) 70%);animation:ashName 4s ease-in-out infinite alternate;mix-blend-mode:screen}
+@keyframes ashName{from{opacity:.35;scale:.95}to{opacity:1;scale:1.12}}
+.ash-dust i{position:absolute;bottom:0;left:var(--x);width:3px;height:3px;border-radius:50%;background:#fff1c8;box-shadow:0 0 6px #ffe2a0;opacity:0;animation:tsbDust var(--d) linear infinite;animation-delay:var(--s)}
+.ash-man{position:absolute;left:50%;top:80%;width:18%;height:25%;translate:-50% -50%;border-radius:50%}
+.ash-man.hurt{animation:ashHurt .5s ease}
+@keyframes ashHurt{0%{box-shadow:0 0 0 0 rgba(255,40,60,.0);background:rgba(255,30,50,0)}30%{background:radial-gradient(closest-side,rgba(255,40,60,.45),transparent);}100%{background:transparent}}
+.ash-man.safe{background:radial-gradient(closest-side,rgba(255,240,190,.55),transparent);animation:ashSafe 3s ease-in-out infinite alternate}
+@keyframes ashSafe{from{opacity:.6}to{opacity:1}}
+.ash-bk{position:absolute;height:auto;translate:-50% -50%;rotate:var(--r);scale:var(--s);filter:drop-shadow(0 0 4px rgba(255,190,90,.6))}
+.ash-bk.nw{animation:ashBk .55s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes ashBk{from{scale:2.2;opacity:0;filter:brightness(2.5) drop-shadow(0 0 12px #ffd27a)}to{scale:var(--s);opacity:1}}
+.ashf.masa .ash-bk{filter:brightness(.9) saturate(.85) drop-shadow(0 0 5px rgba(160,190,255,.55))}
+.ashf.all .ash-bk{animation:ashGlow 2.6s ease-in-out infinite alternate}
+@keyframes ashGlow{from{filter:brightness(1)}to{filter:brightness(1.35) drop-shadow(0 0 8px #ffd98f)}}
+#ashFx{position:absolute;inset:0}
+.ash-sh{position:absolute;left:0;top:0;height:auto;pointer-events:none;will-change:transform}
+.ash-hit{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:radial-gradient(circle,#fff4cf 0,rgba(255,200,110,.7) 35%,rgba(255,170,60,0) 70%);animation:ashHit .7s ease-out forwards}
+@keyframes ashHit{from{scale:.3;opacity:1}to{scale:1.8;opacity:0}}
+.ash-top{display:flex;align-items:center;gap:10px}
+.ash-x{flex:none;min-width:40px;height:40px;border-radius:20px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.28);color:#F3EDE6;font:500 14px var(--f);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);cursor:pointer}
+.ash-sm{padding:0 12px;font-size:12.5px}
+.ash-prog{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.18);overflow:hidden}.ash-prog i{display:block;height:100%;background:#F3D58E}
+.ash-k{font-size:12px;opacity:.8}
+.ash-note{margin:8px auto 0;font-size:11.5px;padding:4px 10px;border-radius:99px;background:rgba(0,0,0,.35)}
+.ash-txt{margin:max(23vh,150px) 0 0;padding:12px 14px 10px;border-radius:20px;background:rgba(10,8,6,.36);border:1px solid rgba(255,255,255,.12);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);cursor:default;text-align:center}
+.ashf.masa .ash-txt{background:rgba(6,8,22,.38)}
+.ash-sec{margin:0 0 6px;font-size:11.5px;opacity:.7}
+.ash-scroll{max-height:24vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.ash-t{margin:0;font-family:var(--f-verse);line-height:1.95;color:#FFF7E6;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.ash-pl{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#F3EDE6;font:inherit;font-size:12px}
+.ash-pl svg{width:14px;height:14px;fill:currentColor}
+.ash-sp{flex:1}
+.ash-end{text-align:center;padding:10px 12px;border-radius:18px;background:rgba(10,8,6,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);cursor:default;margin-bottom:8px}
+.ash-end .btns{justify-content:center}.ash-end .logged{margin:0 0 6px}
+.ash-had{margin:0 0 8px;font-family:var(--f-verse);font-size:17px;line-height:1.8;color:#F3D58E}.ash-had small{font-family:var(--f);font-size:11px;opacity:.7}
+.ash-ctl{display:flex;align-items:center;justify-content:center;gap:28px}
+.ash-nav{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.3);color:#F3EDE6;display:grid;place-items:center;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);cursor:pointer}
+.ash-nav[disabled]{opacity:.3}.ash-nav svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ash-cnt{min-width:76px;height:76px;border-radius:50%;display:grid;place-content:center;text-align:center;background:rgba(0,0,0,.32);border:2px solid rgba(243,213,142,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.ash-cnt b{font-size:28px;line-height:1}.ash-cnt small{font-size:10.5px;opacity:.75}
+.ash-cnt.full{border-color:#7fd3a0}
+.ash-cnt.pulse{animation:ashPulse .3s ease}
+@keyframes ashPulse{50%{scale:1.08}}
+.ash-hint{margin:8px 0 0;text-align:center;font-size:12px;opacity:.75;text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.ash-scroll{max-height:20vh}.ash-ad{cursor:default}.ash-ad:empty{display:none}
+.ash-note{display:block;margin:0 auto 6px;width:max-content;max-width:100%}
+.ash-end{margin:8px 0 0;padding:8px 10px}
+.ash-end .logged{font-size:12.5px}
+.ash-end .btns{gap:8px}.ash-end .btn{padding:6px 12px;font-size:12.5px}
+.ash-txt{margin-top:max(21vh,140px)}.ash-scroll{max-height:16vh}
+.ashf.all .ash-end{margin-top:max(24vh,160px)}
 /* «معركة اليوم» */
 .mk-lvh{text-align:center;margin:4px 0 10px}.mk-lvh h3{margin:2px 0;font-size:22px}.mk-k{margin:0;color:var(--muted);font-size:13px}
 .mk-v{font-family:var(--f-verse);font-size:19px;line-height:1.9;color:var(--red);margin:6px 0 0}
@@ -5491,7 +5579,7 @@ function viewNotif(){const it=notifItems();let mj='',an='',ib='';try{mj=majCard(
   <button class="am-mkl nt-am" data-go="aamal"><b>ما بقي من أعمال يومك</b><span>في صفحة الأعمال</span></button>
   ${isStandalone()?`<button class="btn notif-cta" data-go="profile" data-openacc="push">فعّل التذكيرات على هاتفك</button>`:`<button class="btn ok notif-cta" data-go="install">ثبّت التطبيق لتصلك التذكيرات على هاتفك</button>`}</section>`;
 }
-const APP_VER='2026-11-28 18:23';
+const APP_VER='2026-11-28 19:06';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
@@ -5805,7 +5893,7 @@ function viewAdhkarCard(kind){const list=adhList(kind),st=adhState(kind),L=dayLo
      :`<button class="btn ok big" data-adhconfirm="1">أكّدت ${name}</button>${done<list.length?`<span class="meta">أتممت ${done} من ${list.length}</span>`:''}`}
     <div class="btns"><button class="btn small" data-adhreset="1">تصفير العدّاد</button></div></div>`:''}
   </section>`}
-function viewAdhkar(kind){if(adhCardMode())return viewAdhkarCard(kind);
+function viewAdhkar(kind){if(adhCardMode())return viewAdhFull(kind);
   const list=adhList(kind),st=adhState(kind),L=dayLog(),p=period();
   const done=list.filter((a,i)=>st[i]>=a.n).length,confirmed=L.awrad.includes(kind);
   const name=kind==='sabah'?'أذكار الصباح':'أذكار المساء';
@@ -5832,6 +5920,79 @@ function viewAdhkar(kind){if(adhCardMode())return viewAdhkarCard(kind);
   </section>`;
 }
 const ar2=n=>String(n); // Western digits everywhere
+/* ---------- morning and evening adhkar on one living picture ----------
+   The whole screen is the scene: the Name of Allah glowing at the top, the current dhikr under it, the seeker at the bottom
+   with his hands raised. Every repetition lays one more brick of a dome around him, in no fixed order; black shadows fly in
+   from the sides: they break on the bricks, and slip through where the dome is still open.
+   «...كمثل رجل خرج العدو في أثره سراعًا حتى إذا أتى على حصن حصين فأحرز نفسه منهم، كذلك العبد لا يحرز نفسه من الشيطان إلا بذكر الله» (الترمذي 2863) */
+const ASH={cx:50,cy:128,rows:[[23,33,12],[28,39.5,15],[33,46,18]],a0:-12,a1:192,bw:6};   // stage units: width 100, height 150; rows are ellipses (rx, ry, bricks)
+const ASH_CELLS=(()=>{const o=[];ASH.rows.forEach(([rx,ry,n],ri)=>{for(let i=0;i<n;i++){const th=ASH.a0+(i+.5)*(ASH.a1-ASH.a0)/n,t=th*Math.PI/180;
+  o.push({r:rx,ry,ri,th,rot:Math.atan2(-ry*Math.cos(t),-rx*Math.sin(t))*180/Math.PI+180,x:ASH.cx+rx*Math.cos(t),y:ASH.cy-ry*Math.sin(t)})}});return o})();
+/* the order the bricks are laid: shuffled, but the same all day for the same adhkar */
+function ashOrder(kind){let s=0;for(const ch of kind+TODAY)s=(s*31+ch.charCodeAt(0))>>>0;const a=ASH_CELLS.map((_,i)=>i);
+  for(let i=a.length-1;i>0;i--){s=(s*1103515245+12345)>>>0;const j=s%(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
+function ashLevel(kind){const list=adhList(kind),st=adhState(kind);let a=0,b=0;list.forEach((x,i)=>{a+=Math.min(st[i]||0,x.n);b+=x.n});return b?a/b:0}
+const ashLit=kind=>Math.round(ashLevel(kind)*ASH_CELLS.length);
+function ashBrick(c,i,nw){const sc=(.92+((i*37)%17)/100).toFixed(2),br=(.85+((i*53)%30)/100).toFixed(2);
+  return `<img class="ash-bk${nw?' nw':''}" src="il/adh_brick.webp" alt="" data-c="${i}" style="left:${c.x}%;top:${(c.y/1.5).toFixed(2)}%;width:${ASH.bw}%;--r:${c.rot.toFixed(1)}deg;--s:${sc};filter:brightness(${br})">`}
+function viewAdhFull(kind){const list=adhList(kind),st=adhState(kind),L=dayLog(),p=period(),j=adhCurI(kind),a=list[j],c=st[j],full=c>=a.n;
+  const done=list.filter((x,i)=>st[i]>=x.n).length,all=done===list.length,confirmed=L.awrad.includes(kind),name=kind==='sabah'?'أذكار الصباح':'أذكار المساء',q=ADHKAR.quran.length;
+  const sec=j===0?'الاستهلال':j<=q?'من القرآن الكريم':'من السنة النبوية',au=adhAu(kind,j),ord=ashOrder(kind),lit=ashLit(kind);
+  const bricks=ord.slice(0,lit).map(i=>ashBrick(ASH_CELLS[i],i,false)).join('');
+  const dust=Array.from({length:10},(_,i)=>`<i style="--x:${(i*41)%100}%;--d:${8+(i*5)%9}s;--s:${-(i*1.9).toFixed(1)}s"></i>`).join('');
+  setTimeout(()=>ashStart(kind),60);
+  return `<section class="ashf ${kind}${all?' all':''}" id="ashf">
+   <div class="ash-stage" id="ashStage"><img class="ash-bg" src="il/adh_${kind}.webp" alt=""><div class="ash-name"></div><div class="ash-dust">${dust}</div>
+    <div class="ash-man${all?' safe':''}"></div><div id="ashBricks">${bricks}</div><div id="ashFx"></div></div>
+   <div class="ash-top"><button class="ash-x" data-back="aamal" aria-label="رجوع">✕</button>
+    <div class="ash-prog"><i style="width:${Math.round(done/list.length*100)}%"></i></div><span class="ash-k" dir="ltr">${j+1} / ${list.length}</span>
+    <button class="ash-x ash-sm" data-adhview="list">القائمة</button></div>
+   ${all?'':`<div class="ash-txt">${p.kind===kind?'':`<p class="ash-note">${kind==='sabah'?'وقت أذكار الصباح من الفجر إلى المغرب':'وقت أذكار المساء من المغرب إلى الفجر'}</p>`}<p class="ash-sec"><span>${sec}</span>${a.s?` · <span class="notr">${a.s}</span>`:''}</p><div class="ash-scroll"><p class="ash-t notr" dir="rtl" lang="ar" style="font-size:${adhSize}px">${a.t}</p></div>
+    ${au?`<button class="ash-pl" data-adpl="${j}">${AU_IC.play}<span>استمع</span></button>`:''}</div>`}
+   ${all||confirmed?`<div class="ash-end">${all?`<p class="ash-had notr" lang="ar" dir="rtl">«كَذَلِكَ الْعَبْدُ لَا يُحْرِزُ نَفْسَهُ مِنَ الشَّيْطَانِ إِلَّا بِذِكْرِ اللَّهِ» <small>(الترمذي 2863)</small></p>`:''}
+     ${confirmed?`<p class="logged">✓ أكّدت ${name} اليوم</p><div class="btns"><button class="btn small" data-adhconfirm="0">إلغاء التأكيد</button><button class="btn" data-go="aamal">رجوع إلى الأعمال</button></div>`
+     :`<div class="btns"><button class="btn ok" data-adhconfirm="1">أكّدت ${name}</button><button class="btn small" data-adhreset="1">تصفير العدّاد</button></div>`}</div>`:''}
+   <div class="ash-sp"></div>
+   <div class="ash-ad">${adBar(kind)}</div>
+   <div class="ash-ctl">
+    <button class="ash-nav" data-adhgo="-1"${j?'':' disabled'} aria-label="${esc(Tx('السابق'))}"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+    <div class="ash-cnt${full?' full':''}"><b dir="ltr" id="ashN">${full?'✓':c}</b><small>${full?'تمّ':a.n===1?'مرة واحدة':'<span>من</span> '+a.n}</small></div>
+    <button class="ash-nav" data-adhgo="1"${j<list.length-1?'':' disabled'} aria-label="${esc(Tx('التالي'))}"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+   </div>
+   <p class="ash-hint">${all?'اكتملت هالتك: أحرزت نفسك بذكر الله':'المس الشاشة مع كل مرة: كل ذكر يضع لبنة في حصنك'}</p>
+  </section>`}
+/* a tap: count, lay the new bricks without redrawing the scene, move on by itself when this dhikr is complete */
+function ashTap(kind){const list=adhList(kind),st=adhState(kind),j=adhCurI(kind),a=list[j];if(st[j]>=a.n)return;
+  const before=ashLit(kind);st[j]++;save();const c=st[j],full=c>=a.n;try{navigator.vibrate&&navigator.vibrate(full?[60,40,60]:12)}catch(x){}
+  const after=ashLit(kind),ord=ashOrder(kind),box=document.getElementById('ashBricks');
+  if(box)for(let k=before;k<after;k++){box.insertAdjacentHTML('beforeend',ashBrick(ASH_CELLS[ord[k]],ord[k],true))}
+  const n=document.getElementById('ashN');if(n)n.textContent=full?'✓':c;
+  const cn=document.querySelector('.ash-cnt');if(cn){cn.classList.remove('pulse');void cn.offsetWidth;cn.classList.add('pulse')}
+  const allDone=list.every((x,i)=>st[i]>=x.n);
+  if(full){setTimeout(()=>{if(screen!=='adh_'+kind||adhIdx[kind]!==j)return;const nx=adhNext(kind,j);if(nx>=0)adhIdx[kind]=nx;render()},allDone?200:550)}}
+/* the shadows: one every second and a half, from the left or the right, aimed at the seeker */
+let ashT=null,ashK=null;
+function ashStart(kind){ashK=kind;if(ashT)return;ashT=setInterval(ashSpawn,1500);setTimeout(ashSpawn,500)}
+function ashStop(){if(ashT){clearInterval(ashT);ashT=null}}
+function ashSpawn(){const st=document.getElementById('ashStage'),fx=document.getElementById('ashFx');if(!st||!fx||!screen.startsWith('adh_')){ashStop();return}
+  if(document.hidden||!fx.animate)return;const kind=ashK;if(ashLevel(kind)>=1)return;if(fx.childElementCount>3)return;
+  const W=st.clientWidth,u=W/100,left=Math.random()<.5,th=left?180-Math.random()*70:Math.random()*70,thr=th*Math.PI/180;   // angle of attack on the dome
+  const tx=ASH.cx*u,ty=ASH.cy*u,dx=Math.cos(thr),dy=-Math.sin(thr);
+  /* is this side already walled? the outermost laid brick near that angle stops it */
+  const lit=new Set(ashOrder(kind).slice(0,ashLit(kind)));let stopR=0;
+  ASH_CELLS.forEach((c,i)=>{if(lit.has(i)&&Math.abs(c.th-th)<(ASH.a1-ASH.a0)/ASH.rows[c.ri][2]*.75)stopR=Math.max(stopR,c.ri+1)});
+  const R0=72,x0=tx+dx*R0*u,y0=ty+dy*R0*u,er=stopR?ASH.rows[stopR-1]:[7,14],ex=(er[0]+(stopR?ASH.bw*.5:0))*Math.cos(thr),ey=-(er[1]+(stopR?ASH.bw*.5:0))*Math.sin(thr),x1=tx+ex*u,y1=ty+ey*u;
+  const el=document.createElement('img');el.src='il/adh_shay.webp';el.alt='';el.className='ash-sh';fx.appendChild(el);
+  const sz=(11+Math.random()*4)*u,hh=sz*148/260,vx=x1-x0,vy=y1-y0,vl=Math.hypot(vx,vy),ux=vx/vl,uy=vy/vl,ang=Math.atan2(uy,ux)*180/Math.PI,fl=Math.abs(ang)>90?-1:1;el.style.width=sz+'px';
+  /* the image flies head first (its head is at the right, 30% of its width past the centre) */
+  const T2=(x,y,s)=>`translate(${(x-ux*sz*.3-sz/2).toFixed(1)}px,${(y-uy*sz*.3-hh/2).toFixed(1)}px) rotate(${ang.toFixed(1)}deg) scaleY(${fl}) scale(${s})`;
+  const dur=1700+Math.random()*900,an=el.animate([{transform:T2(x0,y0,1),opacity:0},{opacity:1,offset:.15},{transform:T2(x1,y1,1),opacity:1}],{duration:dur,easing:'cubic-bezier(.4,0,.9,.6)',fill:'forwards'});
+  an.onfinish=()=>{el.animate([{transform:T2(x1,y1,1),opacity:1,filter:'blur(0)'},{transform:T2(x1+dx*3*u,y1+dy*3*u,1.6),opacity:0,filter:'blur(6px)'}],{duration:450,fill:'forwards'}).onfinish=()=>el.remove();
+    if(stopR){const b=document.createElement('i');b.className='ash-hit';b.style.left=x1+'px';b.style.top=y1+'px';fx.appendChild(b);setTimeout(()=>b.remove(),700)}
+    else{const m=document.querySelector('.ash-man');if(m){m.classList.remove('hurt');void m.offsetWidth;m.classList.add('hurt')}}}}
+document.addEventListener('click',e=>{if(!screen.startsWith('adh_')||!adhCardMode())return;const f=e.target.closest('#ashf');if(!f)return;
+  if(e.target.closest('button,a,.ash-txt,.ash-end,input'))return;e.stopPropagation();ashTap(screen.slice(4))},true);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&screen.startsWith('adh_')&&document.getElementById('ashStage'))ashStart(screen.slice(4))});
 /* ---------- personal dhikr: list + timed session ---------- */
 function dlList(){const M=S.marks;if(!M.dhikrList){M.dhikrList=M.dhikrText?[{text:M.dhikrText,min:10}]:[]}return M.dhikrList}
 const dlTotal=()=>dlList().reduce((a,d)=>a+(+d.min||0),0);
@@ -6123,7 +6284,7 @@ const scrBan=s=>{const b=SCR_BAN[s];return b?ilBan(typeof b==='function'?b():b,'
 function ilFail(el,k,cls){IL_BAD.add(k);el.outerHTML=ilSvg(k,cls);if(!ilFail.r)ilFail.r={};if(ilFail.r[k])return;ilFail.r[k]=1;fetch('il/'+k+'.webp',{cache:'reload'}).then(r=>{if(r.ok&&(r.headers.get('Content-Type')||'').startsWith('image/')){IL_BAD.delete(k);setTimeout(()=>{try{render()}catch(e){}},300)}}).catch(()=>{})}
 const IL_IMG=new Set(['slp1','slp2','slp3','slp4','slp5','slp6','slp7','slh1','slh2','slh3','slh4','slh5','slh6','slh7','slh8','slh9','sla1','sla2','sla3','sla4','nifaq','mk_d1','mk_d2','mk_s1','mk_s2','mk_s3','mk_s4','mk_l1','mk_l2','mk_l3','mk_l4','mk_l5','mk_l6','mk_l7','mk_l8','mk_l9','mk_l10','aamal','amrad','ask','dunya','ghadab','ghafla','hasad','hiqd','khushu','kibr','m_book','m_climb','m_door','m_drop','m_heart','m_lamp','m_mosque','m_path','m_tree','majalis','method','qa','quran','riya','s1','s2','s3','s4','s5','s6','s8','s9','salat','sira','taammulat','tazkiya','tools','tree0','tree1','tree2','tree3','tree4','o_ayn','o_batn','o_farj','o_lisan','o_qadam','o_udhun','o_yad','aql','fudul','ghiba','kadhib','khalwa','ob1','ob2','ob3','q_ikh','q_shk','q_taw','q_tob','qiyama','zann','tree_wilt','tree_dry','tree_dead','ujb','um_halq','um_ihram','um_kaaba','um_maqam','um_masjid','um_miqat','um_sai','um_tawaf','umrah','w1','w2','w3','w4','w5','w6','w7','w8','w9','wudu']);
 /* every picture in il/ (the list is filled in by the build): all are saved for offline use, the Umrah ones above all */
-const IL_ALL=new Set([...IL_IMG,...["aamal","amrad","aql","ask","dunya","fudul","ghadab","ghafla","ghiba","hasad","hiqd","kadhib","khalwa","khushu","kibr","m_book","m_climb","m_door","m_drop","m_heart","m_lamp","m_mosque","m_path","m_tree","majalis","method","mk_d1","mk_d2","mk_l1","mk_l10","mk_l2","mk_l3","mk_l4","mk_l5","mk_l6","mk_l7","mk_l8","mk_l9","mk_s1","mk_s2","mk_s3","mk_s4","nifaq","o_ayn","o_batn","o_farj","o_lisan","o_qadam","o_udhun","o_yad","ob1","ob2","ob3","q_ikh","q_shk","q_taw","q_tob","qa","qiyama","quran","riya","s1","s2","s3","s4","s5","s6","s8","s9","salat","sira","sla1","sla2","sla3","sla4","slh1","slh2","slh3","slh4","slh5","slh6","slh7","slh8","slh9","slp1","slp2","slp3","slp4","slp5","slp6","slp7","taammulat","tazkiya","tools","tr_f1","tr_f2","tr_f3","tree0","tree1","tree2","tree3","tree4","tree_dead","tree_dry","tree_wilt","tsb1","tsb2","tsb3","tsb4","uh2_akh","uh2_core","uh2_ham1","uh2_ham2","uh2_haw1","uh2_haw2","uh2_hisn","uh2_ist1","uh2_ist2","uh2_ist3","uh2_kab1","uh2_kab2","uh2_keys","uh2_khaw","uh2_khu","uh2_nur","uh2_sal","uh2_sl1a","uh2_sl1b","uh2_sl1c","uh2_sl1d","uh2_sl2","uh2_sl3","uh2_sl4","uh2_sl5","uh2_tah1","uh2_tah2","uh2_tas1","uh2_tas2","uh2_taw","uh_sal0","ujb","um_halq","um_ihram","um_kaaba","um_maqam","um_masjid","um_miqat","um_sai","um_tawaf","umrah","uph_after","uph_baqi","uph_daily","uph_hira","uph_madinah","uph_makkah","uph_pre","upn_after","upn_baqi","upn_daily","upn_hira","upn_madinah","upn_makkah","upn_pre","upn_sujood","ush_halq1","ush_halq2","ush_ihram1","ush_ihram2","ush_sai1","ush_sai2","ush_tawaf1","ush_tawaf2","ush_tw1","ush_tw2","ush_tw3","ush_tw4","ush_tw5","ush_tw6","ush_tw7","w1","w2","w3","w4","w5","w6","w7","w8","w9","wudu","zann"]]);
+const IL_ALL=new Set([...IL_IMG,...["aamal","adh_brick","adh_masa","adh_sabah","adh_shay","amrad","aql","ask","dunya","fudul","ghadab","ghafla","ghiba","hasad","hiqd","kadhib","khalwa","khushu","kibr","m_book","m_climb","m_door","m_drop","m_heart","m_lamp","m_mosque","m_path","m_tree","majalis","method","mk_d1","mk_d2","mk_l1","mk_l10","mk_l2","mk_l3","mk_l4","mk_l5","mk_l6","mk_l7","mk_l8","mk_l9","mk_s1","mk_s2","mk_s3","mk_s4","nifaq","o_ayn","o_batn","o_farj","o_lisan","o_qadam","o_udhun","o_yad","ob1","ob2","ob3","q_ikh","q_shk","q_taw","q_tob","qa","qiyama","quran","riya","s1","s2","s3","s4","s5","s6","s8","s9","salat","sira","sla1","sla2","sla3","sla4","slh1","slh2","slh3","slh4","slh5","slh6","slh7","slh8","slh9","slp1","slp2","slp3","slp4","slp5","slp6","slp7","taammulat","tazkiya","tools","tr_f1","tr_f2","tr_f3","tree0","tree1","tree2","tree3","tree4","tree_dead","tree_dry","tree_wilt","tsb1","tsb2","tsb3","tsb4","uh2_akh","uh2_core","uh2_ham1","uh2_ham2","uh2_haw1","uh2_haw2","uh2_hisn","uh2_ist1","uh2_ist2","uh2_ist3","uh2_kab1","uh2_kab2","uh2_keys","uh2_khaw","uh2_khu","uh2_nur","uh2_sal","uh2_sl1a","uh2_sl1b","uh2_sl1c","uh2_sl1d","uh2_sl2","uh2_sl3","uh2_sl4","uh2_sl5","uh2_tah1","uh2_tah2","uh2_tas1","uh2_tas2","uh2_taw","uh_sal0","ujb","um_halq","um_ihram","um_kaaba","um_maqam","um_masjid","um_miqat","um_sai","um_tawaf","umrah","uph_after","uph_baqi","uph_daily","uph_hira","uph_madinah","uph_makkah","uph_pre","upn_after","upn_baqi","upn_daily","upn_hira","upn_madinah","upn_makkah","upn_pre","upn_sujood","ush_halq1","ush_halq2","ush_ihram1","ush_ihram2","ush_sai1","ush_sai2","ush_tawaf1","ush_tawaf2","ush_tw1","ush_tw2","ush_tw3","ush_tw4","ush_tw5","ush_tw6","ush_tw7","w1","w2","w3","w4","w5","w6","w7","w8","w9","wudu","zann"]]);
 function ilSvg(k,cls){if(k==='s7')k='s5';if(!IL_IMG.has(k)&&typeof IL_ALIAS!=='undefined'&&IL_ALIAS[k]){const a=[].concat(IL_ALIAS[k]);k=a.find(x=>IL_IMG.has(x))||a[a.length-1]}if(IL_IMG.has(k)&&!IL_BAD.has(k))return `<img class="il ${cls||''}" src="il/${k}.webp" alt="" loading="lazy" decoding="async" width="960" height="600" onerror="ilFail(this,'${k}','${cls||''}')">`;const f=IL[k]||IL.m_path;return `<svg class="il ${cls||''}" viewBox="0 0 320 200" role="img" aria-hidden="true"><defs>${ilClip('c_'+k)}</defs><g clip-path="url(#c_${k}c)">${f()}</g></svg>`}
 
 /* ================= simplified, picture-first interface ================= */

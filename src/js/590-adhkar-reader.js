@@ -84,7 +84,7 @@ function viewAdhkarCard(kind){const list=adhList(kind),st=adhState(kind),L=dayLo
      :`<button class="btn ok big" data-adhconfirm="1">أكّدت ${name}</button>${done<list.length?`<span class="meta">أتممت ${done} من ${list.length}</span>`:''}`}
     <div class="btns"><button class="btn small" data-adhreset="1">تصفير العدّاد</button></div></div>`:''}
   </section>`}
-function viewAdhkar(kind){if(adhCardMode())return viewAdhkarCard(kind);
+function viewAdhkar(kind){if(adhCardMode())return viewAdhFull(kind);
   const list=adhList(kind),st=adhState(kind),L=dayLog(),p=period();
   const done=list.filter((a,i)=>st[i]>=a.n).length,confirmed=L.awrad.includes(kind);
   const name=kind==='sabah'?'أذكار الصباح':'أذكار المساء';
