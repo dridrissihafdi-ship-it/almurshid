@@ -9,7 +9,7 @@ function viewGuide(k){const G=(GUIDES[k][LANG]||GUIDES[k].ar),n=G.steps.length;S
   if(H&&tb==='prep')return `<section class="um gd sl">${tabs}<p class="sl-lead notr" dir="${dir}">${H.prepLead}</p>
    ${H.prep.map((p,j)=>card(`<span class="sl-n">${j+1}</span>${p[0]}`,p[1],k==='salat'&&j===2?arBox(H.nurT,SLH_NUR,H.nurM):'',px+'p'+(j+1))).join('')}
    <div class="msh-nav"><button class="btn ok notr" data-sltab="${k}:steps" dir="${dir}">${H.tabs[1]}</button></div>${src}</section>`;
-  if(H&&tb==='after')return `<section class="um gd sl">${tabs}${H.after.map((p,j)=>card(p[0],p[1],k==='wudu'&&j===0?arBox(H.duaT,WDH_DUA,H.duaM):'',px+'a'+(j+1))).join('')}${src}</section>`;
+  if(H&&tb==='after')return `<section class="um gd sl">${tabs}${k==='salat'?tsbBtn():''}${H.after.map((p,j)=>card(p[0],p[1],k==='wudu'&&j===0?arBox(H.duaT,WDH_DUA,H.duaM):'',px+'a'+(j+1))).join('')}${src}</section>`;
   if(H&&tb==='lv')return `<section class="um gd sl">${tabs}<p class="sl-lead notr" dir="${dir}">${H.lvLead}</p>
    <ol class="sl-lv">${H.lv.map((l,j)=>`<li class="box pad"><p class="sl-k notr" dir="${dir}">${H.lvN} ${H.lvPre?(j?j:H.lvPre):j+1}</p><h3 class="notr" dir="${dir}">${l[0]}</h3><p class="notr" dir="${dir}">${l[1]}</p>${l[2]?`<p class="sl-sj notr" dir="${dir}">${l[2]}</p>`:''}</li>`).join('')}</ol>${src}</section>`;
   const hz=H&&H.heart[i]?`<div class="box sl-heart sl-c tts-s">${img(px+'h'+(i+1))}<div class="sl-cb"><b class="notr" dir="${dir}">${H.heartT}</b><p class="notr" dir="${dir}">${H.heart[i]}</p>${H.heartN&&i>0&&i!==3&&i!==7?`<p class="notr sl-hn" dir="${dir}">${H.heartN}</p>`:''}</div></div>`:'';

@@ -12,7 +12,7 @@ function sbBeads(c){const f=c%33===0&&c>0?33:c%33;let o='';for(let k=0;k<33;k++)
 function viewSubha(){const B=sb(),i=B.cur,d=B.list[i]||{t:'',n:0},c=sbCount(i),pct=d.n?Math.min(c/d.n,1):0,C=2*Math.PI*118;
   const chips=B.list.map((x,k)=>`<button class="${k===i?'on':''} notr" dir="rtl" data-sbpick="${k}">${esc(x.t)}<small dir="ltr">${sbCount(k)}${x.n?' / '+x.n:''}</small></button>`).join('');
   setTimeout(()=>{const on=document.querySelector('.sb-chips .on');if(on)on.scrollIntoView({inline:'center',block:'nearest'})},0);
-  return `<section class="sb">
+  return `<section class="sb">${tsbBtn()}
    <div class="sb-chips">${chips}</div>
    ${sbAdd?`<div class="box pad sb-form"><label class="muted" for="sbT">الذكر</label><input type="text" id="sbT" placeholder="مثال: سبحان الله وبحمده" dir="rtl">
      <label class="muted" for="sbN">العدد المطلوب (اتركه 0 بلا حدّ)</label><input type="number" id="sbN" min="0" value="100" inputmode="numeric">

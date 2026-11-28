@@ -59,7 +59,7 @@ function khProg(){const X=KL(),d=khProgDay(),cur=KA.prog.findIndex(p=>d>=p.d[0]&
 function khRateHtml(){const X=KL(),r=khRate,Q=[[1,0,'😔'],[3,2,'😐'],[5,4,'😊']];
   /* step 1: one tap, three answers (غائب / متقطّع / خاشع = 1, 3, 5 on the old scale). Present: saved at once. Otherwise: what distracted you? */
   const lv=r.h?(r.h<=2?1:r.h>=4?5:3):0,two=lv&&lv<5;
-  return `<div class="kh-rt"><div class="bs-top"><h2 class="notr" dir="auto">${KU('after')} ${khPN(r.k)}</h2></div>
+  return `<div class="kh-rt"><div class="bs-top"><h2 class="notr" dir="auto">${KU('after')} ${khPN(r.k)}</h2></div>${tsbBtn()}
    <p class="kh-lbl notr" dir="auto">${KU('rateH')}</p><div class="kh-q3">${Q.map(([v,s,f])=>`<button class="${lv===v?'on':''}" data-khq="${v}"><i aria-hidden="true">${f}</i><span class="notr" dir="auto">${X.scale[s]}</span></button>`).join('')}</div>
    ${two?`<p class="kh-lbl notr" dir="auto">${KU('distH')}</p><div class="kh-chips kh-wrap">${KA.dist.map((x,i)=>x.id==='none'?'':`<button class="kh-chip${r.d.includes(x.id)?' on':''}" data-khd="${x.id}">${khS(X.dist[i].t)}</button>`).join('')}</div>
    ${(()=>{const j=KA.dist.findIndex(x=>r.d.includes(x.id)&&x.id!=='none');return j>=0&&X.dist[j].tip?`<div class="box pad kh-tip"><small class="notr" dir="auto">${KU('tip')}</small><p class="notr" dir="auto">${X.dist[j].tip}</p></div>`:''})()}

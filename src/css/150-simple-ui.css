@@ -343,3 +343,98 @@ html[data-ph="1"] .hero,html[data-ph="1"] .hero .tt,html[data-ph="1"] .hero h1{c
 html[data-ph="1"] .hero .verse{color:#E6C891;text-shadow:0 1px 8px rgba(0,0,0,.5)}
 
 html[data-ph="1"] main.sheet .sh h2,html[data-ph="1"] main.sheet .sh a,html[data-ph="1"] main.sheet>h2,html[data-ph="1"] main.sheet>p.meta{color:#F3EDE6;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+/* التسبيح بعد الصلاة: one full screen, tap anywhere */
+.tsb{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;color:#F3EDE6;overflow:hidden;user-select:none;-webkit-user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;cursor:pointer;
+ padding:calc(env(safe-area-inset-top,0px) + 10px) 18px calc(env(safe-area-inset-bottom,0px) + 14px);transition:background .6s}
+.tsb.ph0{background:radial-gradient(120% 70% at 50% 0%,#5a3d17 0%,#21160b 55%,#0e0905 100%)}
+.tsb.ph1{background:radial-gradient(120% 70% at 50% 0%,#1d5a3b 0%,#0c2618 55%,#050f0a 100%)}
+.tsb.ph2,.tsb.ph3{background:radial-gradient(120% 70% at 50% 0%,#24407a 0%,#0d1a36 55%,#050913 100%)}
+.tsb.done{background:radial-gradient(90% 60% at 50% 55%,#f6dc96 0%,#b98a35 35%,#3a2a12 75%,#1a1209 100%)}
+.tsb-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tsb-x{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);color:#F3EDE6;font:500 15px var(--f);cursor:pointer}
+.tsb-x[disabled]{opacity:.3}
+.tsb-src{font-size:12px;opacity:.6}
+.tsb-head{text-align:center;margin-top:6px}
+.tsb-t{font-family:var(--f-verse);font-weight:400;font-size:52px;line-height:1.35;margin:0;color:#F6E2A8;text-shadow:0 2px 18px rgba(0,0,0,.4)}
+.tsb.ph1 .tsb-t{color:#B9EBCB}.tsb.ph2 .tsb-t{color:#D2E0FA}
+.tsb-t100{font-size:25px;line-height:1.9;color:#F6E2A8!important}
+.tsb-m{margin:2px 0 6px;font-size:14px;opacity:.75}
+.tsb-c{margin:0;display:flex;align-items:baseline;justify-content:center;gap:6px}
+.tsb-c strong{font-size:46px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1}
+.tsb-c small{font-size:15px;opacity:.55}
+.tsb-seg{display:flex;gap:6px;max-width:240px;margin:12px auto 0}
+.tsb-seg i{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.14);overflow:hidden}
+.tsb-seg b{display:block;height:100%;background:#E6C27A;transition:width .2s}
+.tsb.ph1 .tsb-seg b{background:#6fd19a}.tsb.ph2 .tsb-seg b,.tsb.ph3 .tsb-seg b{background:#A9C4F5}
+.tsb-sc{flex:1;min-height:0;width:100%;max-width:440px;margin:4px auto 0;overflow:visible}
+.tsb-th{stroke:rgba(255,255,255,.28);stroke-width:1.2}
+.tsb-bd{transition:transform .28s cubic-bezier(.3,.7,.3,1)}
+.tsb-bd circle{stroke:rgba(0,0,0,.25);stroke-width:.8;filter:drop-shadow(0 1px 2px rgba(0,0,0,.45))}
+.tsb-hill{fill:rgba(0,0,0,.35)}
+.tsb.done .tsb-hill{fill:rgba(60,40,10,.35)}
+.tsb-man{transition:transform .35s ease;stroke:#F3EDE6;stroke-width:4.5;stroke-linecap:round;fill:none}
+.tsb-man circle{fill:#F3EDE6;stroke:none}
+.tsb-wt{transition:transform .35s ease,opacity .6s}
+.tsb-wt circle{fill:#2b2420;stroke:rgba(255,255,255,.35);stroke-width:1.5}
+.tsb-ch{stroke:rgba(230,220,205,.6);stroke-width:2;stroke-dasharray:4 3}
+.tsb-wl{fill:rgba(243,237,230,.8);font:500 11px var(--f);text-anchor:middle}
+.tsb-wt.gone{opacity:0}
+.tsb-wt.brk{opacity:1;animation:tsbFall 1.1s ease-in forwards}
+@keyframes tsbFall{0%{opacity:1}100%{opacity:0;translate:-30px 60px;rotate:-40deg}}
+.tsb-burst path{stroke:rgba(255,246,214,.35);stroke-width:14;animation:tsbRay 4s linear infinite;transform-origin:180px 230px}
+.tsb-burst circle{fill:#fff6d6;filter:blur(14px)}
+@keyframes tsbRay{to{transform:rotate(22.5deg)}}
+.tsb-hint{text-align:center;font-size:13px;opacity:.55;margin:4px 0 0}
+.tsb-end{text-align:center;cursor:default}
+.tsb-had{font-family:var(--f-verse);font-size:17px;line-height:1.9;margin:0 0 4px;color:#2a1d0c}
+.tsb-hm{font-size:13px;margin:0 0 10px;color:#3a2a12}
+.tsb.done{color:#2a1d0c}.tsb.done .tsb-x{color:#2a1d0c;border-color:rgba(0,0,0,.2)}.tsb.done .tsb-m{color:#3a2a12}
+.tsb.done .tsb-t100{color:#2a1d0c!important;text-shadow:none}
+.tsb.done .tsb-man{stroke:#2a1d0c}.tsb.done .tsb-man circle{fill:#2a1d0c}
+.tsb-end .btns{justify-content:center}
+@media (max-height:700px){.tsb-t{font-size:40px}.tsb-c strong{font-size:38px}}
+/* the entry button */
+.tsb-go{display:flex;align-items:center;gap:12px;width:100%;text-align:start;margin:0 0 12px;padding:12px 14px;border-radius:18px;border:1px solid var(--card-line);background:linear-gradient(135deg,#3a2a14,#1c1409);color:#F3EDE6;font:inherit;cursor:pointer}
+.tsb-go b{display:block;font-size:15px}.tsb-go small{display:block;font-size:12px;opacity:.7;margin-top:2px}
+.tsb-gi{position:relative;flex:none;width:44px;height:44px}
+.tsb-gi i{position:absolute;width:9px;height:9px;border-radius:50%;background:#E6C27A;left:calc(4px + var(--i)*8px);top:calc(30px - var(--i)*6px)}
+.kh-rt .tsb-go{margin:4px 0 14px}
+html[data-scr=tasbih] nav.tabs{display:none}
+.tsb.done .tsb-sc{flex:1 1 auto;max-height:42vh}
+.tsb.done .tsb-head{margin-top:0}
+.tsb.done .tsb-t100{font-size:22px}
+.tsb-end{background:rgba(255,248,230,.82);border-radius:20px;padding:14px 14px 12px;margin-top:6px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.tsb-wl{font-size:12px}
+.tsb.done{background:radial-gradient(130% 80% at 50% 40%,#fbe9b4 0%,#e2b866 40%,#a87a2e 75%,#5a3f17 100%)}
+.tsb{bottom:auto;height:100vh;height:100dvh}
+/* tasbih: the living pictures */
+.tsb{background:#0b0806!important}
+.tsb>*:not(.tsb-bg){position:relative;z-index:1}
+.tsb-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.tsb-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.25) 30%,rgba(0,0,0,0) 48%,rgba(0,0,0,0) 80%,rgba(0,0,0,.45) 100%)}
+.tsb.done .tsb-bg::after{background:linear-gradient(180deg,rgba(0,0,0,0) 60%,rgba(0,0,0,.35) 100%)}
+.tsb-kb{position:absolute;inset:0;animation:tsbKb 22s ease-in-out infinite alternate}
+@keyframes tsbKb{from{transform:scale(1) translate(0,0)}to{transform:scale(1.05) translate(-1.2%,-.8%)}}
+.tsb-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%;transform-origin:68% 62%;transition:transform .7s cubic-bezier(.25,.7,.3,1)}
+.tsb.done .tsb-img{object-position:72% 50%;transform-origin:70% 30%}
+.tsb-img.in{animation:tsbIn 1.6s ease both}
+.tsb-img.prev{animation:tsbOut 1.6s ease both}
+@keyframes tsbIn{from{opacity:0;filter:brightness(1.6) blur(6px)}to{opacity:1;filter:none}}
+@keyframes tsbOut{from{opacity:1}to{opacity:0}}
+.tsb-bg.step .tsb-kb>.tsb-img:last-child{animation:tsbStep .32s ease}
+@keyframes tsbStep{40%{translate:-.6% -.5%}}
+.tsb-dust i{position:absolute;bottom:-10px;left:var(--x);width:var(--z);height:var(--z);border-radius:50%;background:rgba(255,236,190,.75);box-shadow:0 0 8px rgba(255,220,150,.8);animation:tsbDust var(--d) linear infinite;animation-delay:var(--s);opacity:0}
+.tsb.ph1 .tsb-dust i{background:rgba(190,255,215,.7);box-shadow:0 0 8px rgba(120,230,170,.8)}
+.tsb.ph2 .tsb-dust i,.tsb.ph3 .tsb-dust i{background:rgba(210,225,255,.75);box-shadow:0 0 8px rgba(160,190,255,.8)}
+@keyframes tsbDust{0%{transform:translate(0,0);opacity:0}10%{opacity:.9}100%{transform:translate(-40px,-105vh);opacity:0}}
+.tsb-glow{position:absolute;left:50%;top:22%;width:120vw;height:120vw;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,rgba(255,240,200,.55),rgba(255,220,140,0) 60%);animation:tsbGlow 3.5s ease-in-out infinite alternate;mix-blend-mode:screen}
+@keyframes tsbGlow{from{opacity:.45;scale:.92}to{opacity:1;scale:1.08}}
+.tsb-sc{flex:none;height:auto;max-height:none;margin:6px -18px 0;width:calc(100% + 36px);max-width:none}
+.tsb-th{stroke:rgba(255,255,255,.35)}
+.tsb-sp{flex:1}
+.tsb-brk{align-self:center;margin:6px 0 0;padding:6px 14px;border-radius:99px;background:rgba(0,0,0,.45);font-size:13px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:tsbBrk 2.6s ease forwards}
+@keyframes tsbBrk{0%{opacity:0;translate:0 8px}15%{opacity:1;translate:0 0}80%{opacity:1}100%{opacity:0}}
+.tsb-t,.tsb-c,.tsb-m{text-shadow:0 2px 14px rgba(0,0,0,.6)}
+.tsb.done{color:#2a1d0c}
+.tsb.done .tsb-end{margin-bottom:4px}
+.tsb-hint{text-shadow:0 1px 6px rgba(0,0,0,.7);opacity:.75}
