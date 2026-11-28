@@ -1818,6 +1818,11 @@ html[data-scr=adh_sabah] nav.tabs,html[data-scr=adh_masa] nav.tabs{display:none}
 @keyframes ashSwap{from{opacity:0;translate:0 8px}to{opacity:1;translate:0 0}}
 .ash-hint{position:absolute!important;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);margin:0}
 .ash-pl{align-self:center}
+/* the basmala and the surah names on their own lines, as in the list */
+.ash-t .bas{display:block;margin-bottom:4px;color:rgba(255,247,230,.75)}
+.ash-t .sn{display:block;font-family:var(--f);font-size:13px;color:#F3D58E;margin-top:8px;text-shadow:none}
+.ash-t .sn:first-child{margin-top:0}
+.ash-t .ay{color:#F3D58E;font-size:.8em;white-space:nowrap}
 /* «معركة اليوم» */
 .mk-lvh{text-align:center;margin:4px 0 10px}.mk-lvh h3{margin:2px 0;font-size:22px}.mk-k{margin:0;color:var(--muted);font-size:13px}
 .mk-v{font-family:var(--f-verse);font-size:19px;line-height:1.9;color:var(--red);margin:6px 0 0}
@@ -5608,7 +5613,7 @@ function viewNotif(){const it=notifItems();let mj='',an='',ib='';try{mj=majCard(
   <button class="am-mkl nt-am" data-go="aamal"><b>ما بقي من أعمال يومك</b><span>في صفحة الأعمال</span></button>
   ${isStandalone()?`<button class="btn notif-cta" data-go="profile" data-openacc="push">فعّل التذكيرات على هاتفك</button>`:`<button class="btn ok notif-cta" data-go="install">ثبّت التطبيق لتصلك التذكيرات على هاتفك</button>`}</section>`;
 }
-const APP_VER='2026-11-28 19:25';
+const APP_VER='2026-11-28 19:31';
 function errLog(m){try{const L=JSON.parse(localStorage.getItem('murshid-err')||'[]');L.push({t:new Date().toISOString().slice(0,16),v:APP_VER,s:typeof screen==='string'?screen:'',m:String(m).slice(0,300)});localStorage.setItem('murshid-err',JSON.stringify(L.slice(-30)))}catch(e){}}
 window.addEventListener('error',e=>errLog((e.message||'error')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||'')));
 window.addEventListener('unhandledrejection',e=>errLog('promise: '+((e.reason&&(e.reason.code||e.reason.message))||e.reason)));
