@@ -147,6 +147,7 @@ document.addEventListener('click',e=>{
   if(d.sbsave){const t=(document.getElementById('sbT').value||'').trim(),n=Math.max(0,parseInt(document.getElementById('sbN').value,10)||0);if(!t)return;const B=sb();B.list.push({t,n});B.cur=B.list.length-1;sbAdd=false;save();return render()}
   if(d.sbundo){const B=sb(),T=B.day[TODAY];if(T[B.cur])T[B.cur]--;save();return render()}
   if(d.sbreset){sbReset=true;return render()}
+  if(d.sbrz!==undefined){const B=sb();delete B.day[TODAY][+d.sbrz];save();return render()}
   if(d.sbresetno){sbReset=false;return render()}
   if(d.sbresetyes){const B=sb();delete B.day[TODAY][B.cur];sbReset=false;save();return render()}
   if(d.sbzero){sbZero=true;sbReset=false;return render()}

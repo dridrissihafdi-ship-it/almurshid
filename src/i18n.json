@@ -3458,5 +3458,8 @@
 "لم تضف عملًا خاصًا بعد.":["You haven’t added a deed of your own yet.","Tu n’as pas encore ajouté d’œuvre personnelle.","Aún no has añadido una obra propia.","Вы ещё не добавили своё дело.","آپ نے ابھی کوئی اپنا عمل شامل نہیں کیا۔"],
 "أضف عملًا خاصًا بك":["Add a deed of your own","Ajoute une œuvre personnelle","Añade una obra propia","Добавьте своё дело","اپنا ایک عمل شامل کریں"],
 "تمّ هذا الذكر":["This dhikr is complete","Ce dhikr est accompli","Este dhikr está completo","Этот зикр завершён","یہ ذکر مکمل ہوا"],
-"ننتقل إلى الذكر التالي":["moving to the next dhikr","on passe au dhikr suivant","pasamos al siguiente dhikr","переходим к следующему зикру","اگلے ذکر کی طرف"]
+"ننتقل إلى الذكر التالي":["moving to the next dhikr","on passe au dhikr suivant","pasamos al siguiente dhikr","переходим к следующему зикру","اگلے ذکر کی طرف"],
+"إعادة":["Restart","Recommencer","Reiniciar","Заново","دوبارہ"],
+"إعادة هذا الذكر من 0":["Restart this dhikr from 0","Recommencer ce dhikr à 0","Reiniciar este dhikr desde 0","Начать этот зикр с 0","یہ ذکر 0 سے دوبارہ"],
+"كل الأذكار: إعادة أو ترتيب أو حذف":["All dhikrs: restart, reorder or delete","Tous les dhikrs : recommencer, réordonner ou supprimer","Todos los dhikr: reiniciar, ordenar o borrar","Все зикры: заново, порядок или удаление","تمام اذکار: دوبارہ، ترتیب یا حذف"]
 }

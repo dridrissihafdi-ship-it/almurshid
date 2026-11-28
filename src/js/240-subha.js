@@ -24,13 +24,13 @@ function viewSubha(){const B=sb(),i=B.cur,d=B.list[i]||{t:'',n:0},c=sbCount(i),s
      <div class="btns"><button class="btn ok" data-sbsave="1">أضف</button><button class="btn" data-sbcancel="1">تراجع</button></div></div>`
    :sbZero?`<div class="sbx-panel"><p>تصفير كل عدّادات السبحة لهذا اليوم والبدء من الذكر الأول؟</p><div class="btns"><button class="btn slip" data-sbzeroyes="1">نعم، ابدأ من 0</button><button class="btn" data-sbzerono="1">تراجع</button></div></div>`
    :sbReset?`<div class="sbx-panel"><p><span>تصفير عدّاد</span> «<span class="notr">${esc(d.t)}</span>» <span>لهذا اليوم؟</span></p><div class="btns"><button class="btn slip" data-sbresetyes="1">نعم، صفّره</button><button class="btn" data-sbresetno="1">تراجع</button></div></div>`
-   :sbEdit?`<div class="sbx-panel sbx-list">${B.list.map((x,q)=>`<div class="sb-row"><span class="notr" dir="rtl">${esc(x.t)}</span><small>${x.n||'∞'}</small><button class="btn small" data-sbup="${q}"${q?'':' disabled'} aria-label="تقديم">▲</button><button class="btn small dl-del" data-sbdel="${q}" aria-label="حذف"${B.list.length>1?'':' disabled'}>حذف</button></div>`).join('')}<div class="btns"><button class="btn small ok" data-sbedit="1">تمّ</button></div></div>`:'';
+   :sbEdit?`<div class="sbx-panel sbx-list">${B.list.map((x,q)=>`<div class="sb-row"><span class="notr" dir="rtl">${esc(x.t)}</span><small>${sbCount(q)} / ${x.n||'∞'}</small><button class="btn small" data-sbrz="${q}"${sbCount(q)?'':' disabled'}>إعادة</button><button class="btn small" data-sbup="${q}"${q?'':' disabled'} aria-label="تقديم">▲</button><button class="btn small dl-del" data-sbdel="${q}" aria-label="حذف"${B.list.length>1?'':' disabled'}>حذف</button></div>`).join('')}<div class="btns"><button class="btn small ok" data-sbedit="1">تمّ</button></div></div>`:'';
   return `<section class="tsb sbx ph${(stg-1)%3}${done?' done':''}" id="sbx">
    <div class="tsb-bg"><div class="tsb-kb"><img class="tsb-img" id="tsbImg" src="${tsbImg(stg===4?4:stg-1)}" alt="" style="transform:${tsbZoom(sbZoomK(d,c))}"></div><div class="tsb-dust">${dust}</div>${done?'<div class="tsb-glow"></div>':''}</div>
    <div class="tsb-top"><button class="tsb-x" data-back="h_ibadat" aria-label="رجوع">✕</button><span class="tsb-src" id="sbTotL"><span>المجموع اليوم</span> <b id="sbTot">${sbTotal()}</b></span><button class="tsb-x" dir="ltr" data-sbundo="1" aria-label="تراجع واحدة"${c?'':' disabled'}>−1</button><button class="tsb-x" data-sbmore="1" aria-label="${esc(Tx('المزيد'))}">⋯</button></div>
    <div class="sbx-chips">${chips}</div>
    <div class="tsb-head"><h2 class="tsb-t sbx-t notr" lang="ar" dir="rtl">${esc(d.t)}</h2>
-    <p class="tsb-c" dir="ltr"><strong id="sbNum">${c}</strong><small id="sbOf">${d.n?'/ '+d.n:''}</small></p>
+    <p class="tsb-c" dir="ltr"><strong id="sbNum">${c}</strong><small id="sbOf">${d.n?'/ '+d.n:''}</small><button class="sbx-rz" data-sbreset="1" aria-label="${esc(Tx('إعادة هذا الذكر من 0'))}"${c?'':' disabled'}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4"/></svg></button></p>
     ${d.n?`<div class="tsb-seg sbx-seg"><i class="cur"><b id="sbBar" style="width:${Math.min(c/d.n,1)*100}%"></b></i></div>`:''}</div>
    <svg class="tsb-sc" viewBox="0 0 360 140" aria-hidden="true"><line class="tsb-th" x1="-20" y1="130" x2="${(-20+TSB_L*Math.cos(TSB_A)).toFixed(0)}" y2="${(130-TSB_L*Math.sin(TSB_A)).toFixed(0)}"/><g id="tsbBeads">${beads}</g></svg>
    ${panel}<div class="tsb-sp"></div>
@@ -38,7 +38,7 @@ function viewSubha(){const B=sb(),i=B.cur,d=B.list[i]||{t:'',n:0},c=sbCount(i),s
    <p class="tsb-hint">المس الشاشة في أي مكان لكل تسبيحة</p>
   </section>`}
 function sbMore(){const r=(a,t)=>`<button class="h2-row" ${a} data-bsx="1"><span class="tx">${t}</span></button>`;
-  sheetOpen(`<div class="bs-top"><h2>السبحة</h2><button class="qa-ed" data-bsx="1">إغلاق</button></div><div class="box h2-more">${r('data-sbadd="1"','أضف ذكرًا')}${r('data-sbedit="1"','ترتيب الأذكار أو حذفها')}${r('data-sbreset="1"','تصفير هذا الذكر')}${r('data-sbzero="1"','ابدأ كل الأذكار من 0')}</div><p class="meta" style="margin:10px 4px 0">المس الدائرة لكل تسبيحة. عند بلوغ العدد يصدر تنبيه وتنتقل إلى الذكر التالي.</p>`)}
+  sheetOpen(`<div class="bs-top"><h2>السبحة</h2><button class="qa-ed" data-bsx="1">إغلاق</button></div><div class="box h2-more">${r('data-sbadd="1"','أضف ذكرًا')}${r('data-sbedit="1"','كل الأذكار: إعادة أو ترتيب أو حذف')}${r('data-sbreset="1"','تصفير هذا الذكر')}${r('data-sbzero="1"','ابدأ كل الأذكار من 0')}</div><p class="meta" style="margin:10px 4px 0">المس الدائرة لكل تسبيحة. عند بلوغ العدد يصدر تنبيه وتنتقل إلى الذكر التالي.</p>`)}
 function sbTick(){const B=sb(),i=B.cur,d=B.list[i];if(!d)return;const T=B.day[TODAY],st0=sbStage(d,T[i]||0);T[i]=(T[i]||0)+1;save();
   const c=T[i];try{navigator.vibrate&&navigator.vibrate(d.n&&c===d.n?[120,60,120]:c%33===0?[60,40,60]:10)}catch(e){}
   if(d.n&&c===d.n){sndPlay('step',()=>bell([784,988],.28,1.4,.35));if(B.list.length>1){render();setTimeout(()=>{if(screen!=='subha'||B.cur!==i)return;B.cur=(i+1)%B.list.length;save();render()},1600);return}}
@@ -48,7 +48,7 @@ function sbTick(){const B=sb(),i=B.cur,d=B.list[i];if(!d)return;const T=B.day[TO
   const k=c%33===0&&c>0?33:c%33;document.querySelectorAll('#tsbBeads .tsb-bd').forEach((b,j)=>{const [x,y]=tsbBeadXY(j,k);b.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`});
   const im=document.getElementById('tsbImg');if(im)im.style.transform=tsbZoom(sbZoomK(d,c));
   const bg=document.querySelector('#sbx .tsb-bg');if(bg){bg.classList.remove('step');void bg.offsetWidth;bg.classList.add('step')}
-  const un=document.querySelector('#sbx [data-sbundo]');if(un)un.disabled=false;
+  const un=document.querySelector('#sbx [data-sbundo]');if(un)un.disabled=false;const rz=document.querySelector('#sbx .sbx-rz');if(rz)rz.disabled=false;
   const ch=document.querySelector('[data-sbpick="'+i+'"] small');if(ch)ch.textContent=c+(d.n?' / '+d.n:'')}
 document.addEventListener('click',e=>{if(screen!=='subha')return;const f=e.target.closest('#sbx');if(!f)return;
   if(e.target.closest('button,a,input,label,.sbx-panel,.sbx-chips'))return;e.stopPropagation();sndInit();sbTick()},true);
