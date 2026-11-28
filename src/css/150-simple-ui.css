@@ -308,3 +308,13 @@ button.notif.nt-b .h2-chev{width:18px;height:18px;fill:none;stroke:var(--muted);
 .sl-c{padding:0;overflow:hidden}
 .sl-c .sl-cb{padding:14px 16px 16px}
 .sl-c img.il.sl-img,.sl-c svg.il.sl-img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;margin:0;border-radius:0}
+.sl-hn{font-size:12.5px!important;opacity:.7;margin-top:8px!important;line-height:1.7!important}
+/* home: the "now" card sits on the photo, glass like the prayer times (both themes) */
+html[data-scr=home] body::after{height:100vh;-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent 100%);mask-image:linear-gradient(180deg,#000 72%,transparent 100%)}
+.hero .h2-now,html[data-theme=light] .hero .h2-now{margin-top:16px;background:rgba(255,248,240,.07);border:1px solid rgba(255,255,255,.10);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);color:#F3EDE6}
+.hero .h2-now small{color:rgba(243,237,230,.72)}
+.hero .h2-now h2{color:#F3EDE6;text-shadow:0 1px 10px rgba(0,0,0,.35)}
+.hero .h2-now .h2-v{color:#E6C891}
+.hero .h2-now .h2-cta{background:rgba(243,237,230,.94);color:#2B211B}
+html[data-theme=light] .hero .h2-sec,.hero .h2-sec{color:rgba(243,237,230,.9)}
+.home2{padding-bottom:40px}

@@ -104,7 +104,7 @@ document.addEventListener('click',e=>{
   if(d.amsel){S.amEx={id:d.amsel,start:TODAY,done:{}};save();pushSync();return render()}
   if(d.amdone){if(S.amEx){(S.amEx.done=S.amEx.done||{})[TODAY]=1;save();pushSync()}return render()}
   if(d.amgo!==undefined){amI=+d.amgo;const c=document.querySelectorAll('#amRow .am-c')[amI];if(c)c.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});return}
-  if(d.sltab){S.slTab=d.sltab;save();render();SCR().scrollTo(0,0);return}
+  if(d.sltab){const [k,t]=d.sltab.includes(':')?d.sltab.split(':'):['salat',d.sltab];S.gTab=S.gTab||{};S.gTab[k]=t;save();render();SCR().scrollTo(0,0);return}
   if(d.gstep){const [k,j]=d.gstep.split(':');S.gStep=S.gStep||{};S.gStep[k]=+j;save();render();const c=document.querySelector('.um-dots');SCR().scrollTo({top:c?c.getBoundingClientRect().top+SCR().scrollTop-20:0});return}
   if(d.story){storyOpen(d.story);return}
   if(d.nav)return go(d.nav);

@@ -42,8 +42,8 @@ function viewHome(){
   if(SIMPLE()){const eve=dH()>=ptDay().maghrib&&!qmDone(),fs=fsCard();
     /* «اليوم»: the prayer times, the one thing to do now, today's fruits; the rest only when it matters */
     const acc=fs?'':(AUTH.state==='local'&&!(S.locBan&&S.locBan>addDays(TODAY,-7))?banner.slice(banner.indexOf('<div class="box loc-ban">')):'');
-    return heroHome()+`<main class="sheet sm-home">${inboxCard()}${moved}${announcementBanner()}${nightCard()}${homeNow()}${fs}${eve?qmCard(1):''}${ramCard()}${majCard()}${acc}</main>`}
-  return heroHome()+`<main class="sheet">${inboxCard()}${banner}${nightCard()}${homeNow()}${fsCard()}${careCard()}${ramCard()}${majCard()}${qaGrid()}${homeProg()}<button class="me-ui" data-uimode="simple"><span>الواجهة المبسّطة</span><small>صور، وأقسام أقل، وكل شيء أقرب</small></button></main>`;
+    return heroHome()+`<main class="sheet sm-home">${inboxCard()}${moved}${announcementBanner()}${nightCard()}${fs}${eve?qmCard(1):''}${ramCard()}${majCard()}${acc}</main>`}
+  return heroHome()+`<main class="sheet">${inboxCard()}${banner}${nightCard()}${fsCard()}${careCard()}${ramCard()}${majCard()}${qaGrid()}${homeProg()}<button class="me-ui" data-uimode="simple"><span>الواجهة المبسّطة</span><small>صور، وأقسام أقل، وكل شيء أقرب</small></button></main>`;
 }
 
 function ring(days,phase){
